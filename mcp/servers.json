@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "grep": {
+      "command": "npx",
+      "args": ["-y", "@247arjun/mcp-grep"],
+      "lifecycle": "lazy"
+    },
+    "auditai": {
+      "command": "npx",
+      "args": ["-y", "@auditai/mcp-server"],
+      "lifecycle": "lazy",
+      "env": {
+        "AUDITAI_API_KEY": "${AUDITAI_API_KEY}"
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "grep": {
+      "command": "npx",
+      "args": ["-y", "@247arjun/mcp-grep"],
+      "lifecycle": "lazy"
+    }
+  }
+}

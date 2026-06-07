@@ -1,0 +1,2 @@
+Create a Python CLI tool that reads a CSV file and prints the sum of a column. Include error handling and a help message.
+Create a simple todo list application with add, remove, and list commands. Include persistence to a file.
