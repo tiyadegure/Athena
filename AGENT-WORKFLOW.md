@@ -499,7 +499,194 @@ function mintCertificate(
 - [x] 测试方案设计
 - [x] Phase 1：集成 pashov skill + AuditAI 工具 MCP
 - [x] Phase 2：搭建测试环境（5 个测试合约）
-- [x] Phase 3.1：安装工具链（slither 0.11.5, forge 1.7.1, aderyn 0.6.8）
-- [x] Phase 3.2：验证 MCP 工具（slither_runner, fuzz_runner 已测试通过）
-- [x] Phase 3.3：端到端调试（Reentrancy.sol 完整审计闭环）
+- [x] Phase 3.1：安装工具链（slither, forge, aderyn）
+- [x] Phase 3.2：验证 MCP 工具
+- [x] Phase 3.3：端到端审计验证（Reentrancy.sol 完整闭环）
+- [ ] Phase 3.4：NFT 合约开发 ⬅️ 当前
+- [ ] Phase 4：GLM-5.1 评测 + Demo 录屏
+
+---
+
+## 9. Phase 3.4：NFT 审计证书合约
+
+> 在 `contracts/` 下创建 `AuditCertificate.sol`，实现 ERC-1155 分级 NFT + 链上 SVG 雅典娜女神图像。
+
+### 9.1 合约设计
+
+**标准**: ERC-1155（可同时持有多种类型 token，比 ERC-721 更适合分级场景）
+
+**Token ID 分级**:
+| Token ID | 等级 | 图像主题 | 铸造条件 |
+|----------|------|---------|---------|
+| 1 | A 级（Gold） | 金色雅典娜 | 发现 Critical 漏洞 + PoC 验证通过 |
+| 2 | B 级（Silver） | 银色雅典娜 | 发现 High/Medium 漏洞 + 修复建议 |
+| 3 | C 级（Bronze） | 铜色雅典娜 | 完成基本扫描 + 报告 |
+
+**铸造触发**: 基于 EAS attestation
+- 检查 attestation 是否存在且有效
+- 从 attestation 中读取 severity
+- 映射到对应的 tokenId
+- 铸造给指定地址
+
+### 9.2 链上 SVG 图像
+
+图像不存储 IPFS，直接在合约中生成 SVG，保证永久可用。
+
+**设计风格**: uPEG 像素独角兽底图 + 雅典娜女神形象
+- 像素风（16x16 或 32x32 网格）
+- 三个等级用不同配色区分：金色 (#FFD700) / 银色 (#C0C0C0) / 铜色 (#CD7F32)
+- 背景：深色 (#1a1a2e)
+- 雅典娜元素：头盔、盾牌、长矛
+
+**实现方式**: `tokenURI()` 返回 `data:application/json;base64,...`，JSON 中包含 SVG 图像的 base64 编码。
+
+### 9.3 合约骨架
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+/// @title AuditCertificate - ERC-1155 NFT 审计证书
+/// @notice 铸造条件：基于 EAS attestation 的审计结果分级
+contract AuditCertificate is ERC1155, Ownable {
+    // Token IDs
+    uint256 public constant GOLD = 1;     // A级 - Critical
+    uint256 public constant SILVER = 2;   // B级 - High/Medium
+    uint256 public constant BRONZE = 3;   // C级 - Low/Info
+
+    // EAS 合约地址 (Sepolia)
+    address public constant EAS_CONTRACT = 0xC2679fBD37d54388Ce493F1DB75320D236e1815e;
+
+    // 已使用的 attestation（防重复铸造）
+    mapping(bytes32 => bool) public usedAttestations;
+
+    constructor() ERC1155("") Ownable(msg.sender) {
+        // 可选：设置 baseURI
+    }
+
+    /// @notice 根据 EAS attestation 铸造 NFT
+    /// @param to 接收地址
+    /// @param attestationUID EAS attestation UID
+    function mintCertificate(
+        address to,
+        bytes32 attestationUID
+    ) external {
+        // TODO: 实现以下逻辑
+        // 1. 验证 attestation 存在
+        // 2. 检查未被使用过
+        // 3. 读取 severity
+        // 4. 映射到 tokenId
+        // 5. 铸造
+        // 6. 标记已使用
+    }
+
+    /// @notice 返回 NFT 元数据（包含链上 SVG）
+    /// @param tokenId Token ID (1/2/3)
+    function tokenURI(uint256 tokenId) public pure returns (string memory) {
+        // TODO: 返回 JSON metadata
+        // 包含 name, description, image (SVG base64)
+        // 根据 tokenId 返回不同配色的雅典娜 SVG
+    }
+
+    /// @notice 生成雅典娜 SVG
+    /// @param tokenId Token ID，决定配色
+    function _generateAthenaSVG(uint256 tokenId) internal pure returns (string memory svg) {
+        // TODO: 根据 tokenId 生成不同配色的像素雅典娜 SVG
+        // 金色/银色/铜色
+        // 像素风格，16x16 或 32x32 网格
+    }
+}
+```
+
+### 9.4 EAS 验证逻辑
+
+```solidity
+// EAS 接口（只需用到的部分）
+interface IEAS {
+    struct Attestation {
+        bytes32 uid;
+        bytes32 schema;
+        uint64 time;
+        uint64 expirationTime;
+        uint64 revocable;
+        bytes32 refUID;
+        address recipient;
+        address attester;
+        bool revocable;
+        bytes data;
+    }
+
+    function getAttestation(bytes32 uid) external view returns (Attestation memory);
+    function isAttestationValid(bytes32 uid) external view returns (bool);
+}
+
+// 在 mintCertificate 中调用
+IEAS eas = IEAS(EAS_CONTRACT);
+require(eas.isAttestationValid(attestationUID), "Invalid attestation");
+IEAS.Attestation memory att = eas.getAttestation(attestationUID);
+
+// 从 att.data 中解码 severity
+// 注意：需要用 abi.decode 解码你的 schema 定义的字段
+// schema: string contractAddress, address auditor, string findingsHash, uint8 severity, uint256 timestamp
+(uint8 severity) = abi.decode(att.data, (uint8));
+```
+
+### 9.5 铸造脚本
+
+创建 `scripts/mint-certificate.js`（或用 Foundry script）：
+
+```javascript
+// 使用 ethers.js 铸造 NFT
+// 1. 连接 Sepolia
+// 2. 调用 mintCertificate(userAddress, attestationUID)
+// 3. 返回 tx hash
+```
+
+### 9.6 测试
+
+创建 `contracts/test/AuditCertificate.t.sol`：
+
+```solidity
+// 测试用例：
+// 1. test_mint_gold — 模拟 Critical attestation，铸造 A 级 NFT
+// 2. test_mint_silver — 模拟 High attestation，铸造 B 级 NFT
+// 3. test_mint_bronze — 模拟 Low attestation，铸造 C 级 NFT
+// 4. test_cannot_double_mint — 同一 attestation 不能铸造两次
+// 5. test_tokenuri_contains_svg — tokenURI 返回包含 SVG 的 JSON
+// 6. test_svg_colors_differ — 三个等级的 SVG 配色不同
+```
+
+### 9.7 依赖安装
+
+```bash
+# OpenZeppelin
+forge install OpenZeppelin/openzeppelin-contracts --no-commit
+
+# remappings.txt
+echo '@openzeppelin/=lib/openzeppelin-contracts/' > remappings.txt
+```
+
+### 9.8 部署到 Sepolia
+
+```bash
+# 1. 设置环境变量
+export SEPOLIA_RPC_URL="https://sepolia.drpc.org"
+export PRIVATE_KEY="your...n# 2. 部署
+forge script script/DeployCertificate.s.sol \
+    --rpc-url $SEPOLIA_RPC_URL \
+    --broadcast \
+    --verify
+```
+
+### 9.9 完成标准
+
+- [ ] 合约编译通过（`forge build`）
+- [ ] 所有测试通过（`forge test`）
+- [ ] 三个等级的 SVG 图像各不相同且可辨识
+- [ ] EAS 验证逻辑正确（能拒绝无效 attestation）
+- [ ] 防重复铸造生效
+- [ ] 部署到 Sepolia 并可交互
 - [ ] Phase 4：GLM-5.1 评测 + Demo 录屏
