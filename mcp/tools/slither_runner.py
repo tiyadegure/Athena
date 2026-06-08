@@ -50,8 +50,9 @@ async def run_slither(contract_path: str, detectors: list = None) -> dict:
     if not os.path.isfile(contract_path):
         return {"success": False, "error": f"Contract file not found: {contract_path}"}
 
-    with tempfile.NamedTemporaryFile(suffix=".json", delete=False, mode="w") as tmp:
-        json_output_path = tmp.name
+    # Create a temp directory and point at a file inside it (slither refuses to overwrite)
+    tmp_dir = tempfile.mkdtemp(prefix="slither_")
+    json_output_path = os.path.join(tmp_dir, "slither.json")
 
     try:
         cmd = ["slither", contract_path, "--json", json_output_path]
@@ -70,8 +71,9 @@ async def run_slither(contract_path: str, detectors: list = None) -> dict:
         )
         stdout, stderr = await proc.communicate()
 
-        # Slither returns non-zero when it finds issues, which is expected
-        if proc.returncode not in (0, 1, 2):
+        # Slither returns various non-zero codes when it finds issues
+        # 0 = no issues, 1 = issues found, 2 = error, 255 = issues found (newer versions)
+        if proc.returncode not in (0, 1, 2, 255):
             return {
                 "success": False,
                 "error": f"Slither exited with code {proc.returncode}",
@@ -132,8 +134,14 @@ async def run_slither(contract_path: str, detectors: list = None) -> dict:
         logger.exception("Unexpected error in slither_runner")
         return {"success": False, "error": f"Unexpected error: {str(e)}"}
     finally:
+        # Cleanup temp directory
+        import shutil
         if os.path.exists(json_output_path):
             os.unlink(json_output_path)
+        try:
+            os.rmdir(tmp_dir)
+        except OSError:
+            pass
 
 
 async def execute_tool(tool_name: str, arguments: dict) -> dict:
