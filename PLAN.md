@@ -55,11 +55,89 @@
 └─────────────────────────────────────────────────────────┘
 ```
 
+## 链上审计证书 NFT（雅典娜）
+
+### 设计
+
+```
+审计完成
+    ↓
+EAS Attestation（已有）→ 记录漏洞、修复、评分
+    ↓
+NFT Certificate（ERC-1155）→ 雅典娜女神 + 审计元数据
+    ↓
+链上可验证：任何人看到 NFT 就知道这个合约被审计过
+```
+
+### 机制：简单铸造（A）+ ERC-1155 分级（C）
+
+```
+审计完成 → EAS 上链 → 简单调用合约
+→ 根据评分铸造对应等级的 NFT
+  S 级 → 金色雅典娜（稀缺）
+  A 级 → 银色雅典娜
+  B 级 → 铜色雅典娜
+```
+
+### NFT Metadata
+
+```json
+{
+  "name": "Athena Audit Certificate — S Tier",
+  "description": "Smart contract security audit certified by GLM-5.1",
+  "attributes": [
+    { "trait_type": "Contract", "value": "0x..." },
+    { "trait_type": "Audit Score", "value": "S" },
+    { "trait_type": "Vulnerabilities Found", "value": 3 },
+    { "trait_type": "Vulnerabilities Fixed", "value": 3 },
+    { "trait_type": "Auditor", "value": "GLM-5.1" },
+    { "trait_type": "Attestation UID", "value": "0x..." },
+    { "trait_type": "Date", "value": "2026-06-07" }
+  ],
+  "image": "data:image/svg+xml,..."
+}
+```
+
+### 图像：链上 SVG
+
+```
+雅典娜女神底图（AI 生成）
+  + 动态叠加审计数据
+    ├── 评分徽章（S/A/B 级对应金/银/铜）
+    ├── 漏洞数量
+    ├── 合约地址
+    └── 审计时间
+→ 直接存链上 SVG，不依赖 IPFS
+```
+
+### 实现优先级
+
+| 阶段 | 方案 | 工作量 |
+|------|------|--------|
+| 黑客松 | A+C（简单铸造 + ERC-1155 分级） | 3-4h |
+| 赛后 | 加 B（Uniswap v4 hook 铸造） | 1-2d |
+
+### 链上认证闭环
+
+```
+完整的审计链路：
+
+  ① 读取合约 → 识别协议
+  ② slither + aderyn 双引擎扫描
+  ③ RAG 知识库交叉验证
+  ④ PoC exploit 生成
+  ⑤ Foundry fuzz 验证
+  ⑥ 生成修复补丁
+  ⑦ EAS Sepolia 链上认证    ← 已有
+  ⑧ 铸造雅典娜 NFT 证书    ← 新增
+```
+
 ## 差异化叙事
 
 > "20 个开源审计项目里，只有 2 个有 RAG，只有 1 个有链上认证（已删库）。
-> 我们是唯一同时拥有 RAG + PoC + Fuzz + 链上认证的工作流。
-> GLM-5.1 的长程能力驱动从漏洞发现到链上认证的完整闭环。"
+> 我们是唯一同时拥有 RAG + PoC + Fuzz + 链上认证 + 审计 NFT 证书的工作流。
+> GLM-5.1 的长程能力驱动从漏洞发现到链上认证的完整闭环。
+> 每个被审计的合约都获得一个链上可验证的雅典娜 NFT 证书。"
 
 ## 测试方案
 
@@ -134,10 +212,12 @@ test-suite/
 - [ ] 对比数据，分析差距
 - [ ] 根据结果调整 Skill 或工具
 
-### Phase 3: Demo 录制（Day 5）
+### Phase 3: NFT 证书 + Demo（Day 5）
 
-- [ ] 选一个最有代表性的合约
-- [ ] 录屏：GLM-5.1 走完 完整审计链路
+- [ ] 生成雅典娜女神 SVG（AI 生成 + 动态叠加）
+- [ ] 部署 ERC-1155 合约到 Sepolia
+- [ ] 连接 EAS attestation → NFT 铸造
+- [ ] 录屏：GLM-5.1 完整审计链路（①→⑧）
 - [ ] 录屏：Claude 走同一合约（对比用）
 
 ### Phase 4: 提交（Day 6）
