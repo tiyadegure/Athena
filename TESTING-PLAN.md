@@ -1,99 +1,89 @@
-# glm-tui 测试方案
+# GLM Audit 测试方案
 
-## 对比设计
+## 测试逻辑
 
 ```
-glm-tui (GLM-5.1 专属优化)  vs  Claude Code (通用 harness) + GLM-5.1
+同一套 Skill + MCP，不同模型驱动，对比审计效果。
+
+  GLM-5.1 (via Coding Plan)  vs  Claude (via proxy)
+
+变量：只有模型不同
+控制：Skill（pashov）、工具（AuditAI MCP）、测试合约 全部相同
 ```
 
-两者使用同一模型（GLM-5.1），差异只在 harness 层。
+## 测试集
 
-## Benchmark 套件
+### 5 个测试合约（从 Damn Vulnerable DeFi / Ethernaut / 自建）
 
-### L1 — HumanEval+（快速验证）
-- 164 道 Python 函数生成
-- 指标：Pass@1
-- 预计耗时：1-2 小时
+| 合约 | 已知漏洞 | 难度 |
+|------|---------|------|
+| VulnerableBank.sol | 重入攻击 + 权限绕过 + 精度损失 | 低-中 |
+| PriceOracle.sol | 预言机操纵 + 价格延迟 + 闪电贷攻击 | 中 |
+| AccessControl.sol | 隐藏后门 + 权限提升 + 初始化漏洞 | 中 |
+| OverflowToken.sol | 整数溢出 + 截断 + 舍入方向错误 | 低 |
+| FlashLoan.sol | 跨协议组合 + 价格操纵 + 清算绕过 | 高 |
 
-### L2 — Aider Polyglot（正式评测）
-- 225 道 Exercism，7 种语言
-- 指标：Pass rate / 编辑轮次 / token 消耗
-- Docker 运行，预计耗时：半天
-- 来源：https://github.com/Aider-AI/aider/tree/main/benchmark
+### expected-results.json
 
-### L3 — SWE-Bench 子集（压轴）
-- 50 个真实 GitHub issue
-- 指标：Resolved rate / 修复轮次
-- 预计耗时：1-2 天
-
-### 自建长程测试（Demo 展示用）
-
-任务链 1：React Todo App（3步）
-  ① 创建项目骨架 + 基础组件
-  ② 添加增删改 + 持久化
-  ③ 修 2 个故意 bug
-
-任务链 2：Python CLI 工具（4步）
-  ① 参数解析 + 核心逻辑
-  ② 错误处理 + 日志
-  ③ 单元测试
-  ④ 根据测试反馈修复 3 个问题
-
-任务链 3：智能合约审计（3步）
-  ① 读取合约 + 识别漏洞
-  ② 生成修复补丁
-  ③ 验证修复后测试通过
+每个合约标注：
+- 已知漏洞列表（类型、位置、严重程度）
+- 预期 PoC 是否可生成
+- 预期 fuzz 是否能验证
 
 ## 评测指标
 
-| 指标 | 说明 |
-|------|------|
-| Pass@1 | 一次生成通过率 |
-| Resolved Rate | 最终解决率 |
-| Token 效率 | 完成任务的 token 消耗 |
-| 修正轮次 | 需要几轮对话 |
-| 长程稳定性 | 多步任务是否偏离目标 |
+| 指标 | 计算方式 | 说明 |
+|------|---------|------|
+| 漏洞发现率 | 找到的真实漏洞 / 已知漏洞总数 | 核心指标 |
+| 误报率 | 假漏洞数 / 总报告数 | 越低越好 |
+| 链路完成率 | 完成步数 / 总步数（扫描→PoC→fuzz→认证） | 长程能力 |
+| 偏离率 | 中途跑偏次数 | 越低越好 |
+| 纠错能力 | 错误后恢复次数 / 错误总次数 | 自我纠错 |
+| Token 消耗 | API 返回的 token 数 | 成本 |
+| MCP 正确调用率 | 正确调用 / 总调用 | 工具使用 |
+
+## 对比对象
+
+| | GLM-5.1 | Claude |
+|-|---------|--------|
+| 接入方式 | Coding Plan ($10/月) | proxy |
+| Skill | pashov solidity-auditor | 同 |
+| MCP 工具 | AuditAI MCP | 同 |
+| 测试合约 | 5 个 | 同 |
+
+## 产出
+
+### 表格
+
+```
+┌──────────────────────────────────────────────────────┐
+│       同一 Skill + MCP，不同模型驱动                   │
+├──────────────┬──────────┬──────────┬─────────────────┤
+│ 合约          │ GLM-5.1  │ Claude   │ 说明            │
+├──────────────┼──────────┼──────────┼─────────────────┤
+│ vulnerable   │ X/X      │ X/X      │                 │
+│ price-oracle │ X/X      │ X/X      │                 │
+│ access-ctrl  │ X/X      │ X/X      │                 │
+│ overflow     │ X/X      │ X/X      │                 │
+│ flash-loan   │ X/X      │ X/X      │                 │
+├──────────────┼──────────┼──────────┼─────────────────┤
+│ 漏洞发现率    │ XX%      │ XX%      │                 │
+│ 链路完成率    │ X/X      │ X/X      │                 │
+│ 平均 Token    │ XXXX     │ XXXX     │                 │
+└──────────────┴──────────┴──────────┴─────────────────┘
+```
+
+### Demo 视频
+
+- GLM-5.1 完整审计链路录屏（主 Demo）
+- Claude 同一合约录屏（对比用）
 
 ## 执行顺序
 
-1. API 配通 → 跑 L1 HumanEval+
-2. 优化 system prompt → 再跑 L1（对比优化效果）
-3. 跑 L2 Aider Polyglot
-4. 跑自建长程任务链
-5. 跑 L3 SWE-Bench 子集
-
-## 结果呈现
-
-| Benchmark | glm-tui | CC+GLM | Delta |
-|-----------|---------|--------|-------|
-| HumanEval+ | XX.X% | XX.X% | +X.X% |
-| Aider | XX.X% | XX.X% | +X.X% |
-| SWE-Bench | XX.X% | XX.X% | +X.X% |
-| 长程任务链 | XX/XX | XX/XX | +X/XX |
-| Avg Tokens | XXXX | XXXX | -XX% |
-| Avg Rounds | X.X | X.X | -X.X |
-
-## 每题评测脚本框架
-
-```bash
-#!/bin/bash
-# run_benchmark.sh
-
-TASK_FILE=$1
-AGENT=$2  # "glm" or "claude-code"
-
-while IFS= read -r task; do
-  prompt="Solve this: $task"
-  
-  if [ "$AGENT" = "glm" ]; then
-    result=$(glm code -p "$prompt" 2>&1)
-  else
-    result=$(ANTHROPIC_BASE_URL=$PROXY_URL \
-             ANTHROPIC_API_KEY=$PROXY_KEY \
-             claude --print "$prompt" 2>&1)
-  fi
-  
-  # 保存结果
-  echo "$task|$result" >> results_${AGENT}.csv
-done < "$TASK_FILE"
-```
+1. 准备测试合约 + expected-results.json
+2. GLM-5.1 跑一轮
+3. Claude 跑一轮
+4. 对比分析
+5. 根据结果优化 Skill/工具
+6. 重跑验证优化效果
+7. 录制 Demo
