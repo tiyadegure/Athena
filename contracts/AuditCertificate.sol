@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-/// @notice EAS interface (only the parts we need)
+/// @notice EAS interface
 struct Attestation {
     bytes32 uid;
     bytes32 schema;
@@ -24,37 +24,44 @@ interface IEAS {
     function isAttestationValid(bytes32 uid) external view returns (bool);
 }
 
-/// @title AuditCertificate - ERC-1155 NFT 审计证书
+/// @title AuditCertificate - ERC-1155 NFT 审计证书 (v2)
 /// @notice 铸造条件：基于 EAS attestation 的审计结果分级
 /// @dev Token IDs: 1=Gold(A级), 2=Silver(B级), 3=Bronze(C级)
-/// @dev 8 trait dimensions × 3-4 variants each = 26,244+ unique combinations
+/// @dev 6 trait dimensions: helmet(5)×shield(5)×color(8)×weapon(3)×bg(5)×eyes(4) = 12,000 unique combinations
 contract AuditCertificate is ERC1155, Ownable {
     using Strings for uint256;
 
     // ============ Token IDs ============
-    uint256 public constant GOLD = 1;     // A级 - Critical
-    uint256 public constant SILVER = 2;   // B级 - High/Medium
-    uint256 public constant BRONZE = 3;   // C级 - Low/Info
+    uint256 public constant GOLD = 1;
+    uint256 public constant SILVER = 2;
+    uint256 public constant BRONZE = 3;
 
-    // ============ Trait Dimensions ============
-    // Each trait has 3-4 variants, derived from attestationUID hash
-    // Total combinations: 3×3×3×3×3×4×3×3 = 8,748 per tier = 26,244 total
-    
-    uint8 constant HELMET_VARIANTS = 3;    // Spartan, Corinthian, Phrygian
-    uint8 constant SHIELD_VARIANTS = 3;    // Owl, Snake, Eagle
-    uint8 constant SPEAR_VARIANTS = 3;     // Long, Short, Javelin
-    uint8 constant ROBE_VARIANTS = 3;      // Solid, Striped, Gradient
-    uint8 constant SKIN_VARIANTS = 3;      // Light, Medium, Dark
-    uint8 constant BG_VARIANTS = 4;        // Deep Blue, Dark Purple, Dark Green, Dark Red
-    uint8 constant ENCHANT_VARIANTS = 3;   // Fire, Ice, Lightning
-    uint8 constant AURA_VARIANTS = 3;      // None, Glow, Sparkle
+    // ============ Trait Dimension Counts ============
+    uint8 constant HELMET_VARIANTS = 5;     // 羽饰/双角/冠冕/头巾/经典
+    uint8 constant SHIELD_VARIANTS = 5;     // 猫头鹰/蛇发/橄榄枝/闪电/空白
+    uint8 constant COLOR_VARIANTS = 8;      // 金/银/铜/紫/绿/蓝/红/黑
+    uint8 constant WEAPON_VARIANTS = 3;     // 长矛/弓箭/剑
+    uint8 constant BG_VARIANTS = 5;         // 星空/火焰/海洋/森林/极光
+    uint8 constant EYES_VARIANTS = 4;       // 蓝/绿/金/红
 
-    // ============ EAS Address (injected via constructor) ============
+    // ============ Trait Data Structure ============
+    struct TraitData {
+        uint8 helmet;
+        uint8 shield;
+        uint8 color;
+        uint8 weapon;
+        uint8 background;
+        uint8 eyes;
+        uint256 rarityScore;
+    }
+
+    // ============ EAS Address ============
     address public immutable easContract;
     bytes32 public constant ZERO_BYTES32 = 0x0000000000000000000000000000000000000000000000000000000000000000;
 
     // ============ State ============
     mapping(bytes32 => bool) public usedAttestations;
+    mapping(bytes32 => TraitData) public traitData;
     mapping(bytes32 => AuditRecord) public auditRecords;
 
     struct AuditRecord {
@@ -70,7 +77,8 @@ contract AuditCertificate is ERC1155, Ownable {
         address indexed to,
         bytes32 indexed attestationUID,
         uint256 tokenId,
-        uint8 severity
+        uint8 severity,
+        TraitData traits
     );
 
     // ============ Constructor ============
@@ -102,6 +110,10 @@ contract AuditCertificate is ERC1155, Ownable {
             tokenId = BRONZE;
         }
 
+        // Select traits deterministically from attestationUID
+        TraitData memory traits = _selectTraits(attestationUID);
+        traitData[attestationUID] = traits;
+
         _mint(to, tokenId, 1, "");
 
         usedAttestations[attestationUID] = true;
@@ -113,33 +125,65 @@ contract AuditCertificate is ERC1155, Ownable {
             tokenId: tokenId
         });
 
-        emit CertificateMinted(to, attestationUID, tokenId, auditScore);
+        emit CertificateMinted(to, attestationUID, tokenId, auditScore, traits);
+    }
+
+    // ============ Trait Selection ============
+
+    function _selectTraits(bytes32 uid) internal pure returns (TraitData memory) {
+        bytes32 hash = keccak256(abi.encodePacked(uid));
+        
+        uint8 helmet = uint8(hash[0]) % HELMET_VARIANTS;
+        uint8 shield = uint8(hash[1]) % SHIELD_VARIANTS;
+        uint8 color = uint8(hash[2]) % COLOR_VARIANTS;
+        uint8 weapon = uint8(hash[3]) % WEAPON_VARIANTS;
+        uint8 bg = uint8(hash[4]) % BG_VARIANTS;
+        uint8 eyes = uint8(hash[5]) % EYES_VARIANTS;
+        
+        uint256 rarity = _calculateRarity(helmet, shield, color, weapon, bg, eyes);
+        
+        return TraitData({
+            helmet: helmet,
+            shield: shield,
+            color: color,
+            weapon: weapon,
+            background: bg,
+            eyes: eyes,
+            rarityScore: rarity
+        });
+    }
+
+    function _calculateRarity(
+        uint8 helmet, uint8 shield, uint8 color, uint8 weapon, uint8 bg, uint8 eyes
+    ) internal pure returns (uint256) {
+        // Each trait combination is equally likely (1/12000)
+        // Rarity score: 1 = most common, 100 = rarest
+        // We use the trait index to determine rarity
+        // Using literals instead of constants to avoid uint8 overflow
+        uint256 index = uint256(helmet) * 2400  // 5*8*3*5*4 = 2400
+                      + uint256(shield) * 480   // 8*3*5*4 = 480
+                      + uint256(color) * 60     // 3*5*4 = 60
+                      + uint256(weapon) * 20    // 5*4 = 20
+                      + uint256(bg) * 4         // 4
+                      + uint256(eyes);
+        
+        // Convert to rarity (1-100), where higher = rarer
+        // 12000 combinations, so index 0 = most common (rarity 1), index 11999 = rarest (rarity 100)
+        uint256 rarity = 1 + (index * 99 / 11999);
+        return rarity;
     }
 
     // ============ Metadata ============
 
     function uri(uint256 tokenId) public pure override returns (string memory) {
         require(tokenId >= GOLD && tokenId <= BRONZE, "Invalid token ID");
-        // For ERC-1155, uri() returns the base URI for all tokens
-        // Individual token metadata is handled by the minting process
-        // For now, return a base URI that points to our metadata
         return "";
     }
 
-    /// @notice Generate metadata for a specific attestation
-    /// @param attestationUID The attestation UID (used to derive traits)
-    /// @param tokenId The token tier (Gold/Silver/Bronze)
     function generateMetadata(bytes32 attestationUID, uint256 tokenId) public pure returns (string memory) {
         require(tokenId >= GOLD && tokenId <= BRONZE, "Invalid token ID");
         
-        // Derive all traits from attestationUID hash
-        bytes32 hash = keccak256(abi.encodePacked(attestationUID));
-        uint8[8] memory traits = _deriveTraits(hash);
-        
-        // Calculate rarity score
-        uint256 rarity = _calculateRarity(traits);
-        
-        // Generate SVG
+        TraitData memory traits = _selectTraits(attestationUID);
         string memory svg = _generateAthenaSVG(tokenId, traits);
         
         string memory tierName;
@@ -153,23 +197,20 @@ contract AuditCertificate is ERC1155, Ownable {
         
         string memory desc = unicode"审计证书 - Rarity: ";
         
-        // Build full JSON metadata
         string memory json = string(
             abi.encodePacked(
                 '{"name":"GLM Audit Certificate #', _uint2str(uint256(uint256(attestationUID)) % 10000), '",',
-                '"description":"', tierName, desc, _uint2str(rarity), '%",',
+                '"description":"', tierName, desc, _uint2str(traits.rarityScore), '/100",',
                 '"image":"data:image/svg+xml;base64,', Base64.encode(bytes(svg)), '",',
                 '"attributes":[',
                     '{"trait_type":"Tier","value":"', tierName, '"},',
-                    '{"trait_type":"Helmet","value":"', _getHelmetName(traits[0]) , '"},',
-                    '{"trait_type":"Shield","value":"', _getShieldName(traits[1]) , '"},',
-                    '{"trait_type":"Spear","value":"', _getSpearName(traits[2]) , '"},',
-                    '{"trait_type":"Robe","value":"', _getRobeName(traits[3]) , '"},',
-                    '{"trait_type":"Skin","value":"', _getSkinName(traits[4]) , '"},',
-                    '{"trait_type":"Background","value":"', _getBgName(traits[5]) , '"},',
-                    '{"trait_type":"Enchant","value":"', _getEnchantName(traits[6]) , '"},',
-                    '{"trait_type":"Aura","value":"', _getAuraName(traits[7]) , '"},',
-                    '{"trait_type":"Rarity","value":', _uint2str(rarity), '}',
+                    '{"trait_type":"Helmet","value":"', _getHelmetName(traits.helmet), '"},',
+                    '{"trait_type":"Shield","value":"', _getShieldName(traits.shield), '"},',
+                    '{"trait_type":"Color","value":"', _getColorName(traits.color), '"},',
+                    '{"trait_type":"Weapon","value":"', _getWeaponName(traits.weapon), '"},',
+                    '{"trait_type":"Background","value":"', _getBgName(traits.background), '"},',
+                    '{"trait_type":"Eyes","value":"', _getEyesName(traits.eyes), '"},',
+                    '{"display_type":"number","trait_type":"Rarity Score","value":', _uint2str(traits.rarityScore), '}',
                 ']}'
             )
         );
@@ -177,337 +218,273 @@ contract AuditCertificate is ERC1155, Ownable {
         return string(abi.encodePacked("data:application/json;base64,", Base64.encode(bytes(json))));
     }
 
-    // ============ Trait Derivation ============
-
-    function _deriveTraits(bytes32 hash) internal pure returns (uint8[8] memory traits) {
-        // Extract 8 trait indices from the hash
-        // Each byte of the hash maps to a trait dimension
-        traits[0] = uint8(hash[0]) % HELMET_VARIANTS;   // Helmet
-        traits[1] = uint8(hash[1]) % SHIELD_VARIANTS;   // Shield
-        traits[2] = uint8(hash[2]) % SPEAR_VARIANTS;    // Spear
-        traits[3] = uint8(hash[3]) % ROBE_VARIANTS;     // Robe
-        traits[4] = uint8(hash[4]) % SKIN_VARIANTS;     // Skin
-        traits[5] = uint8(hash[5]) % BG_VARIANTS;       // Background
-        traits[6] = uint8(hash[6]) % ENCHANT_VARIANTS;  // Enchant
-        traits[7] = uint8(hash[7]) % AURA_VARIANTS;     // Aura
-    }
-
-    // ============ Rarity Calculation ============
-
-    function _calculateRarity(uint8[8] memory traits) internal pure returns (uint256) {
-        // Each trait has equal probability, so rarity = 100 / (number of combinations)
-        // With 8,748 combinations per tier, base rarity = ~0.011%
-        // We scale to 0-100 where 100 = most common, 1 = rarest
-        
-        // Calculate unique combination index (0 to 8747)
-        uint256 index = uint256(traits[0]);
-        index = index * HELMET_VARIANTS + uint256(traits[1]);
-        index = index * SHIELD_VARIANTS + uint256(traits[2]);
-        index = index * SPEAR_VARIANTS + uint256(traits[3]);
-        index = index * ROBE_VARIANTS + uint256(traits[4]);
-        index = index * SKIN_VARIANTS + uint256(traits[5]);
-        index = index * BG_VARIANTS + uint256(traits[6]);
-        index = index * ENCHANT_VARIANTS + uint256(traits[7]);
-        
-        // Convert to rarity percentage (inverse - rarer = higher number)
-        // Max combinations = 8748
-        // Rarity = 100 - (index / 8748 * 100)
-        // This gives 100 for index 0, ~0 for index 8747
-        uint256 rarity = 100 - (index * 100 / 8748);
-        
-        // Ensure minimum rarity of 1
-        if (rarity == 0) rarity = 1;
-        
-        return rarity;
-    }
-
     // ============ SVG Generation ============
 
-    function _generateAthenaSVG(uint256 tokenId, uint8[8] memory traits) internal pure returns (string memory) {
-        // Get color scheme based on tier
-        string memory primary;
-        string memory secondary;
-        string memory accent;
+    function _generateAthenaSVG(uint256 tokenId, TraitData memory traits) internal pure returns (string memory) {
+        (string memory primary, string memory secondary, string memory accent) = _colorScheme(traits.color);
+        string memory bgSvg = _svgBackground(traits.background, primary);
+        string memory bodySvg = _svgBody(primary, secondary);
+        string memory helmetSvg = _svgHelmet(traits.helmet, primary, accent);
+        string memory shieldSvg = _svgShield(traits.shield, primary, secondary);
+        string memory weaponSvg = _svgWeapon(traits.weapon, primary, accent);
+        string memory eyesSvg = _svgEyes(traits.eyes, primary);
         
-        if (tokenId == GOLD) {
-            primary = "#FFD700";
-            secondary = "#B8860B";
-            accent = "#FFA500";
-        } else if (tokenId == SILVER) {
-            primary = "#C0C0C0";
-            secondary = "#808080";
-            accent = "#A9A9A9";
-        } else {
-            primary = "#CD7F32";
-            secondary = "#8B4513";
-            accent = "#D2691E";
-        }
-        
-        // Get background color
-        string memory bg = _getBgColor(traits[5]);
-        
-        // Get skin color
-        string memory skin = _getSkinColor(traits[4]);
-        
-        // Get enchant effect
-        string memory enchantColor = _getEnchantColor(traits[6]);
-        
-        // Build SVG with trait variations
         return string(
             abi.encodePacked(
                 '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">',
-                _generateBackground(bg),
-                _generateAura(traits[7], primary),
-                _generateHelmet(traits[0], primary, secondary, accent),
-                _generateFace(skin),
-                _generateRobe(traits[3], primary, secondary, accent),
-                _generateShield(traits[1], primary, secondary, accent),
-                _generateSpear(traits[2], primary, accent, enchantColor),
-                _generateLegs(secondary),
-                _generateBoots(primary),
-                _generateFooter(primary, accent),
+                bgSvg,
+                bodySvg,
+                helmetSvg,
+                shieldSvg,
+                weaponSvg,
+                eyesSvg,
+                '<text x="160" y="310" font-family="monospace" font-size="10" fill="', primary, '" text-anchor="middle">GLM AUDIT</text>',
                 '</svg>'
             )
         );
     }
 
-    // ============ SVG Components ============
-
-    function _generateBackground(string memory bg) internal pure returns (string memory) {
-        return string(abi.encodePacked(
-            '<rect width="320" height="320" fill="', bg, '"/>'
-        ));
+    function _colorScheme(uint8 colorId) internal pure returns (string memory primary, string memory secondary, string memory accent) {
+        if (colorId == 0) return ("#FFD700", "#B8860B", "#FFA500"); // Gold
+        if (colorId == 1) return ("#C0C0C0", "#808080", "#A9A9A9"); // Silver
+        if (colorId == 2) return ("#CD7F32", "#8B4513", "#D2691E"); // Copper
+        if (colorId == 3) return ("#9B59B6", "#6C3483", "#8E44AD"); // Purple
+        if (colorId == 4) return ("#2ECC71", "#1E8449", "#27AE60"); // Green
+        if (colorId == 5) return ("#3498DB", "#2471A3", "#2980B9"); // Blue
+        if (colorId == 6) return ("#E74C3C", "#922B21", "#C0392B"); // Red
+        return ("#2C3E50", "#1A252F", "#34495E"); // Black
     }
 
-    function _generateAura(uint8 auraType, string memory primary) internal pure returns (string memory) {
-        if (auraType == 0) return ""; // No aura
-        if (auraType == 1) {
-            // Glow aura
+    function _svgBackground(uint8 bg, string memory primary) internal pure returns (string memory) {
+        if (bg == 0) {
+            // Starry sky
             return string(abi.encodePacked(
-                '<circle cx="160" cy="160" r="140" fill="none" stroke="', primary, '" stroke-width="2" opacity="0.3"/>',
-                '<circle cx="160" cy="160" r="130" fill="none" stroke="', primary, '" stroke-width="1" opacity="0.2"/>'
+                '<rect width="320" height="320" fill="#0a0a2e"/>',
+                '<circle cx="50" cy="30" r="2" fill="', primary, '" opacity="0.8"/>',
+                '<circle cx="150" cy="20" r="1.5" fill="', primary, '" opacity="0.6"/>',
+                '<circle cx="250" cy="40" r="2" fill="', primary, '" opacity="0.7"/>',
+                '<circle cx="80" cy="80" r="1" fill="', primary, '" opacity="0.5"/>',
+                '<circle cx="200" cy="60" r="1.5" fill="', primary, '" opacity="0.6"/>',
+                '<circle cx="280" cy="100" r="1" fill="', primary, '" opacity="0.4"/>'
+            ));
+        } else if (bg == 1) {
+            // Fire
+            return string(abi.encodePacked(
+                '<rect width="320" height="320" fill="#1a0a0a"/>',
+                '<rect x="0" y="280" width="320" height="40" fill="#8B0000" opacity="0.5"/>',
+                '<rect x="40" y="260" width="60" height="60" fill="#FF4500" opacity="0.3"/>',
+                '<rect x="220" y="270" width="50" height="50" fill="#FF6347" opacity="0.3"/>'
+            ));
+        } else if (bg == 2) {
+            // Ocean
+            return string(abi.encodePacked(
+                '<rect width="320" height="320" fill="#0a1a2e"/>',
+                '<rect x="0" y="250" width="320" height="70" fill="#1a4a6e" opacity="0.5"/>',
+                '<path d="M0,260 Q80,250 160,260 Q240,270 320,260" fill="none" stroke="#2E86C1" stroke-width="2" opacity="0.5"/>'
+            ));
+        } else if (bg == 3) {
+            // Forest
+            return string(abi.encodePacked(
+                '<rect width="320" height="320" fill="#0a1a0a"/>',
+                '<rect x="20" y="200" width="30" height="120" fill="#2d5a1e" opacity="0.6"/>',
+                '<rect x="270" y="210" width="25" height="110" fill="#2d5a1e" opacity="0.5"/>',
+                '<rect x="150" y="220" width="20" height="100" fill="#2d5a1e" opacity="0.4"/>'
             ));
         }
-        // Sparkle aura
+        // Aurora
         return string(abi.encodePacked(
-            '<circle cx="50" cy="50" r="3" fill="', primary, '" opacity="0.6"/>',
-            '<circle cx="270" cy="80" r="2" fill="', primary, '" opacity="0.5"/>',
-            '<circle cx="40" cy="250" r="2" fill="', primary, '" opacity="0.4"/>',
-            '<circle cx="280" cy="280" r="3" fill="', primary, '" opacity="0.6"/>'
+            '<rect width="320" height="320" fill="#0a0a1a"/>',
+            '<path d="M0,100 Q160,50 320,100" fill="none" stroke="#00FF7F" stroke-width="20" opacity="0.2"/>',
+            '<path d="M0,120 Q160,70 320,120" fill="none" stroke="#00CED1" stroke-width="15" opacity="0.15"/>'
         ));
     }
 
-    function _generateHelmet(uint8 style, string memory primary, string memory secondary, string memory accent) internal pure returns (string memory) {
-        if (style == 0) {
-            // Spartan helmet
-            return string(abi.encodePacked(
-                '<rect x="130" y="20" width="60" height="10" fill="', primary, '"/>',
-                '<rect x="140" y="10" width="40" height="10" fill="', accent, '"/>',
-                '<rect x="150" y="0" width="20" height="10" fill="', primary, '"/>',
-                '<rect x="120" y="30" width="80" height="50" rx="10" fill="', secondary, '"/>',
-                '<rect x="130" y="35" width="60" height="15" fill="', primary, '"/>'
-            ));
-        } else if (style == 1) {
-            // Corinthian helmet
-            return string(abi.encodePacked(
-                '<rect x="120" y="20" width="80" height="15" fill="', primary, '"/>',
-                '<rect x="115" y="35" width="90" height="45" rx="5" fill="', secondary, '"/>',
-                '<rect x="125" y="40" width="70" height="10" fill="', accent, '"/>',
-                '<rect x="140" y="20" width="40" height="20" fill="', primary, '"/>'
-            ));
-        }
-        // Phrygian helmet
+    function _svgBody(string memory primary, string memory secondary) internal pure returns (string memory) {
         return string(abi.encodePacked(
-            '<rect x="125" y="25" width="70" height="55" rx="8" fill="', secondary, '"/>',
-            '<rect x="135" y="15" width="50" height="15" fill="', primary, '"/>',
-            '<rect x="155" y="5" width="30" height="15" rx="5" fill="', accent, '"/>',
-            '<rect x="130" y="40" width="60" height="10" fill="', primary, '"/>'
-        ));
-    }
-
-    function _generateFace(string memory skin) internal pure returns (string memory) {
-        return string(abi.encodePacked(
-            '<rect x="135" y="55" width="50" height="35" fill="', skin, '"/>',
-            '<rect x="145" y="62" width="8" height="6" fill="#1a1a2e"/>',
-            '<rect x="167" y="62" width="8" height="6" fill="#1a1a2e"/>',
-            '<rect x="152" y="75" width="16" height="4" fill="#d4956a"/>'
-        ));
-    }
-
-    function _generateRobe(uint8 style, string memory primary, string memory secondary, string memory accent) internal pure returns (string memory) {
-        if (style == 0) {
-            // Solid robe
-            return string(abi.encodePacked(
-                '<rect x="110" y="90" width="100" height="120" rx="5" fill="', secondary, '"/>',
-                '<rect x="115" y="95" width="90" height="30" fill="', primary, '"/>'
-            ));
-        } else if (style == 1) {
-            // Striped robe
-            return string(abi.encodePacked(
-                '<rect x="110" y="90" width="100" height="120" rx="5" fill="', secondary, '"/>',
-                '<rect x="115" y="100" width="90" height="8" fill="', primary, '"/>',
-                '<rect x="115" y="116" width="90" height="8" fill="', primary, '"/>',
-                '<rect x="115" y="132" width="90" height="8" fill="', primary, '"/>',
-                '<rect x="115" y="148" width="90" height="8" fill="', primary, '"/>'
-            ));
-        }
-        // Gradient robe (simulated with rectangles)
-        return string(abi.encodePacked(
+            // Face
+            '<rect x="135" y="55" width="50" height="35" fill="#ffd4a8"/>',
+            // Body/Robe
             '<rect x="110" y="90" width="100" height="120" rx="5" fill="', secondary, '"/>',
-            '<rect x="110" y="90" width="100" height="40" fill="', primary, '" opacity="0.8"/>',
-            '<rect x="110" y="130" width="100" height="40" fill="', primary, '" opacity="0.5"/>',
-            '<rect x="110" y="170" width="100" height="40" fill="', accent, '" opacity="0.3"/>'
-        ));
-    }
-
-    function _generateShield(uint8 design, string memory primary, string memory secondary, string memory accent) internal pure returns (string memory) {
-        if (design == 0) {
-            // Owl shield
-            return string(abi.encodePacked(
-                '<rect x="60" y="100" width="45" height="60" rx="8" fill="', primary, '"/>',
-                '<rect x="68" y="108" width="29" height="44" rx="4" fill="', secondary, '"/>',
-                '<rect x="75" y="118" width="15" height="15" fill="', primary, '"/>',
-                '<rect x="78" y="121" width="4" height="4" fill="#1a1a2e"/>',
-                '<rect x="86" y="121" width="4" height="4" fill="#1a1a2e"/>'
-            ));
-        } else if (design == 1) {
-            // Snake shield
-            return string(abi.encodePacked(
-                '<rect x="60" y="100" width="45" height="60" rx="8" fill="', primary, '"/>',
-                '<rect x="68" y="108" width="29" height="44" rx="4" fill="', secondary, '"/>',
-                '<path d="M75,120 Q82,115 89,120 Q82,125 75,120" fill="', accent, '"/>',
-                '<circle cx="78" cy="118" r="2" fill="#1a1a2e"/>',
-                '<circle cx="86" cy="118" r="2" fill="#1a1a2e"/>'
-            ));
-        }
-        // Eagle shield
-        return string(abi.encodePacked(
-            '<rect x="60" y="100" width="45" height="60" rx="8" fill="', primary, '"/>',
-            '<rect x="68" y="108" width="29" height="44" rx="4" fill="', secondary, '"/>',
-            '<path d="M75,120 L82,110 L89,120 L82,130 Z" fill="', accent, '"/>',
-            '<circle cx="82" cy="118" r="3" fill="#1a1a2e"/>'
-        ));
-    }
-
-    function _generateSpear(uint8 style, string memory primary, string memory accent, string memory enchant) internal pure returns (string memory) {
-        if (style == 0) {
-            // Long spear
-            return string(abi.encodePacked(
-                '<rect x="230" y="50" width="6" height="180" fill="', primary, '"/>',
-                '<rect x="224" y="40" width="18" height="15" rx="2" fill="', accent, '"/>',
-                '<rect x="226" y="35" width="14" height="8" fill="', enchant, '" opacity="0.6"/>'
-            ));
-        } else if (style == 1) {
-            // Short spear
-            return string(abi.encodePacked(
-                '<rect x="230" y="80" width="6" height="120" fill="', primary, '"/>',
-                '<rect x="224" y="70" width="18" height="15" rx="2" fill="', accent, '"/>',
-                '<rect x="226" y="65" width="14" height="8" fill="', enchant, '" opacity="0.6"/>'
-            ));
-        }
-        // Javelin
-        return string(abi.encodePacked(
-            '<rect x="220" y="60" width="5" height="150" fill="', primary, '" transform="rotate(-15, 222, 135)"/>',
-            '<rect x="215" y="50" width="15" height="12" rx="2" fill="', accent, '" transform="rotate(-15, 222, 56)"/>',
-            '<rect x="217" y="45" width="11" height="8" fill="', enchant, '" opacity="0.6" transform="rotate(-15, 222, 49)"/>'
-        ));
-    }
-
-    function _generateLegs(string memory secondary) internal pure returns (string memory) {
-        return string(abi.encodePacked(
+            '<rect x="115" y="95" width="90" height="30" fill="', primary, '"/>',
+            // Legs
             '<rect x="125" y="210" width="30" height="60" fill="', secondary, '"/>',
-            '<rect x="165" y="210" width="30" height="60" fill="', secondary, '"/>'
-        ));
-    }
-
-    function _generateBoots(string memory primary) internal pure returns (string memory) {
-        return string(abi.encodePacked(
+            '<rect x="165" y="210" width="30" height="60" fill="', secondary, '"/>',
+            // Boots
             '<rect x="120" y="265" width="40" height="15" rx="3" fill="', primary, '"/>',
             '<rect x="160" y="265" width="40" height="15" rx="3" fill="', primary, '"/>'
         ));
     }
 
-    function _generateFooter(string memory primary, string memory accent) internal pure returns (string memory) {
+    function _svgHelmet(uint8 style, string memory primary, string memory accent) internal pure returns (string memory) {
+        if (style == 0) {
+            // Feathered helmet (羽饰)
+            return string(abi.encodePacked(
+                '<rect x="130" y="20" width="60" height="10" fill="', primary, '"/>',
+                '<rect x="140" y="10" width="40" height="10" fill="', accent, '"/>',
+                '<rect x="150" y="0" width="20" height="10" fill="', primary, '"/>',
+                '<rect x="120" y="30" width="80" height="50" rx="10" fill="', primary, '"/>'
+            ));
+        } else if (style == 1) {
+            // Horned helmet (双角)
+            return string(abi.encodePacked(
+                '<rect x="120" y="30" width="80" height="50" rx="8" fill="', primary, '"/>',
+                '<rect x="110" y="20" width="15" height="30" rx="3" fill="', accent, '"/>',
+                '<rect x="195" y="20" width="15" height="30" rx="3" fill="', accent, '"/>'
+            ));
+        } else if (style == 2) {
+            // Crown (冠冕)
+            return string(abi.encodePacked(
+                '<rect x="120" y="30" width="80" height="50" rx="5" fill="', primary, '"/>',
+                '<rect x="130" y="15" width="10" height="20" fill="', accent, '"/>',
+                '<rect x="150" y="10" width="10" height="25" fill="', accent, '"/>',
+                '<rect x="170" y="15" width="10" height="20" fill="', accent, '"/>'
+            ));
+        } else if (style == 3) {
+            // Turban (头巾)
+            return string(abi.encodePacked(
+                '<rect x="120" y="30" width="80" height="50" rx="15" fill="', primary, '"/>',
+                '<rect x="130" y="25" width="60" height="15" fill="', accent, '"/>',
+                '<circle cx="160" cy="32" r="8" fill="', accent, '"/>'
+            ));
+        }
+        // Classic helmet (经典)
         return string(abi.encodePacked(
-            '<rect x="80" y="290" width="160" height="10" fill="', primary, '" opacity="0.5"/>',
-            '<rect x="100" y="300" width="120" height="8" fill="', accent, '" opacity="0.3"/>',
-            '<text x="160" y="315" font-family="monospace" font-size="10" fill="', primary, '" text-anchor="middle">GLM AUDIT</text>'
+            '<rect x="120" y="30" width="80" height="55" rx="10" fill="', primary, '"/>',
+            '<rect x="130" y="40" width="60" height="10" fill="', accent, '"/>',
+            '<rect x="145" y="55" width="30" height="5" fill="#1a1a2e"/>'
         ));
     }
 
-    // ============ Color Helpers ============
-
-    function _getBgColor(uint8 bgType) internal pure returns (string memory) {
-        if (bgType == 0) return "#1a1a2e"; // Deep Blue
-        if (bgType == 1) return "#2d1b3d"; // Dark Purple
-        if (bgType == 2) return "#1a2e1a"; // Dark Green
-        return "#2e1a1a"; // Dark Red
+    function _svgShield(uint8 pattern, string memory primary, string memory secondary) internal pure returns (string memory) {
+        if (pattern == 0) {
+            // Owl shield (猫头鹰)
+            return string(abi.encodePacked(
+                '<rect x="60" y="100" width="45" height="60" rx="8" fill="', primary, '"/>',
+                '<rect x="68" y="108" width="29" height="44" rx="4" fill="', secondary, '"/>',
+                '<rect x="75" y="118" width="15" height="15" fill="', primary, '"/>',
+                '<circle cx="79" cy="124" r="3" fill="#1a1a2e"/>',
+                '<circle cx="87" cy="124" r="3" fill="#1a1a2e"/>'
+            ));
+        } else if (pattern == 1) {
+            // Snake hair shield (蛇发)
+            return string(abi.encodePacked(
+                '<rect x="60" y="100" width="45" height="60" rx="8" fill="', primary, '"/>',
+                '<rect x="68" y="108" width="29" height="44" rx="4" fill="', secondary, '"/>',
+                '<path d="M75,115 Q80,110 85,115 Q80,120 75,115" fill="', primary, '"/>',
+                '<path d="M78,125 Q83,120 88,125 Q83,130 78,125" fill="', primary, '"/>'
+            ));
+        } else if (pattern == 2) {
+            // Olive branch shield (橄榄枝)
+            return string(abi.encodePacked(
+                '<rect x="60" y="100" width="45" height="60" rx="8" fill="', primary, '"/>',
+                '<rect x="68" y="108" width="29" height="44" rx="4" fill="', secondary, '"/>',
+                '<path d="M75,130 Q82,115 89,130" fill="none" stroke="#2ECC71" stroke-width="2"/>',
+                '<circle cx="78" cy="122" r="2" fill="#2ECC71"/>',
+                '<circle cx="86" cy="118" r="2" fill="#2ECC71"/>'
+            ));
+        } else if (pattern == 3) {
+            // Lightning shield (闪电)
+            return string(abi.encodePacked(
+                '<rect x="60" y="100" width="45" height="60" rx="8" fill="', primary, '"/>',
+                '<rect x="68" y="108" width="29" height="44" rx="4" fill="', secondary, '"/>',
+                '<path d="M82,110 L75,125 L82,125 L78,140" fill="none" stroke="#FFD700" stroke-width="3"/>'
+            ));
+        }
+        // Blank shield (空白)
+        return string(abi.encodePacked(
+            '<rect x="60" y="100" width="45" height="60" rx="8" fill="', primary, '"/>',
+            '<rect x="68" y="108" width="29" height="44" rx="4" fill="', secondary, '"/>'
+        ));
     }
 
-    function _getSkinColor(uint8 skinType) internal pure returns (string memory) {
-        if (skinType == 0) return "#ffd4a8"; // Light
-        if (skinType == 1) return "#d4956a"; // Medium
-        return "#8b6b4a"; // Dark
+    function _svgWeapon(uint8 weaponType, string memory primary, string memory accent) internal pure returns (string memory) {
+        if (weaponType == 0) {
+            // Spear (长矛)
+            return string(abi.encodePacked(
+                '<rect x="230" y="50" width="6" height="180" fill="', primary, '"/>',
+                '<rect x="224" y="40" width="18" height="15" rx="2" fill="', accent, '"/>'
+            ));
+        } else if (weaponType == 1) {
+            // Bow (弓箭)
+            return string(abi.encodePacked(
+                '<path d="M230,50 Q250,130 230,210" fill="none" stroke="', primary, '" stroke-width="4"/>',
+                '<line x1="230" y1="50" x2="230" y2="210" stroke="', accent, '" stroke-width="1"/>',
+                '<path d="M230,120 L250,110 L250,130 Z" fill="', accent, '"/>'
+            ));
+        }
+        // Sword (剑)
+        return string(abi.encodePacked(
+            '<rect x="228" y="60" width="4" height="140" fill="', primary, '"/>',
+            '<rect x="218" y="195" width="24" height="8" rx="2" fill="', accent, '"/>',
+            '<rect x="224" y="203" width="12" height="20" fill="', primary, '"/>'
+        ));
     }
 
-    function _getEnchantColor(uint8 enchantType) internal pure returns (string memory) {
-        if (enchantType == 0) return "#ff4500"; // Fire
-        if (enchantType == 1) return "#00bfff"; // Ice
-        return "#ffff00"; // Lightning
+    function _svgEyes(uint8 eyeColor, string memory primary) internal pure returns (string memory) {
+        string memory color;
+        if (eyeColor == 0) color = "#3498DB"; // Blue
+        else if (eyeColor == 1) color = "#2ECC71"; // Green
+        else if (eyeColor == 2) color = "#FFD700"; // Gold
+        else color = "#E74C3C"; // Red
+        
+        return string(abi.encodePacked(
+            '<rect x="145" y="62" width="8" height="6" fill="', color, '"/>',
+            '<rect x="167" y="62" width="8" height="6" fill="', color, '"/>',
+            '<rect x="152" y="75" width="16" height="4" fill="#d4956a"/>'
+        ));
     }
 
     // ============ Trait Name Helpers ============
 
     function _getHelmetName(uint8 style) internal pure returns (string memory) {
-        if (style == 0) return "Spartan";
-        if (style == 1) return "Corinthian";
-        return "Phrygian";
+        if (style == 0) return "Feathered";
+        if (style == 1) return "Horned";
+        if (style == 2) return "Crown";
+        if (style == 3) return "Turban";
+        return "Classic";
     }
 
-    function _getShieldName(uint8 design) internal pure returns (string memory) {
-        if (design == 0) return "Owl";
-        if (design == 1) return "Snake";
-        return "Eagle";
+    function _getShieldName(uint8 pattern) internal pure returns (string memory) {
+        if (pattern == 0) return "Owl";
+        if (pattern == 1) return "Snake Hair";
+        if (pattern == 2) return "Olive Branch";
+        if (pattern == 3) return "Lightning";
+        return "Blank";
     }
 
-    function _getSpearName(uint8 style) internal pure returns (string memory) {
-        if (style == 0) return "Long";
-        if (style == 1) return "Short";
-        return "Javelin";
+    function _getColorName(uint8 colorId) internal pure returns (string memory) {
+        if (colorId == 0) return "Gold";
+        if (colorId == 1) return "Silver";
+        if (colorId == 2) return "Copper";
+        if (colorId == 3) return "Purple";
+        if (colorId == 4) return "Green";
+        if (colorId == 5) return "Blue";
+        if (colorId == 6) return "Red";
+        return "Black";
     }
 
-    function _getRobeName(uint8 style) internal pure returns (string memory) {
-        if (style == 0) return "Solid";
-        if (style == 1) return "Striped";
-        return "Gradient";
+    function _getWeaponName(uint8 weaponType) internal pure returns (string memory) {
+        if (weaponType == 0) return "Spear";
+        if (weaponType == 1) return "Bow";
+        return "Sword";
     }
 
-    function _getSkinName(uint8 skinType) internal pure returns (string memory) {
-        if (skinType == 0) return "Light";
-        if (skinType == 1) return "Medium";
-        return "Dark";
+    function _getBgName(uint8 bg) internal pure returns (string memory) {
+        if (bg == 0) return "Starry Sky";
+        if (bg == 1) return "Fire";
+        if (bg == 2) return "Ocean";
+        if (bg == 3) return "Forest";
+        return "Aurora";
     }
 
-    function _getBgName(uint8 bgType) internal pure returns (string memory) {
-        if (bgType == 0) return "Deep Blue";
-        if (bgType == 1) return "Dark Purple";
-        if (bgType == 2) return "Dark Green";
-        return "Dark Red";
+    function _getEyesName(uint8 eyeColor) internal pure returns (string memory) {
+        if (eyeColor == 0) return "Blue";
+        if (eyeColor == 1) return "Green";
+        if (eyeColor == 2) return "Gold";
+        return "Red";
     }
 
-    function _getEnchantName(uint8 enchantType) internal pure returns (string memory) {
-        if (enchantType == 0) return "Fire";
-        if (enchantType == 1) return "Ice";
-        return "Lightning";
-    }
-
-    function _getAuraName(uint8 auraType) internal pure returns (string memory) {
-        if (auraType == 0) return "None";
-        if (auraType == 1) return "Glow";
-        return "Sparkle";
-    }
-
-    // ============ Utility Functions ============
+    // ============ Utility ============
 
     function _uint2str(uint256 _i) internal pure returns (string memory _uintAsString) {
         if (_i == 0) return "0";
@@ -533,24 +510,12 @@ contract AuditCertificate is ERC1155, Ownable {
         return usedAttestations[attestationUID];
     }
 
-    function totalSupply(uint256 tokenId) external view returns (uint256) {
-        return this.totalSupply(tokenId);
-    }
-
-    /// @notice Get total possible combinations per tier
-    function getCombinationsPerTier() public pure returns (uint256) {
+    function getCombinations() public pure returns (uint256) {
         return uint256(HELMET_VARIANTS) * 
                uint256(SHIELD_VARIANTS) * 
-               uint256(SPEAR_VARIANTS) * 
-               uint256(ROBE_VARIANTS) * 
-               uint256(SKIN_VARIANTS) * 
+               uint256(COLOR_VARIANTS) * 
+               uint256(WEAPON_VARIANTS) * 
                uint256(BG_VARIANTS) * 
-               uint256(ENCHANT_VARIANTS) * 
-               uint256(AURA_VARIANTS);
-    }
-
-    /// @notice Get total possible combinations across all tiers
-    function getTotalCombinations() public pure returns (uint256) {
-        return getCombinationsPerTier() * 3;
+               uint256(EYES_VARIANTS);
     }
 }

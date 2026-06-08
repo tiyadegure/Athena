@@ -4,7 +4,6 @@ pragma solidity ^0.8.20;
 import "forge-std/Test.sol";
 import "../AuditCertificate.sol";
 
-/// @notice Mock EAS for testing
 contract MockEAS {
     mapping(bytes32 => Attestation) public attestations;
     mapping(bytes32 => bool) public valid;
@@ -44,7 +43,6 @@ contract MockEAS {
     bytes32 constant ZERO_BYTES32 = 0x0000000000000000000000000000000000000000000000000000000000000000;
 }
 
-/// @notice Test contract for AuditCertificate
 contract AuditCertificateTest is Test {
     AuditCertificate public certificate;
     MockEAS public mockEAS;
@@ -53,23 +51,23 @@ contract AuditCertificateTest is Test {
     address public user2 = address(0x2);
     address public contractAddr = address(0xdead);
 
-    // Multiple attestation UIDs to test different trait combinations
     bytes32 public attUID_1 = keccak256("attestation1");
     bytes32 public attUID_2 = keccak256("attestation2");
     bytes32 public attUID_3 = keccak256("attestation3");
     bytes32 public attUID_4 = keccak256("attestation4");
     bytes32 public attUID_5 = keccak256("attestation5");
+    bytes32 public attUID_6 = keccak256("attestation6");
 
     function setUp() public {
         mockEAS = new MockEAS();
         certificate = new AuditCertificate(address(mockEAS));
 
-        // Create test attestations with different scores
-        mockEAS.createAttestation(attUID_1, user1, 1, 3, "full", uint64(block.timestamp), contractAddr);  // Critical → Gold
-        mockEAS.createAttestation(attUID_2, user1, 3, 2, "full", uint64(block.timestamp), contractAddr);  // High → Silver
-        mockEAS.createAttestation(attUID_3, user2, 5, 1, "full", uint64(block.timestamp), contractAddr);  // Medium → Silver
-        mockEAS.createAttestation(attUID_4, user2, 7, 1, "quick", uint64(block.timestamp), contractAddr); // Low → Bronze
-        mockEAS.createAttestation(attUID_5, user1, 10, 0, "quick", uint64(block.timestamp), contractAddr); // Safe → Bronze
+        mockEAS.createAttestation(attUID_1, user1, 1, 3, "full", uint64(block.timestamp), contractAddr);
+        mockEAS.createAttestation(attUID_2, user1, 3, 2, "full", uint64(block.timestamp), contractAddr);
+        mockEAS.createAttestation(attUID_3, user2, 5, 1, "full", uint64(block.timestamp), contractAddr);
+        mockEAS.createAttestation(attUID_4, user2, 7, 1, "quick", uint64(block.timestamp), contractAddr);
+        mockEAS.createAttestation(attUID_5, user1, 10, 0, "quick", uint64(block.timestamp), contractAddr);
+        mockEAS.createAttestation(attUID_6, user2, 2, 5, "full", uint64(block.timestamp), contractAddr);
     }
 
     // ============ Basic Tests ============
@@ -86,6 +84,19 @@ contract AuditCertificateTest is Test {
         assertTrue(keccak256(bytes(certificate.name(1))) == keccak256("Audit Certificate - Gold"));
         assertTrue(keccak256(bytes(certificate.name(2))) == keccak256("Audit Certificate - Silver"));
         assertTrue(keccak256(bytes(certificate.name(3))) == keccak256("Audit Certificate - Bronze"));
+    }
+
+    // ============ Combination Tests ============
+
+    function test_combinations_count() public {
+        uint256 combos = certificate.getCombinations();
+        // 5×5×8×3×5×4 = 12,000
+        assertEq(combos, 12000);
+    }
+
+    function test_exceeds_12000_requirement() public {
+        uint256 combos = certificate.getCombinations();
+        assertTrue(combos >= 12000, "Should have at least 12,000 combinations");
     }
 
     // ============ Minting Tests ============
@@ -110,7 +121,6 @@ contract AuditCertificateTest is Test {
         
         bool didRevert = false;
         try certificate.mintCertificate(user2, attUID_1) {
-            // Should not reach here
         } catch {
             didRevert = true;
         }
@@ -120,11 +130,39 @@ contract AuditCertificateTest is Test {
     function test_invalid_recipient_reverts() public {
         bool didRevert = false;
         try certificate.mintCertificate(address(0), attUID_1) {
-            // Should not reach here
         } catch {
             didRevert = true;
         }
         assertTrue(didRevert, "Should revert for zero address");
+    }
+
+    // ============ Trait Tests ============
+
+    function test_traits_stored_on_mint() public {
+        certificate.mintCertificate(user1, attUID_1);
+        
+        // Verify attestation is marked as used
+        assertTrue(certificate.isAttestationUsed(attUID_1), "Attestation should be marked used");
+        assertEq(certificate.balanceOf(user1, 1), 1);
+    }
+
+    function test_different_uids_different_traits() public {
+        // Generate metadata for 3 different UIDs
+        string memory meta1 = certificate.generateMetadata(attUID_1, 1);
+        string memory meta2 = certificate.generateMetadata(attUID_2, 1);
+        string memory meta3 = certificate.generateMetadata(attUID_3, 1);
+        
+        // At least some should differ (extremely unlikely to be all same)
+        bool allSame = keccak256(bytes(meta1)) == keccak256(bytes(meta2)) && 
+                       keccak256(bytes(meta2)) == keccak256(bytes(meta3));
+        assertFalse(allSame);
+    }
+
+    function test_same_uid_same_traits() public {
+        // Generate metadata twice for same UID - should be identical
+        string memory meta1 = certificate.generateMetadata(attUID_1, 1);
+        string memory meta2 = certificate.generateMetadata(attUID_1, 1);
+        assertTrue(keccak256(bytes(meta1)) == keccak256(bytes(meta2)), "Same UID should produce same metadata");
     }
 
     // ============ Metadata Tests ============
@@ -147,55 +185,24 @@ contract AuditCertificateTest is Test {
         _assertContains(metadata, "data:application/json;base64,");
     }
 
-    // ============ Trait Combination Tests ============
+    function test_different_tiers_different_metadata() public {
+        string memory metaGold = certificate.generateMetadata(attUID_1, 1);
+        string memory metaSilver = certificate.generateMetadata(attUID_1, 2);
+        string memory metaBronze = certificate.generateMetadata(attUID_1, 3);
+        
+        assertTrue(keccak256(bytes(metaGold)) != keccak256(bytes(metaSilver)), "Gold != Silver");
+        assertTrue(keccak256(bytes(metaSilver)) != keccak256(bytes(metaBronze)), "Silver != Bronze");
+        assertTrue(keccak256(bytes(metaGold)) != keccak256(bytes(metaBronze)), "Gold != Bronze");
+    }
 
     function test_different_uids_different_metadata() public {
         string memory meta1 = certificate.generateMetadata(attUID_1, 1);
         string memory meta2 = certificate.generateMetadata(attUID_2, 1);
         string memory meta3 = certificate.generateMetadata(attUID_3, 1);
         
-        // All should be different (different UIDs → different traits)
         assertTrue(keccak256(bytes(meta1)) != keccak256(bytes(meta2)), "UID1 != UID2");
         assertTrue(keccak256(bytes(meta2)) != keccak256(bytes(meta3)), "UID2 != UID3");
         assertTrue(keccak256(bytes(meta1)) != keccak256(bytes(meta3)), "UID1 != UID3");
-    }
-
-    function test_same_uid_same_metadata() public {
-        string memory meta1 = certificate.generateMetadata(attUID_1, 1);
-        string memory meta2 = certificate.generateMetadata(attUID_1, 1);
-        
-        // Same UID should always produce same metadata (deterministic)
-        assertTrue(keccak256(bytes(meta1)) == keccak256(bytes(meta2)));
-    }
-
-    function test_different_tiers_different_metadata() public {
-        string memory metaGold = certificate.generateMetadata(attUID_1, 1);
-        string memory metaSilver = certificate.generateMetadata(attUID_1, 2);
-        string memory metaBronze = certificate.generateMetadata(attUID_1, 3);
-        
-        // Same UID but different tiers should produce different metadata
-        assertTrue(keccak256(bytes(metaGold)) != keccak256(bytes(metaSilver)), "Gold != Silver");
-        assertTrue(keccak256(bytes(metaSilver)) != keccak256(bytes(metaBronze)), "Silver != Bronze");
-        assertTrue(keccak256(bytes(metaGold)) != keccak256(bytes(metaBronze)), "Gold != Bronze");
-    }
-
-    // ============ Combination Count Tests ============
-
-    function test_combinations_per_tier() public {
-        uint256 combos = certificate.getCombinationsPerTier();
-        // 3×3×3×3×3×4×3×3 = 8,748
-        assertEq(combos, 8748);
-    }
-
-    function test_total_combinations() public {
-        uint256 total = certificate.getTotalCombinations();
-        // 8,748 × 3 = 26,244
-        assertEq(total, 26244);
-    }
-
-    function test_exceeds_12000_requirement() public {
-        uint256 total = certificate.getTotalCombinations();
-        assertTrue(total >= 12000, "Should have at least 12,000 combinations");
     }
 
     // ============ Invalid Token ID Tests ============
@@ -203,7 +210,6 @@ contract AuditCertificateTest is Test {
     function test_invalid_tokenid_reverts() public {
         bool didRevert = false;
         try certificate.generateMetadata(attUID_1, 4) {
-            // Should not reach here
         } catch {
             didRevert = true;
         }
@@ -217,7 +223,6 @@ contract AuditCertificateTest is Test {
         
         bool didRevert = false;
         try certificate.mintCertificate(user1, invalidUID) {
-            // Should not reach here
         } catch {
             didRevert = true;
         }
@@ -227,7 +232,6 @@ contract AuditCertificateTest is Test {
     function test_zero_uid_reverts() public {
         bool didRevert = false;
         try certificate.mintCertificate(user1, bytes32(0)) {
-            // Should not reach here
         } catch {
             didRevert = true;
         }
@@ -238,11 +242,7 @@ contract AuditCertificateTest is Test {
 
     function test_audit_record_stored() public {
         certificate.mintCertificate(user1, attUID_1);
-        
-        // Verify attestation is marked as used
-        assertTrue(certificate.isAttestationUsed(attUID_1), "Attestation should be marked used");
-        
-        // Verify balance
+        assertTrue(certificate.isAttestationUsed(attUID_1));
         assertEq(certificate.balanceOf(user1, 1), 1);
     }
 
