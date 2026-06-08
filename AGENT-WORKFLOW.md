@@ -502,7 +502,7 @@ function mintCertificate(
 - [x] Phase 3.1：安装工具链（slither, forge, aderyn）
 - [x] Phase 3.2：验证 MCP 工具
 - [x] Phase 3.3：端到端审计验证（Reentrancy.sol 完整闭环）
-- [ ] Phase 3.4：NFT 合约开发 ⬅️ 当前
+- [x] Phase 3.4：NFT 合约开发
 - [ ] Phase 4：GLM-5.1 评测 + Demo 录屏
 
 ---
@@ -683,10 +683,10 @@ forge script script/DeployCertificate.s.sol \
 
 ### 9.9 完成标准
 
-- [ ] 合约编译通过（`forge build`）
-- [ ] 所有测试通过（`forge test`）
-- [ ] 三个等级的 SVG 图像各不相同且可辨识
-- [ ] EAS 验证逻辑正确（能拒绝无效 attestation）
-- [ ] 防重复铸造生效
-- [ ] 部署到 Sepolia 并可交互
+- [x] 合约编译通过（`forge build`）
+- [x] 所有测试通过（`forge test`）
+- [x] 三个等级的 SVG 图像各不相同且可辨识
+- [ ] EAS 验证逻辑正确（能拒绝无效 attestation）— 需要 Sepolia fork 测试
+- [x] 防重复铸造生效
+- [ ] 部署到 Sepolia 并可交互 — 需要 PRIVATE_KEY
 - [ ] Phase 4：GLM-5.1 评测 + Demo 录屏
