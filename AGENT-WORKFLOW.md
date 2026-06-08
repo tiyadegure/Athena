@@ -497,7 +497,7 @@ function mintCertificate(
 - [x] 项目规划与技术选型
 - [x] GLM-5.1 技术特征调研
 - [x] 测试方案设计
-- [ ] Phase 1：集成 pashov skill + AuditAI 工具 MCP
-- [ ] Phase 2：搭建测试环境（5 个测试合约）
+- [x] Phase 1：集成 pashov skill + AuditAI 工具 MCP
+- [x] Phase 2：搭建测试环境（5 个测试合约）
 - [ ] Phase 3：端到端调试（Claude 驱动）
 - [ ] Phase 4：GLM-5.1 评测 + Demo 录屏
