@@ -1,0 +1,56 @@
+{
+  "description": "Multi-contract protocol audit test cases",
+  "contracts": {
+    "Token.sol": {
+      "should_detect": false,
+      "vulnerability_type": null,
+      "severity": null,
+      "description": "Standard ERC20 implementation - no vulnerabilities"
+    },
+    "Oracle.sol": {
+      "should_detect": true,
+      "vulnerability_type": "oracle-manipulation",
+      "severity": "high",
+      "description": "Uses spot price which can be manipulated via flash loans",
+      "cross_contract": false
+    },
+    "Vault.sol": {
+      "should_detect": true,
+      "vulnerability_type": "cross-contract-oracle-manipulation",
+      "severity": "critical",
+      "description": "Depends on Oracle.sol's vulnerable spot price for collateral valuation",
+      "cross_contract": true,
+      "attack_scenario": [
+        "1. Attacker deposits small collateral in Vault",
+        "2. Attacker manipulates Oracle price via flash loan (large buy/sell)",
+        "3. Vault calculates inflated collateral value",
+        "4. Attacker borrows maximum against inflated collateral",
+        "5. Attacker repays flash loan, price returns to normal",
+        "6. Vault is now undercollateralized"
+      ]
+    }
+  },
+  "expected_findings": [
+    {
+      "contract": "Oracle.sol",
+      "function": "getPrice()",
+      "finding": "Spot price oracle vulnerable to manipulation",
+      "severity": "high",
+      "detector": "cross-contract-analysis"
+    },
+    {
+      "contract": "Vault.sol",
+      "function": "borrow()",
+      "finding": "Uses manipulated oracle price for collateral calculation",
+      "severity": "critical",
+      "detector": "cross-contract-analysis"
+    },
+    {
+      "contract": "Vault.sol",
+      "function": "liquidate()",
+      "finding": "False liquidations possible via oracle manipulation",
+      "severity": "high",
+      "detector": "cross-contract-analysis"
+    }
+  ]
+}

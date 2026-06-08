@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLM AUDIT - Smart Contract Security Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">GLM AUDIT</div>
+        <div class="subtitle">Smart Contract Security Analysis</div>
+    </header>
+    
+    <main>
+        <section id="contract-info" class="section">
+            <div class="section-header">CONTRACT</div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="label">File:</span>
+                    <span class="value" id="contract-file">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Status:</span>
+                    <span class="value" id="contract-status">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Score:</span>
+                    <span class="value" id="contract-score">Loading...</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="findings" class="section">
+            <div class="section-header">FINDINGS</div>
+            <div id="findings-list">
+                <!-- Findings will be inserted here -->
+            </div>
+        </section>
+        
+        <section id="verification" class="section">
+            <div class="section-header">VERIFICATION</div>
+            <div class="verification-grid">
+                <div class="verification-item">
+                    <span class="check">Static Analysis:</span>
+                    <span class="status" id="static-status">--</span>
+                </div>
+                <div class="verification-item">
+                    <span class="check">PoC Execution:</span>
+                    <span class="status" id="poc-status">--</span>
+                </div>
+                <div class="verification-item">
+                    <span class="check">Fuzz Testing:</span>
+                    <span class="status" id="fuzz-status">--</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="attestation" class="section">
+            <div class="section-header">ON-CHAIN ATTESTATION</div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="label">EAS UID:</span>
+                    <span class="value" id="eas-uid">Not submitted</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Etherscan:</span>
+                    <span class="value"><a href="#" id="etherscan-link" target="_blank">view</a></span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="certificate" class="section">
+            <div class="section-header">NFT CERTIFICATE</div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="label">Tier:</span>
+                    <span class="value" id="nft-tier">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Traits:</span>
+                    <span class="value" id="nft-traits">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Rarity:</span>
+                    <span class="value" id="nft-rarity">--</span>
+                </div>
+            </div>
+            <button id="mint-btn" class="btn" disabled>Mint Certificate</button>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-text">
+            Powered by GLM-5.1 | EAS on Sepolia | ERC-1155
+        </div>
+    </footer>
+    
+    <script src="app.js"></script>
+</body>
+</html>

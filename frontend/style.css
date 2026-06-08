@@ -1,0 +1,235 @@
+/* GLM AUDIT - Minimalist Audit Report Styles */
+
+:root {
+    --bg: #0a0a0a;
+    --fg: #e0e0e0;
+    --border: #333;
+    --accent: #888;
+    --success: #4a4;
+    --warning: #aa4;
+    --error: #a44;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header */
+header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.5em;
+}
+
+.subtitle {
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 2rem;
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+}
+
+.section-header {
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Info Grid */
+.info-grid {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.info-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1rem;
+}
+
+.label {
+    color: var(--accent);
+}
+
+.value {
+    color: var(--fg);
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Findings */
+.finding {
+    border: 1px solid var(--border);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.finding-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.finding-title {
+    font-weight: bold;
+}
+
+.finding-severity {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border);
+}
+
+.severity-critical {
+    border-color: var(--error);
+    color: var(--error);
+}
+
+.severity-high {
+    border-color: var(--warning);
+    color: var(--warning);
+}
+
+.severity-medium {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.finding-meta {
+    color: var(--accent);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.finding-description {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.finding-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-small {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--fg);
+    padding: 0.3rem 0.8rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.btn-small:hover {
+    border-color: var(--fg);
+}
+
+/* Verification */
+.verification-grid {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.verification-item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem;
+}
+
+.check {
+    color: var(--accent);
+}
+
+.status {
+    font-weight: bold;
+}
+
+.status-pass {
+    color: var(--success);
+}
+
+.status-fail {
+    color: var(--error);
+}
+
+/* Button */
+.btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--fg);
+    padding: 0.8rem 1.5rem;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.btn:hover:not(:disabled) {
+    border-color: var(--fg);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Footer */
+footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.footer-text {
+    color: var(--accent);
+    font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+    }
+    
+    .info-item,
+    .verification-item {
+        grid-template-columns: 1fr;
+    }
+}
