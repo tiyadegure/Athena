@@ -198,27 +198,42 @@ test-suite/
 
 ## 执行计划
 
-### Phase 1: 接入 + 跑通（Day 1-2）
+### 开发模型策略
+
+```
+开发阶段：Claude（proxy 已配好，无限调试）
+  → 搭建 Skill + MCP + 测试合约 + NFT 合约
+  → 大量调试，跑通完整链路
+  → 产出：可运行的工作流
+
+评测阶段：GLM-5.1（Coding Plan，精打细算）
+  → 只跑最终版本
+  → 5 个测试合约 + 录屏
+  → 产出：评测数据 + Demo 视频
+```
+
+### Phase 1: 搭建 + 跑通（Day 1-2）[用 Claude]
 
 - [ ] 克隆 pashov/skills，安装到 Claude Code
 - [ ] 配置 AuditAI MCP（拆成独立工具，不调 analyze_contract）
-- [ ] 验证：Claude Code + GLM-5.1 + pashov Skill + AuditAI 工具 能跑通
-- [ ] 准备 5 个测试合约
+- [ ] 验证：Claude + pashov Skill + AuditAI 工具 能跑通
+- [ ] 准备 5 个测试合约 + expected-results.json
+- [ ] Claude 跑一遍完整审计链路（验证流程）
 
-### Phase 2: 测试 + 优化（Day 3-4）
+### Phase 2: NFT 合约 + 调试（Day 3）[用 Claude]
 
-- [ ] GLM-5.1 跑 5 个测试合约
-- [ ] Claude 跑同一组合约
-- [ ] 对比数据，分析差距
-- [ ] 根据结果调整 Skill 或工具
-
-### Phase 3: NFT 证书 + Demo（Day 5）
-
-- [ ] 生成雅典娜女神 SVG（AI 生成 + 动态叠加）
+- [ ] 生成雅典娜女神 SVG
 - [ ] 部署 ERC-1155 合约到 Sepolia
 - [ ] 连接 EAS attestation → NFT 铸造
-- [ ] 录屏：GLM-5.1 完整审计链路（①→⑧）
-- [ ] 录屏：Claude 走同一合约（对比用）
+- [ ] 跑通 ①→⑧ 完整链路
+
+### Phase 3: 评测（Day 4-5）[切换到 GLM-5.1]
+
+- [ ] GLM-5.1 跑 5 个测试合约
+- [ ] Claude 跑同一组合约（对比数据）
+- [ ] 录屏：GLM-5.1 完整审计链路
+- [ ] 录屏：Claude 同一合约（对比用）
+- [ ] 对比分析
 
 ### Phase 4: 提交（Day 6）
 
