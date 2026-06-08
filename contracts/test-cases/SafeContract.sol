@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 /// @title SafeVault - Test case for a properly implemented contract
 /// @notice This contract has NO vulnerabilities - should not produce false positives
@@ -15,7 +15,7 @@ contract SafeVault is ERC20, Ownable, ReentrancyGuard {
     event Deposit(address indexed user, uint256 amount);
     event Withdrawal(address indexed user, uint256 amount);
     
-    constructor() ERC20("VaultToken", "VLT") Ownable(msg.sender) {}
+    constructor() ERC20("VaultToken", "VLT") Ownable() {}
     
     /// @notice Deposit tokens and receive vault tokens
     /// @dev Protected by ReentrancyGuard, proper state management

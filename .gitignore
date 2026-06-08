@@ -55,5 +55,5 @@ report.json
 # ChromaDB
 data/chromadb/
 
-# Forge-Std (installed deps)
-lib/
+# Forge-Std (installed deps) - include for reproducible builds
+# lib/

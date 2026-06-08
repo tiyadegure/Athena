@@ -19,10 +19,23 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "commander": "^12.0.0"
+    "@openzeppelin/contracts": "^4.9.6",
+    "commander": "^12.0.0",
+    "forge-std": "^1.1.2"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "@types/node": "^20.0.0"
-  }
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiyadegure/glm-code.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tiyadegure/glm-code/issues"
+  },
+  "homepage": "https://github.com/tiyadegure/glm-code#readme"
 }
