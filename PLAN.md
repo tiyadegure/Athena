@@ -98,17 +98,25 @@ NFT Certificate（ERC-1155）→ 雅典娜女神 + 审计元数据
 }
 ```
 
-### 图像：链上 SVG
+### 图像：链上 SVG + 像素风格
+
+参考 uPEG 的像素艺术方案：
 
 ```
-雅典娜女神底图（AI 生成）
-  + 动态叠加审计数据
-    ├── 评分徽章（S/A/B 级对应金/银/铜）
+底图：像素风格雅典娜女神（8-bit 复古风）
+  + 动态叠加审计数据（像素字体）
+    ├── 评分徽章（S/A/B 级对应金/银/铜边框）
     ├── 漏洞数量
-    ├── 合约地址
+    ├── 合约地址（截断显示）
     └── 审计时间
-→ 直接存链上 SVG，不依赖 IPFS
+→ 全部 SVG，直接存链上，不依赖 IPFS
 ```
+
+为什么用像素风：
+- uPEG 证明了像素 NFT 在链上效果好（Uniswap v4 hooks 生态）
+- 像素图 SVG 体积小，上链 gas 低
+- 复古风辨识度高，和"安全审计"的专业感形成反差萌
+- 可以做成不同稀有度的像素雅典娜变体
 
 ### 实现优先级
 
@@ -130,6 +138,52 @@ NFT Certificate（ERC-1155）→ 雅典娜女神 + 审计元数据
   ⑥ 生成修复补丁
   ⑦ EAS Sepolia 链上认证    ← 已有
   ⑧ 铸造雅典娜 NFT 证书    ← 新增
+```
+
+### 链上技术细节
+
+**EAS Attestation（第 ⑦ 步）**
+
+```
+合约：EAS (Sepolia) — 0xC2679fBD37d54388Ce493F1DB75320D236e1815e
+Schema：定义审计结果的结构化数据
+  → 合约地址、审计时间、评分、漏洞数量、修复状态
+调用：AuditAI 的 eas_attest.py（已有）
+产物：attestation UID（链上可查）
+验证：https://sepolia.eas.xyz/attestation/{UID}
+```
+
+**ERC-1155 NFT（第 ⑧ 步）**
+
+```
+合约：自部署到 Sepolia
+Token IDs：
+  → 1 = S 级（金色雅典娜，像素金边框）
+  → 2 = A 级（银色雅典娜，像素银边框）
+  → 3 = B 级（铜色雅典娜，像素铜边框）
+
+铸造条件：需要有效的 EAS attestation UID
+  → 合约内部验证 attestation 存在且有效
+  → 根据 attestation 中的评分决定 token ID
+
+Metadata（链上 SVG）：
+  → tokenURI 返回 data:image/svg+xml;base64,...
+  → 像素雅典娜底图 + 动态审计数据叠加
+  → 完全链上，不依赖 IPFS
+
+展示：
+  → OpenSea 测试网：https://testnets.opensea.io/...
+  → Etherscan：https://sepolia.etherscan.io/token/{contract}/{id}
+```
+
+**成本**
+
+```
+全部在 Sepolia 测试网，0 成本：
+├── 测试 ETH：sepoliafaucet.com 免费领
+├── EAS attestation：免费
+├── NFT 部署：免费（测试网 gas）
+└── NFT 铸造：免费（测试网 gas）
 ```
 
 ## 差异化叙事
