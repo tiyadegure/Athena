@@ -33,7 +33,7 @@
 - [x] Phase 3.2：验证 MCP 工具
 - [x] Phase 3.3：端到端审计验证（Reentrancy.sol 完整闭环）
 - [x] Phase 3.4：NFT 合约初版（AuditCertificate.sol）
-- [ ] Phase 3.5：NFT 升级为 uPEG 风格 generative trait ⬅️ 当前
+- [x] Phase 3.5：NFT 升级为 uPEG 风格 generative trait
 - [ ] Phase 4：GLM-5.1 评测 + Demo 录屏
 
 ---
@@ -132,14 +132,14 @@ traitData[attestationUID] = traits;
 
 ### 3.6 完成标准
 
-- [ ] 合约编译通过（`forge build`）
-- [ ] 所有测试通过（`forge test`）
-- [ ] 12,000 种组合 — 不同 UID 生成不同雅典娜
-- [ ] 每个 trait 维度至少 3 种有明显视觉差异的 SVG 图层
-- [ ] 稀有度计算正确
-- [ ] uri() 返回完整 JSON metadata（含所有 trait attributes）
-- [ ] EAS 验证逻辑正确
-- [ ] 防重复铸造生效
+- [x] 合约编译通过（`forge build`）
+- [x] 所有测试通过（`forge test`）
+- [x] 12,000 种组合 — 不同 UID 生成不同雅典娜
+- [x] 每个 trait 维度至少 3 种有明显视觉差异的 SVG 图层
+- [x] 稀有度计算正确
+- [x] uri() 返回完整 JSON metadata（含所有 trait attributes）
+- [x] EAS 验证逻辑正确
+- [x] 防重复铸造生效
 
 ---
 
