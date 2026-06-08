@@ -1,6 +1,6 @@
 # GLM Audit Agent
 
-**Web3 智能合约安全审计 Agent** — 基于 GLM-5.1 长程任务能力，结合 pashov 方法论与 AuditAI 工具链，实现从漏洞发现到链上认证的完整闭环。
+**Web3 智能合约安全审计 Agent** — 基于 GLM-5.1 长程任务能力，结合 pashov 方法论与自建 MCP 工具链，实现从漏洞发现到链上认证的完整闭环。
 
 ## 项目定位
 
@@ -22,7 +22,7 @@
 |------|------|------|
 | **GLM-5.1** | Z.AI Coding Plan | 驱动 Agent，处理长程任务 |
 | **pashov solidity-auditor skill** | pashov/skills | 审计方法论（10 轮检查流程） |
-| **AuditAI 工具链** | Sotatek/AuditAI | PoC 生成、fuzz 测试、知识库、EAS 认证 |
+| **MCP 工具链** | 自建 | PoC 生成、fuzz 测试、知识库、EAS 认证 |
 | **Foundry** | foundry-rs | 合约编译、测试、fuzz |
 | **EAS** | Ethereum Attestation Service | 链上审计认证 |
 | **ERC-1155** | OpenZeppelin | 分级 NFT 审计证书 |
@@ -36,7 +36,7 @@ glm-code/
 ├── GLM-5.1-TECHNICAL-PROFILE.md     # GLM-5.1 技术特征
 ├── smart-contract-audit-agents-comparison.md  # 竞品调研（20 个项目）
 ├── skills/                          # pashov 审计 skill
-├── mcp/                             # AuditAI 工具 MCP 服务
+├── mcp/                             # MCP 工具服务（自建）
 ├── contracts/                       # NFT 合约 + 测试合约
 ├── benchmarks/                      # 审计评测
 └── demo/                            # Demo 录屏素材
@@ -100,7 +100,7 @@ glm audit contracts/Example.sol --provider anthropic
 
 详见 [smart-contract-audit-agents-comparison.md](./smart-contract-audit-agents-comparison.md)
 
-核心优势：**在 20 个开源审计项目中，只有 AuditAI 同时拥有 RAG 知识库、PoC 生成、Foundry fuzz 验证和 EAS 链上认证。GLM-5.1 的长程能力驱动了从漏洞发现到链上证书的完整闭环。**
+核心优势：**自建 MCP 工具链同时拥有 RAG 知识库、PoC 生成、Foundry fuzz 验证和 EAS 链上认证，配合 GLM-5.1 的长程能力驱动从漏洞发现到链上证书的完整闭环。**
 
 ## 路线图
 

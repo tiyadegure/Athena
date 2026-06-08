@@ -14,7 +14,7 @@
 ├── Plamen (244⭐)    = 最全面（多链+RAG+PoC+fuzz），无链上认证
 ├── SolidityGuard(95⭐) = 最多工具集成（9个），无链上认证
 ├── RugProof (7⭐)     = 最多功能，但已删库
-└── AuditAI (我们)     = 唯一同时有 RAG + PoC + Fuzz + 链上认证
+└── 我们的项目       = 自建 MCP 工具链：RAG + PoC + Fuzz + 链上认证
 ```
 
 **核心发现：链上认证几乎是空白。20 个项目里只有 RugProof 有（已删库）。**
@@ -39,10 +39,10 @@
 │  │              MCP 工具层                            │  │
 │  │  slither_mcp     — 静态分析 (Trail of Bits)       │  │
 │  │  aderyn          — 安全扫描 (Cyfrin)              │  │
-│  │  exploit_gen     — PoC 生成 (AuditAI)             │  │
-│  │  concrete_exec   — Foundry fuzz (AuditAI)         │  │
-│  │  knowledge_base  — RAG 查询 (AuditAI)             │  │
-│  │  eas_attest      — 链上认证 (AuditAI)             │  │
+│  │  exploit_gen     — PoC 生成（自建）             │  │
+│  │  concrete_exec   — Foundry fuzz（自建）         │  │
+│  │  knowledge_base  — RAG 查询（自建）             │  │
+│  │  eas_attest      — 链上认证（自建）             │  │
 │  └───────────────────────────────────────────────────┘  │
 │                                                         │
 │  ┌───────────────────────────────────────────────────┐  │
@@ -148,7 +148,7 @@ NFT Certificate（ERC-1155）→ 雅典娜女神 + 审计元数据
 合约：EAS (Sepolia) — 0xC2679fBD37d54388Ce493F1DB75320D236e1815e
 Schema：定义审计结果的结构化数据
   → 合约地址、审计时间、评分、漏洞数量、修复状态
-调用：AuditAI 的 eas_attest.py（已有）
+调用：eas_attest.py（自建）
 产物：attestation UID（链上可查）
 验证：https://sepolia.eas.xyz/attestation/{UID}
 ```
@@ -269,8 +269,8 @@ test-suite/
 ### Phase 1: 搭建 + 跑通（Day 1-2）[用 Claude]
 
 - [ ] 克隆 pashov/skills，安装到 Claude Code
-- [ ] 配置 AuditAI MCP（拆成独立工具，不调 analyze_contract）
-- [ ] 验证：Claude + pashov Skill + AuditAI 工具 能跑通
+- [x] 构建独立 MCP 工具
+- [x] 验证：Claude + pashov Skill + MCP 工具 能跑通
 - [ ] 准备 5 个测试合约 + expected-results.json
 - [ ] Claude 跑一遍完整审计链路（验证流程）
 

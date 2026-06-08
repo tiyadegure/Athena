@@ -11,12 +11,12 @@
 
 核心卖点：
 - **Skill（方法论）**：pashov solidity-auditor — 业界最认可的审计方法论
-- **MCP（工具链）**：从 AuditAI 拆解出的独立工具（slither, PoC, fuzz, RAG, EAS）
+- **MCP（工具链）**：自建 MCP 工具（slither, PoC, fuzz, RAG, EAS）
 - **长程任务**：GLM-5.1 的 200K 上下文 + Interleaved Thinking，驱动 8 步审计闭环
 - **链上认证**：EAS attestation + 雅典娜女神像素 NFT 证书
 
 一句话描述：
-> "在 20 个开源审计项目中，只有 AuditAI 同时拥有 RAG 知识库、PoC 生成、Foundry fuzz 验证和 EAS 链上认证。GLM-5.1 的长程能力驱动了从漏洞发现到链上证书的完整闭环。"
+> "自建 MCP 工具链同时拥有 RAG 知识库、PoC 生成、Foundry fuzz 验证和 EAS 链上认证，配合 GLM-5.1 的长程能力驱动从漏洞发现到链上证书的完整闭环。"
 
 ---
 
@@ -116,21 +116,11 @@ cat ./skills/solidity-auditor/SKILL.md
 - 需要将其转化为 Agent 的 system prompt 或 skill 配置
 - Skill 内容包括：scope → architecture → access control → math → external calls → tokens → gas → centralization → economic → report
 
-#### 1.2 从 AuditAI 拆解工具 MCP
+#### 1.2 构建 MCP 工具
 
-**来源**: https://github.com/Sotatek/AuditAI
+项目自建了一套无状态、可独立调用的审计工具，封装为 MCP 服务：
 
-**问题**: AuditAI 的 `analyze_contract` 是一个完整的 Agent 流水线（内部调用 LLM），不是无状态工具。需要拆解。
-
-**操作**:
-```bash
-# 克隆 AuditAI
-git clone https://github.com/Sotatek/AuditAI /tmp/auditai
-
-# 分析其工具结构
-cat /tmp/auditai/src/tools/*.py
-
-# 需要拆解出的独立工具：
+**工具列表**:
 # 1. slither_runner.py — 运行 Slither 静态分析
 # 2. aderyn_runner.py — 运行 Aderyn 静态分析  
 # 3. poc_generator.py — 生成 PoC 测试代码
@@ -481,7 +471,7 @@ function mintCertificate(
 | 资源 | 链接 | 用途 |
 |------|------|------|
 | pashov/skills | https://github.com/pashov/skills | 审计方法论 |
-| AuditAI | https://github.com/Sotatek/AuditAI | 工具链参考 |
+| EAS Docs | https://docs.attest.sh/ | 链上认证 |
 | Foundry Book | https://book.getfoundry.sh/ | 合约测试框架 |
 | EAS Docs | https://docs.attest.sh/ | 链上认证 |
 | OpenZeppelin | https://www.openzeppelin.com/contracts | ERC-1155 参考 |
@@ -497,7 +487,7 @@ function mintCertificate(
 - [x] 项目规划与技术选型
 - [x] GLM-5.1 技术特征调研
 - [x] 测试方案设计
-- [x] Phase 1：集成 pashov skill + AuditAI 工具 MCP
+- [x] Phase 1：集成 pashov skill + 自建 MCP 工具
 - [x] Phase 2：搭建测试环境（5 个测试合约）
 - [x] Phase 3.1：安装工具链（slither, forge, aderyn）
 - [x] Phase 3.2：验证 MCP 工具

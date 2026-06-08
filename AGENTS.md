@@ -17,7 +17,7 @@
 - GitHub: [pashov/skills](https://github.com/pashov/skills)
 
 ### MCP（工具链）
-从 AuditAI 拆解出的独立工具：
+自建 MCP 工具：
 - `slither` — 静态分析
 - `aderyn` — Rust 重写的静态分析
 - `poC` — PoC 生成
@@ -87,5 +87,5 @@ glm-code/
 
 **Phase 1：集成 Skill 与工具**
 - [ ] 集成 pashov solidity-auditor skill
-- [ ] 从 AuditAI 拆解独立工具 MCP
+- [x] 构建独立 MCP 工具
 - [ ] 配置开发环境

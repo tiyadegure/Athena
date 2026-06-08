@@ -8,7 +8,7 @@
   GLM-5.1 (via Coding Plan)  vs  Claude (via proxy)
 
 变量：只有模型不同
-控制：Skill（pashov）、工具（AuditAI MCP）、测试合约 全部相同
+控制：Skill（pashov）、工具（自建 MCP）、测试合约 全部相同
 ```
 
 ## 测试集
@@ -48,7 +48,7 @@
 |-|---------|--------|
 | 接入方式 | Coding Plan ($10/月) | proxy |
 | Skill | pashov solidity-auditor | 同 |
-| MCP 工具 | AuditAI MCP | 同 |
+| MCP 工具 | 自建 MCP | 同 |
 | 测试合约 | 5 个 | 同 |
 
 ## 产出
