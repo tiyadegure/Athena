@@ -29,3 +29,31 @@ Thumbs.db
 # Temporary files
 tmp/
 temp/
+.audit-*/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Solidity / Foundry
+cache/
+out/
+broadcast/
+artifacts/
+
+# Slither
+slither-report.json
+slither-output/
+
+# Aderyn
+aderyn-report/
+report.json
+
+# ChromaDB
+data/chromadb/
+
+# Forge-Std (installed deps)
+lib/

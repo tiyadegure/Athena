@@ -1,0 +1,42 @@
+{
+  "Reentrancy.sol": {
+    "should_detect": true,
+    "vulnerability_type": "reentrancy",
+    "severity": "critical",
+    "description": "withdraw() sends ETH before updating balances[msg.sender]",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-reentrancy-eth", "slither-reentrancy-events"]
+  },
+  "IntegerOverflow.sol": {
+    "should_detect": true,
+    "vulnerability_type": "integer-overflow",
+    "severity": "high",
+    "description": "Unchecked arithmetic in claimRefund() and batchBid()",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-controlled-delegatecall"]
+  },
+  "AccessControl.sol": {
+    "should_detect": true,
+    "vulnerability_type": "access-control",
+    "severity": "critical",
+    "description": "mint() and burn() are public without access control",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-unprotected-function"]
+  },
+  "FlashLoan.sol": {
+    "should_detect": true,
+    "vulnerability_type": "flash-loan",
+    "severity": "high",
+    "description": "Spot price oracle vulnerable to flash loan manipulation",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-controlled-delegatecall"]
+  },
+  "SafeContract.sol": {
+    "should_detect": false,
+    "vulnerability_type": null,
+    "severity": null,
+    "description": "Properly implemented with ReentrancyGuard, Ownable, and proper state management",
+    "poc_should_pass": false,
+    "expected_detectors": []
+  }
+}

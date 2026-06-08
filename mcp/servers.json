@@ -1,0 +1,51 @@
+{
+  "servers": [
+    {
+      "name": "slither",
+      "command": "python3",
+      "args": ["mcp/tools/slither_runner.py"],
+      "description": "Slither static analysis for Solidity contracts",
+      "env": {}
+    },
+    {
+      "name": "aderyn",
+      "command": "python3",
+      "args": ["mcp/tools/aderyn_runner.py"],
+      "description": "Aderyn static analysis (Rust-based) for Solidity projects",
+      "env": {}
+    },
+    {
+      "name": "poc-generator",
+      "command": "python3",
+      "args": ["mcp/tools/poc_generator.py"],
+      "description": "Generate Foundry PoC exploit tests for vulnerabilities",
+      "env": {}
+    },
+    {
+      "name": "fuzz-runner",
+      "command": "python3",
+      "args": ["mcp/tools/fuzz_runner.py"],
+      "description": "Run Foundry fuzz and invariant tests",
+      "env": {}
+    },
+    {
+      "name": "knowledge-base",
+      "command": "python3",
+      "args": ["mcp/tools/knowledge_base.py"],
+      "description": "Query vulnerability knowledge base (ChromaDB RAG)",
+      "env": {
+        "KNOWLEDGE_PATH": "data/knowledge"
+      }
+    },
+    {
+      "name": "eas-attest",
+      "command": "python3",
+      "args": ["mcp/tools/eas_attest.py"],
+      "description": "Submit EAS attestation on Sepolia testnet",
+      "env": {
+        "SEPOLIA_RPC_URL": "https://sepolia.drpc.org",
+        "EAS_CONTRACT_ADDRESS": "0xC2679fBD37d54388Ce493F1DB75320D236e1815e"
+      }
+    }
+  ]
+}
