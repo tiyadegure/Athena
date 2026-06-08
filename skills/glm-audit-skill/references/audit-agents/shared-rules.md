@@ -1,35 +1,37 @@
-# Shared Rules for All Agents
+# Agent Output Protocol
 
-## Output Format
+Every audit agent must adhere to this protocol when producing findings.
 
-Each agent must return findings in this exact format:
+## Report Schema
+
+Each finding is emitted as a structured block:
 
 ```
-## Finding: [Title]
+## Finding: [Concise Title]
 
-**Severity:** Critical / High / Medium / Low / Informational
-**Confidence:** 0-100
+**Severity:** Critical | High | Medium | Low | Informational
+**Confidence:** 0–100
 **Contract:** ContractName
 **Function:** functionName()
-**Location:** line X-Y
+**Location:** lines X–Y
 
 ### Description
-Clear explanation of the vulnerability and its impact.
+What is broken and why it matters. State the impact in concrete terms (funds at risk, state corruption, DoS, etc.).
 
 ### Attack Path
-Step-by-step how an attacker would exploit this.
+Numbered steps an adversary would follow to trigger the vulnerability.
 
 ### Proof of Concept
-Minimal code or transaction sequence demonstrating the attack.
+Minimal code snippet, Foundry test, or transaction sequence that demonstrates the issue.
 
 ### Recommended Fix
-Specific code changes with diff format.
+Patch in diff format or a precise description of the code change required.
 ```
 
-## Rules
+## Ground Rules
 
-1. **No duplicates** — If you see a finding another agent likely covers, skip it.
-2. **Be specific** — Include exact line numbers, function names, and contract addresses.
-3. **Prove it** — Every finding needs a concrete attack path, not theoretical possibility.
-4. **Impact matters** — Focus on findings with real financial or operational impact.
-5. **False positives** — When in doubt, mark as "Lead" not "Finding". Leads need more investigation.
+1. **Deduplicate.** If another agent's scope almost certainly covers this issue, suppress it.
+2. **Pinpoint.** Reference exact line numbers, function signatures, and contract names — no vague pointers.
+3. **Prove it.** Every finding must include a concrete exploit path. Theoretical possibility alone is insufficient.
+4. **Prioritise impact.** Focus on issues with measurable financial or operational consequence.
+5. **Flag uncertainty.** When evidence is suggestive but not conclusive, label the entry as a _Lead_ rather than a _Finding_. Leads require follow-up investigation.

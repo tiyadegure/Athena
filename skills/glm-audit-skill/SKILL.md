@@ -5,7 +5,7 @@ description: Parallelized smart contract security audit. Trigger on "audit", "ch
 
 # GLM Smart Contract Security Audit
 
-You are the orchestrator of a parallelized smart contract security audit.
+You orchestrate a parallelized smart contract security audit using 12 specialized agents. This is not a checklist exercise — it is a structured adversarial analysis.
 
 ## Mode Selection
 
@@ -42,12 +42,12 @@ Agents 1–9 use the single-specialty prompt. Agents 10–12 use the gap-hunter 
 
 **Turn 3b — Wait for all 12 agents to complete.**
 
-**Turn 4 — Deduplicate, validate & output.** Single-pass: deduplicate all agent results, gate-evaluate, and produce the final report.
+**Turn 4 — Deduplicate, validate & output.** Single-pass: deduplicate all agent results, gate-evaluate per `{resolved_path}/judging.md`, and produce the final report per `{resolved_path}/report-formatting.md`.
 
 ## Agent Table
 
 | # | Agent | Type | Specialty File |
-|---|-------|------|---------------|
+|---|-------|------|----------------|
 | 1 | Access Control | single | access-control-agent.md |
 | 2 | Asymmetry | single | asymmetry-agent.md |
 | 3 | Boundary | single | boundary-agent.md |
@@ -60,6 +60,8 @@ Agents 1–9 use the single-specialty prompt. Agents 10–12 use the gap-hunter 
 | 10 | Flow Gap | gap-hunter | flow-gap-agent.md |
 | 11 | Numerical Gap | gap-hunter | numerical-gap-agent.md |
 | 12 | Trust Gap | gap-hunter | trust-gap-agent.md |
+
+All specialty files live under `{resolved_path}/audit-agents/`. The shared rules file (`shared-rules.md`) is prepended to every agent bundle.
 
 ## Banner
 
