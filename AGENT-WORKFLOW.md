@@ -557,14 +557,15 @@ contract AuditCertificate is ERC1155, Ownable {
     uint256 public constant SILVER = 2;   // B级 - High/Medium
     uint256 public constant BRONZE = 3;   // C级 - Low/Info
 
-    // EAS 合约地址 (Sepolia)
-    address public constant EAS_CONTRACT = 0xC2679fBD37d54388Ce493F1DB75320D236e1815e;
+    // EAS 合约地址 — 通过构造函数注入，不硬编码
+    // 部署时传真实地址，测试时传 MockEAS 地址
+    address public immutable easContract;
 
     // 已使用的 attestation（防重复铸造）
     mapping(bytes32 => bool) public usedAttestations;
 
-    constructor() ERC1155("") Ownable(msg.sender) {
-        // 可选：设置 baseURI
+    constructor(address _eas) ERC1155("") Ownable() {
+        easContract = _eas;
     }
 
     /// @notice 根据 EAS attestation 铸造 NFT
@@ -624,7 +625,7 @@ interface IEAS {
 }
 
 // 在 mintCertificate 中调用
-IEAS eas = IEAS(EAS_CONTRACT);
+IEAS eas = IEAS(easContract);  // 使用构造函数注入的地址，不是硬编码的常量
 require(eas.isAttestationValid(attestationUID), "Invalid attestation");
 IEAS.Attestation memory att = eas.getAttestation(attestationUID);
 
@@ -651,11 +652,12 @@ IEAS.Attestation memory att = eas.getAttestation(attestationUID);
 
 ```solidity
 // 测试用例：
-// 1. test_mint_gold — 模拟 Critical attestation，铸造 A 级 NFT
-// 2. test_mint_silver — 模拟 High attestation，铸造 B 级 NFT
-// 3. test_mint_bronze — 模拟 Low attestation，铸造 C 级 NFT
+// 测试时部署 MockEAS，传入 constructor：new AuditCertificate(address(mockEAS))
+// 1. test_mint_gold — 模拟 Critical attestation (score=1)，铸造 A 级 NFT
+// 2. test_mint_silver — 模拟 High attestation (score=3)，铸造 B 级 NFT
+// 3. test_mint_bronze — 模拟 Low attestation (score=7)，铸造 C 级 NFT
 // 4. test_cannot_double_mint — 同一 attestation 不能铸造两次
-// 5. test_tokenuri_contains_svg — tokenURI 返回包含 SVG 的 JSON
+// 5. test_tokenuri_contains_svg — uri() 返回包含 SVG 的 JSON
 // 6. test_svg_colors_differ — 三个等级的 SVG 配色不同
 ```
 
@@ -674,7 +676,9 @@ echo '@openzeppelin/=lib/openzeppelin-contracts/' > remappings.txt
 ```bash
 # 1. 设置环境变量
 export SEPOLIA_RPC_URL="https://sepolia.drpc.org"
-export PRIVATE_KEY="your...n# 2. 部署
+export PRIVATE_KEY="your...n# 2. 部署（传入真实 EAS 地址）
+# DeployCertificate.s.sol 中：
+# new AuditCertificate(0xC2679fBD37d54388Ce493F1DB75320D236e1815e)
 forge script script/DeployCertificate.s.sol \
     --rpc-url $SEPOLIA_RPC_URL \
     --broadcast \
