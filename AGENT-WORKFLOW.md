@@ -528,17 +528,152 @@ function mintCertificate(
 - 映射到对应的 tokenId
 - 铸造给指定地址
 
-### 9.2 链上 SVG 图像
+### 9.2 链上 Generative SVG — uPEG 风格
 
-图像不存储 IPFS，直接在合约中生成 SVG，保证永久可用。
+**核心理念**：每个 NFT 都是独一无二的雅典娜，通过 trait 随机组合生成，类似 Uniswap v4 Hooks 的 uPEG 像素独角兽项目。
 
-**设计风格**: uPEG 像素独角兽底图 + 雅典娜女神形象
-- 像素风（16x16 或 32x32 网格）
-- 三个等级用不同配色区分：金色 (#FFD700) / 银色 (#C0C0C0) / 铜色 (#CD7F32)
-- 背景：深色 (#1a1a2e)
-- 雅典娜元素：头盔、盾牌、长矛
+**不是简单换色，而是图层叠加系统**：每个 trait 是一个独立的 SVG 图层，链上根据 token 的确定性哈希选择 trait，然后拼接成最终 SVG。
 
-**实现方式**: `tokenURI()` 返回 `data:application/json;base64,...`，JSON 中包含 SVG 图像的 base64 编码。
+#### Trait 维度
+
+| 维度 | 选项数 | 选项内容 |
+|------|--------|---------|
+| 🪖 头盔样式 | 5 | 羽饰战盔 / 双角战盔 / 金冠冕 / 战神头巾 / 雅典娜经典盔 |
+| 🛡️ 盾牌图案 | 5 | 猫头鹰 / 蛇发女妖 / 橄榄枝 / 闪电 / 空白圆盾 |
+| 🎨 主色调 | 8 | 金 / 银 / 铜 / 紫 / 绿 / 蓝 / 红 / 黑 |
+| ⚔️ 武器 | 3 | 长矛 / 弓箭 / 剑+鞘 |
+| 🌌 背景 | 5 | 星空 / 火焰 / 海洋 / 森林 / 极光 |
+| 👁️ 眼睛 | 4 | 蓝 / 绿 / 金 / 红（觉醒） |
+
+**组合数**: 5 × 5 × 8 × 3 × 5 × 4 = **12,000 种独特雅典娜**
+
+#### Trait 确定性选择
+
+每个 token 铸造时，用 `keccak256(abi.encodePacked(attestationUID, block.timestamp))` 生成种子，确定性地选择每个维度的 trait：
+
+```solidity
+function _selectTraits(bytes32 attestationUID) internal view returns (
+    uint8 helmet,    // 0-4
+    uint8 shield,    // 0-4
+    uint8 color,     // 0-7
+    uint8 weapon,    // 0-2
+    uint8 background,// 0-4
+    uint8 eyes       // 0-3
+) {
+    bytes32 seed = keccak256(abi.encodePacked(attestationUID, block.timestamp));
+    helmet     = uint8(uint256(keccak256(abi.encodePacked(seed, "helmet"))) % 5);
+    shield     = uint8(uint256(keccak256(abi.encodePacked(seed, "shield"))) % 5);
+    color      = uint8(uint256(keccak256(abi.encodePacked(seed, "color"))) % 8);
+    weapon     = uint8(uint256(abi.encodePacked(seed, "weapon"))) % 3);
+    background = uint8(uint256(abi.encodePacked(seed, "bg"))) % 5);
+    eyes       = uint8(uint256(abi.encodePacked(seed, "eyes"))) % 4);
+}
+```
+
+#### SVG 图层系统
+
+最终 SVG = 背景层 + 身体层 + 头盔层 + 盾牌层 + 武器层 + 眼睛层 + 文字层
+
+每个图层是一个函数，接收颜色参数，返回 SVG 片段：
+
+```solidity
+function _svgBackground(uint8 bg, string memory primary) internal pure returns (string memory) {
+    if (bg == 0) return '<rect .../>星空效果';
+    if (bg == 1) return '<rect .../>火焰效果';
+    // ... 5 种背景
+}
+
+function _svgHelmet(uint8 style, string memory primary, string memory accent) internal pure returns (string memory) {
+    if (style == 0) return '羽饰战盔 SVG 片段';
+    if (style == 1) return '双角战盔 SVG 片段';
+    // ... 5 种头盔
+}
+
+// 盾牌、武器、眼睛同理
+```
+
+#### 主色调映射
+
+8 种主色调，每种有 primary / secondary / accent 三个色值：
+
+```solidity
+function _colorScheme(uint8 colorId) internal pure returns (
+    string memory primary, string memory secondary, string memory accent
+) {
+    if (colorId == 0) return ("#FFD700", "#B8860B", "#FFA500"); // 金
+    if (colorId == 1) return ("#C0C0C0", "#808080", "#A9A9A9"); // 银
+    if (colorId == 2) return ("#CD7F32", "#8B4513", "#D2691E"); // 铜
+    if (colorId == 3) return ("#9B59B6", "#6C3483", "#BB8FCE"); // 紫
+    if (colorId == 4) return ("#2ECC71", "#1E8449", "#58D68D"); // 绿
+    if (colorId == 5) return ("#3498DB", "#1F618D", "#5DADE2"); // 蓝
+    if (colorId == 6) return ("#E74C3C", "#922B21", "#F1948A"); // 红
+    if (colorId == 7) return ("#2C3E50", "#1A252F", "#566573"); // 黑
+}
+```
+
+#### 元数据结构
+
+`uri()` 返回的 JSON 中，attributes 数组包含所有 trait：
+
+```json
+{
+  "name": "Athena #1234",
+  "description": "GLM Audit Certificate - Gold Tier",
+  "image": "data:image/svg+xml;base64,...",
+  "attributes": [
+    {"trait_type": "Tier", "value": "Gold"},
+    {"trait_type": "Helmet", "value": "Plumed War Helm"},
+    {"trait_type": "Shield", "value": "Owl"},
+    {"trait_type": "Color", "value": "Gold"},
+    {"trait_type": "Weapon", "value": "Spear"},
+    {"trait_type": "Background", "value": "Starry Sky"},
+    {"trait_type": "Eyes", "value": "Golden"},
+    {"trait_type": "Rarity Score", "value": "87"}
+  ]
+}
+```
+
+#### 稀有度计算
+
+某些 trait 组合比其他更稀有。可以用简单的加权分数：
+
+```solidity
+function _rarityScore(uint8 helmet, uint8 shield, uint8 color, uint8 weapon, uint8 bg, uint8 eyes) 
+    internal pure returns (uint256) 
+{
+    uint256 score = 0;
+    // 红眼最稀有 (4种中1种)
+    if (eyes == 3) score += 30;  // 红眼觉醒
+    // 黑色主题较稀有 (8种中1种)
+    if (color == 7) score += 25;
+    // 枪+蛇发组合加分
+    if (weapon == 1 && shield == 1) score += 15;
+    // 极光背景较稀有
+    if (bg == 4) score += 20;
+    // ... 其他组合
+    return score;
+}
+```
+
+#### 关键实现约束
+
+1. **链上 100%** — 不依赖 IPFS/Arweave，SVG 完全在合约中拼接
+2. **Gas 优化** — SVG 字符串用 `abi.encodePacked` 拼接，避免过多 string 操作
+3. **确定性** — 同一 attestationUID 永远生成同一个雅典娜（trait 存在链上）
+4. **Tier 影响稀有度** — Gold tier 的基础稀有度高于 Silver/Bronze
+5. **每个图层是独立函数** — 方便单独修改和测试
+
+#### 实现步骤
+
+1. 设计 5×5×8×3×5×4 个 SVG 图层片段（像素风，10x10 像素网格）
+2. 实现 `_selectTraits()` — 确定性 trait 选择
+3. 实现 `_colorScheme()` — 8 色映射
+4. 实现 6 个图层函数（`_svgBackground`, `_svgHelmet`, `_svgShield`, `_svgWeapon`, `_svgEyes`, `_svgBody`）
+5. 实现 `_generateAthenaSVG()` — 组合所有图层
+6. 实现 `_rarityScore()` — 稀有度计算
+7. 更新 `uri()` — 返回完整 attributes
+8. 存储 trait 数据到链上（`mapping(bytes32 => TraitData)`），支持后续查询
+9. 编写测试：验证不同 attestationUID 生成不同雅典娜，同一 UID 生成相同雅典娜
 
 ### 9.3 合约骨架
 
@@ -687,10 +822,13 @@ forge script script/DeployCertificate.s.sol \
 
 ### 9.9 完成标准
 
-- [x] 合约编译通过（`forge build`）
-- [x] 所有测试通过（`forge test`）
-- [x] 三个等级的 SVG 图像各不相同且可辨识
-- [ ] EAS 验证逻辑正确（能拒绝无效 attestation）— 需要 Sepolia fork 测试
-- [x] 防重复铸造生效
-- [ ] 部署到 Sepolia 并可交互 — 需要 PRIVATE_KEY
+- [ ] 合约编译通过（`forge build`）
+- [ ] 所有测试通过（`forge test`）
+- [ ] 12,000 种组合 — 不同 attestationUID 生成不同雅典娜
+- [ ] 每个 trait 维度至少 3 种有明显视觉差异的 SVG 图层
+- [ ] 稀有度计算正确
+- [ ] EAS 验证逻辑正确（能拒绝无效 attestation）
+- [ ] 防重复铸造生效
+- [ ] uri() 返回完整 JSON metadata（含所有 trait attributes）
+- [ ] 部署到 Sepolia 并可交互
 - [ ] Phase 4：GLM-5.1 评测 + Demo 录屏
