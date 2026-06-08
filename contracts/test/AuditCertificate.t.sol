@@ -6,7 +6,6 @@ import "../AuditCertificate.sol";
 
 /// @notice Mock EAS for testing
 contract MockEAS {
-    // Use the same Attestation struct from AuditCertificate.sol
     mapping(bytes32 => Attestation) public attestations;
     mapping(bytes32 => bool) public valid;
 
@@ -54,62 +53,156 @@ contract AuditCertificateTest is Test {
     address public user2 = address(0x2);
     address public contractAddr = address(0xdead);
 
-    // Attestation UIDs
-    bytes32 public attUID_Critical = bytes32(uint256(1));
-    bytes32 public attUID_High = bytes32(uint256(2));
-    bytes32 public attUID_Medium = bytes32(uint256(3));
-    bytes32 public attUID_Low = bytes32(uint256(4));
-    bytes32 public attUID_Safe = bytes32(uint256(5));
+    // Multiple attestation UIDs to test different trait combinations
+    bytes32 public attUID_1 = keccak256("attestation1");
+    bytes32 public attUID_2 = keccak256("attestation2");
+    bytes32 public attUID_3 = keccak256("attestation3");
+    bytes32 public attUID_4 = keccak256("attestation4");
+    bytes32 public attUID_5 = keccak256("attestation5");
 
     function setUp() public {
-        // Deploy mock EAS
         mockEAS = new MockEAS();
-
-        // Deploy certificate with mock EAS address (constructor injection)
         certificate = new AuditCertificate(address(mockEAS));
 
-        // Create test attestations
-        // Critical (auditScore=1) → Gold
-        mockEAS.createAttestation(attUID_Critical, user1, 1, 3, "full", uint64(block.timestamp), contractAddr);
-        // High (auditScore=3) → Silver
-        mockEAS.createAttestation(attUID_High, user1, 3, 2, "full", uint64(block.timestamp), contractAddr);
-        // Medium (auditScore=5) → Silver
-        mockEAS.createAttestation(attUID_Medium, user2, 5, 1, "full", uint64(block.timestamp), contractAddr);
-        // Low (auditScore=7) → Bronze
-        mockEAS.createAttestation(attUID_Low, user2, 7, 1, "quick", uint64(block.timestamp), contractAddr);
-        // Safe (auditScore=10) → Bronze
-        mockEAS.createAttestation(attUID_Safe, user1, 10, 0, "quick", uint64(block.timestamp), contractAddr);
+        // Create test attestations with different scores
+        mockEAS.createAttestation(attUID_1, user1, 1, 3, "full", uint64(block.timestamp), contractAddr);  // Critical → Gold
+        mockEAS.createAttestation(attUID_2, user1, 3, 2, "full", uint64(block.timestamp), contractAddr);  // High → Silver
+        mockEAS.createAttestation(attUID_3, user2, 5, 1, "full", uint64(block.timestamp), contractAddr);  // Medium → Silver
+        mockEAS.createAttestation(attUID_4, user2, 7, 1, "quick", uint64(block.timestamp), contractAddr); // Low → Bronze
+        mockEAS.createAttestation(attUID_5, user1, 10, 0, "quick", uint64(block.timestamp), contractAddr); // Safe → Bronze
     }
 
-    // ============ Test Cases ============
+    // ============ Basic Tests ============
 
-    /// @notice Test: Critical attestation mints Gold NFT
+    function test_eas_address() public {
+        assertEq(certificate.easContract(), address(mockEAS));
+    }
+
+    function test_ownership() public {
+        assertEq(certificate.owner(), address(this));
+    }
+
+    function test_token_names() public {
+        assertTrue(keccak256(bytes(certificate.name(1))) == keccak256("Audit Certificate - Gold"));
+        assertTrue(keccak256(bytes(certificate.name(2))) == keccak256("Audit Certificate - Silver"));
+        assertTrue(keccak256(bytes(certificate.name(3))) == keccak256("Audit Certificate - Bronze"));
+    }
+
+    // ============ Minting Tests ============
+
     function test_mint_gold() public {
-        string memory uri = certificate.uri(1);
-        assertTrue(bytes(uri).length > 0, "URI should not be empty");
-        // URI should be valid base64 JSON
-        _assertContains(uri, "data:application/json;base64,");
+        certificate.mintCertificate(user1, attUID_1);
+        assertEq(certificate.balanceOf(user1, 1), 1);
     }
 
-    /// @notice Test: High attestation mints Silver NFT
     function test_mint_silver() public {
-        string memory uri = certificate.uri(2);
-        assertTrue(bytes(uri).length > 0, "URI should not be empty");
-        _assertContains(uri, "data:application/json;base64,");
+        certificate.mintCertificate(user1, attUID_2);
+        assertEq(certificate.balanceOf(user1, 2), 1);
     }
 
-    /// @notice Test: Low attestation mints Bronze NFT
     function test_mint_bronze() public {
-        string memory uri = certificate.uri(3);
-        assertTrue(bytes(uri).length > 0, "URI should not be empty");
-        _assertContains(uri, "data:application/json;base64,");
+        certificate.mintCertificate(user2, attUID_4);
+        assertEq(certificate.balanceOf(user2, 3), 1);
     }
 
-    /// @notice Test: Invalid token ID reverts
-    function test_invalid_tokenid_reverts() public {
-        // Should revert with "Invalid token ID"
+    function test_cannot_double_mint() public {
+        certificate.mintCertificate(user1, attUID_1);
+        
         bool didRevert = false;
-        try certificate.uri(4) {
+        try certificate.mintCertificate(user2, attUID_1) {
+            // Should not reach here
+        } catch {
+            didRevert = true;
+        }
+        assertTrue(didRevert, "Should revert on double mint");
+    }
+
+    function test_invalid_recipient_reverts() public {
+        bool didRevert = false;
+        try certificate.mintCertificate(address(0), attUID_1) {
+            // Should not reach here
+        } catch {
+            didRevert = true;
+        }
+        assertTrue(didRevert, "Should revert for zero address");
+    }
+
+    // ============ Metadata Tests ============
+
+    function test_generate_metadata_gold() public {
+        string memory metadata = certificate.generateMetadata(attUID_1, 1);
+        assertTrue(bytes(metadata).length > 0, "Metadata should not be empty");
+        _assertContains(metadata, "data:application/json;base64,");
+    }
+
+    function test_generate_metadata_silver() public {
+        string memory metadata = certificate.generateMetadata(attUID_2, 2);
+        assertTrue(bytes(metadata).length > 0, "Metadata should not be empty");
+        _assertContains(metadata, "data:application/json;base64,");
+    }
+
+    function test_generate_metadata_bronze() public {
+        string memory metadata = certificate.generateMetadata(attUID_4, 3);
+        assertTrue(bytes(metadata).length > 0, "Metadata should not be empty");
+        _assertContains(metadata, "data:application/json;base64,");
+    }
+
+    // ============ Trait Combination Tests ============
+
+    function test_different_uids_different_metadata() public {
+        string memory meta1 = certificate.generateMetadata(attUID_1, 1);
+        string memory meta2 = certificate.generateMetadata(attUID_2, 1);
+        string memory meta3 = certificate.generateMetadata(attUID_3, 1);
+        
+        // All should be different (different UIDs → different traits)
+        assertTrue(keccak256(bytes(meta1)) != keccak256(bytes(meta2)), "UID1 != UID2");
+        assertTrue(keccak256(bytes(meta2)) != keccak256(bytes(meta3)), "UID2 != UID3");
+        assertTrue(keccak256(bytes(meta1)) != keccak256(bytes(meta3)), "UID1 != UID3");
+    }
+
+    function test_same_uid_same_metadata() public {
+        string memory meta1 = certificate.generateMetadata(attUID_1, 1);
+        string memory meta2 = certificate.generateMetadata(attUID_1, 1);
+        
+        // Same UID should always produce same metadata (deterministic)
+        assertTrue(keccak256(bytes(meta1)) == keccak256(bytes(meta2)));
+    }
+
+    function test_different_tiers_different_metadata() public {
+        string memory metaGold = certificate.generateMetadata(attUID_1, 1);
+        string memory metaSilver = certificate.generateMetadata(attUID_1, 2);
+        string memory metaBronze = certificate.generateMetadata(attUID_1, 3);
+        
+        // Same UID but different tiers should produce different metadata
+        assertTrue(keccak256(bytes(metaGold)) != keccak256(bytes(metaSilver)), "Gold != Silver");
+        assertTrue(keccak256(bytes(metaSilver)) != keccak256(bytes(metaBronze)), "Silver != Bronze");
+        assertTrue(keccak256(bytes(metaGold)) != keccak256(bytes(metaBronze)), "Gold != Bronze");
+    }
+
+    // ============ Combination Count Tests ============
+
+    function test_combinations_per_tier() public {
+        uint256 combos = certificate.getCombinationsPerTier();
+        // 3×3×3×3×3×4×3×3 = 8,748
+        assertEq(combos, 8748);
+    }
+
+    function test_total_combinations() public {
+        uint256 total = certificate.getTotalCombinations();
+        // 8,748 × 3 = 26,244
+        assertEq(total, 26244);
+    }
+
+    function test_exceeds_12000_requirement() public {
+        uint256 total = certificate.getTotalCombinations();
+        assertTrue(total >= 12000, "Should have at least 12,000 combinations");
+    }
+
+    // ============ Invalid Token ID Tests ============
+
+    function test_invalid_tokenid_reverts() public {
+        bool didRevert = false;
+        try certificate.generateMetadata(attUID_1, 4) {
             // Should not reach here
         } catch {
             didRevert = true;
@@ -117,86 +210,40 @@ contract AuditCertificateTest is Test {
         assertTrue(didRevert, "Should revert for invalid token ID");
     }
 
-    /// @notice Test: Token URIs are different for each tier
-    function test_tokenuri_differ() public {
-        string memory uriGold = certificate.uri(1);
-        string memory uriSilver = certificate.uri(2);
-        string memory uriBronze = certificate.uri(3);
+    // ============ EAS Validation Tests ============
 
-        // All should be different
-        assertTrue(keccak256(bytes(uriGold)) != keccak256(bytes(uriSilver)), "Gold != Silver");
-        assertTrue(keccak256(bytes(uriSilver)) != keccak256(bytes(uriBronze)), "Silver != Bronze");
-        assertTrue(keccak256(bytes(uriGold)) != keccak256(bytes(uriBronze)), "Gold != Bronze");
-    }
-
-    /// @notice Test: SVG colors are embedded in URI
-    function test_svg_colors() public {
-        // URIs should contain base64-encoded SVG with colors
-        // We can't directly check for color codes in base64, but we can verify
-        // that different URIs are generated for different tiers
-        string memory uriGold = certificate.uri(1);
-        string memory uriSilver = certificate.uri(2);
-        string memory uriBronze = certificate.uri(3);
-
-        // All should be valid base64 JSON URIs
-        _assertContains(uriGold, "data:application/json;base64,");
-        _assertContains(uriSilver, "data:application/json;base64,");
-        _assertContains(uriBronze, "data:application/json;base64,");
-        
-        // All should have different content (different colors)
-        assertTrue(keccak256(bytes(uriGold)) != keccak256(bytes(uriSilver)), "Gold != Silver");
-        assertTrue(keccak256(bytes(uriSilver)) != keccak256(bytes(uriBronze)), "Silver != Bronze");
-    }
-
-    /// @notice Test: URI format is valid base64 JSON
-    function test_uri_format() public {
-        string memory uri = certificate.uri(1);
-        // Should start with data:application/json;base64,
-        _assertContains(uri, "data:application/json;base64,");
-    }
-
-    /// @notice Test: Contract is Ownable
-    function test_ownership() public {
-        assertEq(certificate.owner(), address(this));
-    }
-
-    /// @notice Test: EAS address is set correctly
-    function test_eas_address() public {
-        assertEq(certificate.easContract(), address(mockEAS));
-    }
-
-    /// @notice Test: Mint Gold NFT via mock EAS attestation
-    function test_mint_gold_via_eas() public {
-        // attUID_Critical has score=1 (Critical) → should mint Gold (tokenId=1)
-        certificate.mintCertificate(user1, attUID_Critical);
-        assertEq(certificate.balanceOf(user1, 1), 1);
-    }
-
-    /// @notice Test: Mint Silver NFT via mock EAS attestation
-    function test_mint_silver_via_eas() public {
-        // attUID_High has score=3 (High) → should mint Silver (tokenId=2)
-        certificate.mintCertificate(user1, attUID_High);
-        assertEq(certificate.balanceOf(user1, 2), 1);
-    }
-
-    /// @notice Test: Mint Bronze NFT via mock EAS attestation
-    function test_mint_bronze_via_eas() public {
-        // attUID_Low has score=7 (Low) → should mint Bronze (tokenId=3)
-        certificate.mintCertificate(user2, attUID_Low);
-        assertEq(certificate.balanceOf(user2, 3), 1);
-    }
-
-    /// @notice Test: Cannot double mint same attestation
-    function test_cannot_double_mint() public {
-        certificate.mintCertificate(user1, attUID_Critical);
+    function test_invalid_attestation_reverts() public {
+        bytes32 invalidUID = keccak256("invalid");
         
         bool didRevert = false;
-        try certificate.mintCertificate(user2, attUID_Critical) {
+        try certificate.mintCertificate(user1, invalidUID) {
             // Should not reach here
         } catch {
             didRevert = true;
         }
-        assertTrue(didRevert, "Should revert on double mint");
+        assertTrue(didRevert, "Should revert for invalid attestation");
+    }
+
+    function test_zero_uid_reverts() public {
+        bool didRevert = false;
+        try certificate.mintCertificate(user1, bytes32(0)) {
+            // Should not reach here
+        } catch {
+            didRevert = true;
+        }
+        assertTrue(didRevert, "Should revert for zero UID");
+    }
+
+    // ============ Audit Record Tests ============
+
+    function test_audit_record_stored() public {
+        certificate.mintCertificate(user1, attUID_1);
+        
+        // Verify attestation is marked as used
+        assertTrue(certificate.isAttestationUsed(attUID_1), "Attestation should be marked used");
+        
+        // Verify balance
+        assertEq(certificate.balanceOf(user1, 1), 1);
     }
 
     // ============ Helpers ============
