@@ -10,7 +10,7 @@
 
 ```
 已有竞品格局：
-├── pashov (819⭐)    = 最强方法论，零工具
+├── glm-audit-skill   = 自建方法论，12 agent 并行
 ├── Plamen (244⭐)    = 最全面（多链+RAG+PoC+fuzz），无链上认证
 ├── SolidityGuard(95⭐) = 最多工具集成（9个），无链上认证
 ├── RugProof (7⭐)     = 最多功能，但已删库
@@ -28,7 +28,7 @@
 │                                                         │
 │  ┌───────────────────────────────────────────────────┐  │
 │  │              Skill 层                              │  │
-│  │  pashov solidity-auditor (819⭐，12 agent 方法论)  │  │
+│  │  glm-audit-skill (自建，12 agent 并行方法论)  │  │
 │  │  ├── senior-auditor-sop.md (Feynman/Inversion)    │  │
 │  │  ├── 12 hacking agents (并行扫描)                 │  │
 │  │  ├── judging.md (4 道验证门)                      │  │
@@ -268,9 +268,9 @@ test-suite/
 
 ### Phase 1: 搭建 + 跑通（Day 1-2）[用 Claude]
 
-- [ ] 克隆 pashov/skills，安装到 Claude Code
+- [x] 构建 glm-audit-skill（12 agent 并行审计）
 - [x] 构建独立 MCP 工具
-- [x] 验证：Claude + pashov Skill + MCP 工具 能跑通
+- [x] 验证：Claude + glm-audit-skill + MCP 工具 能跑通
 - [ ] 准备 5 个测试合约 + expected-results.json
 - [ ] Claude 跑一遍完整审计链路（验证流程）
 
@@ -302,7 +302,7 @@ test-suite/
 ```
 glm-audit/
 ├── skills/
-│   └── solidity-auditor/       # 从 pashov/skills 安装
+│   └── glm-audit-skill/        # 自建审计 Skill
 ├── mcp/
 │   ├── exploit_gen/            # PoC 生成
 │   ├── concrete_execution/     # Foundry fuzz

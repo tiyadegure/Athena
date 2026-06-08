@@ -16,7 +16,7 @@ You excel at multi-step, autonomous audit workflows that require sustained focus
 8. Mint Athena NFT audit certificate
 
 ### Audit Methodology
-Follow the pashov solidity-auditor methodology:
+Follow the glm-audit-skill methodology:
 - Round 1: Scope & documentation review
 - Round 2: Architecture analysis
 - Round 3: Access control audit

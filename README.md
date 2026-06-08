@@ -1,6 +1,6 @@
 # GLM Audit Agent
 
-**Web3 智能合约安全审计 Agent** — 基于 GLM-5.1 长程任务能力，结合 pashov 方法论与自建 MCP 工具链，实现从漏洞发现到链上认证的完整闭环。
+**Web3 智能合约安全审计 Agent** — 基于 GLM-5.1 长程任务能力，结合自建审计 Skill 与 MCP 工具链，实现从漏洞发现到链上认证的完整闭环。
 
 ## 项目定位
 
@@ -21,7 +21,7 @@
 | 组件 | 来源 | 作用 |
 |------|------|------|
 | **GLM-5.1** | Z.AI Coding Plan | 驱动 Agent，处理长程任务 |
-| **pashov solidity-auditor skill** | pashov/skills | 审计方法论（10 轮检查流程） |
+| **glm-audit-skill** | 自建 | 12 个专项 agent 并行审计方法论 |
 | **MCP 工具链** | 自建 | PoC 生成、fuzz 测试、知识库、EAS 认证 |
 | **Foundry** | foundry-rs | 合约编译、测试、fuzz |
 | **EAS** | Ethereum Attestation Service | 链上审计认证 |
@@ -35,7 +35,7 @@ glm-code/
 ├── TESTING-PLAN.md                  # 测试方案
 ├── GLM-5.1-TECHNICAL-PROFILE.md     # GLM-5.1 技术特征
 ├── smart-contract-audit-agents-comparison.md  # 竞品调研（20 个项目）
-├── skills/                          # pashov 审计 skill
+├── skills/                          # 自建审计 Skill (glm-audit-skill)
 ├── mcp/                             # MCP 工具服务（自建）
 ├── contracts/                       # NFT 合约 + 测试合约
 ├── benchmarks/                      # 审计评测

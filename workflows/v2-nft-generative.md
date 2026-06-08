@@ -51,29 +51,29 @@
 - `contracts/test-cases/*` — 测试合约不变
 - `skills/glm-audit-skill/*` — Skill 不变（已重命名）
 
-### 3.2 Skill 目录结构（已重命名）
+### 3.2 Skill 目录结构（已重命名为自建）
 
 ```
 skills/glm-audit-skill/
-├── SKILL.md                              # 主 Skill 文件
+├── SKILL.md                              # 主 Skill 文件（自建，12 agent 并行审计编排）
 ├── references/
-│   ├── audit-agents/                     # 12 个专项审计 agent（原 hacking-agents）
-│   │   ├── shared-rules.md
-│   │   ├── access-control-agent.md
-│   │   ├── asymmetry-agent.md
-│   │   ├── boundary-agent.md
-│   │   ├── economic-security-agent.md
-│   │   ├── execution-trace-agent.md
-│   │   ├── first-principles-agent.md
-│   │   ├── flow-gap-agent.md
-│   │   ├── invariant-agent.md
-│   │   ├── math-precision-agent.md
-│   │   ├── numerical-gap-agent.md
-│   │   ├── periphery-agent.md
-│   │   └── trust-gap-agent.md
-│   ├── judging.md
-│   ├── report-formatting.md
-│   └── senior-auditor-sop.md
+│   ├── audit-agents/                     # 12 个专项审计 agent
+│   │   ├── shared-rules.md               # 所有 agent 共享的输出格式和规则
+│   │   ├── access-control-agent.md       # 权限控制审计
+│   │   ├── asymmetry-agent.md            # 非对称风险分析
+│   │   ├── boundary-agent.md             # 边界条件审计
+│   │   ├── economic-security-agent.md    # 经济攻击向量
+│   │   ├── execution-trace-agent.md      # 调用流和状态变更
+│   │   ├── first-principles-agent.md     # 基础设计缺陷
+│   │   ├── flow-gap-agent.md             # 控制流/状态流遗漏
+│   │   ├── invariant-agent.md            # 不变量违反
+│   │   ├── math-precision-agent.md       # 算术精度 bug
+│   │   ├── numerical-gap-agent.md        # 数值精度遗漏
+│   │   ├── periphery-agent.md            # 外围合约交互风险
+│   │   └── trust-gap-agent.md            # 信任假设违反
+│   ├── judging.md                        # 发现验证（4 道门控）
+│   ├── report-formatting.md              # 报告格式规范
+│   └── senior-auditor-sop.md             # 高级审计师思维模式
 ```
 
 ### 3.3 Generative Trait 系统

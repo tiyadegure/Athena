@@ -12,9 +12,8 @@
 ## 技术架构
 
 ### Skill（方法论）
-- **pashov solidity-auditor** — 业界最认可的审计方法论
+- **glm-audit-skill** — 自建 12 agent 并行审计方法论
 - 10 轮检查流程：scope → architecture → access control → math → ... → report
-- GitHub: [pashov/skills](https://github.com/pashov/skills)
 
 ### MCP（工具链）
 自建 MCP 工具：
@@ -57,7 +56,7 @@ glm-code/
 ├── TESTING-PLAN.md                  # 测试方案
 ├── GLM-5.1-TECHNICAL-PROFILE.md     # GLM-5.1 技术特征
 ├── smart-contract-audit-agents-comparison.md  # 竞品调研
-├── skills/                          # pashov 审计 skill
+├── skills/                          # 自建审计 Skill (glm-audit-skill)
 ├── mcp/                             # 工具 MCP 服务
 ├── contracts/                       # 合约（NFT + 测试用例）
 ├── benchmarks/                      # 审计评测
@@ -86,6 +85,6 @@ glm-code/
 ## 当前阶段
 
 **Phase 1：集成 Skill 与工具**
-- [ ] 集成 pashov solidity-auditor skill
+- [x] 构建 glm-audit-skill
 - [x] 构建独立 MCP 工具
 - [ ] 配置开发环境
