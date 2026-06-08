@@ -1,9 +1,0 @@
-{
-  "packages": [
-    "npm:pi-mcp-adapter",
-    "npm:@juicesharp/rpiv-todo",
-    "npm:context-mode",
-    "https://github.com/davebcn87/pi-autoresearch"
-  ],
-  "extensions": [".pi/extensions/search-before-write.ts"]
-}
