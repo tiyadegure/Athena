@@ -499,5 +499,7 @@ function mintCertificate(
 - [x] 测试方案设计
 - [x] Phase 1：集成 pashov skill + AuditAI 工具 MCP
 - [x] Phase 2：搭建测试环境（5 个测试合约）
-- [ ] Phase 3：端到端调试（Claude 驱动）
+- [x] Phase 3.1：安装工具链（slither 0.11.5, forge 1.7.1, aderyn 0.6.8）
+- [x] Phase 3.2：验证 MCP 工具（slither_runner, fuzz_runner 已测试通过）
+- [ ] Phase 3.3：端到端调试（用 Claude 跑通完整审计链路）
 - [ ] Phase 4：GLM-5.1 评测 + Demo 录屏
