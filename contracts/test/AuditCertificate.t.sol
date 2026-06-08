@@ -65,9 +65,8 @@ contract AuditCertificateTest is Test {
         // Deploy mock EAS
         mockEAS = new MockEAS();
 
-        // Deploy certificate (we need to override EAS_CONTRACT address)
-        // For testing, we'll deploy a testable version
-        certificate = new AuditCertificate();
+        // Deploy certificate with mock EAS address (constructor injection)
+        certificate = new AuditCertificate(address(mockEAS));
 
         // Create test attestations
         // Critical (auditScore=1) → Gold
@@ -159,6 +158,45 @@ contract AuditCertificateTest is Test {
     /// @notice Test: Contract is Ownable
     function test_ownership() public {
         assertEq(certificate.owner(), address(this));
+    }
+
+    /// @notice Test: EAS address is set correctly
+    function test_eas_address() public {
+        assertEq(certificate.easContract(), address(mockEAS));
+    }
+
+    /// @notice Test: Mint Gold NFT via mock EAS attestation
+    function test_mint_gold_via_eas() public {
+        // attUID_Critical has score=1 (Critical) → should mint Gold (tokenId=1)
+        certificate.mintCertificate(user1, attUID_Critical);
+        assertEq(certificate.balanceOf(user1, 1), 1);
+    }
+
+    /// @notice Test: Mint Silver NFT via mock EAS attestation
+    function test_mint_silver_via_eas() public {
+        // attUID_High has score=3 (High) → should mint Silver (tokenId=2)
+        certificate.mintCertificate(user1, attUID_High);
+        assertEq(certificate.balanceOf(user1, 2), 1);
+    }
+
+    /// @notice Test: Mint Bronze NFT via mock EAS attestation
+    function test_mint_bronze_via_eas() public {
+        // attUID_Low has score=7 (Low) → should mint Bronze (tokenId=3)
+        certificate.mintCertificate(user2, attUID_Low);
+        assertEq(certificate.balanceOf(user2, 3), 1);
+    }
+
+    /// @notice Test: Cannot double mint same attestation
+    function test_cannot_double_mint() public {
+        certificate.mintCertificate(user1, attUID_Critical);
+        
+        bool didRevert = false;
+        try certificate.mintCertificate(user2, attUID_Critical) {
+            // Should not reach here
+        } catch {
+            didRevert = true;
+        }
+        assertTrue(didRevert, "Should revert on double mint");
     }
 
     // ============ Helpers ============

@@ -35,8 +35,9 @@ contract AuditCertificate is ERC1155, Ownable {
     uint256 public constant SILVER = 2;   // B级 - High/Medium
     uint256 public constant BRONZE = 3;   // C级 - Low/Info
 
-    // ============ EAS Constants ============
-    address public constant EAS_CONTRACT = 0xC2679fBD37d54388Ce493F1DB75320D236e1815e;
+    // ============ EAS Address (injected via constructor) ============
+    /// @notice EAS contract address - injected at deployment for testability
+    address public immutable easContract;
     bytes32 public constant ZERO_BYTES32 = 0x0000000000000000000000000000000000000000000000000000000000000000;
 
     // ============ State ============
@@ -63,7 +64,11 @@ contract AuditCertificate is ERC1155, Ownable {
     );
 
     // ============ Constructor ============
-    constructor() ERC1155("") Ownable() {}
+    /// @param _eas Address of EAS contract (Sepolia: 0xC2679fBD37d54388Ce493F1DB75320D236e1815e)
+    constructor(address _eas) ERC1155("") Ownable() {
+        require(_eas != address(0), "Invalid EAS address");
+        easContract = _eas;
+    }
 
     // ============ Core Functions ============
 
@@ -79,7 +84,7 @@ contract AuditCertificate is ERC1155, Ownable {
         require(!usedAttestations[attestationUID], "Attestation already used");
 
         // 1. 验证 attestation 存在且有效
-        IEAS eas = IEAS(EAS_CONTRACT);
+        IEAS eas = IEAS(easContract);
         require(eas.isAttestationValid(attestationUID), "Invalid attestation");
 
         // 2. 读取 attestation 数据
