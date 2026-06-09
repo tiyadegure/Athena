@@ -29,7 +29,7 @@
 - [x] Phase 2：搭建测试环境（5 个测试合约）
 - [x] Phase 3：端到端审计验证 + NFT generative trait
 - [x] Phase 4：5 个新 idea 实现（Idea 1/3/4/8/9 + Halmos + Read-Only Reentrancy）
-- [ ] Phase 5：前沿技术测试合约 + Idea 10 期权合成资产
+- [x] Phase 5：前沿技术测试合约 + Idea 10 期权合成资产
 - [ ] Phase 6：GLM-5.1 评测 + Demo 录屏
 
 ---
