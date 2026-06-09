@@ -323,6 +323,35 @@ struct AuditMetadata {
 contracts/test-cases/ReadOnlyReentrancy.sol
 ```
 
+### 4.5 期权合成资产（Options-Based Index Tracking）
+
+**来源**：Vitalik Buterin, 2026-06-01
+**论文**：https://ethresear.ch/t/building-index-tracking-assets-on-top-of-options-instead-of-debt/25036
+
+**核心创新**：用期权（options）代替债务（debt）构建指数追踪合成资产，消除清算机制。
+
+**机制**：
+- 将 1 ETH 拆分为 P（看涨）+ N（看跌）
+- 参数：ticker T（如 USD/ETH）、strike S、maturity M
+- 到期：P = min(1, S/x)，N = max(0, 1-S/x)
+- P + N = 1 恒成立，无需清算
+
+**安全审计重点**：
+1. 期权拆分/合并数学正确性
+2. 预言机操纵攻击（到期时）
+3. 再平衡策略的 MEV 风险
+4. 流动性提供者的无常损失
+5. 跨合约依赖安全性
+
+**新增测试合约**：
+```
+contracts/options-index/
+├── OptionsIndexTracker.sol      # 期权拆分/合并
+├── SyntheticOption.sol          # P/N 期权代币
+├── RebalancingStrategy.sol      # 自动再平衡
+└── audit-results/options-index-audit.md
+```
+
 ---
 
 ## 5. 实施优先级
@@ -333,11 +362,12 @@ contracts/test-cases/ReadOnlyReentrancy.sol
 | P0 | Idea 3：攻击模拟器 | 3 天 | 展示深度技术能力 |
 | P1 | Idea 1：多合约审计 | 2 天 | 展示长程任务能力 |
 | P1 | Idea 4：Web 前端 | 2 天 | 展示产品完整度 |
+| P1 | Idea 10：期权合成资产 | 3 天 | Vitalik 最新研究，展示前沿技术理解 |
 | P2 | Idea 9：审计证据链 | 3 天 | 展示链上创新（可选） |
 | P2 | Halmos 集成 | 1 天 | 工具链增强 |
 | P2 | Read-Only Reentrancy | 1 天 | 新型攻击向量覆盖 |
 
-**总预估时间**：14 天（还有 21 天，buffer 充足）
+**总预估时间**：17 天（还有 21 天，buffer 充足）
 
 ---
 
