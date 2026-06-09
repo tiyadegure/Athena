@@ -38,5 +38,101 @@
     "description": "Properly implemented with ReentrancyGuard, Ownable, and proper state management",
     "poc_should_pass": false,
     "expected_detectors": []
+  },
+  "PriceOracle.sol": {
+    "should_detect": true,
+    "vulnerability_type": "oracle-manipulation",
+    "severity": "high",
+    "description": "Spot price oracle vulnerable to manipulation via flash loans and sandwich attacks",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-controlled-delegatecall"]
+  },
+  "OverflowToken.sol": {
+    "should_detect": true,
+    "vulnerability_type": "integer-overflow",
+    "severity": "medium",
+    "description": "Unchecked arithmetic in transfer and approve functions",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-controlled-delegatecall"]
+  },
+  "VulnerableBank.sol": {
+    "should_detect": true,
+    "vulnerability_type": "reentrancy",
+    "severity": "critical",
+    "description": "Reentrancy in withdraw() and insufficient access control on admin functions",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-reentrancy-eth", "slither-unprotected-function"]
+  },
+  "AgentEscrow.sol": {
+    "should_detect": true,
+    "vulnerability_type": "access-control",
+    "severity": "high",
+    "description": "Escrow release without proper authorization checks, allowing unauthorized withdrawal",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-unprotected-function"]
+  },
+  "AgentIdentity.sol": {
+    "should_detect": true,
+    "vulnerability_type": "access-control",
+    "severity": "medium",
+    "description": "Identity registration without proper validation, allowing duplicate or spoofed identities",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-unprotected-function"]
+  },
+  "GEVTest.sol": {
+    "should_detect": true,
+    "vulnerability_type": "economic-attack",
+    "severity": "high",
+    "description": "Governance and economic value extraction via flash loan voting and price manipulation",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-controlled-delegatecall"]
+  },
+  "PrivacyToken.sol": {
+    "should_detect": true,
+    "vulnerability_type": "privacy-leak",
+    "severity": "medium",
+    "description": "Private transfer data exposed through event logs and storage patterns",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-controlled-delegatecall"]
+  },
+  "ReadOnlyReentrancy.sol": {
+    "should_detect": true,
+    "vulnerability_type": "reentrancy",
+    "severity": "high",
+    "description": "Read-only reentrancy in view functions used for price calculation in other contracts",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-reentrancy-eth", "slither-reentrancy-events"]
+  },
+  "FlashLoanAttacker.sol": {
+    "should_detect": true,
+    "vulnerability_type": "flash-loan",
+    "severity": "high",
+    "description": "Flash loan attack vector targeting price oracle and liquidity pool",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-controlled-delegatecall"]
+  },
+  "OracleManipulator.sol": {
+    "should_detect": true,
+    "vulnerability_type": "oracle-manipulation",
+    "severity": "critical",
+    "description": "Multi-oracle manipulation via TWAP bypass and liquidity drain",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-controlled-delegatecall"]
+  },
+  "GovernanceAttack.sol": {
+    "should_detect": true,
+    "vulnerability_type": "governance",
+    "severity": "high",
+    "description": "Governance attack via flash loan voting, proposal front-running, and timelock bypass",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-controlled-delegatecall"]
+  },
+  "BridgeExploit.sol": {
+    "should_detect": true,
+    "vulnerability_type": "bridge-exploit",
+    "severity": "critical",
+    "description": "Cross-chain bridge vulnerability: message replay, signature forgery, and fee manipulation",
+    "poc_should_pass": true,
+    "expected_detectors": ["slither-controlled-delegatecall"]
   }
 }

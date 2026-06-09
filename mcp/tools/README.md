@@ -1,17 +1,24 @@
 # MCP Tools
 
-Standalone MCP (Model Context Protocol) tool servers for the GLM Audit Agent. Each tool runs as an independent process communicating via JSON-RPC over stdio.
+Standalone MCP (Model Context Protocol) tool servers for Athena. Each tool runs as an independent process communicating via JSON-RPC over stdio.
 
-## Tools
+## Tools (13)
 
 | Tool | Script | Description |
 |------|--------|-------------|
-| Slither | `slither_runner.py` | Static analysis via Slither |
-| Aderyn | `aderyn_runner.py` | Static analysis via Aderyn (Rust) |
+| Slither | `slither_runner.py` | Static analysis via Slither (Trail of Bits) |
+| Aderyn | `aderyn_runner.py` | Static analysis via Aderyn (Rust-based, Cyfrin) |
 | PoC Generator | `poc_generator.py` | Generates Foundry exploit test contracts |
 | Fuzz Runner | `fuzz_runner.py` | Runs Foundry fuzz tests with A1 signal extraction |
 | Knowledge Base | `knowledge_base.py` | ChromaDB RAG queries for vulnerability patterns |
 | EAS Attestation | `eas_attest.py` | On-chain audit attestation via EAS on Sepolia |
+| Exploit Simulator | `exploit_simulator.py` | Simulates attack scenarios against contracts |
+| Evidence Chain | `evidence_chain.py` | Merkle-based audit evidence chain |
+| Halmos | `halmos_runner.py` | Symbolic execution / formal verification via Halmos |
+| Protocol Scanner | `protocol_scanner.py` | Protocol-level dependency and interaction scanning |
+| Repair Validator | `repair_validator.py` | Validates that vulnerability fixes are correct |
+| Incremental Auditor | `incremental_auditor.py` | Incremental audit for contract updates |
+| GEV Analyzer | `gev_analyzer.py` | Governance/Economic/Value analysis |
 
 ## Protocol
 
@@ -46,5 +53,12 @@ echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' | python3 slit
 - **aderyn_runner.py**: `cargo install aderyn`
 - **poc_generator.py**: `pip install aiohttp` (optional, for LLM mode)
 - **fuzz_runner.py**: `forge` (Foundry)
-- **knowledge_base.py**: `pip install chromadb` (optional, has fallback)
+- **knowledge_base.py**: `pip install chromadb sentence-transformers` (optional, has fallback)
 - **eas_attest.py**: `pip install web3 eth-account` (optional, has mock mode)
+- **exploit_simulator.py**: `pip install web3 aiohttp`
+- **evidence_chain.py**: `pip install web3`
+- **halmos_runner.py**: `pip install halmos` (requires Foundry)
+- **protocol_scanner.py**: `pip install web3 aiohttp`
+- **repair_validator.py**: `pip install slither-analyzer`
+- **incremental_auditor.py**: `pip install chromadb`
+- **gev_analyzer.py**: `pip install web3 aiohttp`

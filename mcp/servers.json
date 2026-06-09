@@ -46,6 +46,55 @@
         "SEPOLIA_RPC_URL": "https://sepolia.drpc.org",
         "EAS_CONTRACT_ADDRESS": "0xC2679fBD37d54388Ce493F1DB75320D236e1815e"
       }
+    },
+    {
+      "name": "exploit-simulator",
+      "command": "python3",
+      "args": ["mcp/tools/exploit_simulator.py"],
+      "description": "Simulate attack scenarios against smart contracts",
+      "env": {}
+    },
+    {
+      "name": "evidence-chain",
+      "command": "python3",
+      "args": ["mcp/tools/evidence_chain.py"],
+      "description": "Merkle-based audit evidence chain for verifiable audit trails",
+      "env": {}
+    },
+    {
+      "name": "halmos-runner",
+      "command": "python3",
+      "args": ["mcp/tools/halmos_runner.py"],
+      "description": "Symbolic execution and formal verification via Halmos",
+      "env": {}
+    },
+    {
+      "name": "protocol-scanner",
+      "command": "python3",
+      "args": ["mcp/tools/protocol_scanner.py"],
+      "description": "Protocol-level dependency and interaction scanning",
+      "env": {}
+    },
+    {
+      "name": "repair-validator",
+      "command": "python3",
+      "args": ["mcp/tools/repair_validator.py"],
+      "description": "Validate that vulnerability fixes are correct and complete",
+      "env": {}
+    },
+    {
+      "name": "incremental-auditor",
+      "command": "python3",
+      "args": ["mcp/tools/incremental_auditor.py"],
+      "description": "Incremental audit for contract updates and diffs",
+      "env": {}
+    },
+    {
+      "name": "gev-analyzer",
+      "command": "python3",
+      "args": ["mcp/tools/gev_analyzer.py"],
+      "description": "Governance, Economic, and Value analysis for DeFi protocols",
+      "env": {}
     }
   ]
 }

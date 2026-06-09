@@ -1,4 +1,4 @@
-// GLM AUDIT - Frontend Application
+// ATHENA - Frontend Application
 // Loads audit report data and handles NFT minting
 
 const SEPOLIA_CHAIN_ID = 11155111;

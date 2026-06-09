@@ -199,7 +199,7 @@ contract AuditCertificate is ERC1155, Ownable {
         
         string memory json = string(
             abi.encodePacked(
-                '{"name":"GLM Audit Certificate #', _uint2str(uint256(uint256(attestationUID)) % 10000), '",',
+                '{"name":"Athena Audit Certificate #', _uint2str(uint256(uint256(attestationUID)) % 10000), '",',
                 '"description":"', tierName, desc, _uint2str(traits.rarityScore), '/100",',
                 '"image":"data:image/svg+xml;base64,', Base64.encode(bytes(svg)), '",',
                 '"attributes":[',
@@ -238,7 +238,7 @@ contract AuditCertificate is ERC1155, Ownable {
                 shieldSvg,
                 weaponSvg,
                 eyesSvg,
-                '<text x="160" y="310" font-family="monospace" font-size="10" fill="', primary, '" text-anchor="middle">GLM AUDIT</text>',
+                '<text x="160" y="310" font-family="monospace" font-size="10" fill="', primary, '" text-anchor="middle">ATHENA</text>',
                 '</svg>'
             )
         );

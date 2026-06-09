@@ -1,4 +1,4 @@
-# ZK / 隐私验证机制 对 GLM Audit Agent 的启发
+# ZK / 隐私验证机制 对 Athena 的启发
 
 > 本文记录零知识证明和隐私验证机制对本项目的启发，不作为当前实现计划。
 
@@ -6,7 +6,7 @@
 
 ## 1. 项目与 ZK 的天然交集
 
-GLM Audit Agent 的核心流程是：
+Athena 的核心流程是：
 
 ```
 输入：合约代码 → Agent 执行审计 → 输出：审计结果 + EAS attestation + NFT

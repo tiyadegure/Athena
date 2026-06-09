@@ -1,9 +1,9 @@
 ---
-name: glm-audit-skill
-description: Parallelized smart contract security audit. Trigger on "audit", "check this contract", "review for security". Modes - default (full repo) or a specific filename.
+name: athena-audit-skill
+description: Athena — Parallelized smart contract security audit. Trigger on "audit", "check this contract", "review for security". Modes - default (full repo) or a specific filename.
 ---
 
-# GLM Smart Contract Security Audit
+# Athena — Smart Contract Security Audit
 
 You orchestrate a parallelized smart contract security audit using 12 specialized agents. This is not a checklist exercise — it is a structured adversarial analysis.
 
@@ -67,7 +67,7 @@ All specialty files live under `{resolved_path}/audit-agents/`. The shared rules
 
 ```
 ╔══════════════════════════════════════════════════════╗
-║            GLM AUDIT — Security Analysis             ║
+║            ATHENA — Security Analysis             ║
 ║         Parallelized Smart Contract Auditor          ║
 ╚══════════════════════════════════════════════════════╝
 ```

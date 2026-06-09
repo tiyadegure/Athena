@@ -1,4 +1,4 @@
-# GLM Audit — Web3 安全审计 Agent 工作流
+# Athena — Web3 安全审计 Agent 工作流
 
 ## 定位
 
@@ -10,11 +10,11 @@
 
 ```
 已有竞品格局：
-├── glm-audit-skill   = 自建方法论，12 agent 并行
+├── athena-audit-skill = 自建方法论，12 agent 并行
 ├── Plamen (244⭐)    = 最全面（多链+RAG+PoC+fuzz），无链上认证
 ├── SolidityGuard(95⭐) = 最多工具集成（9个），无链上认证
 ├── RugProof (7⭐)     = 最多功能，但已删库
-└── 我们的项目       = 自建 MCP 工具链：RAG + PoC + Fuzz + 链上认证
+└── 我们的项目       = 自建 13 个 MCP 工具链：RAG + PoC + Fuzz + 链上认证
 ```
 
 **核心发现：链上认证几乎是空白。20 个项目里只有 RugProof 有（已删库）。**
@@ -23,12 +23,12 @@
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    Claude Code                          │
+│                    GLM-5.1 (via Coding Plan)             │
 │              (harness，不修改底层)                        │
 │                                                         │
 │  ┌───────────────────────────────────────────────────┐  │
 │  │              Skill 层                              │  │
-│  │  glm-audit-skill (自建，12 agent 并行方法论)  │  │
+│  │  athena-audit-skill (自建，12 agent 并行方法论)   │  │
 │  │  ├── senior-auditor-sop.md (Feynman/Inversion)    │  │
 │  │  ├── 12 hacking agents (并行扫描)                 │  │
 │  │  ├── judging.md (4 道验证门)                      │  │
@@ -36,13 +36,20 @@
 │  └───────────────────────────────────────────────────┘  │
 │                                                         │
 │  ┌───────────────────────────────────────────────────┐  │
-│  │              MCP 工具层                            │  │
-│  │  slither_mcp     — 静态分析 (Trail of Bits)       │  │
-│  │  aderyn          — 安全扫描 (Cyfrin)              │  │
-│  │  exploit_gen     — PoC 生成（自建）             │  │
-│  │  concrete_exec   — Foundry fuzz（自建）         │  │
-│  │  knowledge_base  — RAG 查询（自建）             │  │
-│  │  eas_attest      — 链上认证（自建）             │  │
+│  │              MCP 工具层（13 个）                   │  │
+│  │  slither           — 静态分析 (Trail of Bits)     │  │
+│  │  aderyn            — 安全扫描 (Cyfrin)            │  │
+│  │  poc_generator     — PoC 生成（自建）             │  │
+│  │  fuzz_runner       — Foundry fuzz（自建）         │  │
+│  │  knowledge_base    — RAG 查询（自建）             │  │
+│  │  eas_attest        — 链上认证（自建）             │  │
+│  │  exploit_simulator — 攻击模拟器                   │  │
+│  │  evidence_chain    — 审计证据链                   │  │
+│  │  halmos_runner     — 形式化验证                   │  │
+│  │  protocol_scanner  — 协议级扫描                   │  │
+│  │  repair_validator  — 修复验证                     │  │
+│  │  incremental_auditor — 增量审计                   │  │
+│  │  gev_analyzer      — GEV 分析                     │  │
 │  └───────────────────────────────────────────────────┘  │
 │                                                         │
 │  ┌───────────────────────────────────────────────────┐  │
@@ -69,10 +76,13 @@ NFT Certificate（ERC-1155）→ 雅典娜女神 + 审计元数据
 链上可验证：任何人看到 NFT 就知道这个合约被审计过
 ```
 
-### 机制：简单铸造（A）+ ERC-1155 分级（C）
+### Generative Trait 系统（12,000 种组合）
 
 ```
 审计完成 → EAS 上链 → 简单调用合约
+→ 根据 attestationUID 确定性生成 6 个 trait
+  Helmet(5) × Shield(5) × Color(8) × Weapon(3) × Background(5) × Eyes(4)
+  = 12,000 种唯一组合
 → 根据评分铸造对应等级的 NFT
   S 级 → 金色雅典娜（稀缺）
   A 级 → 银色雅典娜
@@ -83,47 +93,36 @@ NFT Certificate（ERC-1155）→ 雅典娜女神 + 审计元数据
 
 ```json
 {
-  "name": "Athena Audit Certificate — S Tier",
-  "description": "Smart contract security audit certified by GLM-5.1",
+  "name": "Athena Audit Certificate #1234",
+  "description": "A 级 (Gold) - Rarity: 42/100",
+  "image": "data:image/svg+xml;base64,...",
   "attributes": [
-    { "trait_type": "Contract", "value": "0x..." },
-    { "trait_type": "Audit Score", "value": "S" },
-    { "trait_type": "Vulnerabilities Found", "value": 3 },
-    { "trait_type": "Vulnerabilities Fixed", "value": 3 },
-    { "trait_type": "Auditor", "value": "GLM-5.1" },
-    { "trait_type": "Attestation UID", "value": "0x..." },
-    { "trait_type": "Date", "value": "2026-06-07" }
-  ],
-  "image": "data:image/svg+xml,..."
+    { "trait_type": "Tier", "value": "A 级 (Gold)" },
+    { "trait_type": "Helmet", "value": "Feathered" },
+    { "trait_type": "Shield", "value": "Owl" },
+    { "trait_type": "Color", "value": "Gold" },
+    { "trait_type": "Weapon", "value": "Spear" },
+    { "trait_type": "Background", "value": "Starry Sky" },
+    { "trait_type": "Eyes", "value": "Blue" },
+    { "display_type": "number", "trait_type": "Rarity Score", "value": 42 }
+  ]
 }
 ```
 
-### 图像：链上 SVG + 像素风格
-
-参考 uPEG 的像素艺术方案：
+### 图像：链上 SVG + Generative
 
 ```
-底图：像素风格雅典娜女神（8-bit 复古风）
-  + 动态叠加审计数据（像素字体）
-    ├── 评分徽章（S/A/B 级对应金/银/铜边框）
-    ├── 漏洞数量
-    ├── 合约地址（截断显示）
-    └── 审计时间
+底图：Athena 女神像素风（8-bit 复古风）
+  + 6 个 trait 维度动态组合
+    ├── 头盔样式（5 种）
+    ├── 盾牌图案（5 种）
+    ├── 配色方案（8 种）
+    ├── 武器类型（3 种）
+    ├── 背景场景（5 种）
+    └── 瞳色（4 种）
 → 全部 SVG，直接存链上，不依赖 IPFS
+→ 每个 attestationUID 确定性生成唯一组合
 ```
-
-为什么用像素风：
-- uPEG 证明了像素 NFT 在链上效果好（Uniswap v4 hooks 生态）
-- 像素图 SVG 体积小，上链 gas 低
-- 复古风辨识度高，和"安全审计"的专业感形成反差萌
-- 可以做成不同稀有度的像素雅典娜变体
-
-### 实现优先级
-
-| 阶段 | 方案 | 工作量 |
-|------|------|--------|
-| 黑客松 | A+C（简单铸造 + ERC-1155 分级） | 3-4h |
-| 赛后 | 加 B（Uniswap v4 hook 铸造） | 1-2d |
 
 ### 链上认证闭环
 
@@ -158,18 +157,18 @@ Schema：定义审计结果的结构化数据
 ```
 合约：自部署到 Sepolia
 Token IDs：
-  → 1 = S 级（金色雅典娜，像素金边框）
-  → 2 = A 级（银色雅典娜，像素银边框）
-  → 3 = B 级（铜色雅典娜，像素铜边框）
+  → 1 = S 级（金色雅典娜，generative traits）
+  → 2 = A 级（银色雅典娜，generative traits）
+  → 3 = B 级（铜色雅典娜，generative traits）
 
 铸造条件：需要有效的 EAS attestation UID
   → 合约内部验证 attestation 存在且有效
   → 根据 attestation 中的评分决定 token ID
 
 Metadata（链上 SVG）：
-  → tokenURI 返回 data:image/svg+xml;base64,...
-  → 像素雅典娜底图 + 动态审计数据叠加
-  → 完全链上，不依赖 IPFS
+  → generateMetadata() 返回 data:application/json;base64,...
+  → 12,000 种 trait 组合，完全链上生成
+  → 不依赖 IPFS
 
 展示：
   → OpenSea 测试网：https://testnets.opensea.io/...
@@ -191,22 +190,34 @@ Metadata（链上 SVG）：
 > "20 个开源审计项目里，只有 2 个有 RAG，只有 1 个有链上认证（已删库）。
 > 我们是唯一同时拥有 RAG + PoC + Fuzz + 链上认证 + 审计 NFT 证书的工作流。
 > GLM-5.1 的长程能力驱动从漏洞发现到链上认证的完整闭环。
-> 每个被审计的合约都获得一个链上可验证的雅典娜 NFT 证书。"
+> 每个被审计的合约都获得一个链上可验证的雅典娜 NFT 证书（12,000 种 generative 组合）。"
 
 ## 测试方案
 
-### 测试集
+### 测试集（17 个合约）
 
 ```
 test-suite/
 ├── contracts/
-│   ├── VulnerableBank.sol      — 重入攻击
-│   ├── PriceOracle.sol         — 预言机操纵
-│   ├── AccessControl.sol       — 权限绕过
-│   ├── OverflowToken.sol       — 整数溢出
-│   └── FlashLoan.sol           — 闪电贷攻击
-├── expected-results.json       — 已知漏洞清单
-└── run.sh                      — 评测脚本
+│   ├── Reentrancy.sol           — 重入攻击
+│   ├── IntegerOverflow.sol      — 整数溢出
+│   ├── AccessControl.sol        — 权限绕过
+│   ├── FlashLoan.sol            — 闪电贷攻击
+│   ├── SafeContract.sol         — 安全合约（无漏洞基准）
+│   ├── PriceOracle.sol          — 预言机操纵
+│   ├── OverflowToken.sol        — 溢出代币
+│   ├── VulnerableBank.sol       — 脆弱银行
+│   ├── AgentEscrow.sol          — Agent 托管合约
+│   ├── AgentIdentity.sol        — Agent 身份合约
+│   ├── GEVTest.sol              — GEV 测试合约
+│   ├── PrivacyToken.sol         — 隐私代币
+│   ├── ReadOnlyReentrancy.sol   — 只读重入
+│   ├── FlashLoanAttacker.sol    — 闪电贷攻击者
+│   ├── OracleManipulator.sol    — 操纵预言机
+│   ├── GovernanceAttack.sol     — 治理攻击
+│   └── BridgeExploit.sol        — 跨桥攻击
+├── expected-results.json        — 已知漏洞清单（17 个合约）
+└── run.sh                       — 评测脚本
 ```
 
 来源：Damn Vulnerable DeFi / Ethernaut / 自建
@@ -238,14 +249,15 @@ test-suite/
 ├──────────────┬──────────┬──────────┬─────────────────┤
 │ 合约          │ GLM-5.1  │ Claude   │ 说明            │
 ├──────────────┼──────────┼──────────┼─────────────────┤
-│ vulnerable   │ 3/3 ✅   │ 3/3 ✅   │                 │
-│ price-oracle │ 2/3 ⚠️   │ 3/3 ✅   │                 │
-│ access-ctrl  │ 3/3 ✅   │ 2/3 ⚠️   │                 │
-│ overflow     │ 2/2 ✅   │ 2/2 ✅   │                 │
-│ flash-loan   │ 2/4 ⚠️   │ 3/4      │                 │
+│ Reentrancy   │ X/X      │ X/X      │                 │
+│ Overflow     │ X/X      │ X/X      │                 │
+│ AccessCtrl   │ X/X      │ X/X      │                 │
+│ FlashLoan    │ X/X      │ X/X      │                 │
+│ SafeContract │ 0/0 ✅   │ 0/0 ✅   │ 无漏洞基准      │
+│ ...          │ X/X      │ X/X      │ （共 17 个合约）│
 ├──────────────┼──────────┼──────────┼─────────────────┤
-│ 漏洞发现率    │ 12/15    │ 13/15    │                 │
-│ 链路完成率    │ 5/5      │ 4/5      │ GLM 长程更稳    │
+│ 漏洞发现率    │ XX%      │ XX%      │                 │
+│ 链路完成率    │ X/X      │ X/X      │ GLM 长程更稳    │
 │ 平均 Token    │ XXXX     │ XXXX     │                 │
 └──────────────┴──────────┴──────────┴─────────────────┘
 ```
@@ -262,57 +274,49 @@ test-suite/
 
 评测阶段：GLM-5.1（Coding Plan，精打细算）
   → 只跑最终版本
-  → 5 个测试合约 + 录屏
+  → 17 个测试合约 + 录屏
   → 产出：评测数据 + Demo 视频
 ```
 
-### Phase 1: 搭建 + 跑通（Day 1-2）[用 Claude]
+### v5 Demo 流程
 
-- [x] 构建 glm-audit-skill（12 agent 并行审计）
-- [x] 构建独立 MCP 工具
-- [x] 验证：Claude + glm-audit-skill + MCP 工具 能跑通
-- [ ] 准备 5 个测试合约 + expected-results.json
-- [ ] Claude 跑一遍完整审计链路（验证流程）
-
-### Phase 2: NFT 合约 + 调试（Day 3）[用 Claude]
-
-- [ ] 生成雅典娜女神 SVG
-- [ ] 部署 ERC-1155 合约到 Sepolia
-- [ ] 连接 EAS attestation → NFT 铸造
-- [ ] 跑通 ①→⑧ 完整链路
-
-### Phase 3: 评测（Day 4-5）[切换到 GLM-5.1]
-
-- [ ] GLM-5.1 跑 5 个测试合约
+- [x] 构建 athena-audit-skill（12 agent 并行审计）
+- [x] 构建 13 个独立 MCP 工具
+- [x] 设计 Generative NFT（12,000 种 trait 组合）
+- [x] 验证：Claude + athena-audit-skill + MCP 工具 能跑通
+- [ ] 准备 17 个测试合约 + expected-results.json
+- [ ] 部署审计合约到 Sepolia 测试网
+- [ ] 跑通 ①→⑧ 完整审计链路
+- [ ] GLM-5.1 跑 17 个测试合约
 - [ ] Claude 跑同一组合约（对比数据）
 - [ ] 录屏：GLM-5.1 完整审计链路
 - [ ] 录屏：Claude 同一合约（对比用）
 - [ ] 对比分析
-
-### Phase 4: 提交（Day 6）
-
-- [ ] 测试对比表
-- [ ] README 更新
-- [ ] Demo 视频
-- [ ] GitHub repo 整理
-- [ ] 提交到黑客松
+- [ ] 提交黑客松
 
 ## 项目结构（最终）
 
 ```
-glm-audit/
+glm-code/
 ├── skills/
-│   └── glm-audit-skill/        # 自建审计 Skill
+│   └── glm-audit-skill/        # 自建审计 Skill（athena-audit-skill）
 ├── mcp/
-│   ├── exploit_gen/            # PoC 生成
-│   ├── concrete_execution/     # Foundry fuzz
-│   ├── knowledge_base/         # RAG 查询
-│   └── eas_attest/             # 链上认证
-├── test-suite/
-│   ├── contracts/              # 5 个测试合约
-│   ├── expected-results.json   # 标准答案
-│   └── run.sh                  # 评测脚本
-├── results/                    # 评测结果
+│   ├── tools/                  # 13 个独立 MCP 工具
+│   ├── servers.json            # MCP 服务器注册
+│   └── README.md
+├── contracts/
+│   ├── AuditCertificate.sol    # ERC-1155（generative 12,000 种组合）
+│   ├── AuditEvidenceChain.sol  # 审计证据链
+│   ├── test-cases/             # 17 个测试合约
+│   ├── real-world/             # 真实协议测试数据
+│   └── options-index/          # 期权指数测试数据
+├── prompts/
+│   ├── audit-system.md
+│   └── system.md
+├── frontend/                   # 审计报告前端
+├── demo/                       # NFT 预览 + Demo
+├── workflows/                  # 开发工作流记录
+├── docs/                       # 文档
 ├── PLAN.md
 ├── TESTING-PLAN.md
 ├── GLM-5.1-TECHNICAL-PROFILE.md

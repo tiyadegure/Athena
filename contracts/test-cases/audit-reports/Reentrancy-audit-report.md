@@ -82,7 +82,7 @@ _No additional leads identified._
 
 ```
 Contract: 0x...VulnerableBank
-Auditor: GLM Audit Agent
+Auditor: Athena
 Score: 1/10 (Critical finding)
 Findings: 1 (Critical: 1)
 Mode: single-file
