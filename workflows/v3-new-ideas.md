@@ -34,12 +34,12 @@
 | # | Idea | 状态 | 备注 |
 |---|------|------|------|
 | 1 | 多合约审计 | ✅ 完成 | Token/Oracle/Vault + expected-results |
-| 3 | 攻击模拟器 | ⚠️ 部分 | exploit_simulator.py 已有，缺 FlashLoanExploit.s.sol + ReentrancyExploit.s.sol |
+| 3 | 攻击模拟器 | ✅ 完成 | exploit_simulator.py + ReentrancyExploit.s.sol + FlashLoanExploit.s.sol |
 | 4 | 前端 | ✅ 完成 | index.html + style.css + app.js |
-| 8 | 真实被黑合约 | ❌ 未做 | 整个 contracts/real-world/ 目录缺失 |
-| 9 | 审计证据链 | ❌ 未做 | AuditEvidenceChain.sol + evidence_chain.py 缺失 |
-| 4.2 | Halmos 集成 | ❌ 未做 | halmos_runner.py 缺失 |
-| 4.4 | Read-Only Reentrancy | ✅ 完成 | ReadOnlyReentrancy.sol 已实现 |
+| 8 | 真实被黑合约 | ✅ 完成 | curve-pool.sol + hundred-finance.sol + audit-results/ |
+| 9 | 审计证据链 | ✅ 完成 | AuditEvidenceChain.sol + evidence_chain.py |
+| 4.2 | Halmos 集成 | ✅ 完成 | halmos_runner.py |
+| 4.4 | Read-Only Reentrancy | ✅ 完成 | ReadOnlyReentrancy.sol |
 
 ---
 
