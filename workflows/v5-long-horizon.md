@@ -206,15 +206,15 @@ contracts/multi-contract/Vault-v2.sol      # 升级版 Vault（用于增量审�
 
 ---
 
-### 4.4 前沿技术测试合约（v4 已规划）
+### 4.4 前沿技术测试合约（v4 已完成）
 
 | 优先级 | 技术 | 状态 |
 |--------|------|------|
-| P0 | 期权合成资产 (Vitalik) | ⬜ 待实现 |
-| P0 | pERC20 隐私代币 | ⬜ 待实现 |
-| P0 | Agent-to-Agent Escrow | ⬜ 待实现 |
-| P1 | GEV 分析器 | ⬜ 待实现 |
-| P1 | Agent Identity | ⬜ 待实现 |
+| P0 | 期权合成资产 (Vitalik) | ✅ 完成 |
+| P0 | pERC20 隐私代币 | ✅ 完成 |
+| P0 | Agent-to-Agent Escrow | ✅ 完成 |
+| P1 | GEV 分析器 | ✅ 完成 |
+| P1 | Agent Identity | ✅ 完成 |
 | P1 | Multi-Party Block | ⬜ 待实现 |
 | P2 | Cross-Domain Sync | ⬜ 待实现 |
 | P2 | Governance Verification | ⬜ 待实现 |
@@ -252,9 +252,9 @@ contracts/multi-contract/Vault-v2.sol      # 升级版 Vault（用于增量审�
 | `exploit_simulator.py` | 攻击模拟器 | v3 |
 | `evidence_chain.py` | 审计证据链 | v3 |
 | `halmos_runner.py` | 形式化验证 | v3 |
-| `protocol_scanner.py` | 协议级扫描 | v5 新增 |
-| `repair_validator.py` | 修复验证 | v5 新增 |
-| `incremental_auditor.py` | 增量审计 | v5 新增 |
+| `protocol_scanner.py` | 协议级扫描 | v5 新增 ✅ |
+| `repair_validator.py` | 修复验证 | v5 新增 ✅ |
+| `incremental_auditor.py` | 增量审计 | v5 新增 ✅ |
 
 ---
 
