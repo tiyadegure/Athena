@@ -26,8 +26,20 @@
 - [x] Phase 1：集成 glm-audit-skill + 自建 MCP 工具
 - [x] Phase 2：搭建测试环境（5 个测试合约）
 - [x] Phase 3：端到端审计验证 + NFT generative trait
-- [ ] Phase 4：5 个新 idea 实现
+- [ ] Phase 4：5 个新 idea 实现（部分完成，见下）
 - [ ] Phase 5：GLM-5.1 评测 + Demo 录屏
+
+### Phase 4 完成状态
+
+| # | Idea | 状态 | 备注 |
+|---|------|------|------|
+| 1 | 多合约审计 | ✅ 完成 | Token/Oracle/Vault + expected-results |
+| 3 | 攻击模拟器 | ⚠️ 部分 | exploit_simulator.py 已有，缺 FlashLoanExploit.s.sol + ReentrancyExploit.s.sol |
+| 4 | 前端 | ✅ 完成 | index.html + style.css + app.js |
+| 8 | 真实被黑合约 | ❌ 未做 | 整个 contracts/real-world/ 目录缺失 |
+| 9 | 审计证据链 | ❌ 未做 | AuditEvidenceChain.sol + evidence_chain.py 缺失 |
+| 4.2 | Halmos 集成 | ❌ 未做 | halmos_runner.py 缺失 |
+| 4.4 | Read-Only Reentrancy | ✅ 完成 | ReadOnlyReentrancy.sol 已实现 |
 
 ---
 
