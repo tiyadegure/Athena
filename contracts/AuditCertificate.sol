@@ -63,6 +63,7 @@ contract AuditCertificate is ERC1155, Ownable {
     mapping(bytes32 => bool) public usedAttestations;
     mapping(bytes32 => TraitData) public traitData;
     mapping(bytes32 => AuditRecord) public auditRecords;
+    mapping(uint256 => bytes32) public tokenAttestation;
 
     struct AuditRecord {
         address contractAddress;
@@ -100,6 +101,7 @@ contract AuditCertificate is ERC1155, Ownable {
 
         _mint(to, tier, 1, "");
 
+        tokenAttestation[tier] = bytes32(uint256(uint160(to)));
         usedAttestations[fakeUID] = true;
         auditRecords[fakeUID] = AuditRecord({
             contractAddress: address(this),
@@ -139,6 +141,7 @@ contract AuditCertificate is ERC1155, Ownable {
 
         _mint(to, tokenId, 1, "");
 
+        tokenAttestation[tokenId] = attestationUID;
         usedAttestations[attestationUID] = true;
         auditRecords[attestationUID] = AuditRecord({
             contractAddress: contractAddress,
@@ -198,9 +201,56 @@ contract AuditCertificate is ERC1155, Ownable {
 
     // ============ Metadata ============
 
-    function uri(uint256 tokenId) public pure override returns (string memory) {
+    function uri(uint256 tokenId) public view override returns (string memory) {
         require(tokenId >= GOLD && tokenId <= BRONZE, "Invalid token ID");
-        return "";
+
+        bytes32 attestationUID = tokenAttestation[tokenId];
+
+        if (attestationUID != ZERO_BYTES32) {
+            return generateMetadata(attestationUID, tokenId);
+        }
+
+        // Default metadata for test mints (no real attestation)
+        TraitData memory defaultTraits = TraitData({
+            helmet: 4,  // 经典
+            shield: 4,  // 空白
+            color: 2,   // 铜
+            weapon: 0,  // 长矛
+            background: 0, // 星空
+            eyes: 0,    // 蓝
+            rarityScore: 50
+        });
+
+        string memory svg = _generateAthenaSVG(tokenId, defaultTraits);
+
+        string memory tierName;
+        if (tokenId == GOLD) {
+            tierName = unicode"A 级 (Gold)";
+        } else if (tokenId == SILVER) {
+            tierName = unicode"B 级 (Silver)";
+        } else {
+            tierName = unicode"C 级 (Bronze)";
+        }
+
+        string memory json = string(
+            abi.encodePacked(
+                '{"name":"Athena Audit Certificate (Test)",',
+                '"description":"', tierName, ' - Test Mint",',
+                '"image":"data:image/svg+xml;base64,', Base64.encode(bytes(svg)), '",',
+                '"attributes":[',
+                    '{"trait_type":"Tier","value":"', tierName, '"},',
+                    '{"trait_type":"Helmet","value":"', _getHelmetName(defaultTraits.helmet), '"},',
+                    '{"trait_type":"Shield","value":"', _getShieldName(defaultTraits.shield), '"},',
+                    '{"trait_type":"Color","value":"', _getColorName(defaultTraits.color), '"},',
+                    '{"trait_type":"Weapon","value":"', _getWeaponName(defaultTraits.weapon), '"},',
+                    '{"trait_type":"Background","value":"', _getBgName(defaultTraits.background), '"},',
+                    '{"trait_type":"Eyes","value":"', _getEyesName(defaultTraits.eyes), '"},',
+                    '{"display_type":"number","trait_type":"Rarity Score","value":', _uint2str(defaultTraits.rarityScore), '}',
+                ']}'
+            )
+        );
+
+        return string(abi.encodePacked("data:application/json;base64,", Base64.encode(bytes(json))));
     }
 
     function generateMetadata(bytes32 attestationUID, uint256 tokenId) public pure returns (string memory) {
