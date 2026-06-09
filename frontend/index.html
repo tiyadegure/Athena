@@ -8,94 +8,67 @@
 </head>
 <body>
     <header>
-        <div class="logo">ATHENA</div>
-        <div class="subtitle">Smart Contract Security Analysis</div>
+        <div class="header-row">
+            <div>
+                <div class="logo">ATHENA</div>
+                <div class="subtitle">Smart Contract Security Analysis</div>
+            </div>
+            <div id="wallet-section">
+                <button id="connect-btn" onclick="connectWallet()">Connect Wallet</button>
+                <span id="wallet-address"></span>
+            </div>
+        </div>
     </header>
-    
+
     <main>
-        <section id="contract-info" class="section">
-            <div class="section-header">CONTRACT</div>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="label">File:</span>
-                    <span class="value" id="contract-file">Loading...</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Status:</span>
-                    <span class="value" id="contract-status">Loading...</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Score:</span>
-                    <span class="value" id="contract-score">Loading...</span>
-                </div>
-            </div>
+        <!-- Summary -->
+        <section id="summary-section" class="section">
+            <div class="section-header">AUDIT SUMMARY</div>
+            <div id="summary-content" class="loading">Loading...</div>
         </section>
-        
-        <section id="findings" class="section">
+
+        <!-- Target -->
+        <section id="target-section" class="section">
+            <div class="section-header">TARGET</div>
+            <div id="target-content" class="loading">Loading...</div>
+        </section>
+
+        <!-- Findings -->
+        <section id="findings-section" class="section">
             <div class="section-header">FINDINGS</div>
-            <div id="findings-list">
-                <!-- Findings will be inserted here -->
-            </div>
+            <div id="findings-list" class="loading">Loading...</div>
         </section>
-        
-        <section id="verification" class="section">
+
+        <!-- Verification -->
+        <section id="verification-section" class="section">
             <div class="section-header">VERIFICATION</div>
-            <div class="verification-grid">
-                <div class="verification-item">
-                    <span class="check">Static Analysis:</span>
-                    <span class="status" id="static-status">--</span>
-                </div>
-                <div class="verification-item">
-                    <span class="check">PoC Execution:</span>
-                    <span class="status" id="poc-status">--</span>
-                </div>
-                <div class="verification-item">
-                    <span class="check">Fuzz Testing:</span>
-                    <span class="status" id="fuzz-status">--</span>
-                </div>
-            </div>
+            <div id="verification-content" class="loading">Loading...</div>
         </section>
-        
-        <section id="attestation" class="section">
+
+        <!-- Attack Simulation -->
+        <section id="attack-section" class="section">
+            <div class="section-header">ATTACK SIMULATION</div>
+            <div id="attack-content" class="loading">Loading...</div>
+        </section>
+
+        <!-- Attestation -->
+        <section id="attestation-section" class="section">
             <div class="section-header">ON-CHAIN ATTESTATION</div>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="label">EAS UID:</span>
-                    <span class="value" id="eas-uid">Not submitted</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Etherscan:</span>
-                    <span class="value"><a href="#" id="etherscan-link" target="_blank">view</a></span>
-                </div>
-            </div>
+            <div id="attestation-content" class="loading">Loading...</div>
         </section>
-        
-        <section id="certificate" class="section">
-            <div class="section-header">NFT CERTIFICATE</div>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="label">Tier:</span>
-                    <span class="value" id="nft-tier">--</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Traits:</span>
-                    <span class="value" id="nft-traits">--</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Rarity:</span>
-                    <span class="value" id="nft-rarity">--</span>
-                </div>
-            </div>
-            <button id="mint-btn" class="btn" disabled>Mint Certificate</button>
+
+        <!-- Certificate / NFT -->
+        <section id="certificate-section" class="section">
+            <div class="section-header">AUDIT CERTIFICATE</div>
+            <div id="certificate-content" class="loading">Loading...</div>
         </section>
     </main>
-    
+
     <footer>
-        <div class="footer-text">
-            Powered by GLM-5.1 | Athena | EAS on Sepolia | ERC-1155
-        </div>
+        <div class="footer-text">Powered by GLM-5.1 | Athena</div>
     </footer>
-    
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

@@ -57,3 +57,4 @@ data/chromadb/
 
 # Forge-Std (installed deps) - include for reproducible builds
 # lib/
+*.Zone.Identifier
