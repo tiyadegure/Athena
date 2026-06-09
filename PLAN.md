@@ -155,13 +155,15 @@ Schema：定义审计结果的结构化数据
 **ERC-1155 NFT（第 ⑧ 步）**
 
 ```
-合约：自部署到 Sepolia
+合约：AuditCertificate (Sepolia) — `0x636B3Af9630e1b26b02BA488a5b8Ab6cE75d6721`
 Token IDs：
   → 1 = S 级（金色雅典娜，generative traits）
   → 2 = A 级（银色雅典娜，generative traits）
   → 3 = B 级（铜色雅典娜，generative traits）
 
-铸造条件：需要有效的 EAS attestation UID
+证据链：AuditEvidenceChain — `0x5e99f144D3e512f525d24077D4626a064899E177`
+
+铸造条件：需要有效的 EAS attestation UID（或 owner 调用 mintTest 测试）
   → 合约内部验证 attestation 存在且有效
   → 根据 attestation 中的评分决定 token ID
 
@@ -285,7 +287,7 @@ test-suite/
 - [x] 设计 Generative NFT（12,000 种 trait 组合）
 - [x] 验证：Claude + athena-audit-skill + MCP 工具 能跑通
 - [ ] 准备 17 个测试合约 + expected-results.json
-- [ ] 部署审计合约到 Sepolia 测试网
+- [x] 部署审计合约到 Sepolia 测试网
 - [ ] 跑通 ①→⑧ 完整审计链路
 - [ ] GLM-5.1 跑 17 个测试合约
 - [ ] Claude 跑同一组合约（对比数据）

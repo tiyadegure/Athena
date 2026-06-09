@@ -89,6 +89,29 @@ contract AuditCertificate is ERC1155, Ownable {
 
     // ============ Core Functions ============
 
+    /// @notice Mint test NFT (owner only, for demo purposes)
+    function mintTest(address to, uint8 tier) external onlyOwner {
+        require(to != address(0), "Invalid recipient");
+        require(tier >= 1 && tier <= 3, "Invalid tier");
+
+        bytes32 fakeUID = keccak256(abi.encodePacked(to, tier, block.timestamp));
+        TraitData memory traits = _selectTraits(fakeUID);
+        traitData[fakeUID] = traits;
+
+        _mint(to, tier, 1, "");
+
+        usedAttestations[fakeUID] = true;
+        auditRecords[fakeUID] = AuditRecord({
+            contractAddress: address(this),
+            auditor: msg.sender,
+            severity: tier == 1 ? 1 : (tier == 2 ? 3 : 5),
+            timestamp: block.timestamp,
+            tokenId: tier
+        });
+
+        emit CertificateMinted(to, fakeUID, tier, tier == 1 ? 1 : (tier == 2 ? 3 : 5), traits);
+    }
+
     function mintCertificate(address to, bytes32 attestationUID) external {
         require(to != address(0), "Invalid recipient");
         require(attestationUID != ZERO_BYTES32, "Invalid attestation UID");

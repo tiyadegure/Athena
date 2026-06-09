@@ -8,9 +8,21 @@
   "target": {
     "name": "DeFi Protocol Audit",
     "contracts": [
-      {"file": "Token.sol", "name": "Token", "address": "0x3A2e7234Bb13E5c4c8BdE4F8e6D1c2b5a8E9f0C1"},
-      {"file": "Oracle.sol", "name": "Oracle", "address": "0x7B4c8d2E1f5A6b9C3d7E0F4a8B1c5D2e6F9A3b7C"},
-      {"file": "Vault.sol", "name": "Vault", "address": "0x9D5e3F1a7B2c6E4d8A0f3B7c1E5a9D2f6C8b4A3E"}
+      {
+        "file": "Token.sol",
+        "name": "Token",
+        "address": "0x3A2e7234Bb13E5c4c8BdE4F8e6D1c2b5a8E9f0C1"
+      },
+      {
+        "file": "Oracle.sol",
+        "name": "Oracle",
+        "address": "0x7B4c8d2E1f5A6b9C3d7E0F4a8B1c5D2e6F9A3b7C"
+      },
+      {
+        "file": "Vault.sol",
+        "name": "Vault",
+        "address": "0x9D5e3F1a7B2c6E4d8A0f3B7c1E5a9D2f6C8b4A3E"
+      }
     ],
     "network": "Sepolia"
   },
@@ -94,9 +106,18 @@
   ],
   "verification": {
     "static_analysis": {
-      "slither": {"status": "pass", "findings": 4},
-      "aderyn": {"status": "pass", "findings": 3},
-      "halmos": {"status": "pass", "properties_checked": 8}
+      "slither": {
+        "status": "pass",
+        "findings": 4
+      },
+      "aderyn": {
+        "status": "pass",
+        "findings": 3
+      },
+      "halmos": {
+        "status": "pass",
+        "properties_checked": 8
+      }
     },
     "poc_execution": {
       "tool": "Foundry",
@@ -117,15 +138,16 @@
       "Borrow 1000 Token via flash loan",
       "Manipulate Oracle spot price to 10x",
       "Deposit inflated Token into Vault",
-      "Withdraw超额 Vault assets",
+      "Withdraw\u8d85\u989d Vault assets",
       "Repay flash loan, profit ~$2.3M"
     ]
   },
   "attestation": {
     "uid": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
     "network": "sepolia",
-    "tx_hash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
-    "url": "https://sepolia.eas.xyz/attestation/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+    "tx_hash": "0xe359e817031159ee70109466d29e0f5e0b53e7703d8384f51ba8d1874b20f1a3",
+    "url": "https://sepolia.eas.xyz/attestation/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    "contract": "0x636B3Af9630e1b26b02BA488a5b8Ab6cE75d6721"
   },
   "certificate": {
     "tier": "Gold",

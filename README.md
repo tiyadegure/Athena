@@ -162,7 +162,10 @@ Generative Trait 系统，12,000 种唯一组合：
 - [x] 构建 athena-audit-skill（12 agent 并行审计）
 - [x] 构建 13 个独立 MCP 工具
 - [x] 设计 Generative NFT（12,000 种 trait 组合）
-- [ ] 部署审计合约到 Sepolia 测试网
+- [x] 部署审计合约到 Sepolia 测试网
+  - AuditCertificate (NFT): `0x636B3Af9630e1b26b02BA488a5b8Ab6cE75d6721`
+  - AuditEvidenceChain: `0x5e99f144D3e512f525d24077D4626a064899E177`
+  - 测试 NFT 已铸造 (Gold tier)
 - [ ] 跑通 ①→⑧ 完整审计链路
 - [ ] GLM-5.1 vs Claude 对比评测（17 个测试合约）
 - [ ] 录制 Demo 视频
