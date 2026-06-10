@@ -1,111 +1,82 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" font-family="monospace">
-  <!-- Background -->
-  <rect width="1000" height="600" fill="#0a0a0a"/>
+  <!-- Background - 纯黑 -->
+  <rect width="1000" height="600" fill="#000000"/>
   
-  <!-- Title -->
-  <text x="500" y="40" text-anchor="middle" fill="#00ff88" font-size="24" font-weight="bold">Athena 8 步审计闭环架构</text>
+  <!-- 标题 - 细线框 -->
+  <text x="500" y="40" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="normal">ATHENA — 8-STEP AUDIT PIPELINE</text>
+  <line x1="300" y1="50" x2="700" y2="50" stroke="#333333" stroke-width="1"/>
   
-  <!-- GLM-5.1 Core -->
-  <rect x="350" y="260" width="300" height="80" rx="10" fill="#1a1a1a" stroke="#00ff88" stroke-width="2"/>
-  <text x="500" y="295" text-anchor="middle" fill="#00ff88" font-size="18" font-weight="bold">GLM-5.1 长程推理引擎</text>
-  <text x="500" y="320" text-anchor="middle" fill="#888" font-size="12">单次会话完成 8 步跨链推理</text>
+  <!-- GLM-5.1 Core - 细线框 -->
+  <rect x="350" y="260" width="300" height="60" fill="none" stroke="#ffffff" stroke-width="1"/>
+  <text x="500" y="295" text-anchor="middle" fill="#ffffff" font-size="14">GLM-5.1 REASONING ENGINE</text>
   
-  <!-- Step 1: Contract Analysis -->
-  <rect x="50" y="80" width="120" height="60" rx="5" fill="#1a1a1a" stroke="#4a9eff" stroke-width="1.5"/>
-  <text x="110" y="105" text-anchor="middle" fill="#4a9eff" font-size="11">1. 合约分析</text>
-  <text x="110" y="125" text-anchor="middle" fill="#888" font-size="9">多合约依赖</text>
+  <!-- Step 1-6 顶部 -->
+  <rect x="50" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="115" y="105" text-anchor="middle" fill="#ffffff" font-size="10">1. CONTRACT ANALYSIS</text>
   
-  <!-- Step 2: Vulnerability Detection -->
-  <rect x="200" y="80" width="120" height="60" rx="5" fill="#1a1a1a" stroke="#4a9eff" stroke-width="1.5"/>
-  <text x="260" y="105" text-anchor="middle" fill="#4a9eff" font-size="11">2. 漏洞检测</text>
-  <text x="260" y="125" text-anchor="middle" fill="#888" font-size="9">12-agent Skill</text>
+  <rect x="200" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="265" y="105" text-anchor="middle" fill="#ffffff" font-size="10">2. VULN DETECTION</text>
   
-  <!-- Step 3: Symbolic Verification -->
-  <rect x="350" y="80" width="120" height="60" rx="5" fill="#1a1a1a" stroke="#4a9eff" stroke-width="1.5"/>
-  <text x="410" y="105" text-anchor="middle" fill="#4a9eff" font-size="11">3. 符号验证</text>
-  <text x="410" y="125" text-anchor="middle" fill="#888" font-size="9">Halmos 形式化</text>
+  <rect x="350" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="415" y="105" text-anchor="middle" fill="#ffffff" font-size="10">3. SYMBOLIC VERIFY</text>
   
-  <!-- Step 4: Attack Simulation -->
-  <rect x="500" y="80" width="120" height="60" rx="5" fill="#1a1a1a" stroke="#4a9eff" stroke-width="1.5"/>
-  <text x="560" y="105" text-anchor="middle" fill="#4a9eff" font-size="11">4. 攻击模拟</text>
-  <text x="560" y="125" text-anchor="middle" fill="#888" font-size="9">PoC 执行验证</text>
+  <rect x="500" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="565" y="105" text-anchor="middle" fill="#ffffff" font-size="10">4. ATTACK SIM</text>
   
-  <!-- Step 5: Report Generation -->
-  <rect x="650" y="80" width="120" height="60" rx="5" fill="#1a1a1a" stroke="#4a9eff" stroke-width="1.5"/>
-  <text x="710" y="105" text-anchor="middle" fill="#4a9eff" font-size="11">5. 报告生成</text>
-  <text x="710" y="125" text-anchor="middle" fill="#888" font-size="9">Markdown 格式</text>
+  <rect x="650" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="715" y="105" text-anchor="middle" fill="#ffffff" font-size="10">5. REPORT</text>
   
-  <!-- Step 6: On-chain Certification -->
-  <rect x="800" y="80" width="120" height="60" rx="5" fill="#1a1a1a" stroke="#ff6b6b" stroke-width="1.5"/>
-  <text x="860" y="105" text-anchor="middle" fill="#ff6b6b" font-size="11">6. 链上认证</text>
-  <text x="860" y="125" text-anchor="middle" fill="#888" font-size="9">EAS Attestation</text>
+  <rect x="800" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="865" y="105" text-anchor="middle" fill="#ffffff" font-size="10">6. ON-CHAIN ATTEST</text>
   
-  <!-- Step 7: NFT Minting -->
-  <rect x="725" y="440" width="120" height="60" rx="5" fill="#1a1a1a" stroke="#ffd700" stroke-width="1.5"/>
-  <text x="785" y="465" text-anchor="middle" fill="#ffd700" font-size="11">7. NFT 铸造</text>
-  <text x="785" y="485" text-anchor="middle" fill="#888" font-size="9">ERC-1155 分级</text>
+  <!-- Step 7-8 底部 -->
+  <rect x="650" y="440" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="715" y="465" text-anchor="middle" fill="#ffffff" font-size="10">7. NFT MINT</text>
   
-  <!-- Step 8: Frontend Display -->
-  <rect x="875" y="440" width="120" height="60" rx="5" fill="#1a1a1a" stroke="#ff69b4" stroke-width="1.5"/>
-  <text x="935" y="465" text-anchor="middle" fill="#ff69b4" font-size="11">8. 前端展示</text>
-  <text x="935" y="485" text-anchor="middle" fill="#888" font-size="9">Web Dashboard</text>
+  <rect x="800" y="440" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="865" y="465" text-anchor="middle" fill="#ffffff" font-size="10">8. FRONTEND</text>
   
-  <!-- MCP Tools Layer -->
-  <rect x="50" y="440" width="250" height="80" rx="10" fill="#1a1a1a" stroke="#9b59b6" stroke-width="2"/>
-  <text x="175" y="470" text-anchor="middle" fill="#9b59b6" font-size="14" font-weight="bold">MCP 工具链 (13 工具)</text>
-  <text x="175" y="495" text-anchor="middle" fill="#888" font-size="10">scanner | auditor | evidence | repair</text>
+  <!-- MCP 工具层 -->
+  <rect x="50" y="440" width="250" height="60" fill="none" stroke="#ffffff" stroke-width="1"/>
+  <text x="175" y="470" text-anchor="middle" fill="#ffffff" font-size="11">MCP TOOLS (13)</text>
+  <text x="175" y="485" text-anchor="middle" fill="#666666" font-size="9">scanner | auditor | evidence | repair</text>
   
-  <!-- Skill Layer -->
-  <rect x="350" y="440" width="250" height="80" rx="10" fill="#1a1a1a" stroke="#e67e22" stroke-width="2"/>
-  <text x="475" y="470" text-anchor="middle" fill="#e67e22" font-size="14" font-weight="bold">审计 Skill (12 Agents)</text>
-  <text x="475" y="495" text-anchor="middle" fill="#888" font-size="10">reentrancy | overflow | access | logic</text>
+  <!-- Skill 层 -->
+  <rect x="350" y="440" width="250" height="60" fill="none" stroke="#ffffff" stroke-width="1"/>
+  <text x="475" y="470" text-anchor="middle" fill="#ffffff" font-size="11">AUDIT SKILL (12 AGENTS)</text>
+  <text x="475" y="485" text-anchor="middle" fill="#666666" font-size="9">reentrancy | overflow | access | logic</text>
   
-  <!-- Arrows from GLM to steps -->
-  <path d="M 410 260 L 110 140" stroke="#00ff88" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 450 260 L 260 140" stroke="#00ff88" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 500 260 L 410 140" stroke="#00ff88" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 550 260 L 560 140" stroke="#00ff88" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 590 260 L 710 140" stroke="#00ff88" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 600 280 L 860 140" stroke="#00ff88" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
+  <!-- 连接线 -->
+  <line x1="115" y1="120" x2="415" y2="260" stroke="#333333" stroke-width="1"/>
+  <line x1="265" y1="120" x2="450" y2="260" stroke="#333333" stroke-width="1"/>
+  <line x1="415" y1="120" x2="500" y2="260" stroke="#333333" stroke-width="1"/>
+  <line x1="565" y1="120" x2="550" y2="260" stroke="#333333" stroke-width="1"/>
+  <line x1="715" y1="120" x2="590" y2="260" stroke="#333333" stroke-width="1"/>
+  <line x1="865" y1="120" x2="620" y2="280" stroke="#333333" stroke-width="1"/>
   
-  <!-- Arrows from GLM to bottom -->
-  <path d="M 500 340 L 785 440" stroke="#00ff88" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 500 340 L 935 440" stroke="#00ff88" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
+  <line x1="500" y1="320" x2="715" y2="440" stroke="#333333" stroke-width="1"/>
+  <line x1="500" y1="320" x2="865" y2="440" stroke="#333333" stroke-width="1"/>
+  <line x1="400" y1="320" x2="175" y2="440" stroke="#333333" stroke-width="1"/>
+  <line x1="500" y1="320" x2="475" y2="440" stroke="#333333" stroke-width="1"/>
   
-  <!-- Arrows to MCP/Skill -->
-  <path d="M 400 340 L 175 440" stroke="#9b59b6" stroke-width="1" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
-  <path d="M 500 340 L 475 440" stroke="#e67e22" stroke-width="1" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  <!-- 步骤间连接 -->
+  <line x1="180" y1="100" x2="200" y2="100" stroke="#666666" stroke-width="1"/>
+  <line x1="330" y1="100" x2="350" y2="100" stroke="#666666" stroke-width="1"/>
+  <line x1="480" y1="100" x2="500" y2="100" stroke="#666666" stroke-width="1"/>
+  <line x1="630" y1="100" x2="650" y2="100" stroke="#666666" stroke-width="1"/>
+  <line x1="780" y1="100" x2="800" y2="100" stroke="#666666" stroke-width="1"/>
   
-  <!-- Sequential arrows between steps -->
-  <path d="M 170 110 L 200 110" stroke="#4a9eff" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 320 110 L 350 110" stroke="#4a9eff" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 470 110 L 500 110" stroke="#4a9eff" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 620 110 L 650 110" stroke="#4a9eff" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 770 110 L 800 110" stroke="#4a9eff" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
+  <!-- Step 6 到 Step 7 的连接 -->
+  <path d="M 865 120 L 865 200 Q 865 220 840 240 L 715 440" stroke="#333333" stroke-width="1" fill="none"/>
   
-  <!-- Arrow from step 6 to 7 -->
-  <path d="M 860 140 L 860 200 Q 860 220 840 240 L 785 440" stroke="#ff6b6b" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
+  <!-- Step 7 到 Step 8 -->
+  <line x1="780" y1="460" x2="800" y2="460" stroke="#666666" stroke-width="1"/>
   
-  <!-- Arrow from step 7 to 8 -->
-  <path d="M 845 470 L 875 470" stroke="#ffd700" stroke-width="1" fill="none" marker-end="url(#arrowhead)"/>
-  
-  <!-- Arrowhead marker -->
-  <defs>
-    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#00ff88"/>
-    </marker>
-  </defs>
-  
-  <!-- Legend -->
-  <rect x="50" y="560" width="900" height="30" rx="5" fill="#1a1a1a"/>
-  <circle cx="150" cy="575" r="5" fill="#4a9eff"/>
-  <text x="165" y="580" fill="#888" font-size="10">审计流程</text>
-  <circle cx="300" cy="575" r="5" fill="#9b59b6"/>
-  <text x="315" y="580" fill="#888" font-size="10">MCP 工具</text>
-  <circle cx="450" cy="575" r="5" fill="#e67e22"/>
-  <text x="465" y="580" fill="#888" font-size="10">审计 Skill</text>
-  <circle cx="600" cy="575" r="5" fill="#ff6b6b"/>
-  <text x="615" y="580" fill="#888" font-size="10">链上操作</text>
-  <circle cx="750" cy="575" r="5" fill="#ffd700"/>
-  <text x="765" y="580" fill="#888" font-size="10">NFT 铸造</text>
+  <!-- 图例 -->
+  <rect x="50" y="560" width="900" height="25" fill="none" stroke="#333333" stroke-width="1"/>
+  <text x="150" y="577" fill="#666666" font-size="9">AUDIT FLOW</text>
+  <text x="300" y="577" fill="#666666" font-size="9">MCP TOOLS</text>
+  <text x="450" y="577" fill="#666666" font-size="9">AUDIT SKILL</text>
+  <text x="600" y="577" fill="#666666" font-size="9">ON-CHAIN</text>
+  <text x="750" y="577" fill="#666666" font-size="9">NFT MINT</text>
 </svg>
