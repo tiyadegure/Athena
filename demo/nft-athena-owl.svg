@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- Dark blue background -->
+  <rect width="400" height="400" fill="#0a1a2e"/>
+  
+  <!-- Wings (spread wide) -->
+  <!-- Left wing -->
+  <rect x="60" y="140" width="50" height="100" fill="#1a3a6a"/>
+  <rect x="50" y="150" width="30" height="80" fill="#2a5a8a"/>
+  <rect x="40" y="160" width="20" height="60" fill="#1a3a6a"/>
+  <!-- Wing gold edge -->
+  <rect x="60" y="140" width="50" height="4" fill="#FFD700"/>
+  <rect x="50" y="150" width="30" height="3" fill="#FFD700"/>
+  
+  <!-- Right wing -->
+  <rect x="290" y="140" width="50" height="100" fill="#1a3a6a"/>
+  <rect x="320" y="150" width="30" height="80" fill="#2a5a8a"/>
+  <rect x="340" y="160" width="20" height="60" fill="#1a3a6a"/>
+  <!-- Wing gold edge -->
+  <rect x="290" y="140" width="50" height="4" fill="#FFD700"/>
+  <rect x="320" y="150" width="30" height="3" fill="#FFD700"/>
+  
+  <!-- Body -->
+  <rect x="140" y="130" width="120" height="140" rx="10" fill="#1a3a6a"/>
+  <rect x="150" y="140" width="100" height="120" rx="8" fill="#2a5a8a"/>
+  
+  <!-- Body feather texture (layered blue blocks) -->
+  <rect x="155" y="180" width="20" height="15" fill="#1a3a6a" opacity="0.5"/>
+  <rect x="180" y="190" width="20" height="15" fill="#1a3a6a" opacity="0.5"/>
+  <rect x="205" y="180" width="20" height="15" fill="#1a3a6a" opacity="0.5"/>
+  <rect x="230" y="190" width="15" height="15" fill="#1a3a6a" opacity="0.5"/>
+  
+  <!-- Head (round owl face) -->
+  <circle cx="200" cy="100" r="45" fill="#2a5a8a"/>
+  <circle cx="200" cy="100" r="40" fill="#3a6a9a"/>
+  
+  <!-- Helmet -->
+  <rect x="155" y="60" width="90" height="45" rx="8" fill="#1a3a6a"/>
+  <rect x="160" y="55" width="80" height="30" rx="6" fill="#2a5a8a"/>
+  
+  <!-- Helmet crest/plume (golden flame) -->
+  <rect x="185" y="20" width="30" height="45" rx="5" fill="#FFD700"/>
+  <rect x="190" y="10" width="20" height="20" rx="4" fill="#FFA500"/>
+  <rect x="195" y="5" width="10" height="10" rx="3" fill="#FFD700" opacity="0.8"/>
+  
+  <!-- Helmet golden trim -->
+  <rect x="158" y="80" width="84" height="4" fill="#FFD700"/>
+  <rect x="165" y="55" width="70" height="3" fill="#FFD700" opacity="0.6"/>
+  
+  <!-- Helmet "T" guard -->
+  <rect x="195" y="75" width="10" height="20" fill="#FFD700"/>
+  <rect x="185" y="85" width="30" height="5" fill="#FFD700"/>
+  
+  <!-- Eyes (large, glowing) -->
+  <circle cx="182" cy="100" r="18" fill="#FFD700"/>
+  <circle cx="218" cy="100" r="18" fill="#FFD700"/>
+  <circle cx="182" cy="100" r="10" fill="#0a1a2e"/>
+  <circle cx="218" cy="100" r="10" fill="#0a1a2e"/>
+  <circle cx="182" cy="100" r="5" fill="#FFD700"/>
+  <circle cx="218" cy="100" r="5" fill="#FFD700"/>
+  <!-- Eye glow -->
+  <circle cx="182" cy="100" r="22" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.3"/>
+  <circle cx="218" cy="100" r="22" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Beak (small, golden) -->
+  <rect x="195" y="115" width="10" height="8" rx="2" fill="#FFD700"/>
+  <rect x="197" y="120" width="6" height="5" rx="1" fill="#FFA500"/>
+  
+  <!-- Shield emblem on chest -->
+  <circle cx="200" cy="195" r="25" fill="#FFD700"/>
+  <circle cx="200" cy="195" r="20" fill="#1a3a6a"/>
+  <!-- Laurel wreath inside shield -->
+  <path d="M190,195 Q195,180 200,175 Q205,180 210,195" fill="none" stroke="#FFD700" stroke-width="2"/>
+  <path d="M192,198 Q196,185 200,180 Q204,185 208,198" fill="none" stroke="#FFD700" stroke-width="1.5"/>
+  <!-- Star in center -->
+  <rect x="197" y="188" width="6" height="6" fill="#FFD700" transform="rotate(45 200 191)"/>
+  
+  <!-- Talons (golden, 3 toes each) -->
+  <!-- Left talon -->
+  <rect x="170" y="270" width="8" height="20" fill="#FFD700"/>
+  <rect x="160" y="285" width="10" height="6" rx="2" fill="#FFD700"/>
+  <rect x="173" y="288" width="10" height="6" rx="2" fill="#FFD700"/>
+  <rect x="186" y="285" width="10" height="6" rx="2" fill="#FFD700"/>
+  
+  <!-- Right talon -->
+  <rect x="222" y="270" width="8" height="20" fill="#FFD700"/>
+  <rect x="214" y="285" width="10" height="6" rx="2" fill="#FFD700"/>
+  <rect x="227" y="288" width="10" height="6" rx="2" fill="#FFD700"/>
+  <rect x="240" y="285" width="10" height="6" rx="2" fill="#FFD700"/>
+</svg>

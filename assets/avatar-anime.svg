@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#0a0a0a"/>
+  
+  <!-- Hair (back) -->
+  <rect x="180" y="120" width="152" height="200" rx="20" fill="#FFD700"/>
+  <rect x="170" y="140" width="172" height="180" rx="15" fill="#FFD700"/>
+  
+  <!-- Face -->
+  <rect x="195" y="160" width="122" height="130" rx="15" fill="#ffd4a8"/>
+  
+  <!-- Eyes (big anime style) -->
+  <!-- Left eye -->
+  <rect x="215" y="200" width="32" height="28" rx="8" fill="#ffffff"/>
+  <rect x="220" y="205" width="22" height="18" rx="5" fill="#3498DB"/>
+  <rect x="225" y="208" width="12" height="12" rx="3" fill="#1a1a2e"/>
+  <circle cx="228" cy="212" r="3" fill="#ffffff"/>
+  
+  <!-- Right eye -->
+  <rect x="265" y="200" width="32" height="28" rx="8" fill="#ffffff"/>
+  <rect x="270" y="205" width="22" height="18" rx="5" fill="#3498DB"/>
+  <rect x="275" y="208" width="12" height="12" rx="3" fill="#1a1a2e"/>
+  <circle cx="278" cy="212" r="3" fill="#ffffff"/>
+  
+  <!-- Eyebrows -->
+  <rect x="218" y="192" width="28" height="4" rx="2" fill="#d4a56a"/>
+  <rect x="268" y="192" width="28" height="4" rx="2" fill="#d4a56a"/>
+  
+  <!-- Nose -->
+  <rect x="248" y="240" width="16" height="6" rx="2" fill="#e8b89a"/>
+  
+  <!-- Mouth (cute smile) -->
+  <path d="M236,260 Q256,275 276,260" fill="none" stroke="#c4856a" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Blush -->
+  <ellipse cx="215" cy="250" rx="12" ry="8" fill="#ffb6c1" opacity="0.4"/>
+  <ellipse cx="297" cy="250" rx="12" ry="8" fill="#ffb6c1" opacity="0.4"/>
+  
+  <!-- Hair (front) -->
+  <rect x="185" y="110" width="142" height="60" rx="10" fill="#FFD700"/>
+  <rect x="195" y="100" width="122" height="50" rx="8" fill="#FFA500"/>
+  <!-- Bangs -->
+  <rect x="200" y="145" width="30" height="40" rx="5" fill="#FFD700"/>
+  <rect x="235" y="140" width="25" height="45" rx="5" fill="#FFD700"/>
+  <rect x="265" y="140" width="25" height="45" rx="5" fill="#FFD700"/>
+  <rect x="295" y="145" width="20" height="40" rx="5" fill="#FFD700"/>
+  
+  <!-- Helmet -->
+  <rect x="175" y="90" width="162" height="70" rx="10" fill="#888888"/>
+  <rect x="185" y="85" width="142" height="40" rx="8" fill="#aaaaaa"/>
+  
+  <!-- Helmet crest -->
+  <rect x="235" y="40" width="42" height="55" rx="6" fill="#888888"/>
+  <rect x="240" y="25" width="32" height="25" rx="5" fill="#aaaaaa"/>
+  <rect x="245" y="15" width="22" height="15" rx="3" fill="#cccccc"/>
+  
+  <!-- Helmet wings -->
+  <rect x="155" y="80" width="25" height="40" rx="5" fill="#888888"/>
+  <rect x="332" y="80" width="25" height="40" rx="5" fill="#888888"/>
+  <rect x="145" y="70" width="15" height="25" rx="3" fill="#aaaaaa"/>
+  <rect x="352" y="70" width="15" height="25" rx="3" fill="#aaaaaa"/>
+  
+  <!-- Armor -->
+  <rect x="185" y="290" width="142" height="100" rx="10" fill="#777777"/>
+  <rect x="195" y="295" width="122" height="35" rx="6" fill="#888888"/>
+  
+  <!-- Armor emblem -->
+  <rect x="240" y="340" width="32" height="40" rx="4" fill="#666666"/>
+  <rect x="245" y="345" width="22" height="30" rx="3" fill="#777777"/>
+  
+  <!-- Shield (left) -->
+  <rect x="120" y="280" width="65" height="85" rx="12" fill="#888888"/>
+  <rect x="128" y="288" width="49" height="69" rx="8" fill="#777777"/>
+  <!-- Owl emblem -->
+  <circle cx="152" cy="325" r="15" fill="#aaaaaa"/>
+  <circle cx="152" cy="325" r="10" fill="#999999"/>
+  <rect x="145" y="318" width="6" height="6" fill="#1a1a2e"/>
+  <rect x="155" y="318" width="6" height="6" fill="#1a1a2e"/>
+  <rect x="148" y="328" width="10" height="4" fill="#1a1a2e"/>
+  
+  <!-- Spear (right) -->
+  <rect x="365" y="160" width="8" height="300" fill="#aaaaaa"/>
+  <rect x="358" y="140" width="22" height="25" rx="3" fill="#cccccc"/>
+  <rect x="362" y="125" width="14" height="20" rx="2" fill="#dddddd"/>
+  <rect x="366" y="110" width="6" height="18" rx="2" fill="#ffffff"/>
+  
+  <!-- Hair strands (detail) -->
+  <rect x="180" y="200" width="12" height="60" rx="4" fill="#FFA500"/>
+  <rect x="320" y="200" width="12" height="60" rx="4" fill="#FFA500"/>
+  
+  <!-- Glow effect -->
+  <circle cx="256" cy="250" r="120" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.1"/>
+  <circle cx="256" cy="250" r="140" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.05"/>
+  
+  <!-- Text -->
+  <text x="256" y="470" font-family="monospace" font-size="32" font-weight="bold" fill="#ffffff" text-anchor="middle" letter-spacing="6">ATHENA</text>
+</svg>
