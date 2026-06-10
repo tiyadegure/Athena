@@ -15,7 +15,7 @@ AI-powered smart contract security audit | GLM-5.1 long-horizon reasoning | On-c
 使用现有 Athena 像素艺术头像
 
 ### 链接
-https://github.com/tiyadegure/Athena
+https://athena.degure.me
 
 ---
 

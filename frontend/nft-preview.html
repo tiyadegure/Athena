@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ATHENA — Generative NFT Certificate Preview</title>
+<style>
+  body { background: #000000; color: #fff; font-family: monospace; text-align: center; padding: 40px; }
+  h1 { font-size: 20px; font-weight: normal; letter-spacing: 2px; }
+  .subtitle { opacity: 0.5; font-size: 12px; margin-bottom: 40px; }
+  .card { display: inline-block; margin: 15px; padding: 20px; background: #0a0a0a; border: 1px solid #333; vertical-align: top; }
+  .card-s { border: 1px solid #fff; position: relative; overflow: hidden; }
+  .card-s::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #8800ff, #ff0088); z-index: -1; animation: rainbow 3s linear infinite; }
+  .card-s::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #0a0a0a; z-index: -1; }
+  @keyframes rainbow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+  .gold { border-color: #666; }
+  .silver { border-color: #555; }
+  .bronze { border-color: #444; }
+  h2 { margin-bottom: 5px; font-size: 14px; font-weight: normal; }
+  .tier { font-size: 11px; opacity: 0.5; }
+  .traits { font-size: 10px; opacity: 0.4; margin-top: 8px; }
+  .rarity { font-size: 11px; margin-top: 5px; opacity: 0.7; }
+  .s-badge { display: inline-block; padding: 2px 8px; font-size: 10px; background: linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #8800ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow-text 2s linear infinite; }
+  @keyframes rainbow-text { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+</style>
+</head>
+<body>
+<h1>ATHENA — Generative NFT Certificate</h1>
+<p class="subtitle">On-chain SVG Preview · 12,064 trait combinations · Four tiers</p>
+
+<!-- S-TIER -->
+<div class="card card-s">
+  <h2>S-TIER</h2>
+  <p class="tier">100 score + Critical severity</p>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+    <defs>
+      <linearGradient id="rainbow" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#ff0000"/>
+        <stop offset="16%" style="stop-color:#ff8800"/>
+        <stop offset="33%" style="stop-color:#ffff00"/>
+        <stop offset="50%" style="stop-color:#00ff00"/>
+        <stop offset="66%" style="stop-color:#0088ff"/>
+        <stop offset="83%" style="stop-color:#8800ff"/>
+        <stop offset="100%" style="stop-color:#ff0088"/>
+      </linearGradient>
+    </defs>
+    <rect width="320" height="320" fill="url(#rainbow)" opacity="0.15"/>
+    <!-- Aura -->
+    <circle cx="160" cy="160" r="140" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.2">
+      <animate attributeName="r" values="130;145;130" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="160" cy="160" r="120" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.15">
+      <animate attributeName="r" values="115;125;115" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Body -->
+    <rect x="135" y="55" width="50" height="35" fill="#ffd4a8"/>
+    <rect x="110" y="90" width="100" height="120" rx="5" fill="#333"/>
+    <rect x="115" y="95" width="90" height="30" fill="#555"/>
+    <rect x="125" y="210" width="30" height="60" fill="#333"/>
+    <rect x="165" y="210" width="30" height="60" fill="#333"/>
+    <rect x="120" y="265" width="40" height="15" rx="3" fill="#555"/>
+    <rect x="160" y="265" width="40" height="15" rx="3" fill="#555"/>
+    <!-- Crown -->
+    <rect x="120" y="20" width="80" height="50" rx="5" fill="#444"/>
+    <rect x="130" y="10" width="10" height="15" fill="#ffd700"/>
+    <rect x="150" y="5" width="20" height="20" fill="#ffd700"/>
+    <rect x="180" y="10" width="10" height="15" fill="#ffd700"/>
+    <!-- Wings -->
+    <path d="M50,100 Q30,160 60,220" fill="none" stroke="#fff" stroke-width="2" opacity="0.5">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M270,100 Q290,160 260,220" fill="none" stroke="#fff" stroke-width="2" opacity="0.5">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <!-- Shield + Weapon -->
+    <rect x="60" y="100" width="45" height="60" rx="8" fill="#444"/>
+    <rect x="230" y="50" width="6" height="180" fill="#ffd700"/>
+    <!-- Eyes -->
+    <rect x="145" y="62" width="8" height="6" fill="#ff0000"/>
+    <rect x="167" y="62" width="8" height="6" fill="#ff0000"/>
+    <rect x="152" y="75" width="16" height="4" fill="#d4956a"/>
+    <text x="160" y="310" font-family="monospace" font-size="10" fill="#ffffff" text-anchor="middle">ATHENA</text>
+  </svg>
+  <p class="s-badge">S-TIER</p>
+  <p class="traits">Crown · Dragon Wings · Rainbow Aura · Spear · Starry Sky · Red Eyes</p>
+  <p class="rarity" style="color:#fff">Rarity: 1/12,064</p>
+</div>
+
+<!-- A-TIER (GOLD) -->
+<div class="card gold">
+  <h2 style="color:#888">A-TIER</h2>
+  <p class="tier">80-99 score</p>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+    <rect width="320" height="320" fill="#0a0a2e"/>
+    <circle cx="50" cy="30" r="2" fill="#FFD700" opacity="0.8"/>
+    <circle cx="150" cy="20" r="1.5" fill="#FFD700" opacity="0.6"/>
+    <circle cx="250" cy="40" r="2" fill="#FFD700" opacity="0.7"/>
+    <rect x="135" y="55" width="50" height="35" fill="#ffd4a8"/>
+    <rect x="110" y="90" width="100" height="120" rx="5" fill="#B8860B"/>
+    <rect x="115" y="95" width="90" height="30" fill="#FFD700"/>
+    <rect x="125" y="210" width="30" height="60" fill="#B8860B"/>
+    <rect x="165" y="210" width="30" height="60" fill="#B8860B"/>
+    <rect x="120" y="265" width="40" height="15" rx="3" fill="#FFD700"/>
+    <rect x="160" y="265" width="40" height="15" rx="3" fill="#FFD700"/>
+    <rect x="130" y="20" width="60" height="10" fill="#FFD700"/>
+    <rect x="140" y="10" width="40" height="10" fill="#FFA500"/>
+    <rect x="150" y="0" width="20" height="10" fill="#FFD700"/>
+    <rect x="120" y="30" width="80" height="50" rx="10" fill="#B8860B"/>
+    <rect x="60" y="100" width="45" height="60" rx="8" fill="#FFD700"/>
+    <rect x="68" y="108" width="29" height="44" rx="4" fill="#B8860B"/>
+    <rect x="230" y="50" width="6" height="180" fill="#FFD700"/>
+    <rect x="224" y="40" width="18" height="15" rx="2" fill="#FFA500"/>
+    <rect x="145" y="62" width="8" height="6" fill="#3498DB"/>
+    <rect x="167" y="62" width="8" height="6" fill="#3498DB"/>
+    <rect x="152" y="75" width="16" height="4" fill="#d4956a"/>
+    <text x="160" y="310" font-family="monospace" font-size="10" fill="#888" text-anchor="middle">ATHENA</text>
+  </svg>
+  <p class="traits">Feathered · Owl · Gold · Spear · Starry Sky · Blue Eyes</p>
+  <p class="rarity" style="color:#888">Rarity: 42/12,064</p>
+</div>
+
+<!-- B-TIER (SILVER) -->
+<div class="card silver">
+  <h2 style="color:#666">B-TIER</h2>
+  <p class="tier">60-79 score</p>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+    <rect width="320" height="320" fill="#1a0a0a"/>
+    <rect x="135" y="55" width="50" height="35" fill="#ffd4a8"/>
+    <rect x="110" y="90" width="100" height="120" rx="5" fill="#808080"/>
+    <rect x="115" y="95" width="90" height="30" fill="#C0C0C0"/>
+    <rect x="125" y="210" width="30" height="60" fill="#808080"/>
+    <rect x="165" y="210" width="30" height="60" fill="#808080"/>
+    <rect x="120" y="265" width="40" height="15" rx="3" fill="#C0C0C0"/>
+    <rect x="160" y="265" width="40" height="15" rx="3" fill="#C0C0C0"/>
+    <rect x="120" y="30" width="80" height="50" rx="8" fill="#C0C0C0"/>
+    <rect x="110" y="20" width="15" height="30" rx="3" fill="#A9A9A9"/>
+    <rect x="195" y="20" width="15" height="30" rx="3" fill="#A9A9A9"/>
+    <rect x="60" y="100" width="45" height="60" rx="8" fill="#C0C0C0"/>
+    <path d="M230,50 Q250,130 230,210" fill="none" stroke="#C0C0C0" stroke-width="4"/>
+    <rect x="145" y="62" width="8" height="6" fill="#2ECC71"/>
+    <rect x="167" y="62" width="8" height="6" fill="#2ECC71"/>
+    <rect x="152" y="75" width="16" height="4" fill="#d4956a"/>
+    <text x="160" y="310" font-family="monospace" font-size="10" fill="#666" text-anchor="middle">ATHENA</text>
+  </svg>
+  <p class="traits">Horned · Snake Hair · Silver · Bow · Fire · Green Eyes</p>
+  <p class="rarity" style="color:#666">Rarity: 78/12,064</p>
+</div>
+
+<!-- C-TIER (BRONZE) -->
+<div class="card bronze">
+  <h2 style="color:#555">C-TIER</h2>
+  <p class="tier">&lt;60 score</p>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+    <rect width="320" height="320" fill="#0a1a2e"/>
+    <rect x="135" y="55" width="50" height="35" fill="#ffd4a8"/>
+    <rect x="110" y="90" width="100" height="120" rx="5" fill="#6C3483"/>
+    <rect x="115" y="95" width="90" height="30" fill="#9B59B6"/>
+    <rect x="125" y="210" width="30" height="60" fill="#6C3483"/>
+    <rect x="165" y="210" width="30" height="60" fill="#6C3483"/>
+    <rect x="120" y="265" width="40" height="15" rx="3" fill="#9B59B6"/>
+    <rect x="160" y="265" width="40" height="15" rx="3" fill="#9B59B6"/>
+    <rect x="120" y="30" width="80" height="50" rx="5" fill="#9B59B6"/>
+    <rect x="130" y="15" width="10" height="20" fill="#8E44AD"/>
+    <rect x="150" y="10" width="10" height="25" fill="#8E44AD"/>
+    <rect x="170" y="15" width="10" height="20" fill="#8E44AD"/>
+    <rect x="60" y="100" width="45" height="60" rx="8" fill="#9B59B6"/>
+    <rect x="228" y="60" width="4" height="140" fill="#9B59B6"/>
+    <rect x="145" y="62" width="8" height="6" fill="#E74C3C"/>
+    <rect x="167" y="62" width="8" height="6" fill="#E74C3C"/>
+    <rect x="152" y="75" width="16" height="4" fill="#d4956a"/>
+    <text x="160" y="310" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">ATHENA</text>
+  </svg>
+  <p class="traits">Crown · Lightning · Purple · Sword · Ocean · Red Eyes</p>
+  <p class="rarity" style="color:#555">Rarity: 15/12,064</p>
+</div>
+
+</body>
+</html>

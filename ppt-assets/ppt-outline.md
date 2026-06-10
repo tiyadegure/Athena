@@ -154,3 +154,10 @@ Roadmap：
 - 真实协议审计（Curve、Aave）
 
 感谢 Z.AI 赛道支持！
+
+---
+
+联系我们：
+- GitHub: https://github.com/tiyadegure/glm-code
+- X/Twitter: https://x.com/AthenaAudit
+- Landing Page: https://athena.degure.me
