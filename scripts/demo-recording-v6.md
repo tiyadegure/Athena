@@ -1,4 +1,4 @@
-# Athena Demo 录屏脚本（v6 版本）
+# Athena Demo 录屏脚本（v6 完整版）
 
 ## 核心叙事
 
@@ -9,6 +9,56 @@
 
 ---
 
+## 项目产物（完整）
+
+### 合约（24 个）
+- **核心合约**：AuditCertificate.sol（S/A/B/C 四级 NFT）、AuditEvidenceChain.sol
+- **多合约**：Token.sol、Oracle.sol、Vault.sol、Vault-v2.sol（增量审计）
+- **期权**：OptionsIndexTracker.sol、RebalancingStrategy.sol、SyntheticOption.sol
+- **真实协议**：curve-pool.sol、hundred-finance.sol
+- **测试合约**：17 个（Reentrancy、FlashLoan、AccessControl、IntegerOverflow 等）
+- **PoC**：ReentrancyExploit.s.sol、FlashLoanExploit.s.sol、Reentrancy.t.sol
+- **修复**：Reentrancy-fixed.sol
+
+### MCP 工具（13 个）
+- slither_runner.py、aderyn_runner.py、poc_generator.py、fuzz_runner.py
+- knowledge_base.py、eas_attest.py、exploit_simulator.py、evidence_chain.py
+- halmos_runner.py、protocol_scanner.py、repair_validator.py、incremental_auditor.py、gev_analyzer.py
+
+### 前端
+- frontend/index.html + app.js + style.css
+- demo/nft-preview.html（S/A/B/C 四级预览）
+- demo/report.json
+
+### 脚本
+- scripts/real-audit-v6.sh（GLM-5.1 驱动的完整审计脚本）
+
+### PPT 素材（14 个）
+- architecture.svg、skill-agents.svg、mcp-tools.svg
+- audit-report.svg、onchain-verification.svg
+- nft-preview.png、nft-preview-full.png、nft-gold.png、nft-silver.png
+- frontend-screenshot.png、report.json、test-results.txt
+- ppt-outline.md、README.md
+
+### 链上部署
+- NFT 合约：0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E
+- 证据链合约：0x5e99f144D3e512f525d24077D4626a064899E177
+- EAS 合约：0xC2679fBD37d54388Ce493F1DB75320D236e1815e
+- 网络：Sepolia 测试网
+
+### 测试状态
+- 23/23 测试通过
+- 2 个测试套件
+
+### NFT 等级（v6）
+- **S 级（炫彩）**：100 分 + Critical，彩虹渐变 + 动态光晕，最稀有
+- **A 级（金）**：80-99 分，金色雅典娜
+- **B 级（银）**：60-79 分，银色雅典娜
+- **C 级（铜）**：<60 分，铜色雅典娜
+- 总组合：12,064 种（12,000 + 64 S 级）
+
+---
+
 ## Demo 流程（5 分钟）
 
 ### [0:00-0:30] 开场 — 展示项目结构
@@ -16,11 +66,11 @@
 **终端操作：**
 ```bash
 cd /root/projects/glm-code
-tree -L 2 -I 'node_modules|.pi|lib'
+tree -L 2 -I 'node_modules|.pi|lib|out|cache'
 ```
 
 **讲解：**
-> "这是 Athena，一个基于 GLM-5.1 的 Web3 安全审计系统。项目包含 12 个审计 Agent、13 个 MCP 工具、17 个测试合约。"
+> "这是 Athena，一个基于 GLM-5.1 的 Web3 安全审计系统。项目包含 24 个合约、13 个 MCP 工具、14 个 PPT 素材。"
 
 ---
 
@@ -28,7 +78,6 @@ tree -L 2 -I 'node_modules|.pi|lib'
 
 **终端操作：**
 ```bash
-# 展示多合约目录
 cat contracts/multi-contract/Token.sol
 cat contracts/multi-contract/Oracle.sol
 cat contracts/multi-contract/Vault.sol
@@ -43,20 +92,21 @@ cat contracts/multi-contract/Vault.sol
 
 **终端操作：**
 ```bash
-# 启动审计脚本
-./scripts/real-audit-llm.sh
+chmod +x scripts/real-audit-v6.sh
+./scripts/real-audit-v6.sh
 ```
 
 **讲解：**
 > "现在启动 GLM-5.1 审计脚本。GLM-5.1 会作为 LLM 层，协调 13 个 MCP 工具执行完整的 8 步审计流程。"
 
 **关键展示点：**
-- GLM-5.1 分析合约结构
-- GLM-5.1 调用 Slither MCP 工具
-- GLM-5.1 调用 Aderyn MCP 工具
-- GLM-5.1 查询知识库
-- GLM-5.1 生成 PoC
-- GLM-5.1 运行 Foundry 测试
+- GLM-5.1 分析合约结构（protocol_scanner）
+- GLM-5.1 调用 Slither（slither_runner）
+- GLM-5.1 调用 Aderyn（aderyn_runner）
+- GLM-5.1 查询知识库（knowledge_base）
+- GLM-5.1 生成攻击模拟（exploit_simulator）
+- GLM-5.1 生成 PoC（poc_generator）
+- GLM-5.1 运行 Fuzz 测试（fuzz_runner）
 - GLM-5.1 生成审计报告
 
 **注意：**
@@ -71,10 +121,10 @@ cat contracts/multi-contract/Vault.sol
 **终端操作：**
 ```bash
 # 展示生成的 PoC
-cat contracts/test-cases/poc/ReentrancyExploit.t.sol
+cat contracts/test-cases/poc/Reentrancy.t.sol
 
 # 展示测试结果
-forge test --match-contract ReentrancyExploit -vvv
+forge test -vv | tail -30
 
 # 展示审计报告
 cat demo/report.json
@@ -141,7 +191,9 @@ cat demo/report.json
      ↓
 [0:30-1:00] 终端：待审计合约（Token+Oracle+Vault）
      ↓
-[1:00-2:30] 终端：运行审计脚本（GLM-5.1 实时审计）⭐
+[1:00-2:30] 终端：运行审计脚本 ⭐
+            ./scripts/real-audit-v6.sh
+            GLM-5.1 实时执行 8 步审计
      ↓
 [2:30-3:00] 终端：展示审计结果（PoC + 测试 + 报告）
      ↓
@@ -169,7 +221,7 @@ cat demo/report.json
 
 - 工作目录：`/root/projects/glm-code`
 - 已安装：Foundry、Node.js
-- 审计脚本：`./scripts/real-audit-llm.sh`
+- 审计脚本：`./scripts/real-audit-v6.sh`
 
 ---
 
@@ -196,16 +248,16 @@ cat demo/report.json
 - 完整审计流程
 - 一键铸造 NFT
 
-### 5. NFT 分级系统（v6 新增）
-- **S 级（炫彩）**：100 分 + Critical 漏洞，彩虹渐变 + 动态光晕，最稀有
-- **A 级（金）**：高分审计，金色雅典娜
-- **B 级（银）**：中等审计，银色雅典娜
-- **C 级（铜）**：基础审计，铜色雅典娜
+### 5. NFT 分级系统（v6）
+- **S 级（炫彩）**：100 分 + Critical，彩虹渐变 + 动态光晕，最稀有
+- **A 级（金）**：80-99 分，金色雅典娜
+- **B 级（银）**：60-79 分，银色雅典娜
+- **C 级（铜）**：<60 分，铜色雅典娜
 - 总组合：12,064 种（12,000 + 64 S 级）
 
 ---
 
-## NFT 等级详解（v6 新增）
+## NFT 等级详解（v6）
 
 ### S 级（炫彩）
 - **触发条件**：审计得分 100 分 + Critical 漏洞
@@ -279,30 +331,52 @@ cat demo/report.json
 cat demo/report.json
 
 # 展示 PoC 测试
-forge test --match-contract ReentrancyExploit -vvv
+forge test -vv | tail -30
 ```
 
 ### 备用方案 2：手动执行步骤
 ```bash
 # 手动执行每个步骤
-cat contracts/test-cases/Reentrancy.sol
-forge test --match-contract ReentrancyExploit -vvv
+cat contracts/multi-contract/Token.sol
+cat contracts/multi-contract/Oracle.sol
+cat contracts/multi-contract/Vault.sol
+forge test -vv | tail -30
 cat demo/report.json
 ```
 
 ---
 
-## 产物清单
+## 产物清单（完整）
 
-### 合约
-- `contracts/multi-contract/` — Token+Oracle+Vault（跨合约漏洞）
-- `contracts/test-cases/` — 17 个测试合约
-- `contracts/test-cases/poc/` — PoC 测试
-- `contracts/test-cases/fixes/` — 修复后的合约
-- `contracts/AuditCertificate.sol` — NFT 合约（v6: S/A/B/C 四级）
+### 合约（24 个）
+- `contracts/AuditCertificate.sol` — NFT 合约（S/A/B/C 四级）
 - `contracts/AuditEvidenceChain.sol` — 证据链合约
+- `contracts/multi-contract/Token.sol` — ERC20 代币
+- `contracts/multi-contract/Oracle.sol` — 预言机
+- `contracts/multi-contract/Vault.sol` — 金库
+- `contracts/multi-contract/Vault-v2.sol` — 升级版金库（增量审计）
+- `contracts/options-index/OptionsIndexTracker.sol` — 期权指数追踪
+- `contracts/options-index/RebalancingStrategy.sol` — 再平衡策略
+- `contracts/options-index/SyntheticOption.sol` — 合成期权
+- `contracts/real-world/curve-pool.sol` — Curve 真实协议
+- `contracts/real-world/hundred-finance.sol` — Hundred Finance 真实协议
+- `contracts/test-cases/AccessControl.sol` — 访问控制漏洞
+- `contracts/test-cases/AgentEscrow.sol` — Agent 托管
+- `contracts/test-cases/AgentIdentity.sol` — Agent 身份
+- `contracts/test-cases/FlashLoan.sol` — 闪电贷漏洞
+- `contracts/test-cases/GEVTest.sol` — GEV 测试
+- `contracts/test-cases/IntegerOverflow.sol` — 整数溢出漏洞
+- `contracts/test-cases/PrivacyToken.sol` — 隐私代币
+- `contracts/test-cases/ReadOnlyReentrancy.sol` — 只读重入漏洞
+- `contracts/test-cases/Reentrancy.sol` — 重入漏洞
+- `contracts/test-cases/SafeContract.sol` — 安全合约（无漏洞）
+- `contracts/test-cases/fixes/Reentrancy-fixed.sol` — 修复后的重入
+- `contracts/test-cases/poc/ReentrancyExploit.s.sol` — 重入攻击脚本
+- `contracts/test-cases/poc/FlashLoanExploit.s.sol` — 闪电贷攻击脚本
+- `contracts/test-cases/poc/Reentrancy.t.sol` — 重入测试
+- `contracts/test/AuditCertificate.t.sol` — NFT 测试
 
-### MCP 工具
+### MCP 工具（13 个）
 - `mcp/tools/slither_runner.py` — 静态分析
 - `mcp/tools/aderyn_runner.py` — Rust 静态分析
 - `mcp/tools/poc_generator.py` — PoC 生成
@@ -318,16 +392,35 @@ cat demo/report.json
 - `mcp/tools/gev_analyzer.py` — GEV 分析
 
 ### 审计脚本
-- `scripts/real-audit-llm.sh` — GLM-5.1 驱动的审计脚本
+- `scripts/real-audit-v6.sh` — GLM-5.1 驱动的完整审计脚本
+- `scripts/real-audit-llm.sh` — 基础 LLM 审计脚本
 - `scripts/real-audit.sh` — 基础审计脚本
 
 ### 前端
 - `frontend/index.html` — 审计报告页面
-- `frontend/style.css` — 样式
 - `frontend/app.js` — 逻辑
-- `demo/nft-preview.html` — NFT 预览页面（v6: S/A/B/C 四级）
+- `frontend/style.css` — 样式
+- `demo/nft-preview.html` — NFT 预览页面（S/A/B/C 四级）
+- `demo/report.json` — 审计报告示例
+
+### PPT 素材（14 个）
+- `ppt-assets/architecture.svg` — 架构图
+- `ppt-assets/skill-agents.svg` — 12 Agent 结构
+- `ppt-assets/mcp-tools.svg` — 13 MCP 工具
+- `ppt-assets/audit-report.svg` — 审计报告
+- `ppt-assets/onchain-verification.svg` — 链上验证
+- `ppt-assets/nft-preview.png` — 3 等级 NFT
+- `ppt-assets/nft-preview-full.png` — NFT 完整页面
+- `ppt-assets/nft-gold.png` — 金级特写
+- `ppt-assets/nft-silver.png` — 银级特写
+- `ppt-assets/frontend-screenshot.png` — 前端页面
+- `ppt-assets/report.json` — 审计数据
+- `ppt-assets/test-results.txt` — 测试结果
+- `ppt-assets/ppt-outline.md` — PPT 大纲
+- `ppt-assets/README.md` — 素材说明
 
 ### 文档
 - `workflows/v5-long-horizon.md` — 完整 8 步闭环设计
 - `workflows/v6-s-tier-nft.md` — S 级 NFT 设计
+- `workflows/project-feature-scan.md` — 项目特征查找
 - `scripts/demo-recording-v6.md` — 本脚本
