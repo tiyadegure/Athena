@@ -6,265 +6,77 @@
 <title>Athena — Documentation</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { 
-    background: #000000; 
-    color: #ffffff; 
-    font-family: 'Courier New', monospace; 
-    line-height: 1.6;
-    padding: 60px 20px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  a { color: #ffffff; text-decoration: none; }
-  a:hover { opacity: 0.8; }
+  body { background: #000000; color: #ffffff; font-family: 'Courier New', monospace; line-height: 1.8; padding: 60px 20px; max-width: 800px; margin: 0 auto; }
+  a { color: #ffffff; text-decoration: none; border-bottom: 1px solid #333; }
+  a:hover { border-color: #fff; }
   h1 { font-size: 24px; font-weight: normal; letter-spacing: 2px; margin-bottom: 40px; }
-  h2 { font-size: 16px; font-weight: normal; letter-spacing: 2px; margin: 40px 0 20px 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
-  h3 { font-size: 14px; font-weight: normal; letter-spacing: 2px; margin: 30px 0 15px 0; }
-  .back { display: inline-block; margin-bottom: 40px; font-size: 11px; letter-spacing: 2px; opacity: 0.5; }
+  h2 { font-size: 14px; font-weight: normal; letter-spacing: 1px; margin: 40px 0 15px; opacity: 0.4; text-transform: uppercase; }
+  .doc-list { list-style: none; margin: 0; padding: 0; }
+  .doc-list li { border-bottom: 1px solid #111; padding: 15px 0; }
+  .doc-list li a { display: block; border: none; font-size: 14px; }
+  .doc-list li a:hover { opacity: 0.7; }
+  .doc-list li span { display: block; font-size: 11px; opacity: 0.4; margin-top: 4px; }
+  .back { display: inline-block; margin-bottom: 40px; font-size: 11px; opacity: 0.5; }
   .back:hover { opacity: 1; }
-  .section { margin-bottom: 60px; }
-  .section p { margin-bottom: 15px; opacity: 0.7; font-size: 13px; }
-  ul { list-style: none; margin: 20px 0; }
-  ul li { margin-bottom: 12px; font-size: 13px; }
-  ul li a { display: block; padding: 12px 15px; border: 1px solid #222; transition: all 0.2s; }
-  ul li a:hover { border-color: #fff; }
-  ul li span { display: block; font-size: 11px; opacity: 0.4; margin-top: 4px; }
-  code { background: #111; padding: 2px 6px; font-size: 12px; }
-  .highlight { background: #111; padding: 15px; margin: 15px 0; font-size: 12px; }
-  .footer { margin-top: 80px; padding-top: 20px; border-top: 1px solid #222; font-size: 11px; opacity: 0.4; }
-  .tag { display: inline-block; padding: 2px 6px; font-size: 10px; border: 1px solid #333; margin-right: 5px; }
-  .tag.critical { border-color: #ff4444; color: #ff4444; }
-  .tag.high { border-color: #ff8800; color: #ff8800; }
-  .tag.medium { border-color: #ffff00; color: #ffff00; }
-  .tag.low { border-color: #44ff44; color: #44ff44; }
+  .section { margin: 40px 0; }
 </style>
 </head>
 <body>
 
 <a href="/" class="back">← Back to Athena</a>
 
-<h1>ATHENA — Documentation</h1>
+<h1>Athena — Documentation</h1>
 
 <div class="section">
-  <h2>1. Product &amp; Strategy</h2>
-  <p>Athena is an AI-powered smart contract security audit agent built on GLM-5.1's long-horizon reasoning capabilities.</p>
-  
-  <h3>Target Market</h3>
-  <p>ToB/B2B: DeFi protocols, DAO treasuries, NFT projects, and L2 bridges.</p>
-  
-  <h3>Key Differentiators</h3>
-  <ul>
-    <li>Long-horizon reasoning: Multi-step audit workflows (8+ sequential steps)</li>
-    <li>On-chain certification: ERC-1155 NFT certificates with 262,144 unique trait combinations</li>
-    <li>Agent economy: Autonomous audit → certification → future trading</li>
-    <li>12 specialized audit agents + 13 MCP tools</li>
+  <h2>Product</h2>
+  <ul class="doc-list">
+    <li>
+      <a href="/docs/product.html">Product & Strategy</a>
+      <span>Positioning, value proposition, target users, revenue model, competitive landscape</span>
+    </li>
+    <li>
+      <a href="/docs/workflow.html">8-Step Audit Workflow</a>
+      <span>Complete pipeline from contract analysis to on-chain NFT certificate</span>
+    </li>
   </ul>
 </div>
 
 <div class="section">
-  <h2>2. Architecture</h2>
-  <p>8-step audit workflow from contract analysis to on-chain NFT certification.</p>
-  
-  <div class="highlight">
-    1. Contract Analysis → 2. Vulnerability Detection → 3. PoC Generation → 4. Multi-Contract Audit → 5. Repair Validation → 6. Evidence Chain → 7. EAS Attestation → 8. NFT Mint
-  </div>
-  
-  <h3>Core Components</h3>
-  <ul>
-    <li>Audit Skill: 12 specialized agents for different audit phases</li>
-    <li>MCP Tools: 13 tools for security analysis, PoC generation, and on-chain verification</li>
-    <li>ERC-1155 NFT: S/A/B/C tier system with 262,144 trait combinations</li>
-    <li>EAS Integration: On-chain attestation for audit results</li>
+  <h2>Architecture</h2>
+  <ul class="doc-list">
+    <li>
+      <a href="/docs/architecture.html">System Architecture</a>
+      <span>GLM-5.1 + 12 Agents + 13 MCP Tools + On-chain verification</span>
+    </li>
   </ul>
 </div>
 
 <div class="section">
-  <h2>3. Audit Workflow</h2>
-  <p>Complete audit flow from contract analysis to on-chain NFT certification.</p>
-  
-  <h3>Phase 1: Analysis</h3>
-  <ul>
-    <li>Contract parsing and AST analysis</li>
-    <li>Function and state variable identification</li>
-    <li>Inheritance hierarchy mapping</li>
-  </ul>
-  
-  <h3>Phase 2: Detection</h3>
-  <ul>
-    <li>Slither/Aderyn static analysis</li>
-    <li>Halmos symbolic execution</li>
-    <li>Custom vulnerability patterns</li>
-  </ul>
-  
-  <h3>Phase 3: Verification</h3>
-  <ul>
-    <li>PoC generation and testing</li>
-    <li>Multi-contract interaction analysis</li>
-    <li>Repair validation</li>
-  </ul>
-  
-  <h3>Phase 4: Certification</h3>
-  <ul>
-    <li>Evidence chain recording</li>
-    <li>EAS on-chain attestation</li>
-    <li>ERC-1155 NFT minting</li>
+  <h2>On-Chain</h2>
+  <ul class="doc-list">
+    <li>
+      <a href="https://sepolia.etherscan.io/address/0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E" target="_blank">AuditCertificate.sol ↗</a>
+      <span>ERC-1155 NFT contract on Sepolia — S/A/B/C tier certificates</span>
+    </li>
+    <li>
+      <a href="https://sepolia.eas.xyz" target="_blank">Ethereum Attestation Service ↗</a>
+      <span>Verify audit attestations on-chain</span>
+    </li>
   </ul>
 </div>
 
 <div class="section">
-  <h2>4. NFT Certificate System</h2>
-  <p>Generative NFT certificates with S/A/B/C rarity tiers and 262,144 unique trait combinations.</p>
-  
-  <h3>Trait Dimensions (4^9 = 262,144)</h3>
-  <ul>
-    <li>Background: 4 variants</li>
-    <li>Body: 4 variants</li>
-    <li>Eyes: 4 variants</li>
-    <li>Headpiece: 4 variants</li>
-    <li>Wings: 4 variants</li>
-    <li>Accessory: 4 variants</li>
-    <li>Aura: 4 variants</li>
-    <li>Crown: 4 variants</li>
-    <li>Special: 4 variants</li>
+  <h2>For Developers</h2>
+  <ul class="doc-list">
+    <li>
+      <a href="https://github.com/tiyadegure/glm-code" target="_blank">GitHub Repository ↗</a>
+      <span>Source code, contracts, MCP tools, audit skill</span>
+    </li>
+    <li>
+      <a href="/nft-preview.html">NFT Preview</a>
+      <span>S/A/B/C tier generative NFT with on-chain SVG</span>
+    </li>
   </ul>
-  
-  <h3>Rarity Tiers</h3>
-  <ul>
-    <li><span class="tag critical">S-TIER</span> Rainbow gradient + dynamic glow (64 combinations)</li>
-    <li><span class="tag high">A-TIER</span> Gold gradient + crown (256 combinations)</li>
-    <li><span class="tag medium">B-TIER</span> Silver gradient (1,024 combinations)</li>
-    <li><span class="tag low">C-TIER</span> Bronze base (259,800 combinations)</li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>5. MCP Tools</h2>
-  <p>13 specialized tools for security analysis and on-chain verification.</p>
-  
-  <ul>
-    <li><code>slither_runner</code> — Static analysis with Slither</li>
-    <li><code>aderyn_runner</code> — Static analysis with Aderyn</li>
-    <li><code>halmos_runner</code> — Symbolic execution with Halmos</li>
-    <li><code>fuzz_runner</code> — Fuzz testing with Foundry</li>
-    <li><code>poc_generator</code> — PoC test generation</li>
-    <li><code>exploit_simulator</code> — Exploit simulation</li>
-    <li><code>incremental_auditor</code> — Incremental audit tracking</li>
-    <li><code>protocol_scanner</code> — Multi-contract protocol scanning</li>
-    <li><code>repair_validator</code> — Repair validation</li>
-    <li><code>evidence_chain</code> — Audit evidence recording</li>
-    <li><code>eas_attest</code> — EAS on-chain attestation</li>
-    <li><code>gev_analyzer</code> — Generalized Extractable Value analysis</li>
-    <li><code>knowledge_base</code> — Vulnerability knowledge base</li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>6. Vulnerability Types</h2>
-  <p>Comprehensive coverage of smart contract security vulnerabilities.</p>
-  
-  <h3>DeFi-Specific</h3>
-  <ul>
-    <li>Flash loan attacks</li>
-    <li>Oracle manipulation</li>
-    <li>Read-only reentrancy</li>
-    <li>GEV (Generalized Extractable Value)</li>
-    <li>Liquidity pool manipulation</li>
-  </ul>
-  
-  <h3>General Smart Contract</h3>
-  <ul>
-    <li>Reentrancy</li>
-    <li>Integer overflow/underflow</li>
-    <li>Access control issues</li>
-    <li>Unchecked external calls</li>
-    <li>Front-running vulnerabilities</li>
-  </ul>
-  
-  <h3>Advanced</h3>
-  <ul>
-    <li>Cross-function reentrancy</li>
-    <li>State manipulation attacks</li>
-    <li>Economic exploits</li>
-    <li>Governance attacks</li>
-    <li>Bridge vulnerabilities</li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>7. Test Contracts</h2>
-  <p>17 test contracts covering various vulnerability types and edge cases.</p>
-  
-  <ul>
-    <li><code>Reentrancy.sol</code> — Classic reentrancy vulnerability</li>
-    <li><code>ReadOnlyReentrancy.sol</code> — Read-only reentrancy in lending protocols</li>
-    <li><code>FlashLoan.sol</code> — Flash loan attack vectors</li>
-    <li><code>Oracle.sol</code> — Oracle manipulation vulnerabilities</li>
-    <li><code>IntegerOverflow.sol</code> — Integer overflow/underflow</li>
-    <li><code>AccessControl.sol</code> — Access control issues</li>
-    <li><code>AgentEscrow.sol</code> — Agent escrow with economic exploits</li>
-    <li><code>AgentIdentity.sol</code> — Agent identity and reputation</li>
-    <li><code>GEVTest.sol</code> — Generalized Extractable Value</li>
-    <li><code>PrivacyToken.sol</code> — Privacy token mechanics</li>
-    <li><code>SafeContract.sol</code> — Safe contract for comparison</li>
-    <li><code>Token.sol</code> — ERC-20 token with vulnerabilities</li>
-    <li><code>Oracle.sol</code> — Price oracle with manipulation vectors</li>
-    <li><code>Vault.sol</code> — Vault with withdrawal vulnerabilities</li>
-    <li><code>CurvePool.sol</code> — Curve pool read-only reentrancy</li>
-    <li><code>HundredFinance.sol</code> — Hundred Finance attack recreation</li>
-    <li><code>OptionsIndex.sol</code> — Options/synthetic assets</li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>8. Deployment</h2>
-  <p>Sepolia testnet deployment details.</p>
-  
-  <h3>Contract Addresses</h3>
-  <div class="highlight">
-    AuditCertificate (ERC-1155): 0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E<br>
-    Network: Sepolia Testnet<br>
-    Deployer: 0x7b5538AAd3b048bAe0EFF2b457C59B8FE98032B8
-  </div>
-  
-  <h3>Verification</h3>
-  <ul>
-    <li>Etherscan: <a href="https://sepolia.etherscan.io/address/0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E">View Contract</a></li>
-    <li>EAS: <a href="https://sepolia.eas.xyz">View Attestations</a></li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>9. Roadmap</h2>
-  <p>Future development plans for Athena.</p>
-  
-  <h3>Short-term</h3>
-  <ul>
-    <li>ZK privacy audit (v2)</li>
-    <li>Multi-chain deployment (Ethereum, Base, Arbitrum)</li>
-    <li>Real protocol audits (Curve, Aave)</li>
-  </ul>
-  
-  <h3>Long-term</h3>
-  <ul>
-    <li>Agent audit marketplace (Agent ↔ Agent trading)</li>
-    <li>Autonomous audit DAO</li>
-    <li>Cross-chain audit verification</li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>10. Contact</h2>
-  <p>Get in touch with the Athena team.</p>
-  
-  <ul>
-    <li>GitHub: <a href="https://github.com/tiyadegure/glm-code">tiyadegure/glm-code</a></li>
-    <li>X/Twitter: <a href="https://x.com/AthenaAudit">@AthenaAudit</a></li>
-    <li>Landing Page: <a href="https://athena.degure.me">athena.degure.me</a></li>
-  </ul>
-</div>
-
-<div class="footer">
-  <p>Built for Z.AI Hackathon · Powered by GLM-5.1</p>
 </div>
 
 </body>

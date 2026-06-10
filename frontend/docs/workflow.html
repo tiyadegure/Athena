@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Athena — Audit Workflow</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { 
+    background: #000000; color: #ffffff; 
+    font-family: 'Courier New', monospace; line-height: 1.8;
+    padding: 60px 20px; max-width: 800px; margin: 0 auto;
+  }
+  a { color: #ffffff; text-decoration: none; border-bottom: 1px solid #333; }
+  a:hover { border-color: #fff; }
+  h1 { font-size: 24px; font-weight: normal; letter-spacing: 2px; margin-bottom: 20px; }
+  h2 { font-size: 16px; font-weight: normal; letter-spacing: 1px; margin: 40px 0 15px; opacity: 0.6; }
+  h3 { font-size: 14px; font-weight: normal; margin: 20px 0 10px; }
+  p { font-size: 13px; opacity: 0.8; margin-bottom: 15px; }
+  ul, ol { margin: 10px 0 20px 20px; font-size: 13px; opacity: 0.8; }
+  li { margin-bottom: 8px; }
+  code { background: #111; padding: 2px 6px; font-size: 12px; }
+  .back { display: inline-block; margin-bottom: 40px; font-size: 11px; opacity: 0.5; }
+  .back:hover { opacity: 1; }
+  hr { border: none; border-top: 1px solid #222; margin: 40px 0; }
+  .step { display: flex; gap: 20px; margin: 20px 0; padding: 15px; border: 1px solid #1a1a1a; }
+  .step-num { font-size: 28px; opacity: 0.3; min-width: 40px; }
+  .step-content h3 { margin-top: 0; }
+  .step-content p { margin-bottom: 5px; }
+</style>
+</head>
+<body>
+
+<a href="/docs.html" class="back">← Back to Docs</a>
+
+<h1>Athena — 8-Step Audit Workflow</h1>
+
+<p>Athena's audit pipeline is an autonomous 8-step loop powered by GLM-5.1's long-horizon reasoning. Each step builds on the previous, creating a complete audit from source code to on-chain certificate.</p>
+
+<hr>
+
+<div class="step">
+  <div class="step-num">01</div>
+  <div class="step-content">
+    <h3>Contract Analysis</h3>
+    <p>Parse Solidity source code. Identify functions, state variables, inheritance hierarchy, and external calls. Build dependency graph across multiple contracts.</p>
+    <p><strong>Tool:</strong> <code>slither_runner</code> + <code>protocol_scanner</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">02</div>
+  <div class="step-content">
+    <h3>Vulnerability Detection</h3>
+    <p>Run static analysis (Slither, Aderyn) + LLM deep review. Cross-reference findings against known exploit patterns. Prioritize by severity (Critical → Informational).</p>
+    <p><strong>Tool:</strong> <code>slither_runner</code> + <code>aderyn_runner</code> + <code>knowledge_base</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">03</div>
+  <div class="step-content">
+    <h3>PoC Generation</h3>
+    <p>Auto-generate Foundry test contracts that prove each vulnerability is exploitable. Run tests to verify — failed tests confirm the bug exists.</p>
+    <p><strong>Tool:</strong> <code>poc_generator</code> + <code>fuzz_runner</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">04</div>
+  <div class="step-content">
+    <h3>Exploit Simulation</h3>
+    <p>Simulate attack scenarios (reentrancy, flash loan, price manipulation). Calculate potential fund loss. Test on local fork before mainnet.</p>
+    <p><strong>Tool:</strong> <code>exploit_simulator</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">05</div>
+  <div class="step-content">
+    <h3>Repair Validation</h3>
+    <p>If fixes are proposed, verify they actually close the vulnerability. Re-run PoC tests against patched code. Confirm no new issues introduced.</p>
+    <p><strong>Tool:</strong> <code>repair_validator</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">06</div>
+  <div class="step-content">
+    <h3>Report Generation</h3>
+    <p>Compile findings into structured JSON report. Include severity, location, description, fix recommendation, and PoC test results.</p>
+    <p><strong>Tool:</strong> <code>evidence_chain</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">07</div>
+  <div class="step-content">
+    <h3>On-Chain Attestation</h3>
+    <p>Submit audit hash to Ethereum Attestation Service (EAS). Create immutable, timestamped proof that this audit happened.</p>
+    <p><strong>Tool:</strong> <code>eas_attest</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">08</div>
+  <div class="step-content">
+    <h3>NFT Certificate Mint</h3>
+    <p>Mint ERC-1155 NFT with on-chain SVG. S/A/B/C tier based on audit score. 262,144 unique trait combinations. Verifiable on Etherscan.</p>
+    <p><strong>Tool:</strong> <code>AuditCertificate.sol</code></p>
+  </div>
+</div>
+
+<hr>
+
+<h2>Why Long-Horizon Matters</h2>
+<p>Traditional AI audit tools analyze each contract in isolation. Athena's GLM-5.1 maintains context across the entire 8-step pipeline — understanding how a vulnerability in Contract A can cascade to Contract B through Contract C.</p>
+<p>This is the key differentiator: <strong>multi-contract, multi-step reasoning</strong> that mirrors how human auditors think, but at machine speed.</p>
+
+<hr>
+
+<a href="/docs.html" class="back">← Back to Docs</a>
+
+</body>
+</html>

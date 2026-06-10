@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Athena — System Architecture</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000000; color: #ffffff; font-family: 'Courier New', monospace; line-height: 1.8; padding: 60px 20px; max-width: 800px; margin: 0 auto; }
+  a { color: #ffffff; text-decoration: none; border-bottom: 1px solid #333; }
+  a:hover { border-color: #fff; }
+  h1 { font-size: 24px; font-weight: normal; letter-spacing: 2px; margin-bottom: 20px; }
+  h2 { font-size: 16px; font-weight: normal; letter-spacing: 1px; margin: 40px 0 15px; opacity: 0.6; }
+  h3 { font-size: 14px; font-weight: normal; margin: 20px 0 10px; }
+  p { font-size: 13px; opacity: 0.8; margin-bottom: 15px; }
+  ul { margin: 10px 0 20px 20px; font-size: 13px; opacity: 0.8; }
+  li { margin-bottom: 8px; }
+  code { background: #111; padding: 2px 6px; font-size: 12px; }
+  .back { display: inline-block; margin-bottom: 40px; font-size: 11px; opacity: 0.5; }
+  .back:hover { opacity: 1; }
+  hr { border: none; border-top: 1px solid #222; margin: 40px 0; }
+  .layer { border: 1px solid #222; padding: 20px; margin: 20px 0; }
+  .layer-title { font-size: 12px; letter-spacing: 2px; opacity: 0.4; text-transform: uppercase; margin-bottom: 15px; }
+</style>
+</head>
+<body>
+
+<a href="/docs.html" class="back">← Back to Docs</a>
+
+<h1>Athena — System Architecture</h1>
+
+<p>Athena is built on a layered architecture where GLM-5.1 serves as the reasoning engine, coordinating specialized agents and tools through MCP (Model Context Protocol).</p>
+
+<hr>
+
+<div class="layer">
+  <div class="layer-title">Layer 1 — LLM Reasoning</div>
+  <h3>GLM-5.1</h3>
+  <p>Long-horizon reasoning engine. Maintains context across the entire 8-step audit pipeline. Understands multi-contract interactions and cascading vulnerabilities.</p>
+  <ul>
+    <li>Context window: 128K tokens</li>
+    <li>Long-horizon task capability (key differentiator)</li>
+    <li>Coordinates all agents and tools</li>
+  </ul>
+</div>
+
+<div class="layer">
+  <div class="layer-title">Layer 2 — Audit Skill</div>
+  <h3>12 Specialized Agents</h3>
+  <p>Domain-specific audit skill with 12 agent roles, each focused on a specific security domain.</p>
+  <ul>
+    <li>Reentrancy Detector</li>
+    <li>Flash Loan Analyzer</li>
+    <li>Access Control Auditor</li>
+    <li>Oracle Manipulation Checker</li>
+    <li>Gas Optimization Advisor</li>
+    <li>And 7 more specialized roles...</li>
+  </ul>
+</div>
+
+<div class="layer">
+  <div class="layer-title">Layer 3 — MCP Tools</div>
+  <h3>13 Security Analysis Tools</h3>
+  <p>Tools accessible via Model Context Protocol, enabling GLM-5.1 to perform deep security analysis.</p>
+  <ul>
+    <li><code>slither_runner</code> — Static analysis</li>
+    <li><code>aderyn_runner</code> — Rust-based analysis</li>
+    <li><code>halmos_runner</code> — Symbolic execution</li>
+    <li><code>fuzz_runner</code> — Fuzz testing</li>
+    <li><code>poc_generator</code> — PoC test generation</li>
+    <li><code>exploit_simulator</code> — Attack simulation</li>
+    <li><code>protocol_scanner</code> — Multi-contract analysis</li>
+    <li><code>repair_validator</code> — Fix verification</li>
+    <li><code>incremental_auditor</code> — Incremental audits</li>
+    <li><code>evidence_chain</code> — Audit evidence</li>
+    <li><code>eas_attest</code> — On-chain attestation</li>
+    <li><code>knowledge_base</code> — Vulnerability patterns</li>
+    <li><code>gev_analyzer</code> — MEV/GEV analysis</li>
+  </ul>
+</div>
+
+<div class="layer">
+  <div class="layer-title">Layer 4 — On-Chain</div>
+  <h3>Smart Contracts</h3>
+  <p>On-chain components for verification and certification.</p>
+  <ul>
+    <li><code>AuditCertificate.sol</code> — ERC-1155 NFT with on-chain SVG</li>
+    <li><code>AuditEvidenceChain.sol</code> — Audit evidence storage</li>
+    <li>Ethereum Attestation Service (EAS) — Immutable audit proof</li>
+    <li>Sepolia testnet deployment</li>
+  </ul>
+</div>
+
+<hr>
+
+<h2>Data Flow</h2>
+<p><strong>Input:</strong> Solidity source code → <strong>Analysis:</strong> GLM-5.1 + Agents + MCP Tools → <strong>Output:</strong> JSON Report + EAS Attestation + ERC-1155 NFT</p>
+
+<hr>
+
+<a href="/docs.html" class="back">← Back to Docs</a>
+
+</body>
+</html>
