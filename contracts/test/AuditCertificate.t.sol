@@ -81,17 +81,18 @@ contract AuditCertificateTest is Test {
     }
 
     function test_token_names() public {
-        assertTrue(keccak256(bytes(certificate.name(1))) == keccak256("Audit Certificate - Gold"));
-        assertTrue(keccak256(bytes(certificate.name(2))) == keccak256("Audit Certificate - Silver"));
-        assertTrue(keccak256(bytes(certificate.name(3))) == keccak256("Audit Certificate - Bronze"));
+        assertTrue(keccak256(bytes(certificate.name(0))) == keccak256("Athena S (Rainbow)"));
+        assertTrue(keccak256(bytes(certificate.name(1))) == keccak256("Athena A (Gold)"));
+        assertTrue(keccak256(bytes(certificate.name(2))) == keccak256("Athena B (Silver)"));
+        assertTrue(keccak256(bytes(certificate.name(3))) == keccak256("Athena C (Bronze)"));
     }
 
     // ============ Combination Tests ============
 
     function test_combinations_count() public {
         uint256 combos = certificate.getCombinations();
-        // 5×5×8×3×5×4 = 12,000
-        assertEq(combos, 12000);
+        // 5x5x8x3x5x4 x 4x4x4 = 768,000
+        assertEq(combos, 768000);
     }
 
     function test_exceeds_12000_requirement() public {

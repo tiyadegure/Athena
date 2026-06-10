@@ -280,7 +280,7 @@ function renderCertificate(data) {
     ).join('');
     el.innerHTML = `
         <div class="cert-header">
-            <span class="cert-tier severity-${cert.tier.toLowerCase() === 'gold' ? 'critical' : cert.tier.toLowerCase() === 'silver' ? 'high' : 'medium'}">${cert.tier.toUpperCase()} (Tier ${cert.tier_label})</span>
+            <span class="cert-tier ${cert.tier.toLowerCase() === 's' ? 'severity-s-tier' : cert.tier.toLowerCase() === 'gold' ? 'severity-critical' : cert.tier.toLowerCase() === 'silver' ? 'severity-high' : 'severity-medium'}">${escHtml(cert.tier.toUpperCase())} (Tier ${escHtml(cert.tier_label)})</span>
             <span class="cert-rarity">Rarity: ${cert.rarity}/100</span>
         </div>
         <div class="trait-grid">${traits}</div>
@@ -366,8 +366,8 @@ async function mintCertificate() {
     }
 
     try {
-        const tierMap = { 'Gold': 1, 'Silver': 2, 'Bronze': 3 };
-        const tier = tierMap[reportData.certificate.tier] || 3;
+        const tierMap = { 'S': 0, 'Gold': 1, 'Silver': 2, 'Bronze': 3 };
+        const tier = tierMap[reportData.certificate.tier] ?? 3;
         const attestationUID = reportData.attestation.uid;
 
         const contract = new ethers.Contract(NFT_CONTRACT, NFT_ABI, signer);

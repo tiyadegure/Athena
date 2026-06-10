@@ -206,6 +206,7 @@ header {
 }
 
 .severity-critical { color: var(--sev-critical); border-color: var(--sev-critical); }
+.severity-s-tier { color: #ff00ff; border-color: #ff00ff; }
 .severity-high { color: var(--sev-high); border-color: var(--sev-high); }
 .severity-medium { color: var(--sev-medium); border-color: var(--sev-medium); }
 .severity-low { color: var(--sev-low); border-color: var(--sev-low); }
