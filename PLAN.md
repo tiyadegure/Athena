@@ -149,7 +149,7 @@ Schema：定义审计结果的结构化数据
   → 合约地址、审计时间、评分、漏洞数量、修复状态
 调用：eas_attest.py（自建）
 产物：attestation UID（链上可查）
-验证：https://sepolia.eas.xyz/attestation/{UID}
+验证：https://sepolia.easscan.org/attestation/{UID}
 ```
 
 **ERC-1155 NFT（第 ⑧ 步）**

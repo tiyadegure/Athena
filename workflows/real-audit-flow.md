@@ -123,5 +123,5 @@ cast call 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c \
 ## 产物验证
 
 所有产物都可以在 Sepolia 测试网上验证：
-- EAS: https://sepolia.eas.xyz
+- EAS: https://sepolia.easscan.org
 - NFT: https://sepolia.etherscan.io/token/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c

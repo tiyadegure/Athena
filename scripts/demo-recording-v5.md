@@ -104,7 +104,7 @@ cat contracts/multi-contract/Vault-v2.sol
 ### [3:30-4:30] Step 6-7: 链上认证 + NFT 铸造
 
 **浏览器操作：**
-1. 打开 EAS 认证页面：`https://sepolia.eas.xyz`
+1. 打开 EAS 认证页面：`https://sepolia.easscan.org`
 2. 搜索 EAS UID，展示认证记录
 3. 打开 NFT 预览页面：`http://localhost:8765/nft-preview.html`
 4. 展示 3 个等级的 NFT（Gold, Silver, Bronze）
@@ -143,7 +143,7 @@ cat contracts/multi-contract/Vault-v2.sol
 2. **前端页面** — `http://localhost:8765`
 3. **NFT 预览** — `http://localhost:8765/nft-preview.html`
 4. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
-5. **EAS 认证** — `https://sepolia.eas.xyz`
+5. **EAS 认证** — `https://sepolia.easscan.org`
 
 ---
 

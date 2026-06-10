@@ -49,7 +49,7 @@
 
 ### 链上验证
 - Etherscan: https://sepolia.etherscan.io/address/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c
-- EAS: https://sepolia.eas.xyz
+- EAS: https://sepolia.easscan.org
 
 ## Demo 录屏
 

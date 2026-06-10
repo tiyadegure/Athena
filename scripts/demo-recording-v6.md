@@ -138,7 +138,7 @@ cat demo/report.json
 ### [3:00-3:30] 链上认证 — EAS Attestation
 
 **浏览器操作：**
-- 打开 EAS 认证页面：`https://sepolia.eas.xyz`
+- 打开 EAS 认证页面：`https://sepolia.easscan.org`
 - 搜索 EAS UID，展示认证记录
 
 **讲解：**
@@ -210,7 +210,7 @@ cat demo/report.json
 
 ## 浏览器标签页（提前打开）
 
-1. **EAS 认证** — `https://sepolia.eas.xyz`
+1. **EAS 认证** — `https://sepolia.easscan.org`
 2. **NFT 预览** — `http://localhost:8765/nft-preview.html`
 3. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
 4. **GitHub 仓库** — `https://github.com/tiyadegure/glm-code`
