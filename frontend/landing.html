@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Athena — Web3 Security Audit Agent</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { 
+    background: #000000; 
+    color: #ffffff; 
+    font-family: 'Courier New', monospace; 
+    line-height: 1.6;
+  }
+  
+  /* Navigation */
+  nav { 
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    padding: 15px 40px; 
+    background: rgba(0,0,0,0.9); 
+    border-bottom: 1px solid #333;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav .logo { font-size: 18px; font-weight: bold; letter-spacing: 3px; }
+  nav .links a { 
+    color: #888; 
+    text-decoration: none; 
+    margin-left: 30px; 
+    font-size: 12px;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+  }
+  nav .links a:hover { color: #fff; }
+  
+  /* Hero Section */
+  .hero { 
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center;
+    padding: 0 40px;
+  }
+  .hero h1 { 
+    font-size: 48px; 
+    font-weight: normal; 
+    letter-spacing: 8px; 
+    margin-bottom: 20px;
+  }
+  .hero .subtitle { 
+    font-size: 16px; 
+    color: #888; 
+    letter-spacing: 2px; 
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+  .hero .stats { 
+    display: flex; 
+    gap: 60px; 
+    margin-bottom: 40px;
+  }
+  .hero .stat { text-align: center; }
+  .hero .stat .number { font-size: 36px; color: #fff; }
+  .hero .stat .label { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase; }
+  .hero .cta { 
+    display: flex; 
+    gap: 20px; 
+  }
+  .hero .btn { 
+    padding: 12px 30px; 
+    border: 1px solid #fff; 
+    background: transparent; 
+    color: #fff; 
+    font-family: monospace; 
+    font-size: 12px; 
+    letter-spacing: 2px; 
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+  .hero .btn:hover { 
+    background: #fff; 
+    color: #000; 
+  }
+  .hero .btn.primary { 
+    background: #fff; 
+    color: #000; 
+  }
+  .hero .btn.primary:hover { 
+    background: transparent; 
+    color: #fff; 
+  }
+  
+  /* Problem Section */
+  .section { 
+    padding: 100px 40px; 
+    border-top: 1px solid #222;
+  }
+  .section h2 { 
+    font-size: 24px; 
+    font-weight: normal; 
+    letter-spacing: 4px; 
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .section .content { 
+    max-width: 800px; 
+    margin: 0 auto; 
+    text-align: center;
+  }
+  .section p { 
+    color: #888; 
+    font-size: 14px; 
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  
+  /* Features Grid */
+  .features { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 40px; 
+    max-width: 1000px; 
+    margin: 0 auto;
+  }
+  .feature { 
+    border: 1px solid #333; 
+    padding: 30px; 
+    text-align: center;
+  }
+  .feature h3 { 
+    font-size: 14px; 
+    font-weight: normal; 
+    letter-spacing: 2px; 
+    margin-bottom: 15px;
+    color: #fff;
+  }
+  .feature p { 
+    font-size: 12px; 
+    color: #666; 
+    line-height: 1.6;
+  }
+  .feature .number { 
+    font-size: 32px; 
+    color: #fff; 
+    margin-bottom: 10px;
+  }
+  
+  /* NFT Section */
+  .nft-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+    max-width: 1000px; 
+    margin: 0 auto;
+  }
+  .nft-card { 
+    border: 1px solid #333; 
+    padding: 20px; 
+    text-align: center;
+  }
+  .nft-card.s-tier { 
+    border-color: #fff; 
+    animation: rainbow-border 3s linear infinite;
+  }
+  @keyframes rainbow-border {
+    0% { border-color: #ff0000; }
+    16% { border-color: #ff8800; }
+    33% { border-color: #ffff00; }
+    50% { border-color: #00ff00; }
+    66% { border-color: #0088ff; }
+    83% { border-color: #8800ff; }
+    100% { border-color: #ff0088; }
+  }
+  .nft-card h3 { 
+    font-size: 14px; 
+    font-weight: normal; 
+    letter-spacing: 2px; 
+    margin-bottom: 10px;
+  }
+  .nft-card .condition { 
+    font-size: 10px; 
+    color: #666; 
+    margin-bottom: 10px;
+  }
+  .nft-card .combinations { 
+    font-size: 12px; 
+    color: #888;
+  }
+  
+  /* Stats Section */
+  .stats-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 40px; 
+    max-width: 800px; 
+    margin: 0 auto;
+  }
+  .stat-item { 
+    text-align: center;
+  }
+  .stat-item .number { 
+    font-size: 48px; 
+    color: #fff; 
+    margin-bottom: 10px;
+  }
+  .stat-item .label { 
+    font-size: 10px; 
+    color: #666; 
+    letter-spacing: 2px; 
+    text-transform: uppercase;
+  }
+  
+  /* CTA Section */
+  .cta-section { 
+    text-align: center;
+  }
+  .cta-section .btn { 
+    display: inline-block;
+    margin: 10px;
+  }
+  
+  /* Footer */
+  footer { 
+    padding: 40px; 
+    border-top: 1px solid #222; 
+    text-align: center;
+  }
+  footer p { 
+    font-size: 11px; 
+    color: #666; 
+    letter-spacing: 1px;
+  }
+  footer a { 
+    color: #888; 
+    text-decoration: none;
+  }
+  footer a:hover { color: #fff; }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 32px; letter-spacing: 4px; }
+    .hero .stats { flex-direction: column; gap: 20px; }
+    .features { grid-template-columns: 1fr; }
+    .nft-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    nav .links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="logo">ATHENA</div>
+  <div class="links">
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#features">Features</a>
+    <a href="#nft">NFT</a>
+    <a href="https://github.com/tiyadegure/glm-code">GitHub</a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <h1>ATHENA</h1>
+  <p class="subtitle">Web3 Security Audit Agent powered by GLM-5.1 Long-Horizon Task Capability</p>
+  
+  <div class="stats">
+    <div class="stat">
+      <div class="number">8</div>
+      <div class="label">Audit Steps</div>
+    </div>
+    <div class="stat">
+      <div class="number">13</div>
+      <div class="label">MCP Tools</div>
+    </div>
+    <div class="stat">
+      <div class="number">12</div>
+      <div class="label">Audit Agents</div>
+    </div>
+    <div class="stat">
+      <div class="number">768K</div>
+      <div class="label">NFT Combinations</div>
+    </div>
+  </div>
+  
+  <div class="cta">
+    <a href="https://github.com/tiyadegure/glm-code" class="btn primary">View on GitHub</a>
+    <a href="#demo" class="btn">Watch Demo</a>
+  </div>
+</section>
+
+<!-- Problem Section -->
+<section class="section" id="problem">
+  <h2>THE PROBLEM</h2>
+  <div class="content">
+    <p>Smart contract security audits are slow, expensive, and unverifiable.</p>
+    <p>Human audits take 2-4 weeks and cost $50,000+. AI tools can only detect single vulnerabilities, not complete attack chains.</p>
+    <p>There's no way to verify the audit process or results on-chain.</p>
+  </div>
+</section>
+
+<!-- Solution Section -->
+<section class="section" id="solution">
+  <h2>THE SOLUTION</h2>
+  <div class="content">
+    <p>Athena uses GLM-5.1's long-horizon task capability to complete an 8-step audit pipeline in a single session.</p>
+    <p>From vulnerability discovery to on-chain certification, everything is automated and verifiable.</p>
+    <p>AI Agent autonomously audits, generates PoC, runs fuzz tests, and mints NFT certificates.</p>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="section" id="features">
+  <h2>CORE FEATURES</h2>
+  <div class="features">
+    <div class="feature">
+      <div class="number">8</div>
+      <h3>STEP PIPELINE</h3>
+      <p>Complete audit flow: contract analysis → vulnerability detection → PoC generation → fuzz testing → repair validation → on-chain certification → NFT minting</p>
+    </div>
+    <div class="feature">
+      <div class="number">13</div>
+      <h3>MCP TOOLS</h3>
+      <p>Self-built toolchain: Slither, Aderyn, PoC Generator, Fuzz Runner, Knowledge Base, EAS Attest, Exploit Simulator, Evidence Chain, Halmos, Protocol Scanner, Repair Validator, Incremental Auditor, GEV Analyzer</p>
+    </div>
+    <div class="feature">
+      <div class="number">12</div>
+      <h3>AUDIT AGENTS</h3>
+      <p>Parallel audit methodology: Scope Analyzer, Architecture Mapper, Access Control, Math & Overflow, Reentrancy Hunter, Oracle Manipulation, Flash Loan Attack, Logic Flaw, Gas Optimization, Frontend/API, PoC Generator, Report Writer</p>
+    </div>
+  </div>
+</section>
+
+<!-- NFT Section -->
+<section class="section" id="nft">
+  <h2>NFT CERTIFICATE SYSTEM</h2>
+  <div class="nft-grid">
+    <div class="nft-card s-tier">
+      <h3>S-TIER</h3>
+      <div class="condition">100 score + Critical severity</div>
+      <div class="combinations">Rainbow gradient + Dynamic aura</div>
+    </div>
+    <div class="nft-card">
+      <h3 style="color:#888">A-TIER</h3>
+      <div class="condition">80-99 score</div>
+      <div class="combinations">Gold Athena</div>
+    </div>
+    <div class="nft-card">
+      <h3 style="color:#666">B-TIER</h3>
+      <div class="condition">60-79 score</div>
+      <div class="combinations">Silver Athena</div>
+    </div>
+    <div class="nft-card">
+      <h3 style="color:#555">C-TIER</h3>
+      <div class="condition">&lt;60 score</div>
+      <div class="combinations">Bronze Athena</div>
+    </div>
+  </div>
+  <div class="content" style="margin-top: 40px;">
+    <p>9 trait dimensions: helmet × shield × color × weapon × background × eyes × aura × crown × wings</p>
+    <p>5 × 5 × 8 × 3 × 5 × 4 × 4 × 4 × 4 = <strong>768,000</strong> unique combinations</p>
+    <p>All SVG images generated on-chain, no IPFS dependency.</p>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="section">
+  <h2>PROJECT STATS</h2>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="number">24</div>
+      <div class="label">Smart Contracts</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">23/23</div>
+      <div class="label">Tests Passed</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">Sepolia</div>
+      <div class="label">Testnet Deployed</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">EAS</div>
+      <div class="label">On-chain Certified</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section cta-section">
+  <h2>GET STARTED</h2>
+  <div class="content">
+    <p>Athena is open source and deployed on Sepolia testnet.</p>
+    <p>Try it now or contribute to the project.</p>
+  </div>
+  <div class="cta" style="margin-top: 30px;">
+    <a href="https://github.com/tiyadegure/glm-code" class="btn primary">GitHub Repository</a>
+    <a href="https://sepolia.etherscan.io/address/0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E" class="btn">View Contract</a>
+    <a href="https://sepolia.eas.xyz" class="btn">EAS Certification</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>Built for Z.AI Hackathon · Powered by GLM-5.1 · <a href="https://github.com/tiyadegure/glm-code">GitHub</a></p>
+</footer>
+
+</body>
+</html>
