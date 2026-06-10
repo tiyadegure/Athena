@@ -11,33 +11,78 @@
     color: #ffffff; 
     font-family: 'Courier New', monospace; 
     line-height: 1.6;
+    overflow-x: hidden;
   }
   
-  /* Navigation */
+  /* ========== Animations ========== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-in-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .fade-in-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* Stagger children */
+  .stagger > * { transition-delay: calc(var(--i, 0) * 0.1s); }
+  
+  /* Particle canvas */
+  #particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+  
+  /* ========== Navigation ========== */
   nav { 
     position: fixed; 
     top: 0; 
     width: 100%; 
     padding: 15px 40px; 
     background: rgba(0,0,0,0.9); 
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #222;
     z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    backdrop-filter: blur(10px);
   }
   nav .logo { font-size: 18px; font-weight: bold; letter-spacing: 3px; }
   nav .links a { 
-    color: #888; 
+    color: #666; 
     text-decoration: none; 
     margin-left: 30px; 
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1px;
     transition: color 0.3s;
   }
   nav .links a:hover { color: #fff; }
   
-  /* Hero Section */
+  /* ========== Hero ========== */
   .hero { 
     min-height: 100vh; 
     display: flex; 
@@ -46,133 +91,241 @@
     align-items: center; 
     text-align: center;
     padding: 0 40px;
+    position: relative;
   }
   .hero h1 { 
-    font-size: 48px; 
+    font-size: 56px; 
     font-weight: normal; 
-    letter-spacing: 8px; 
+    letter-spacing: 12px; 
     margin-bottom: 20px;
+    background: linear-gradient(135deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   .hero .subtitle { 
-    font-size: 16px; 
-    color: #888; 
+    font-size: 14px; 
+    color: #666; 
     letter-spacing: 2px; 
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     max-width: 600px;
   }
   .hero .stats { 
     display: flex; 
-    gap: 60px; 
-    margin-bottom: 40px;
+    gap: 80px; 
+    margin-bottom: 50px;
   }
   .hero .stat { text-align: center; }
-  .hero .stat .number { font-size: 36px; color: #fff; }
-  .hero .stat .label { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase; }
+  .hero .stat .number { font-size: 42px; color: #fff; }
+  .hero .stat .label { font-size: 9px; color: #555; letter-spacing: 3px; text-transform: uppercase; margin-top: 5px; }
   .hero .cta { 
     display: flex; 
     gap: 20px; 
   }
   .hero .btn { 
     padding: 12px 30px; 
-    border: 1px solid #fff; 
+    border: 1px solid #444; 
     background: transparent; 
     color: #fff; 
     font-family: monospace; 
-    font-size: 12px; 
+    font-size: 11px; 
     letter-spacing: 2px; 
     cursor: pointer;
     transition: all 0.3s;
     text-decoration: none;
   }
   .hero .btn:hover { 
+    border-color: #fff;
     background: #fff; 
     color: #000; 
   }
   .hero .btn.primary { 
     background: #fff; 
     color: #000; 
+    border-color: #fff;
   }
   .hero .btn.primary:hover { 
     background: transparent; 
     color: #fff; 
   }
   
-  /* Section */
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #444;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+  
+  /* ========== Sections ========== */
   .section { 
-    padding: 100px 40px; 
-    border-top: 1px solid #222;
+    padding: 120px 40px; 
+    border-top: 1px solid #111;
   }
   .section h2 { 
-    font-size: 24px; 
+    font-size: 20px; 
     font-weight: normal; 
-    letter-spacing: 4px; 
-    margin-bottom: 40px;
+    letter-spacing: 6px; 
+    margin-bottom: 50px;
     text-align: center;
+    color: #888;
+    text-transform: uppercase;
   }
   .section .content { 
-    max-width: 800px; 
+    max-width: 700px; 
     margin: 0 auto; 
     text-align: center;
   }
   .section p { 
-    color: #888; 
-    font-size: 14px; 
-    line-height: 1.8;
+    color: #666; 
+    font-size: 13px; 
+    line-height: 2;
     margin-bottom: 20px;
   }
   .section a {
     color: #fff;
     text-decoration: none;
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid #444;
     transition: border-color 0.3s;
   }
   .section a:hover {
     border-color: #fff;
   }
   
-  /* Features Grid */
+  /* ========== 8-Step Pipeline ========== */
+  .pipeline {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .pipeline-line {
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #333 10%, #333 90%, transparent);
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    position: relative;
+    padding-left: 70px;
+  }
+  .step-number {
+    position: absolute;
+    left: 15px;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #666;
+    background: #000;
+    z-index: 1;
+  }
+  .step-content {
+    border: 1px solid #222;
+    padding: 20px 25px;
+    flex: 1;
+    transition: border-color 0.3s;
+  }
+  .step-content:hover {
+    border-color: #444;
+  }
+  .step-content h3 {
+    font-size: 13px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .step-content p {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.8;
+  }
+  .step-content .tool {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid #333;
+    font-size: 9px;
+    color: #666;
+    margin-top: 8px;
+    margin-right: 4px;
+  }
+  
+  /* Highlight step on hover */
+  .step:hover .step-number {
+    border-color: #fff;
+    color: #fff;
+  }
+  
+  /* ========== Features ========== */
   .features { 
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
-    gap: 40px; 
-    max-width: 1000px; 
+    gap: 30px; 
+    max-width: 900px; 
     margin: 0 auto;
   }
   .feature { 
-    border: 1px solid #333; 
+    border: 1px solid #222; 
     padding: 30px; 
     text-align: center;
+    transition: border-color 0.3s;
+  }
+  .feature:hover {
+    border-color: #444;
   }
   .feature h3 { 
-    font-size: 14px; 
+    font-size: 12px; 
     font-weight: normal; 
     letter-spacing: 2px; 
     margin-bottom: 15px;
-    color: #fff;
+    color: #888;
+    text-transform: uppercase;
   }
   .feature p { 
-    font-size: 12px; 
-    color: #666; 
-    line-height: 1.6;
+    font-size: 11px; 
+    color: #555; 
+    line-height: 1.8;
   }
   .feature .number { 
-    font-size: 32px; 
+    font-size: 36px; 
     color: #fff; 
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   
-  /* NFT Section */
+  /* ========== NFT ========== */
   .nft-grid { 
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
     gap: 20px; 
-    max-width: 1000px; 
+    max-width: 900px; 
     margin: 0 auto;
   }
   .nft-card { 
-    border: 1px solid #333; 
-    padding: 20px; 
+    border: 1px solid #222; 
+    padding: 25px; 
     text-align: center;
+    transition: border-color 0.3s;
+  }
+  .nft-card:hover {
+    border-color: #444;
   }
   .nft-card.s-tier { 
     border-color: #fff; 
@@ -188,22 +341,64 @@
     100% { border-color: #ff0088; }
   }
   .nft-card h3 { 
-    font-size: 14px; 
+    font-size: 13px; 
     font-weight: normal; 
     letter-spacing: 2px; 
     margin-bottom: 10px;
   }
   .nft-card .condition { 
     font-size: 10px; 
-    color: #666; 
+    color: #555; 
     margin-bottom: 10px;
   }
   .nft-card .combinations { 
-    font-size: 12px; 
-    color: #888;
+    font-size: 11px; 
+    color: #666;
   }
   
-  /* Stats Section */
+  /* ========== Docs ========== */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .doc-card {
+    border: 1px solid #222;
+    padding: 25px;
+    transition: border-color 0.3s;
+  }
+  .doc-card:hover {
+    border-color: #444;
+  }
+  .doc-card h3 {
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: #888;
+    text-transform: uppercase;
+  }
+  .doc-card p {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 15px;
+  }
+  .doc-card a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #444;
+    transition: border-color 0.3s;
+  }
+  .doc-card a:hover {
+    border-color: #fff;
+  }
+  
+  /* ========== Stats ========== */
   .stats-grid { 
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
@@ -220,98 +415,87 @@
     margin-bottom: 10px;
   }
   .stat-item .label { 
-    font-size: 10px; 
-    color: #666; 
-    letter-spacing: 2px; 
+    font-size: 9px; 
+    color: #555; 
+    letter-spacing: 3px; 
     text-transform: uppercase;
   }
   
-  /* Docs Section */
-  .docs-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .doc-card {
-    border: 1px solid #333;
-    padding: 25px;
-    transition: border-color 0.3s;
-  }
-  .doc-card:hover {
-    border-color: #666;
-  }
-  .doc-card h3 {
-    font-size: 14px;
-    font-weight: normal;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-  }
-  .doc-card p {
-    font-size: 12px;
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 15px;
-  }
-  .doc-card a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 11px;
-    letter-spacing: 1px;
-    border-bottom: 1px solid #666;
-    transition: border-color 0.3s;
-  }
-  .doc-card a:hover {
-    border-color: #fff;
-  }
-  
-  /* CTA Section */
+  /* ========== CTA ========== */
   .cta-section { 
     text-align: center;
   }
   .cta-section .btn { 
     display: inline-block;
     margin: 10px;
+    padding: 12px 30px;
+    border: 1px solid #444;
+    background: transparent;
+    color: #fff;
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .cta-section .btn:hover {
+    border-color: #fff;
+    background: #fff;
+    color: #000;
+  }
+  .cta-section .btn.primary {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+  }
+  .cta-section .btn.primary:hover {
+    background: transparent;
+    color: #fff;
   }
   
-  /* Footer */
+  /* ========== Footer ========== */
   footer { 
     padding: 40px; 
-    border-top: 1px solid #222; 
+    border-top: 1px solid #111; 
     text-align: center;
   }
   footer p { 
-    font-size: 11px; 
-    color: #666; 
+    font-size: 10px; 
+    color: #444; 
     letter-spacing: 1px;
   }
   footer a { 
-    color: #888; 
+    color: #666; 
     text-decoration: none;
   }
   footer a:hover { color: #fff; }
   
-  /* Responsive */
+  /* ========== Responsive ========== */
   @media (max-width: 768px) {
-    .hero h1 { font-size: 32px; letter-spacing: 4px; }
+    .hero h1 { font-size: 32px; letter-spacing: 6px; }
     .hero .stats { flex-direction: column; gap: 20px; }
     .features { grid-template-columns: 1fr; }
     .nft-grid { grid-template-columns: repeat(2, 1fr); }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .docs-grid { grid-template-columns: 1fr; }
+    .pipeline-line { left: 20px; }
+    .step { padding-left: 55px; }
+    .step-number { left: 5px; }
     nav .links { display: none; }
   }
 </style>
 </head>
 <body>
 
+<!-- Particle Background -->
+<canvas id="particles"></canvas>
+
 <!-- Navigation -->
 <nav>
   <div class="logo">ATHENA</div>
   <div class="links">
     <a href="#problem">Problem</a>
-    <a href="#solution">Solution</a>
+    <a href="#pipeline">Pipeline</a>
     <a href="#features">Features</a>
     <a href="#nft">NFT</a>
     <a href="#docs">Docs</a>
@@ -324,166 +508,252 @@
   <h1>ATHENA</h1>
   <p class="subtitle">Web3 Security Audit Agent powered by GLM-5.1 Long-Horizon Task Capability</p>
   
-  <div class="stats">
-    <div class="stat">
+  <div class="stats stagger">
+    <div class="stat fade-in" style="--i:0">
       <div class="number">8</div>
       <div class="label">Audit Steps</div>
     </div>
-    <div class="stat">
+    <div class="stat fade-in" style="--i:1">
       <div class="number">13</div>
       <div class="label">MCP Tools</div>
     </div>
-    <div class="stat">
+    <div class="stat fade-in" style="--i:2">
       <div class="number">12</div>
       <div class="label">Audit Agents</div>
     </div>
-    <div class="stat">
+    <div class="stat fade-in" style="--i:3">
       <div class="number">768K</div>
       <div class="label">NFT Combinations</div>
     </div>
   </div>
   
-  <div class="cta">
+  <div class="cta fade-in" style="--i:4">
     <a href="https://github.com/tiyadegure/glm-code" class="btn primary">View on GitHub</a>
-    <a href="#docs" class="btn">Read Docs</a>
+    <a href="#pipeline" class="btn">See Pipeline</a>
   </div>
+  
+  <div class="scroll-hint">Scroll</div>
 </section>
 
 <!-- Problem Section -->
 <section class="section" id="problem">
-  <h2>THE PROBLEM</h2>
+  <h2 class="fade-in">The Problem</h2>
   <div class="content">
-    <p>Smart contract security audits are slow, expensive, and unverifiable.</p>
-    <p>Human audits take 2-4 weeks and cost $50,000+. AI tools can only detect single vulnerabilities, not complete attack chains.</p>
-    <p>There's no way to verify the audit process or results on-chain.</p>
+    <p class="fade-in">Smart contract security audits are slow, expensive, and unverifiable.</p>
+    <p class="fade-in">Human audits take 2-4 weeks and cost $50,000+. AI tools can only detect single vulnerabilities, not complete attack chains.</p>
+    <p class="fade-in">There's no way to verify the audit process or results on-chain.</p>
   </div>
 </section>
 
 <!-- Solution Section -->
-<section class="section" id="solution">
-  <h2>THE SOLUTION</h2>
+<section class="section">
+  <h2 class="fade-in">The Solution</h2>
   <div class="content">
-    <p>Athena uses GLM-5.1's long-horizon task capability to complete an 8-step audit pipeline in a single session.</p>
-    <p>From vulnerability discovery to on-chain certification, everything is automated and verifiable.</p>
-    <p>AI Agent autonomously audits, generates PoC, runs fuzz tests, and mints NFT certificates.</p>
+    <p class="fade-in">Athena uses GLM-5.1's long-horizon task capability to complete an 8-step audit pipeline in a single session.</p>
+    <p class="fade-in">From vulnerability discovery to on-chain certification, everything is automated and verifiable.</p>
+    <p class="fade-in">AI Agent autonomously audits, generates PoC, runs fuzz tests, and mints NFT certificates.</p>
+  </div>
+</section>
+
+<!-- 8-Step Pipeline Section -->
+<section class="section" id="pipeline">
+  <h2 class="fade-in">8-Step Audit Pipeline</h2>
+  <div class="pipeline">
+    <div class="pipeline-line"></div>
+    
+    <div class="step fade-in">
+      <div class="step-number">01</div>
+      <div class="step-content">
+        <h3>Contract Analysis</h3>
+        <p>Parse contract source code, identify functions, state variables, and inheritance hierarchy.</p>
+        <span class="tool">protocol_scanner</span>
+      </div>
+    </div>
+    
+    <div class="step fade-in">
+      <div class="step-number">02</div>
+      <div class="step-content">
+        <h3>Dual-Engine Static Analysis</h3>
+        <p>Run Slither and Aderyn in parallel for comprehensive vulnerability detection.</p>
+        <span class="tool">slither_runner</span>
+        <span class="tool">aderyn_runner</span>
+      </div>
+    </div>
+    
+    <div class="step fade-in">
+      <div class="step-number">03</div>
+      <div class="step-content">
+        <h3>RAG Knowledge Enhancement</h3>
+        <p>Query ChromaDB knowledge base for similar vulnerability patterns and historical exploits.</p>
+        <span class="tool">knowledge_base</span>
+      </div>
+    </div>
+    
+    <div class="step fade-in">
+      <div class="step-number">04</div>
+      <div class="step-content">
+        <h3>PoC Generation</h3>
+        <p>Auto-generate Foundry test contracts that prove vulnerabilities are exploitable.</p>
+        <span class="tool">poc_generator</span>
+        <span class="tool">exploit_simulator</span>
+      </div>
+    </div>
+    
+    <div class="step fade-in">
+      <div class="step-number">05</div>
+      <div class="step-content">
+        <h3>Fuzz Testing & Formal Verification</h3>
+        <p>Run Foundry fuzz tests (256 runs) and Halmos symbolic execution for mathematical proof.</p>
+        <span class="tool">fuzz_runner</span>
+        <span class="tool">halmos_runner</span>
+      </div>
+    </div>
+    
+    <div class="step fade-in">
+      <div class="step-number">06</div>
+      <div class="step-content">
+        <h3>Repair & Validation</h3>
+        <p>Generate fix suggestions, apply patches, re-audit to verify vulnerabilities are resolved.</p>
+        <span class="tool">repair_validator</span>
+        <span class="tool">incremental_auditor</span>
+      </div>
+    </div>
+    
+    <div class="step fade-in">
+      <div class="step-number">07</div>
+      <div class="step-content">
+        <h3>On-Chain Certification</h3>
+        <p>Submit audit results to Ethereum Attestation Service (EAS) for immutable on-chain record.</p>
+        <span class="tool">eas_attest</span>
+        <span class="tool">evidence_chain</span>
+      </div>
+    </div>
+    
+    <div class="step fade-in">
+      <div class="step-number">08</div>
+      <div class="step-content">
+        <h3>NFT Certificate Minting</h3>
+        <p>Mint S/A/B/C tier generative Athena NFT (768,000 combinations) with on-chain SVG.</p>
+        <span class="tool">AuditCertificate</span>
+        <span class="tool">ERC-1155</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- Features Section -->
 <section class="section" id="features">
-  <h2>CORE FEATURES</h2>
-  <div class="features">
-    <div class="feature">
+  <h2 class="fade-in">Core Features</h2>
+  <div class="features stagger">
+    <div class="feature fade-in" style="--i:0">
       <div class="number">8</div>
-      <h3>STEP PIPELINE</h3>
-      <p>Complete audit flow: contract analysis → vulnerability detection → PoC generation → fuzz testing → repair validation → on-chain certification → NFT minting</p>
+      <h3>Step Pipeline</h3>
+      <p>Complete audit flow from contract analysis to on-chain NFT certification</p>
     </div>
-    <div class="feature">
+    <div class="feature fade-in" style="--i:1">
       <div class="number">13</div>
-      <h3>MCP TOOLS</h3>
-      <p>Self-built toolchain: Slither, Aderyn, PoC Generator, Fuzz Runner, Knowledge Base, EAS Attest, Exploit Simulator, Evidence Chain, Halmos, Protocol Scanner, Repair Validator, Incremental Auditor, GEV Analyzer</p>
+      <h3>MCP Tools</h3>
+      <p>Self-built toolchain covering static analysis, PoC generation, fuzz testing, and on-chain certification</p>
     </div>
-    <div class="feature">
+    <div class="feature fade-in" style="--i:2">
       <div class="number">12</div>
-      <h3>AUDIT AGENTS</h3>
-      <p>Parallel audit methodology: Scope Analyzer, Architecture Mapper, Access Control, Math & Overflow, Reentrancy Hunter, Oracle Manipulation, Flash Loan Attack, Logic Flaw, Gas Optimization, Frontend/API, PoC Generator, Report Writer</p>
+      <h3>Audit Agents</h3>
+      <p>Parallel audit methodology: reentrancy, oracle manipulation, flash loan, access control, and more</p>
     </div>
   </div>
 </section>
 
 <!-- NFT Section -->
 <section class="section" id="nft">
-  <h2>NFT CERTIFICATE SYSTEM</h2>
-  <div class="nft-grid">
-    <div class="nft-card s-tier">
+  <h2 class="fade-in">NFT Certificate System</h2>
+  <div class="nft-grid stagger">
+    <div class="nft-card s-tier fade-in" style="--i:0">
       <h3>S-TIER</h3>
-      <div class="condition">100 score + Critical severity</div>
-      <div class="combinations">Rainbow gradient + Dynamic aura</div>
+      <div class="condition">100 score + Critical</div>
+      <div class="combinations">Rainbow + Dynamic Aura</div>
     </div>
-    <div class="nft-card">
+    <div class="nft-card fade-in" style="--i:1">
       <h3 style="color:#888">A-TIER</h3>
       <div class="condition">80-99 score</div>
       <div class="combinations">Gold Athena</div>
     </div>
-    <div class="nft-card">
+    <div class="nft-card fade-in" style="--i:2">
       <h3 style="color:#666">B-TIER</h3>
       <div class="condition">60-79 score</div>
       <div class="combinations">Silver Athena</div>
     </div>
-    <div class="nft-card">
+    <div class="nft-card fade-in" style="--i:3">
       <h3 style="color:#555">C-TIER</h3>
       <div class="condition">&lt;60 score</div>
       <div class="combinations">Bronze Athena</div>
     </div>
   </div>
-  <div class="content" style="margin-top: 40px;">
-    <p>9 trait dimensions: helmet × shield × color × weapon × background × eyes × aura × crown × wings</p>
-    <p>5 × 5 × 8 × 3 × 5 × 4 × 4 × 4 × 4 = <strong>768,000</strong> unique combinations</p>
-    <p>All SVG images generated on-chain, no IPFS dependency.</p>
+  <div class="content" style="margin-top: 50px;">
+    <p class="fade-in">9 trait dimensions: helmet × shield × color × weapon × background × eyes × aura × crown × wings</p>
+    <p class="fade-in"><strong>768,000</strong> unique combinations · On-chain SVG · No IPFS</p>
   </div>
 </section>
 
 <!-- Docs Section -->
 <section class="section" id="docs">
-  <h2>DOCUMENTATION</h2>
-  <div class="docs-grid">
-    <div class="doc-card">
+  <h2 class="fade-in">Documentation</h2>
+  <div class="docs-grid stagger">
+    <div class="doc-card fade-in" style="--i:0">
       <h3>Product Overview</h3>
-      <p>Learn about Athena's target users, core value proposition, business model, and competitive advantages.</p>
-      <a href="docs/PRODUCT.md">Read Product Docs →</a>
+      <p>Target users, core value proposition, business model, and competitive advantages.</p>
+      <a href="docs/PRODUCT.md">Read Docs →</a>
     </div>
-    <div class="doc-card">
+    <div class="doc-card fade-in" style="--i:1">
       <h3>Technical Architecture</h3>
-      <p>Understand the 8-step audit pipeline, 13 MCP tools, 12 audit agents, and GLM-5.1 integration.</p>
-      <a href="workflows/v5-long-horizon.md">Read Technical Docs →</a>
+      <p>8-step pipeline, 13 MCP tools, 12 audit agents, and GLM-5.1 integration.</p>
+      <a href="workflows/v5-long-horizon.md">Read Docs →</a>
     </div>
-    <div class="doc-card">
-      <h3>NFT Certificate System</h3>
-      <p>Explore the S/A/B/C tier system, 768,000 trait combinations, and on-chain SVG generation.</p>
-      <a href="workflows/v6-s-tier-nft.md">Read NFT Docs →</a>
+    <div class="doc-card fade-in" style="--i:2">
+      <h3>NFT Certificate</h3>
+      <p>S/A/B/C tier system, 768,000 trait combinations, on-chain SVG generation.</p>
+      <a href="workflows/v6-s-tier-nft.md">Read Docs →</a>
     </div>
-    <div class="doc-card">
-      <h3>ZK Inspiration</h3>
-      <p>Future roadmap: zero-knowledge proofs for privacy-preserving audits and verifiable computation.</p>
-      <a href="docs/ZK-INSPIRATION.md">Read ZK Docs →</a>
+    <div class="doc-card fade-in" style="--i:3">
+      <h3>ZK Roadmap</h3>
+      <p>Future: zero-knowledge proofs for privacy-preserving audits.</p>
+      <a href="docs/ZK-INSPIRATION.md">Read Docs →</a>
     </div>
   </div>
 </section>
 
 <!-- Stats Section -->
 <section class="section">
-  <h2>PROJECT STATS</h2>
-  <div class="stats-grid">
-    <div class="stat-item">
+  <h2 class="fade-in">Project Stats</h2>
+  <div class="stats-grid stagger">
+    <div class="stat-item fade-in" style="--i:0">
       <div class="number">24</div>
-      <div class="label">Smart Contracts</div>
+      <div class="label">Contracts</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item fade-in" style="--i:1">
       <div class="number">23/23</div>
       <div class="label">Tests Passed</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item fade-in" style="--i:2">
       <div class="number">Sepolia</div>
-      <div class="label">Testnet Deployed</div>
+      <div class="label">Deployed</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item fade-in" style="--i:3">
       <div class="number">EAS</div>
-      <div class="label">On-chain Certified</div>
+      <div class="label">Certified</div>
     </div>
   </div>
 </section>
 
 <!-- CTA Section -->
 <section class="section cta-section">
-  <h2>GET STARTED</h2>
+  <h2 class="fade-in">Get Started</h2>
   <div class="content">
-    <p>Athena is open source and deployed on Sepolia testnet.</p>
-    <p>Try it now or contribute to the project.</p>
+    <p class="fade-in">Athena is open source and deployed on Sepolia testnet.</p>
   </div>
-  <div class="cta" style="margin-top: 30px;">
-    <a href="https://github.com/tiyadegure/glm-code" class="btn primary">GitHub Repository</a>
-    <a href="https://sepolia.etherscan.io/address/0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E" class="btn">View Contract</a>
-    <a href="https://sepolia.eas.xyz" class="btn">EAS Certification</a>
+  <div class="cta fade-in" style="margin-top: 30px;">
+    <a href="https://github.com/tiyadegure/glm-code" class="btn primary">GitHub</a>
+    <a href="https://sepolia.etherscan.io/address/0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E" class="btn">Contract</a>
+    <a href="https://sepolia.eas.xyz" class="btn">EAS</a>
   </div>
 </section>
 
@@ -491,6 +761,104 @@
 <footer>
   <p>Built for Z.AI Hackathon · Powered by GLM-5.1 · <a href="https://github.com/tiyadegure/glm-code">GitHub</a></p>
 </footer>
+
+<!-- Scripts -->
+<script>
+// ========== Particle Background ==========
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 1.5 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.4 + 0.1;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+      this.reset();
+    }
+  }
+  draw() {
+    ctx.fillStyle = `rgba(255,255,255,${this.opacity})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+// Create particles
+for (let i = 0; i < 80; i++) {
+  particles.push(new Particle());
+}
+
+// Draw connections
+function drawConnections() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 150) {
+        ctx.strokeStyle = `rgba(255,255,255,${0.05 * (1 - dist / 150)})`;
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawConnections();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ========== Scroll Fade-In ==========
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
+  observer.observe(el);
+});
+
+// ========== Smooth Scroll ==========
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
 
 </body>
 </html>
