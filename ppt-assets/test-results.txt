@@ -56,6 +56,6 @@ ReentrancyExploitTest 测试（1/1 通过）
 ------------------------------------
   test_reentrancy_drains_bank - 重入攻击验证
 
-合约地址 (v7): 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c
+合约地址 (v7): 0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E
 网络: Sepolia
 技术: Seed-based traits (4^9=262,144), OpenRarity IC, SVG Cache, ART (ERC-20)

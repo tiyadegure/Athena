@@ -163,7 +163,7 @@ Generative Trait 系统，262,144 种唯一组合（v6 新增 S 级 + 3 个 trai
 - [x] 构建 13 个独立 MCP 工具
 - [x] 设计 Generative NFT（S/A/B/C 四级，262,144 种 trait 组合）
 - [x] 部署审计合约到 Sepolia 测试网
-  - AuditCertificate (NFT): `0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
+  - AuditCertificate (NFT): `0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E`
   - AuditEvidenceChain: `0x5e99f144D3e512f525d24077D4626a064899E177`
   - 测试 NFT 已铸造 (Gold tier)
 - [ ] 跑通 ①→⑧ 完整审计链路

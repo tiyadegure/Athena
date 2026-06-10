@@ -111,7 +111,7 @@ uPEG 启发 Seed-based Generative 雅典娜：
 - ART 声誉代币（ERC-20）：1000 ART = 1 NFT 资格
 
 链上验证：
-- Sepolia: 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c
+- Sepolia: 0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E
 - EAS 认证 + ERC-1155 NFT + ERC-20 ART
 - uri() 返回完整 JSON+SVG（含 9 个 trait attributes）
 
