@@ -1,6 +1,5 @@
 {
   "packages": [
-    "npm:pi-mcp-adapter",
     "npm:pi-cost",
     "npm:pi-inspect",
     "npm:pi-tps"
