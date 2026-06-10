@@ -155,7 +155,7 @@ Schema：定义审计结果的结构化数据
 **ERC-1155 NFT（第 ⑧ 步）**
 
 ```
-合约：AuditCertificate (Sepolia) — `0x636B3Af9630e1b26b02BA488a5b8Ab6cE75d6721`
+合约：AuditCertificate (Sepolia) — `0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E`
 Token IDs：
   → 1 = S 级（金色雅典娜，generative traits）
   → 2 = A 级（银色雅典娜，generative traits）

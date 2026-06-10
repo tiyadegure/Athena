@@ -147,7 +147,7 @@
     "network": "sepolia",
     "tx_hash": "0xe359e817031159ee70109466d29e0f5e0b53e7703d8384f51ba8d1874b20f1a3",
     "url": "https://sepolia.eas.xyz/attestation/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-    "contract": "0x636B3Af9630e1b26b02BA488a5b8Ab6cE75d6721"
+    "contract": "0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E"
   },
   "certificate": {
     "tier": "Gold",
