@@ -20,9 +20,9 @@ AuditCertificate 测试（22/22 通过）
 ✅ test_generate_metadata_bronze - 铜级元数据生成
 ✅ test_generate_metadata_gold - 金级元数据生成
 ✅ test_generate_metadata_silver - 银级元数据生成
-✅ test_invalid_attestation_reverts - 无效认证回滚
+✅ test_invalid_attestation_reverts - 无效证明回滚
 ✅ test_invalid_recipient_reverts - 无效接收者回滚
-✅ test_invalid_tokenid_reverts - 无效 Token ID 回滚
+✅ test_invalid_tokenid_reverts - 无效 TokenID 回滚
 ✅ test_mint_bronze - 铜级铸造
 ✅ test_mint_gold - 金级铸造
 ✅ test_mint_silver - 银级铸造
@@ -32,9 +32,10 @@ AuditCertificate 测试（22/22 通过）
 ✅ test_traits_stored_on_mint - 铸造时特征存储
 ✅ test_zero_uid_reverts - 零 UID 回滚
 
-Reentrancy Exploit 测试（1/1 通过）
+ReentrancyExploitTest 测试（1/1 通过）
 ------------------------------------
-✅ test_reentrancy_drains_bank - 重入攻击漏洞验证
+✅ test_reentrancy_drains_bank - 重入攻击验证
 
-执行时间：68.49ms
-Gas 优化：所有测试在合理范围内
+审计报告: demo/report.json
+合约地址: 0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E
+网络: Sepolia
