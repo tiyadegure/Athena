@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" font-family="monospace">
+  <rect width="900" height="450" fill="#0a0a0a"/>
+  <text x="450" y="35" text-anchor="middle" fill="#00ff88" font-size="20" font-weight="bold">MCP 工具链 (13 Tools)</text>
+  
+  <rect x="50" y="55" width="800" height="350" rx="10" fill="#1a1a1a" stroke="#333"/>
+  
+  <!-- Category 1: Static Analysis -->
+  <rect x="70" y="75" width="200" height="140" rx="5" fill="#4a9eff20" stroke="#4a9eff"/>
+  <text x="170" y="100" text-anchor="middle" fill="#4a9eff" font-size="12" font-weight="bold">静态分析</text>
+  <text x="170" y="125" text-anchor="middle" fill="#fff" font-size="10">slither</text>
+  <text x="170" y="145" text-anchor="middle" fill="#fff" font-size="10">aderyn</text>
+  <text x="170" y="165" text-anchor="middle" fill="#fff" font-size="10">halmos_runner</text>
+  <text x="170" y="195" text-anchor="middle" fill="#888" font-size="9">Slither + Aderyn + Halmos</text>
+  
+  <!-- Category 2: Attack Simulation -->
+  <rect x="300" y="75" width="200" height="140" rx="5" fill="#ff6b6b20" stroke="#ff6b6b"/>
+  <text x="400" y="100" text-anchor="middle" fill="#ff6b6b" font-size="12" font-weight="bold">攻击模拟</text>
+  <text x="400" y="125" text-anchor="middle" fill="#fff" font-size="10">poc_generator</text>
+  <text x="400" y="145" text-anchor="middle" fill="#fff" font-size="10">exploit_simulator</text>
+  <text x="400" y="165" text-anchor="middle" fill="#fff" font-size="10">fuzz_runner</text>
+  <text x="400" y="195" text-anchor="middle" fill="#888" font-size="9">Foundry + PoC + Fuzz</text>
+  
+  <!-- Category 3: On-chain -->
+  <rect x="530" y="75" width="140" height="140" rx="5" fill="#9b59b620" stroke="#9b59b6"/>
+  <text x="600" y="100" text-anchor="middle" fill="#9b59b6" font-size="12" font-weight="bold">链上操作</text>
+  <text x="600" y="125" text-anchor="middle" fill="#fff" font-size="10">eas_attest</text>
+  <text x="600" y="145" text-anchor="middle" fill="#fff" font-size="10">evidence_chain</text>
+  <text x="600" y="175" text-anchor="middle" fill="#888" font-size="9">EAS + 证据链</text>
+  
+  <!-- Category 4: Advanced -->
+  <rect x="700" y="75" width="130" height="140" rx="5" fill="#ffd70020" stroke="#ffd700"/>
+  <text x="765" y="100" text-anchor="middle" fill="#ffd700" font-size="12" font-weight="bold">高级功能</text>
+  <text x="765" y="125" text-anchor="middle" fill="#fff" font-size="10">protocol_scanner</text>
+  <text x="765" y="145" text-anchor="middle" fill="#fff" font-size="10">repair_validator</text>
+  <text x="765" y="165" text-anchor="middle" fill="#fff" font-size="10">incremental_auditor</text>
+  <text x="765" y="185" text-anchor="middle" fill="#fff" font-size="10">gev_analyzer</text>
+  <text x="765" y="205" text-anchor="middle" fill="#888" font-size="9">4 高级工具</text>
+  
+  <!-- Knowledge Base -->
+  <rect x="70" y="240" width="760" height="50" rx="5" fill="#00ff8820" stroke="#00ff88"/>
+  <text x="450" y="270" text-anchor="middle" fill="#00ff88" font-size="14" font-weight="bold">knowledge_base (ChromaDB RAG)</text>
+  
+  <!-- Stats -->
+  <rect x="70" y="310" width="760" height="70" rx="5" fill="#1a1a1a"/>
+  <text x="200" y="340" text-anchor="middle" fill="#fff" font-size="12">13 MCP 工具</text>
+  <text x="400" y="340" text-anchor="middle" fill="#fff" font-size="12">4 大类</text>
+  <text x="600" y="340" text-anchor="middle" fill="#fff" font-size="12">Foundry 集成</text>
+  <text x="450" y="365" text-anchor="middle" fill="#888" font-size="10">GLM-5.1 调用 | Sepolia 测试网 | 零成本</text>
+</svg>

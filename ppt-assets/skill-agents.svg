@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="monospace">
+  <rect width="900" height="500" fill="#0a0a0a"/>
+  <text x="450" y="35" text-anchor="middle" fill="#00ff88" font-size="20" font-weight="bold">Athena 审计 Skill (12 Agents)</text>
+  
+  <rect x="50" y="60" width="800" height="400" rx="10" fill="#1a1a1a" stroke="#333"/>
+  
+  <!-- Central Orchestrator -->
+  <rect x="325" y="80" width="250" height="50" rx="5" fill="#00ff8830" stroke="#00ff88"/>
+  <text x="450" y="110" text-anchor="middle" fill="#00ff88" font-size="14" font-weight="bold">Orchestrator (主控 Agent)</text>
+  
+  <!-- Row 1 -->
+  <rect x="70" y="160" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#4a9eff"/>
+  <text x="150" y="188" text-anchor="middle" fill="#4a9eff" font-size="11">1. Scope Analyzer</text>
+  
+  <rect x="260" y="160" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#4a9eff"/>
+  <text x="340" y="188" text-anchor="middle" fill="#4a9eff" font-size="11">2. Architecture Mapper</text>
+  
+  <rect x="450" y="160" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#4a9eff"/>
+  <text x="530" y="188" text-anchor="middle" fill="#4a9eff" font-size="11">3. Access Control</text>
+  
+  <rect x="640" y="160" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#4a9eff"/>
+  <text x="720" y="188" text-anchor="middle" fill="#4a9eff" font-size="11">4. Math & Overflow</text>
+  
+  <!-- Row 2 -->
+  <rect x="70" y="230" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#ff6b6b"/>
+  <text x="150" y="258" text-anchor="middle" fill="#ff6b6b" font-size="11">5. Reentrancy Hunter</text>
+  
+  <rect x="260" y="230" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#ff6b6b"/>
+  <text x="340" y="258" text-anchor="middle" fill="#ff6b6b" font-size="11">6. Oracle Manipulation</text>
+  
+  <rect x="450" y="230" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#ff6b6b"/>
+  <text x="530" y="258" text-anchor="middle" fill="#ff6b6b" font-size="11">7. Flash Loan Attack</text>
+  
+  <rect x="640" y="230" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#ff6b6b"/>
+  <text x="720" y="258" text-anchor="middle" fill="#ff6b6b" font-size="11">8. Logic Flaw</text>
+  
+  <!-- Row 3 -->
+  <rect x="70" y="300" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#ffd700"/>
+  <text x="150" y="328" text-anchor="middle" fill="#ffd700" font-size="11">9. Gas Optimization</text>
+  
+  <rect x="260" y="300" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#ffd700"/>
+  <text x="340" y="328" text-anchor="middle" fill="#ffd700" font-size="11">10. Frontend/API</text>
+  
+  <rect x="450" y="300" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#9b59b6"/>
+  <text x="530" y="328" text-anchor="middle" fill="#9b59b6" font-size="11">11. PoC Generator</text>
+  
+  <rect x="640" y="300" width="160" height="45" rx="5" fill="#1a1a1a" stroke="#9b59b6"/>
+  <text x="720" y="328" text-anchor="middle" fill="#9b59b6" font-size="11">12. Report Writer</text>
+  
+  <!-- Legend -->
+  <circle cx="150" cy="400" r="6" fill="#4a9eff"/>
+  <text x="165" y="405" fill="#888" font-size="10">基础分析</text>
+  <circle cx="300" cy="400" r="6" fill="#ff6b6b"/>
+  <text x="315" y="405" fill="#888" font-size="10">漏洞猎手</text>
+  <circle cx="450" cy="400" r="6" fill="#ffd700"/>
+  <text x="465" y="405" fill="#888" font-size="10">辅助分析</text>
+  <circle cx="600" cy="400" r="6" fill="#9b59b6"/>
+  <text x="615" y="405" fill="#888" font-size="10">输出生成</text>
+  
+  <!-- Stats -->
+  <text x="450" y="440" text-anchor="middle" fill="#888" font-size="12">12 Agents | 10 轮检查 | 并行执行 | GLM-5.1 驱动</text>
+</svg>
