@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="monospace">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#0a0a0a"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" fill="#00ff88" font-size="20" font-weight="bold">Athena 审计报告示例</text>
+  <text x="400" y="55" text-anchor="middle" fill="#888" font-size="12">DeFi Protocol Audit | Sepolia Testnet</text>
+  
+  <!-- Summary Box -->
+  <rect x="50" y="70" width="700" height="70" rx="5" fill="#1a1a1a" stroke="#333"/>
+  <text x="100" y="100" fill="#fff" font-size="14">审计概况</text>
+  <text x="100" y="120" fill="#888" font-size="11">3 合约 | 5 漏洞 | 评分 2/100 | 执行时间 68ms</text>
+  
+  <!-- Severity Legend -->
+  <rect x="50" y="150" width="130" height="35" rx="5" fill="#ff000030"/>
+  <text x="115" y="173" text-anchor="middle" fill="#ff4444" font-size="12" font-weight="bold">Critical: 1</text>
+  
+  <rect x="200" y="150" width="130" height="35" rx="5" fill="#ff660030"/>
+  <text x="265" y="173" text-anchor="middle" fill="#ff8800" font-size="12" font-weight="bold">High: 2</text>
+  
+  <rect x="350" y="150" width="130" height="35" rx="5" fill="#ffff0030"/>
+  <text x="415" y="173" text-anchor="middle" fill="#ffff00" font-size="12" font-weight="bold">Medium: 1</text>
+  
+  <rect x="500" y="150" width="130" height="35" rx="5" fill="#00ff0030"/>
+  <text x="565" y="173" text-anchor="middle" fill="#00ff88" font-size="12" font-weight="bold">Low: 1</text>
+  
+  <!-- Findings List -->
+  <rect x="50" y="200" width="700" height="250" rx="5" fill="#1a1a1a"/>
+  <text x="70" y="225" fill="#fff" font-size="14">漏洞发现</text>
+  
+  <!-- Finding 1 -->
+  <circle cx="85" cy="255" r="6" fill="#ff0000"/>
+  <text x="100" y="260" fill="#fff" font-size="11">Reentrancy in Vault.withdraw()</text>
+  <text x="600" y="260" fill="#ff4444" font-size="10">Critical | PoC ✓</text>
+  
+  <!-- Finding 2 -->
+  <circle cx="85" cy="285" r="6" fill="#ff6600"/>
+  <text x="100" y="290" fill="#fff" font-size="11">Oracle price manipulation via flash loan</text>
+  <text x="600" y="290" fill="#ff8800" font-size="10">High | PoC ✓</text>
+  
+  <!-- Finding 3 -->
+  <circle cx="85" cy="315" r="6" fill="#ff6600"/>
+  <text x="100" y="320" fill="#fff" font-size="11">Missing access control on Vault.setOracle()</text>
+  <text x="600" y="320" fill="#ff8800" font-size="10">High</text>
+  
+  <!-- Finding 4 -->
+  <circle cx="85" cy="345" r="6" fill="#ffff00"/>
+  <text x="100" y="350" fill="#fff" font-size="11">Integer overflow in Token.transfer()</text>
+  <text x="600" y="350" fill="#ffff00" font-size="10">Medium</text>
+  
+  <!-- Finding 5 -->
+  <circle cx="85" cy="375" r="6" fill="#00ff00"/>
+  <text x="100" y="380" fill="#fff" font-size="11">Uninitialized storage pointer in Vault</text>
+  <text x="600" y="380" fill="#00ff88" font-size="10">Low</text>
+  
+  <!-- Attack Simulation -->
+  <rect x="50" y="410" width="700" height="75" rx="5" fill="#ff000020" stroke="#ff000040"/>
+  <text x="70" y="435" fill="#ff4444" font-size="12" font-weight="bold">⚠ 攻击模拟：Flash Loan → Oracle 操纵 → Vault 清空</text>
+  <text x="70" y="455" fill="#ff8888" font-size="11">预计损失：$2.3M | 步骤：5 | PoC 验证通过</text>
+  <text x="70" y="475" fill="#888" font-size="10">ReentrancyExploit.t.sol | FlashLoanExploit.t.sol | Foundry Fuzz 256 runs</text>
+</svg>
