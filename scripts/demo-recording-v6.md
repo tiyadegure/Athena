@@ -24,7 +24,7 @@ tree -L 2 -I 'node_modules|.pi|lib'
 
 ---
 
-### [0:30-1:30] Step 1: 协议级审计 — 展示跨合约理解能力
+### [0:30-1:00] 展示待审计合约
 
 **终端操作：**
 ```bash
@@ -35,54 +35,68 @@ cat contracts/multi-contract/Vault.sol
 ```
 
 **讲解：**
-> "Step 1: 协议级审计。GLM-5.1 不是只看一个合约，而是理解整个协议。它分析了 Token、Oracle、Vault 三个合约的调用关系，发现了跨合约漏洞。"
+> "这是一个 DeFi 协议，包含 Token、Oracle、Vault 三个合约。它们有跨合约依赖关系。现在让我们用 GLM-5.1 来审计它。"
 
 ---
 
-### [1:30-2:30] Step 2: 攻击模拟 — 展示端到端攻击链
+### [1:00-2:30] 启动 GLM-5.1 审计脚本
 
 **终端操作：**
 ```bash
-# 展示 PoC 测试
+# 启动审计脚本
+./scripts/real-audit-llm.sh
+```
+
+**讲解：**
+> "现在启动 GLM-5.1 审计脚本。GLM-5.1 会作为 LLM 层，协调 13 个 MCP 工具执行完整的 8 步审计流程。"
+
+**关键展示点：**
+- GLM-5.1 分析合约结构
+- GLM-5.1 调用 Slither MCP 工具
+- GLM-5.1 调用 Aderyn MCP 工具
+- GLM-5.1 查询知识库
+- GLM-5.1 生成 PoC
+- GLM-5.1 运行 Foundry 测试
+- GLM-5.1 生成审计报告
+
+**注意：**
+- 如果 GLM-5.1 执行时间过长，可以剪辑加速
+- 重点展示 GLM-5.1 调用 MCP 工具的过程
+- 重点展示漏洞发现和 PoC 生成
+
+---
+
+### [2:30-3:00] 展示审计结果
+
+**终端操作：**
+```bash
+# 展示生成的 PoC
 cat contracts/test-cases/poc/ReentrancyExploit.t.sol
 
-# 运行测试
+# 展示测试结果
 forge test --match-contract ReentrancyExploit -vvv
+
+# 展示审计报告
+cat demo/report.json
 ```
 
 **讲解：**
-> "Step 2: 攻击模拟。GLM-5.1 不只是找 bug，还能证明 bug 可被利用。它生成了完整的 PoC 测试合约，并通过了 Foundry 验证。"
+> "审计完成！GLM-5.1 发现了 5 个漏洞，其中 1 个 Critical 级别的 reentrancy 漏洞。它还生成了 PoC 测试合约，并通过了 Foundry 验证。"
 
 ---
 
-### [2:30-3:00] Step 3-5: 多轮修复验证 + 增量审计
-
-**终端操作：**
-```bash
-# 展示修复后的合约
-cat contracts/test-cases/fixes/Reentrancy-fixed.sol
-
-# 展示增量审计
-cat contracts/multi-contract/Vault-v2.sol
-```
-
-**讲解：**
-> "Step 3-5: 多轮修复验证和增量审计。GLM-5.1 给出修复建议，应用修复后重新审计，对比前后差异。它还能在合约升级后只审计变化部分，复用上次的审计上下文。"
-
----
-
-### [3:00-3:30] Step 6: 链上认证 — EAS Attestation
+### [3:00-3:30] 链上认证 — EAS Attestation
 
 **浏览器操作：**
 - 打开 EAS 认证页面：`https://sepolia.eas.xyz`
 - 搜索 EAS UID，展示认证记录
 
 **讲解：**
-> "Step 6: 链上认证。所有审计结果都记录在链上，通过 EAS 认证，不可篡改。"
+> "审计结果通过 EAS 认证记录在链上，不可篡改。"
 
 ---
 
-### [3:30-4:00] Step 7: NFT 铸造 — S/A/B/C 四级
+### [3:30-4:00] NFT 铸造 — S/A/B/C 四级
 
 **浏览器操作：**
 - 打开 NFT 预览页面：`http://localhost:8765/nft-preview.html`
@@ -93,11 +107,11 @@ cat contracts/multi-contract/Vault-v2.sol
   - **C 级（铜）**：铜色雅典娜
 
 **讲解：**
-> "Step 7: NFT 铸造。uPEG 风格的 generative 雅典娜 NFT，有 4 个等级：S 级是最稀有的，需要 100 分审计 + Critical 漏洞才能获得，有彩虹渐变和动态光晕效果。总共有 12,064 种组合。"
+> "基于审计结果，铸造 uPEG 风格的 generative 雅典娜 NFT。有 4 个等级：S 级是最稀有的，需要 100 分审计 + Critical 漏洞才能获得，有彩虹渐变和动态光晕效果。总共有 12,064 种组合。"
 
 ---
 
-### [4:00-4:30] Step 8: 链上验证 — Etherscan
+### [4:00-4:30] 链上验证 — Etherscan
 
 **浏览器操作：**
 - 打开 Etherscan：`https://sepolia.etherscan.io/address/0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E`
@@ -125,11 +139,11 @@ cat contracts/multi-contract/Vault-v2.sol
 ```
 [0:00-0:30] 终端：项目结构
      ↓
-[0:30-1:30] 终端：合约代码（Token+Oracle+Vault）
+[0:30-1:00] 终端：待审计合约（Token+Oracle+Vault）
      ↓
-[1:30-2:30] 终端：PoC 代码 + 测试结果
+[1:00-2:30] 终端：运行审计脚本（GLM-5.1 实时审计）⭐
      ↓
-[2:30-3:00] 终端：修复后合约 + 增量审计
+[2:30-3:00] 终端：展示审计结果（PoC + 测试 + 报告）
      ↓
 [3:00-3:30] 浏览器：EAS 认证页面
      ↓
@@ -155,6 +169,7 @@ cat contracts/multi-contract/Vault-v2.sol
 
 - 工作目录：`/root/projects/glm-code`
 - 已安装：Foundry、Node.js
+- 审计脚本：`./scripts/real-audit-llm.sh`
 
 ---
 
@@ -241,7 +256,7 @@ cat contracts/multi-contract/Vault-v2.sol
 - **跨平台**：DaVinci Resolve（免费）
 
 ### 剪辑要点
-1. **删除等待时间**：终端输出可以 2x 加速
+1. **删除等待时间**：审计脚本执行时的等待时间可以剪辑加速
 2. **添加字幕**：关键步骤添加字幕
 3. **添加背景音乐**：轻音乐，不要有歌词
 4. **突出 S 级 NFT**：在 Step 7 处添加特效说明
@@ -256,7 +271,7 @@ cat contracts/multi-contract/Vault-v2.sol
 
 ## 备用方案
 
-如果某个步骤失败，使用备用方案：
+如果审计脚本执行失败，使用备用方案：
 
 ### 备用方案 1：使用现有产物
 ```bash
@@ -301,6 +316,10 @@ cat demo/report.json
 - `mcp/tools/repair_validator.py` — 修复验证
 - `mcp/tools/incremental_auditor.py` — 增量审计
 - `mcp/tools/gev_analyzer.py` — GEV 分析
+
+### 审计脚本
+- `scripts/real-audit-llm.sh` — GLM-5.1 驱动的审计脚本
+- `scripts/real-audit.sh` — 基础审计脚本
 
 ### 前端
 - `frontend/index.html` — 审计报告页面
