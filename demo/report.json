@@ -147,11 +147,11 @@
     "network": "sepolia",
     "tx_hash": "0xe359e817031159ee70109466d29e0f5e0b53e7703d8384f51ba8d1874b20f1a3",
     "url": "https://sepolia.eas.xyz/attestation/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-    "contract": "0xcb85A20d0CD307926e9cbC9Ae78867529BD12671"
+    "contract": "0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E"
   },
   "certificate": {
-    "tier": "Gold",
-    "tier_label": "A",
+    "tier": "S",
+    "tier_label": "S",
     "traits": {
       "helmet": "Feathered",
       "shield": "Owl",
@@ -161,6 +161,6 @@
       "eyes": "Blue"
     },
     "rarity": 42,
-    "combinations_total": 12000
+    "combinations_total": 768000
   }
 }

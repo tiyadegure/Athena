@@ -14,7 +14,7 @@
 5. **Foundry fuzz 验证** — 模糊测试确认漏洞
 6. **修复建议** — 生成修复方案
 7. **EAS 上链认证** — 通过 Ethereum Attestation Service 上链记录审计结果
-8. **铸造 NFT 证书** — 雅典娜女神 Generative NFT（ERC-1155，12,000 种 trait 组合）
+8. **铸造 NFT 证书** — 雅典娜女神 Generative NFT（ERC-1155，S/A/B/C 四级，768,000 种 trait 组合）
 
 ## 技术栈
 
@@ -60,7 +60,7 @@ glm-code/
 │   ├── servers.json                 # MCP 服务器注册配置
 │   └── README.md
 ├── contracts/
-│   ├── AuditCertificate.sol         # ERC-1155 审计证书（generative 12,000 种组合）
+│   ├── AuditCertificate.sol         # ERC-1155 审计证书（S/A/B/C 四级，generative 768,000 种组合）
 │   ├── AuditEvidenceChain.sol       # 审计证据链
 │   ├── test-cases/                  # 17 个测试合约 + expected-results.json
 │   ├── real-world/                  # 真实协议测试数据
@@ -124,7 +124,7 @@ glm audit contracts/Example.sol --provider anthropic
 
 ## 审计证书 NFT
 
-Generative Trait 系统，12,000 种唯一组合：
+Generative Trait 系统，768,000 种唯一组合（v6 新增 S 级 + 3 个 trait 维度）：
 
 | 维度 | 变体数 | 示例 |
 |------|--------|------|
@@ -135,7 +135,7 @@ Generative Trait 系统，12,000 种唯一组合：
 | Background（背景） | 5 | 星空/火焰/海洋/森林/极光 |
 | Eyes（瞳色） | 4 | 蓝/绿/金/红 |
 
-**5 × 5 × 8 × 3 × 5 × 4 = 12,000 种组合**
+**5 × 5 × 8 × 3 × 5 × 4 × 4 × 4 × 4 = 768,000 种组合**
 
 铸造条件基于审计结果分级：
 
@@ -161,9 +161,9 @@ Generative Trait 系统，12,000 种唯一组合：
 - [x] 项目规划与技术选型
 - [x] 构建 athena-audit-skill（12 agent 并行审计）
 - [x] 构建 13 个独立 MCP 工具
-- [x] 设计 Generative NFT（12,000 种 trait 组合）
+- [x] 设计 Generative NFT（S/A/B/C 四级，768,000 种 trait 组合）
 - [x] 部署审计合约到 Sepolia 测试网
-  - AuditCertificate (NFT): `0xcb85A20d0CD307926e9cbC9Ae78867529BD12671`
+  - AuditCertificate (NFT): `0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E`
   - AuditEvidenceChain: `0x5e99f144D3e512f525d24077D4626a064899E177`
   - 测试 NFT 已铸造 (Gold tier)
 - [ ] 跑通 ①→⑧ 完整审计链路

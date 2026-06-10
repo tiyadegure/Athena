@@ -206,7 +206,16 @@ header {
 }
 
 .severity-critical { color: var(--sev-critical); border-color: var(--sev-critical); }
-.severity-s-tier { color: #ff00ff; border-color: #ff00ff; }
+@keyframes rainbow-border {
+  0% { border-color: #ff0000; }
+  16% { border-color: #ff8800; }
+  33% { border-color: #ffff00; }
+  50% { border-color: #00ff00; }
+  66% { border-color: #0088ff; }
+  83% { border-color: #8800ff; }
+  100% { border-color: #ff0088; }
+}
+.severity-s-tier { color: #fff; border-color: #ff0000; animation: rainbow-border 3s linear infinite; text-shadow: 0 0 8px rgba(255,255,255,0.3); }
 .severity-high { color: var(--sev-high); border-color: var(--sev-high); }
 .severity-medium { color: var(--sev-medium); border-color: var(--sev-medium); }
 .severity-low { color: var(--sev-low); border-color: var(--sev-low); }

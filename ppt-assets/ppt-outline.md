@@ -104,7 +104,7 @@ Slide 8 — Agent 铸造：Generative NFT 证书
 素材：nft-preview-full.png
 
 uPEG 风格 Generative 雅典娜：
-- 12,000 种 trait 组合
+- 768,000 种 trait 组合（S/A/B/C 四级）
 - 3 等级：Gold（Critical）/ Silver（High）/ Bronze（Medium）
 - 链上 SVG，6 个 trait 维度
 
