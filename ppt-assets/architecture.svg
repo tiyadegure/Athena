@@ -1,82 +1,79 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" font-family="monospace">
-  <!-- Background - 纯黑 -->
   <rect width="1000" height="600" fill="#000000"/>
   
-  <!-- 标题 - 细线框 -->
-  <text x="500" y="40" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="normal">ATHENA — 8-STEP AUDIT PIPELINE</text>
-  <line x1="300" y1="50" x2="700" y2="50" stroke="#333333" stroke-width="1"/>
+  <text x="500" y="40" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="normal">ATHENA v7 — 8-STEP AUDIT PIPELINE</text>
+  <line x1="280" y1="50" x2="720" y2="50" stroke="#333333" stroke-width="1"/>
   
-  <!-- GLM-5.1 Core - 细线框 -->
-  <rect x="350" y="260" width="300" height="60" fill="none" stroke="#ffffff" stroke-width="1"/>
-  <text x="500" y="295" text-anchor="middle" fill="#ffffff" font-size="14">GLM-5.1 REASONING ENGINE</text>
+  <!-- GLM-5.1 Core -->
+  <rect x="350" y="200" width="300" height="50" fill="none" stroke="#ffffff" stroke-width="1"/>
+  <text x="500" y="230" text-anchor="middle" fill="#ffffff" font-size="14">GLM-5.1 REASONING ENGINE</text>
   
-  <!-- Step 1-6 顶部 -->
-  <rect x="50" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="115" y="105" text-anchor="middle" fill="#ffffff" font-size="10">1. CONTRACT ANALYSIS</text>
+  <!-- v7 Tech Layer -->
+  <rect x="250" y="270" width="500" height="50" fill="none" stroke="#555555" stroke-width="1" stroke-dasharray="4"/>
+  <text x="500" y="290" text-anchor="middle" fill="#888888" font-size="9">v7: SEED-BASED TRAITS (4^9=262144) | OPENRARITY IC | SVG CACHE | ART (ERC-20)</text>
+  <text x="500" y="305" text-anchor="middle" fill="#555555" font-size="8">RarityCalculator + AuditCertificate v4 + ART Reputation Token</text>
   
-  <rect x="200" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="265" y="105" text-anchor="middle" fill="#ffffff" font-size="10">2. VULN DETECTION</text>
+  <!-- Step 1-4 顶部 -->
+  <rect x="50" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="115" y="102" text-anchor="middle" fill="#ffffff" font-size="9">1. CONTRACT ANALYSIS</text>
   
-  <rect x="350" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="415" y="105" text-anchor="middle" fill="#ffffff" font-size="10">3. SYMBOLIC VERIFY</text>
+  <rect x="200" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="265" y="102" text-anchor="middle" fill="#ffffff" font-size="9">2. VULN DETECTION</text>
   
-  <rect x="500" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="565" y="105" text-anchor="middle" fill="#ffffff" font-size="10">4. ATTACK SIM</text>
+  <rect x="350" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="415" y="102" text-anchor="middle" fill="#ffffff" font-size="9">3. SYMBOLIC VERIFY</text>
   
-  <rect x="650" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="715" y="105" text-anchor="middle" fill="#ffffff" font-size="10">5. REPORT</text>
+  <rect x="500" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="565" y="102" text-anchor="middle" fill="#ffffff" font-size="9">4. ATTACK SIM</text>
   
-  <rect x="800" y="80" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="865" y="105" text-anchor="middle" fill="#ffffff" font-size="10">6. ON-CHAIN ATTEST</text>
+  <rect x="650" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="715" y="102" text-anchor="middle" fill="#ffffff" font-size="9">5. REPORT + ART</text>
+  
+  <rect x="800" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="865" y="102" text-anchor="middle" fill="#ffffff" font-size="9">6. EAS ATTEST</text>
   
   <!-- Step 7-8 底部 -->
-  <rect x="650" y="440" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="715" y="465" text-anchor="middle" fill="#ffffff" font-size="10">7. NFT MINT</text>
+  <rect x="600" y="440" width="150" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="675" y="458" text-anchor="middle" fill="#ffffff" font-size="9">7. RARITY + NFT MINT</text>
+  <text x="675" y="468" text-anchor="middle" fill="#555555" font-size="7">OpenRarity IC → S/A/B/C</text>
   
-  <rect x="800" y="440" width="130" height="40" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="865" y="465" text-anchor="middle" fill="#ffffff" font-size="10">8. FRONTEND</text>
+  <rect x="780" y="440" width="150" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="855" y="458" text-anchor="middle" fill="#ffffff" font-size="9">8. FRONTEND</text>
   
   <!-- MCP 工具层 -->
-  <rect x="50" y="440" width="250" height="60" fill="none" stroke="#ffffff" stroke-width="1"/>
-  <text x="175" y="470" text-anchor="middle" fill="#ffffff" font-size="11">MCP TOOLS (13)</text>
-  <text x="175" y="485" text-anchor="middle" fill="#666666" font-size="9">scanner | auditor | evidence | repair</text>
+  <rect x="50" y="440" width="230" height="55" fill="none" stroke="#ffffff" stroke-width="1"/>
+  <text x="165" y="465" text-anchor="middle" fill="#ffffff" font-size="11">MCP TOOLS (13)</text>
+  <text x="165" y="480" text-anchor="middle" fill="#666666" font-size="8">scanner | auditor | evidence | repair</text>
   
   <!-- Skill 层 -->
-  <rect x="350" y="440" width="250" height="60" fill="none" stroke="#ffffff" stroke-width="1"/>
-  <text x="475" y="470" text-anchor="middle" fill="#ffffff" font-size="11">AUDIT SKILL (12 AGENTS)</text>
-  <text x="475" y="485" text-anchor="middle" fill="#666666" font-size="9">reentrancy | overflow | access | logic</text>
+  <rect x="310" y="440" width="260" height="55" fill="none" stroke="#ffffff" stroke-width="1"/>
+  <text x="440" y="465" text-anchor="middle" fill="#ffffff" font-size="11">AUDIT SKILL (12 AGENTS)</text>
+  <text x="440" y="480" text-anchor="middle" fill="#666666" font-size="8">reentrancy | overflow | access | logic</text>
+  
+  <!-- v7 Contract Layer -->
+  <rect x="50" y="530" width="900" height="40" fill="none" stroke="#444444" stroke-width="1"/>
+  <text x="500" y="550" text-anchor="middle" fill="#888888" font-size="9">ON-CHAIN: AuditCertificate v4 (ERC-1155) + ART (ERC-20) + RarityCalculator (Library) + EAS (Attestation)</text>
+  <text x="500" y="565" text-anchor="middle" fill="#555555" font-size="8">Sepolia: 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c | 30/30 Tests Pass | 13.3KB Bytecode</text>
   
   <!-- 连接线 -->
-  <line x1="115" y1="120" x2="415" y2="260" stroke="#333333" stroke-width="1"/>
-  <line x1="265" y1="120" x2="450" y2="260" stroke="#333333" stroke-width="1"/>
-  <line x1="415" y1="120" x2="500" y2="260" stroke="#333333" stroke-width="1"/>
-  <line x1="565" y1="120" x2="550" y2="260" stroke="#333333" stroke-width="1"/>
-  <line x1="715" y1="120" x2="590" y2="260" stroke="#333333" stroke-width="1"/>
-  <line x1="865" y1="120" x2="620" y2="280" stroke="#333333" stroke-width="1"/>
+  <line x1="115" y1="115" x2="415" y2="200" stroke="#333333" stroke-width="1"/>
+  <line x1="265" y1="115" x2="450" y2="200" stroke="#333333" stroke-width="1"/>
+  <line x1="415" y1="115" x2="500" y2="200" stroke="#333333" stroke-width="1"/>
+  <line x1="565" y1="115" x2="550" y2="200" stroke="#333333" stroke-width="1"/>
+  <line x1="715" y1="115" x2="590" y2="200" stroke="#333333" stroke-width="1"/>
+  <line x1="865" y1="115" x2="620" y2="200" stroke="#333333" stroke-width="1"/>
   
-  <line x1="500" y1="320" x2="715" y2="440" stroke="#333333" stroke-width="1"/>
-  <line x1="500" y1="320" x2="865" y2="440" stroke="#333333" stroke-width="1"/>
-  <line x1="400" y1="320" x2="175" y2="440" stroke="#333333" stroke-width="1"/>
-  <line x1="500" y1="320" x2="475" y2="440" stroke="#333333" stroke-width="1"/>
+  <line x1="500" y1="320" x2="675" y2="440" stroke="#333333" stroke-width="1"/>
+  <line x1="500" y1="320" x2="855" y2="440" stroke="#333333" stroke-width="1"/>
+  <line x1="400" y1="320" x2="165" y2="440" stroke="#333333" stroke-width="1"/>
+  <line x1="500" y1="320" x2="440" y2="440" stroke="#333333" stroke-width="1"/>
   
-  <!-- 步骤间连接 -->
-  <line x1="180" y1="100" x2="200" y2="100" stroke="#666666" stroke-width="1"/>
-  <line x1="330" y1="100" x2="350" y2="100" stroke="#666666" stroke-width="1"/>
-  <line x1="480" y1="100" x2="500" y2="100" stroke="#666666" stroke-width="1"/>
-  <line x1="630" y1="100" x2="650" y2="100" stroke="#666666" stroke-width="1"/>
-  <line x1="780" y1="100" x2="800" y2="100" stroke="#666666" stroke-width="1"/>
+  <!-- Step connections -->
+  <line x1="180" y1="97" x2="200" y2="97" stroke="#666666" stroke-width="1"/>
+  <line x1="330" y1="97" x2="350" y2="97" stroke="#666666" stroke-width="1"/>
+  <line x1="480" y1="97" x2="500" y2="97" stroke="#666666" stroke-width="1"/>
+  <line x1="630" y1="97" x2="650" y2="97" stroke="#666666" stroke-width="1"/>
+  <line x1="780" y1="97" x2="800" y2="97" stroke="#666666" stroke-width="1"/>
   
-  <!-- Step 6 到 Step 7 的连接 -->
-  <path d="M 865 120 L 865 200 Q 865 220 840 240 L 715 440" stroke="#333333" stroke-width="1" fill="none"/>
-  
-  <!-- Step 7 到 Step 8 -->
-  <line x1="780" y1="460" x2="800" y2="460" stroke="#666666" stroke-width="1"/>
-  
-  <!-- 图例 -->
-  <rect x="50" y="560" width="900" height="25" fill="none" stroke="#333333" stroke-width="1"/>
-  <text x="150" y="577" fill="#666666" font-size="9">AUDIT FLOW</text>
-  <text x="300" y="577" fill="#666666" font-size="9">MCP TOOLS</text>
-  <text x="450" y="577" fill="#666666" font-size="9">AUDIT SKILL</text>
-  <text x="600" y="577" fill="#666666" font-size="9">ON-CHAIN</text>
-  <text x="750" y="577" fill="#666666" font-size="9">NFT MINT</text>
+  <line x1="750" y1="458" x2="780" y2="458" stroke="#666666" stroke-width="1"/>
 </svg>

@@ -24,7 +24,7 @@ https://github.com/tiyadegure/Athena
 ```
 Introducing Athena — AI-powered smart contract security audit.
 
-Our AI agent GLM-5.1 performs deep code analysis using 13+ security tools, generating on-chain audit certificates with 768,000 unique trait combinations.
+Our AI agent GLM-5.1 performs deep code analysis using 13+ security tools, generating on-chain audit certificates with 262,144 unique trait combinations.
 
 Audit. Certify. Build with confidence.
 
@@ -58,7 +58,7 @@ Athena's tech stack:
 🧠 GLM-5.1 — Long-horizon task reasoning
 🔧 13 MCP tools — Slither, Aderyn, Mythril, EAS, ERC-1155
 📊 8-step audit workflow — From code to on-chain certificate
-🎨 768,000 unique NFT traits — S/A/B/C rarity tiers
+🎨 262,144 unique NFT traits — S/A/B/C rarity tiers
 
 All open source. All on-chain.
 ```
@@ -86,7 +86,7 @@ Your audit certificate, on-chain.
 Athena mints ERC-1155 NFTs with:
 • 9 trait dimensions
 • 4 rarity tiers (S/A/B/C)
-• 768,000 unique combinations
+• 262,144 unique combinations
 • EAS attestation verification
 • Permanent, verifiable, tradeable
 
@@ -175,7 +175,7 @@ Athena now features:
 • ERC-404 hybrid tokens (reputation + certificate)
 • Dynamic rarity calculation (OpenRarity algorithm)
 • Optimized on-chain SVG generation
-• 768,000 unique trait combinations
+• 262,144 unique trait combinations
 
 On-chain art meets on-chain security.
 ```

@@ -16,7 +16,7 @@ find . -maxdepth 3 -type f \( -name '*.sol' -o -name '*.py' -o -name '*.js' -o -
 ### Step 2: 分类产物
 
 **合约（contracts/）：**
-- `AuditCertificate.sol` — NFT 合约（S/A/B/C 四级，12,064 种组合）
+- `AuditCertificate.sol` — NFT 合约（S/A/B/C 四级，262,144 种组合）
 - `AuditEvidenceChain.sol` — 证据链合约
 - `multi-contract/` — Token+Oracle+Vault（跨合约漏洞）
 - `multi-contract/Vault-v2.sol` — 升级版 Vault（增量审计）
@@ -80,7 +80,7 @@ find . -maxdepth 3 -type f \( -name '*.sol' -o -name '*.py' -o -name '*.js' -o -
 - `v5.4-redeploy.md` — 重新部署
 
 **部署信息：**
-- NFT 合约：`0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E`
+- NFT 合约：`0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
 - 证据链合约：`0x5e99f144D3e512f525d24077D4626a064899E177`
 - EAS 合约：`0xC2679fBD37d54388Ce493F1DB75320D236e1815e`
 - 网络：Sepolia 测试网
@@ -115,7 +115,7 @@ cd frontend && python3 -m http.server 8765
 
 ```bash
 # 检查 NFT 合约
-cast code 0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E --rpc-url https://ethereum-sepolia-rpc.publicnode.com
+cast code 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c --rpc-url https://ethereum-sepolia-rpc.publicnode.com
 
 # 检查 EAS 合约
 cast code 0xC2679fBD37d54388Ce493F1DB75320D236e1815e --rpc-url https://ethereum-sepolia-rpc.publicnode.com
@@ -198,7 +198,7 @@ cast code 0xC2679fBD37d54388Ce493F1DB75320D236e1815e --rpc-url https://ethereum-
 14. `ppt-assets/README.md` — 素材说明
 
 ### 链上部署
-- NFT 合约：`0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E`
+- NFT 合约：`0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
 - 证据链合约：`0x5e99f144D3e512f525d24077D4626a064899E177`
 - EAS 合约：`0xC2679fBD37d54388Ce493F1DB75320D236e1815e`
 - 网络：Sepolia 测试网
@@ -213,4 +213,4 @@ cast code 0xC2679fBD37d54388Ce493F1DB75320D236e1815e --rpc-url https://ethereum-
 - **A 级（金）**：高分审计（80-99 分），金色雅典娜
 - **B 级（银）**：中等审计（60-79 分），银色雅典娜
 - **C 级（铜）**：基础审计（<60 分），铜色雅典娜
-- 总组合：12,064 种（12,000 + 64 S 级）
+- 总组合：262,144 种（4^9 seed-based）

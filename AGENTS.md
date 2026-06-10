@@ -70,7 +70,7 @@ glm-code/
 │   ├── servers.json                 # MCP 服务器注册
 │   └── README.md
 ├── contracts/
-│   ├── AuditCertificate.sol         # ERC-1155（S/A/B/C 四级，generative 768,000 种组合）
+│   ├── AuditCertificate.sol         # ERC-1155（S/A/B/C 四级，generative 262,144 种组合）
 │   ├── AuditEvidenceChain.sol       # 审计证据链
 │   ├── test-cases/                  # 17 个测试合约
 │   ├── real-world/                  # 真实协议测试数据
@@ -86,7 +86,7 @@ glm-code/
 
 ## NFT 审计证书
 
-- 形象：Generative 雅典娜女神（S/A/B/C 四级，768,000 种 trait 组合）
+- 形象：Generative 雅典娜女神（S/A/B/C 四级，262,144 种 trait 组合）
 - 标准：ERC-1155（分级：S/A/B/C）
 - 图像：链上 SVG，9 个 trait 维度动态生成（新增 aura/crown/wings）
 - 铸造条件：基于 EAS attestation 的审计结果
@@ -120,7 +120,7 @@ glm-code/
 **v5 Demo 流程**
 - [x] 构建 athena-audit-skill
 - [x] 构建 13 个独立 MCP 工具
-- [x] 设计 Generative NFT（S/A/B/C 四级，768,000 种组合）
+- [x] 设计 Generative NFT（S/A/B/C 四级，262,144 种组合）
 - [ ] 部署审计合约到 Sepolia 测试网
 - [ ] 跑通 ①→⑧ 完整审计链路
 - [ ] GLM-5.1 vs Claude 对比评测

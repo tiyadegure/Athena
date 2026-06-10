@@ -1,41 +1,61 @@
-Athena 审计系统测试结果
-========================
+Athena 审计系统测试结果 (v7)
+================================
 
 测试套件：2 个
-测试总数：23 个
-通过：23 ✅
+测试总数：30 个
+通过：30
 失败：0
 跳过：0
 
-AuditCertificate 测试（22/22 通过）
+AuditCertificateV4 测试（29/29 通过）
 ------------------------------------
-✅ test_audit_record_stored - 审计记录存储
-✅ test_cannot_double_mint - 防重复铸造
-✅ test_combinations_count - 组合数量验证
-✅ test_different_tiers_different_metadata - 不同等级不同元数据
-✅ test_different_uids_different_metadata - 不同 UID 不同元数据
-✅ test_different_uids_different_traits - 不同 UID 不同特征
-✅ test_eas_address - EAS 地址验证
-✅ test_exceeds_12000_requirement - 超过 12,000 种组合要求
-✅ test_generate_metadata_bronze - 铜级元数据生成
-✅ test_generate_metadata_gold - 金级元数据生成
-✅ test_generate_metadata_silver - 银级元数据生成
-✅ test_invalid_attestation_reverts - 无效证明回滚
-✅ test_invalid_recipient_reverts - 无效接收者回滚
-✅ test_invalid_tokenid_reverts - 无效 TokenID 回滚
-✅ test_mint_bronze - 铜级铸造
-✅ test_mint_gold - 金级铸造
-✅ test_mint_silver - 银级铸造
-✅ test_ownership - 所有权验证
-✅ test_same_uid_same_traits - 相同 UID 相同特征
-✅ test_token_names - Token 名称验证
-✅ test_traits_stored_on_mint - 铸造时特征存储
-✅ test_zero_uid_reverts - 零 UID 回滚
+Seed & Rarity:
+  test_decode_seed - Seed 解码 (uint256 18-bit, 9 traits)
+  test_decode_seed_all_zero - 全零种子
+  test_decode_seed_all_max - 全满种子 (0x3FFFF)
+  test_rarity_positive - 稀有度 > 0
+  test_rarity_all_rare_higher - 稀有种子分数更高
+  test_tier_s - 全 3 种子 = S-tier
+  test_tier_c - 全 0 种子 = B/C tier
+
+EAS Minting:
+  test_mint_gold_via_eas - EAS 金级铸造
+  test_mint_silver_via_eas - EAS 银级铸造
+  test_mint_bronze_via_eas - EAS 铜级铸造
+  test_cannot_double_mint - 防重复铸造
+  test_zero_uid_reverts - 零 UID 回滚
+  test_invalid_attestation_reverts - 无效证明回滚
+
+Test Mint (Owner):
+  test_mint_test - Owner 测试铸造
+  test_mint_test_s_tier - S-tier 测试铸造
+
+URI & Metadata:
+  test_uri_returns_base64 - URI 返回 base64 JSON
+  test_uri_invalid_id_reverts - 无效 ID 回滚
+
+SVG Cache:
+  test_cache_svg - SVG 缓存
+
+Basics:
+  test_eas_address - EAS 地址验证
+  test_ownership - 所有权验证
+  test_token_names - Token 名称 (S/A/B/C)
+  test_combinations - 组合数 (262,144 = 4^9)
+  test_exceeds_12000 - 超过 12,000 要求
+
+ART Token (ERC-20):
+  test_art_mint - 审计铸造 ART
+  test_art_multiple_mints - 多次铸造
+  test_art_burn - ART 销毁
+  test_art_eligible - NFT 资格检查
+  test_art_name - 名称/符号
+  test_art_batch_mint - 批量铸造
 
 ReentrancyExploitTest 测试（1/1 通过）
 ------------------------------------
-✅ test_reentrancy_drains_bank - 重入攻击验证
+  test_reentrancy_drains_bank - 重入攻击验证
 
-审计报告: demo/report.json
-合约地址: 0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E
+合约地址 (v7): 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c
 网络: Sepolia
+技术: Seed-based traits (4^9=262,144), OpenRarity IC, SVG Cache, ART (ERC-20)

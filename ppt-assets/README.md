@@ -62,7 +62,7 @@ Athena 黑客松 PPT 素材包
 
 🔗 链接资源
 -----------
-- 合约地址：0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E
+- 合约地址：0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c
 - EAS 认证：https://sepolia.eas.xyz
 - GitHub：https://github.com/tiyadegure/glm-code
 

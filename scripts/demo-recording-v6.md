@@ -41,7 +41,7 @@
 - ppt-outline.md、README.md
 
 ### 链上部署
-- NFT 合约：0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E
+- NFT 合约：0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c
 - 证据链合约：0x5e99f144D3e512f525d24077D4626a064899E177
 - EAS 合约：0xC2679fBD37d54388Ce493F1DB75320D236e1815e
 - 网络：Sepolia 测试网
@@ -55,7 +55,7 @@
 - **A 级（金）**：80-99 分，金色雅典娜
 - **B 级（银）**：60-79 分，银色雅典娜
 - **C 级（铜）**：<60 分，铜色雅典娜
-- 总组合：12,064 种（12,000 + 64 S 级）
+- 总组合：262,144 种（4^9 seed-based）
 
 ---
 
@@ -157,14 +157,14 @@ cat demo/report.json
   - **C 级（铜）**：铜色雅典娜
 
 **讲解：**
-> "基于审计结果，铸造 uPEG 风格的 generative 雅典娜 NFT。有 4 个等级：S 级是最稀有的，需要 100 分审计 + Critical 漏洞才能获得，有彩虹渐变和动态光晕效果。总共有 12,064 种组合。"
+> "基于审计结果，铸造 uPEG 风格的 generative 雅典娜 NFT。有 4 个等级：S 级是最稀有的，需要 100 分审计 + Critical 漏洞才能获得，有彩虹渐变和动态光晕效果。总共有 262,144 种组合。"
 
 ---
 
 ### [4:00-4:30] 链上验证 — Etherscan
 
 **浏览器操作：**
-- 打开 Etherscan：`https://sepolia.etherscan.io/address/0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E`
+- 打开 Etherscan：`https://sepolia.etherscan.io/address/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
 - 展示 NFT 铸造记录
 - 展示合约代码
 
@@ -212,7 +212,7 @@ cat demo/report.json
 
 1. **EAS 认证** — `https://sepolia.eas.xyz`
 2. **NFT 预览** — `http://localhost:8765/nft-preview.html`
-3. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E`
+3. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
 4. **GitHub 仓库** — `https://github.com/tiyadegure/glm-code`
 
 ---
@@ -253,7 +253,7 @@ cat demo/report.json
 - **A 级（金）**：80-99 分，金色雅典娜
 - **B 级（银）**：60-79 分，银色雅典娜
 - **C 级（铜）**：<60 分，铜色雅典娜
-- 总组合：12,064 种（12,000 + 64 S 级）
+- 总组合：262,144 种（4^9 seed-based）
 
 ---
 

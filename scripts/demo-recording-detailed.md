@@ -4,7 +4,7 @@
 
 ### 浏览器标签页（提前打开）
 1. **GitHub 仓库** — `https://github.com/tiyadegure/glm-code`
-2. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E`
+2. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
 3. **EAS 认证** — `https://sepolia.eas.xyz`
 4. **前端页面** — `http://localhost:8765`（本地服务器）
 
@@ -126,7 +126,7 @@ forge test --match-contract ReentrancyExploit -vvv
 ### [4:30-5:00] 展示链上验证
 
 **浏览器操作：**
-1. 打开 Etherscan：`https://sepolia.etherscan.io/address/0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E`
+1. 打开 Etherscan：`https://sepolia.etherscan.io/address/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
 2. 点击 "Token" 标签，展示 NFT 铸造记录
 3. 打开 EAS：`https://sepolia.eas.xyz`
 4. 搜索 EAS UID，展示认证记录

@@ -98,19 +98,22 @@ Slide 7 — Agent 认证：审计报告 + 链上验证
 
 ---
 
-Slide 8 — Agent 铸造：Generative NFT 证书
-------------------------------------------
+Slide 8 — Agent 铸造：Seed-based Generative NFT 证书
+-------------------------------------------------------
 标题：Agent 的经济产出
 素材：nft-preview-full.png
 
-uPEG 风格 Generative 雅典娜：
-- 768,000 种 trait 组合（S/A/B/C 四级）
-- 3 等级：Gold（Critical）/ Silver（High）/ Bronze（Medium）
-- 链上 SVG，6 个 trait 维度
+uPEG 启发 Seed-based Generative 雅典娜：
+- uint256 18-bit seed → 9 traits x 2 bits → 4^9 = 262,144 种组合
+- 动态稀有度：OpenRarity Information Content 算法
+- S/A/B/C 四级：分数 → 稀有度等级自动映射
+- SVG 缓存机制：首次生成后存储，减少 gas
+- ART 声誉代币（ERC-20）：1000 ART = 1 NFT 资格
 
-铸造条件：
-- Agent 完成审计 → 结果上链 → 自动触发铸造
-- 人类仅需确认一次（未来可完全自动化）
+链上验证：
+- Sepolia: 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c
+- EAS 认证 + ERC-1155 NFT + ERC-20 ART
+- uri() 返回完整 JSON+SVG（含 9 个 trait attributes）
 
 ---
 
