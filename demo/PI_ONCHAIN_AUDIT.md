@@ -197,11 +197,7 @@ cat > demo/report-new.json << EOF
 }
 EOF
 echo "新审计报告已生成: demo/report-new.json"
-
-# 复制到 frontend 目录，让 nginx 可以访问
-cp demo/report-new.json frontend/report-new.json
-echo "已复制到 frontend/report-new.json"
-echo "访问链接: https://athena.degure.me/report-new.json"
+echo "本地文件: $(pwd)/demo/report-new.json"
 ```
 
 **要点**：生成包含这次执行结果的新报告
@@ -241,10 +237,7 @@ echo ""
 echo "3. 新铸造的 NFT:"
 echo "   https://sepolia.etherscan.io/address/<NFT_CONTRACT_ADDRESS>"
 echo ""
-echo "4. 审计报告:"
-echo "   https://athena.degure.me/report-new.json"
-echo ""
-echo "请依次打开以上链接验证！"
+echo "以上链接从任何机器都可以访问！"
 ```
 
 ---
