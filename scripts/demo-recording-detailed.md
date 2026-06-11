@@ -3,7 +3,7 @@
 ## 准备工作
 
 ### 浏览器标签页（提前打开）
-1. **GitHub 仓库** — `https://github.com/tiyadegure/glm-code`
+1. **GitHub 仓库** — `https://github.com/tiyadegure/Athena`
 2. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5`
 3. **EAS 认证** — `https://sepolia.easscan.org`
 4. **前端页面** — `http://localhost:8765`（本地服务器）

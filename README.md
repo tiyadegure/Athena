@@ -90,7 +90,7 @@ glm-code/
 ### 安装
 
 ```bash
-git clone https://github.com/tiyadegure/glm-code.git
+git clone https://github.com/tiyadegure/Athena.git
 cd glm-code
 npm install
 pip install -r requirements.txt

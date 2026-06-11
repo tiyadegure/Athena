@@ -20,7 +20,7 @@ tree -L 2 -I 'node_modules|.pi|lib'
 ```
 
 **浏览器操作：**
-- 打开 GitHub 仓库：`https://github.com/tiyadegure/glm-code`
+- 打开 GitHub 仓库：`https://github.com/tiyadegure/Athena`
 
 **讲解：**
 > "这是 Athena，一个基于 GLM-5.1 的 Web3 安全审计系统。项目包含 12 个审计 Agent、13 个 MCP 工具、17 个测试合约。"
@@ -139,7 +139,7 @@ cat contracts/multi-contract/Vault-v2.sol
 
 ## 浏览器标签页（提前打开）
 
-1. **GitHub 仓库** — `https://github.com/tiyadegure/glm-code`
+1. **GitHub 仓库** — `https://github.com/tiyadegure/Athena`
 2. **前端页面** — `http://localhost:8765`
 3. **NFT 预览** — `http://localhost:8765/nft-preview.html`
 4. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5`

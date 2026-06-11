@@ -34,10 +34,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tiyadegure/glm-code.git"
+    "url": "git+https://github.com/tiyadegure/Athena.git"
   },
   "bugs": {
-    "url": "https://github.com/tiyadegure/glm-code/issues"
+    "url": "https://github.com/tiyadegure/Athena/issues"
   },
-  "homepage": "https://github.com/tiyadegure/glm-code#readme"
+  "homepage": "https://github.com/tiyadegure/Athena#readme"
 }

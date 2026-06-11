@@ -175,7 +175,7 @@ Roadmap：
 ---
 
 联系我们：
-- GitHub: https://github.com/tiyadegure/glm-code
+- GitHub: https://github.com/tiyadegure/Athena
 - X/Twitter: https://x.com/AthenaAudit
 - Landing Page: https://athena.degure.me
 - EAS Attestation: https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9

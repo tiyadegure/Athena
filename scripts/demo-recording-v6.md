@@ -176,7 +176,7 @@ cat demo/report.json
 ### [4:30-5:00] 总结
 
 **浏览器操作：**
-- 打开 GitHub 仓库：`https://github.com/tiyadegure/glm-code`
+- 打开 GitHub 仓库：`https://github.com/tiyadegure/Athena`
 - 展示项目结构
 
 **讲解：**
@@ -213,7 +213,7 @@ cat demo/report.json
 1. **EAS 认证** — `https://sepolia.easscan.org`
 2. **NFT 预览** — `http://localhost:8765/nft-preview.html`
 3. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5`
-4. **GitHub 仓库** — `https://github.com/tiyadegure/glm-code`
+4. **GitHub 仓库** — `https://github.com/tiyadegure/Athena`
 
 ---
 
