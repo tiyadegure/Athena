@@ -146,7 +146,7 @@
     "uid": "0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9",
     "network": "sepolia",
     "tx_hash": "0xe359e817031159ee70109466d29e0f5e0b53e7703d8384f51ba8d1874b20f1a3",
-    "url": "https://sepolia.easscan.org/attestation/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9",
+    "url": "https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9",
     "contract": "0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E"
   },
   "certificate": {
