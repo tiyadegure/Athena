@@ -3,7 +3,7 @@
 
 const SEPOLIA_CHAIN_ID_HEX = '0xaa36a7';
 const EAS_CONTRACT = '0xC2679fBD37d54388Ce493F1DB75320D236e1815e';
-const NFT_CONTRACT = '0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E'; // v6 S-tier deployed to Sepolia
+const NFT_CONTRACT = '0x3247d57d37bd1878479f03a077aba807649dbaf5'; // v5.3.1 deployed to Sepolia
 
 let connectedAccount = null;
 let provider = null;
