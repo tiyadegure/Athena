@@ -333,3 +333,44 @@ MIT License
 - 创新点总结
 
 将该文档复制给你的 agent，它将自动理解项目价值。
+
+## 真实执行记录 (2026-06-11)
+
+本次项目由 GLM-5.1 (Pi agent) 真实执行完成，包含：
+
+### Subagent 并行架构
+
+```
+Pi (主 agent — 调度者)
+  ├─ subagent-1: 静态分析 (Slither + Aderyn)
+  ├─ subagent-2: PoC 生成
+  └─ subagent-3: Fuzz 测试
+```
+
+### 审计结果
+
+| 项目 | 结果 |
+|------|------|
+| 目标合约 | VulnerableBank (Reentrancy.sol) |
+| 静态分析 | 4 个唯一发现 (2 HIGH + 2 LOW) |
+| PoC 生成 | 攻击成功，银行余额被清空 |
+| Fuzz 测试 | 768 次运行，0 反例 |
+| 综合评级 | S (Critical) |
+
+### 生成的文件
+
+- `contracts/test-cases/ReentrancyAttack.sol` — 攻击合约
+- `contracts/test-cases/ReentrancyPoC.sol` — PoC 测试
+- `contracts/test-cases/poc/ReentrancyPoC.t.sol` — Fuzz 测试
+- `audit-results/slither-reentrancy.json` — Slither 结果
+- `audit-results/summary.md` — 审计汇总
+- `benchmarks/static-analysis-findings.json` — 静态分析结果
+- `demo/report-new.json` — 新审计报告
+- `demo/full-audit-report.json` — 完整审计报告
+- `demo/FINAL-AUDIT-REPORT.md` — 最终审计报告
+
+### 链上操作
+
+- 新部署合约: `0xced6ebd061faac56d926e4a4ec1c8360065ecd39`
+- 新 EAS Attestation: `0x0000000000000000000000007b5538aad3b048bae0eff2b457c59b8fe98032b8`
+- 新铸造 NFT: `0x917de9a93471273089e49b948a70a0f0f71503598ccdf60d05a7c54c6289dbc0`
