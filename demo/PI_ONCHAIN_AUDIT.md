@@ -238,6 +238,10 @@ echo "3. 新铸造的 NFT:"
 echo "   https://sepolia.etherscan.io/address/<NFT_CONTRACT_ADDRESS>"
 echo ""
 echo "以上链接从任何机器都可以访问！"
+echo ""
+echo "审计报告已保存到本地文件:"
+echo "   demo/report-new.json"
+echo "   查看: cat demo/report-new.json"
 ```
 
 ---
