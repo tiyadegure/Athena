@@ -321,7 +321,7 @@ slide8.addText([
   { text: '• SVG 缓存机制：减少 gas', options: { breakLine: true } },
   { text: '• ART 声誉代币（ERC-20）：1000 ART = 1 NFT', options: { breakLine: true } },
   { text: '', options: { breakLine: true } },
-  { text: 'Sepolia: 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c', options: { breakLine: true } },
+  { text: 'Sepolia: 0x3247d57d37bd1878479f03a077aba807649dbaf5', options: { breakLine: true } },
   { text: 'EAS + ERC-1155 + ERC-20', options: {} },
 ], {
   x: 1.0, y: 1.5, w: 8, h: 3.4,

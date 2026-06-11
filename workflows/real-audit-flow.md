@@ -107,7 +107,7 @@ cast call 0xC2679fBD37d54388Ce493F1DB75320D236e1815e \
   <EAS_UID>
 
 # 检查 NFT 铸造
-cast call 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c \
+cast call 0x3247d57d37bd1878479f03a077aba807649dbaf5 \
   "balanceOf(address,uint256)(uint256)" \
   <wallet_address> <token_id>
 ```
@@ -124,4 +124,4 @@ cast call 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c \
 
 所有产物都可以在 Sepolia 测试网上验证：
 - EAS: https://sepolia.easscan.org
-- NFT: https://sepolia.etherscan.io/token/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c
+- NFT: https://sepolia.etherscan.io/token/0x3247d57d37bd1878479f03a077aba807649dbaf5

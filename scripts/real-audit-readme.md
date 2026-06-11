@@ -48,7 +48,7 @@
 - `demo/report.json` — 审计报告
 
 ### 链上验证
-- Etherscan: https://sepolia.etherscan.io/address/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c
+- Etherscan: https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5
 - EAS: https://sepolia.easscan.org
 
 ## Demo 录屏

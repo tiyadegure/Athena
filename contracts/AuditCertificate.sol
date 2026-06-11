@@ -46,21 +46,13 @@ contract AuditCertificate is ERC1155, Ownable {
     // ============ Minting ============
 
     /// @notice Mint via EAS attestation (production)
-    function mintCertificate(address to, bytes32 uid) external {
-        require(to != address(0) && uid != ZERO && !usedAttestations[uid]);
+    function mintCertificate(address to, bytes32 uid, uint8 tier) external onlyOwner {
+        require(to != address(0) && uid != ZERO && !usedAttestations[uid] && tier <= 3);
         IEAS eas = IEAS(easContract);
         require(eas.isAttestationValid(uid));
-        Attestation memory att = eas.getAttestation(uid);
-        (uint8 score,,,,) = abi.decode(att.data, (uint8, uint16, string, uint64, address));
 
-        // Derive seed from uid
         uint256 seed = _deriveSeed(uid);
         uint256 rarity = RarityCalculator.calculateRarity(seed);
-        uint8 rarityTier = RarityCalculator.getTier(rarity);
-
-        // Audit score determines minimum tier, rarity can upgrade
-        uint8 baseTier = score == 0 ? uint8(S_TIER) : score <= 1 ? uint8(GOLD) : score <= 5 ? uint8(SILVER) : uint8(BRONZE);
-        uint8 tier = rarityTier < baseTier ? rarityTier : baseTier;
 
         attestationSeed[uid] = seed;
         attestationTier[uid] = tier;

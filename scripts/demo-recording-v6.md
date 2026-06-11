@@ -41,7 +41,7 @@
 - ppt-outline.md、README.md
 
 ### 链上部署
-- NFT 合约：0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c
+- NFT 合约：0x3247d57d37bd1878479f03a077aba807649dbaf5
 - 证据链合约：0x5e99f144D3e512f525d24077D4626a064899E177
 - EAS 合约：0xC2679fBD37d54388Ce493F1DB75320D236e1815e
 - 网络：Sepolia 测试网
@@ -164,7 +164,7 @@ cat demo/report.json
 ### [4:00-4:30] 链上验证 — Etherscan
 
 **浏览器操作：**
-- 打开 Etherscan：`https://sepolia.etherscan.io/address/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
+- 打开 Etherscan：`https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5`
 - 展示 NFT 铸造记录
 - 展示合约代码
 
@@ -212,7 +212,7 @@ cat demo/report.json
 
 1. **EAS 认证** — `https://sepolia.easscan.org`
 2. **NFT 预览** — `http://localhost:8765/nft-preview.html`
-3. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
+3. **Etherscan 合约** — `https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5`
 4. **GitHub 仓库** — `https://github.com/tiyadegure/glm-code`
 
 ---

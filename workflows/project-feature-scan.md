@@ -80,7 +80,7 @@ find . -maxdepth 3 -type f \( -name '*.sol' -o -name '*.py' -o -name '*.js' -o -
 - `v5.4-redeploy.md` — 重新部署
 
 **部署信息：**
-- NFT 合约：`0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
+- NFT 合约：`0x3247d57d37bd1878479f03a077aba807649dbaf5`
 - 证据链合约：`0x5e99f144D3e512f525d24077D4626a064899E177`
 - EAS 合约：`0xC2679fBD37d54388Ce493F1DB75320D236e1815e`
 - 网络：Sepolia 测试网
@@ -115,7 +115,7 @@ cd frontend && python3 -m http.server 8765
 
 ```bash
 # 检查 NFT 合约
-cast code 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c --rpc-url https://ethereum-sepolia-rpc.publicnode.com
+cast code 0x3247d57d37bd1878479f03a077aba807649dbaf5 --rpc-url https://ethereum-sepolia-rpc.publicnode.com
 
 # 检查 EAS 合约
 cast code 0xC2679fBD37d54388Ce493F1DB75320D236e1815e --rpc-url https://ethereum-sepolia-rpc.publicnode.com
@@ -198,7 +198,7 @@ cast code 0xC2679fBD37d54388Ce493F1DB75320D236e1815e --rpc-url https://ethereum-
 14. `ppt-assets/README.md` — 素材说明
 
 ### 链上部署
-- NFT 合约：`0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c`
+- NFT 合约：`0x3247d57d37bd1878479f03a077aba807649dbaf5`
 - 证据链合约：`0x5e99f144D3e512f525d24077D4626a064899E177`
 - EAS 合约：`0xC2679fBD37d54388Ce493F1DB75320D236e1815e`
 - 网络：Sepolia 测试网

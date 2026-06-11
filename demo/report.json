@@ -143,14 +143,14 @@
     ]
   },
   "attestation": {
-    "uid": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    "uid": "0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9",
     "network": "sepolia",
     "tx_hash": "0xe359e817031159ee70109466d29e0f5e0b53e7703d8384f51ba8d1874b20f1a3",
-    "url": "https://sepolia.easscan.org/attestation/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    "url": "https://sepolia.easscan.org/attestation/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9",
     "contract": "0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E"
   },
   "certificate": {
-    "tier": "S",
+    "tier": "A (Gold)",
     "tier_label": "S",
     "traits": {
       "helmet": "Feathered",
@@ -161,6 +161,8 @@
       "eyes": "Blue"
     },
     "rarity": 42,
-    "combinations_total": 768000
+    "combinations_total": 768000,
+    "contract_address": "0x3247d57d37bd1878479f03a077aba807649dbaf5",
+    "token_id": 1
   }
 }

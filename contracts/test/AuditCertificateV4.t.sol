@@ -145,39 +145,39 @@ contract AuditCertificateV4Test is Test {
     // ============ EAS Minting ============
 
     function test_mint_gold_via_eas() public {
-        cert.mintCertificate(user1, att1);
+        cert.mintCertificate(user1, att1, 1);
         assertEq(cert.balanceOf(user1, 1), 1);
         assertTrue(cert.isAttestationUsed(att1));
     }
 
     function test_mint_silver_via_eas() public {
-        cert.mintCertificate(user1, att2);
+        cert.mintCertificate(user1, att2, 2);
         // score=3 → Silver (tier 2)
         assertEq(cert.balanceOf(user1, 2), 1);
     }
 
     function test_mint_bronze_via_eas() public {
-        cert.mintCertificate(user2, att4);
+        cert.mintCertificate(user2, att4, 3);
         // score=7 → Bronze (tier 3)
         assertEq(cert.balanceOf(user2, 3), 1);
     }
 
     function test_cannot_double_mint() public {
-        cert.mintCertificate(user1, att1);
+        cert.mintCertificate(user1, att1, 1);
         bool reverted = false;
-        try cert.mintCertificate(user2, att1) {} catch { reverted = true; }
+        try cert.mintCertificate(user2, att1, 1) {} catch { reverted = true; }
         assertTrue(reverted);
     }
 
     function test_zero_uid_reverts() public {
         bool reverted = false;
-        try cert.mintCertificate(user1, bytes32(0)) {} catch { reverted = true; }
+        try cert.mintCertificate(user1, bytes32(0), 1) {} catch { reverted = true; }
         assertTrue(reverted);
     }
 
     function test_invalid_attestation_reverts() public {
         bool reverted = false;
-        try cert.mintCertificate(user1, keccak256("invalid")) {} catch { reverted = true; }
+        try cert.mintCertificate(user1, keccak256("invalid"), 1) {} catch { reverted = true; }
         assertTrue(reverted);
     }
 
