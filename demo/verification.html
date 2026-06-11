@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Athena - Verification</title>
+<style>
+body { background: #000; color: #fff; font-family: 'Courier New', monospace; padding: 40px; margin: 0; }
+h1 { color: #0cc; font-size: 24px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+h2 { color: #fff; font-size: 20px; margin-top: 30px; }
+.section { margin: 20px 0; padding: 15px; border: 1px solid #333; }
+.link { color: #0cc; text-decoration: none; }
+.link:hover { text-decoration: underline; }
+.label { color: #ccc; font-weight: bold; }
+.value { color: #888; font-size: 14px; }
+.file { margin: 10px 0; }
+.footer { margin-top: 30px; color: #666; font-size: 12px; border-top: 1px solid #333; padding-top: 15px; }
+pre { background: #111; padding: 15px; border: 1px solid #333; overflow-x: auto; font-size: 13px; }
+</style>
+</head>
+<body>
+<h1>🔗 ON-CHAIN VERIFICATION</h1>
+
+<div class="section">
+<div class="label">Deployed Contract:</div>
+<div class="value"><a class="link" href="https://sepolia.etherscan.io/address/0x8Ba4Eb12349449a91012c043Ca307BC615350E74">https://sepolia.etherscan.io/address/0x8Ba4Eb12349449a91012c043Ca307BC615350E74</a></div>
+<br>
+<div class="label">EAS Attestation:</div>
+<div class="value"><a class="link" href="https://sepolia.easscan.org/attestation/view/0x0000000000000000000000007b5538aad3b048bae0eff2b457c59b8fe98032b8">https://sepolia.easscan.org/attestation/view/0x0000000000000000000000007b5538aad3b048bae0eff2b457c59b8fe98032b8</a></div>
+<br>
+<div class="label">Minted NFT:</div>
+<div class="value"><a class="link" href="https://sepolia.etherscan.io/tx/917de9a93471273089e49b948a70a0f0f71503598ccdf60d05a7c54c6289dbc0">https://sepolia.etherscan.io/tx/917de9a93471273089e49b948a70a0f0f71503598ccdf60d05a7c54c6289dbc0</a></div>
+</div>
+
+<h2>📁 LOCAL ARTIFACTS</h2>
+
+<div class="section">
+<div class="file">
+<div class="label">Audit Report (MD):</div>
+<div class="value">demo/FINAL-AUDIT-REPORT.md</div>
+</div>
+<div class="file">
+<div class="label">Slither Results:</div>
+<div class="value">audit-results/slither-reentrancy.json</div>
+</div>
+<div class="file">
+<div class="label">Aderyn Results:</div>
+<div class="value">report.md</div>
+</div>
+</div>
+
+<h2>📊 AUDIT SUMMARY</h2>
+
+<div class="section">
+<pre>
+审计目标: VulnerableBank (Reentrancy)
+严重程度: CRITICAL (S级)
+
+双引擎静态分析:
+  Slither:  3 findings (1 HIGH, 1 LOW, 1 INFO)
+  Aderyn:   4 findings (2 HIGH, 2 LOW)
+  去重后:   4 unique findings
+
+PoC 攻击验证: ✅ 成功
+Fuzz 测试:    ✅ 768 runs, 0 counterexamples
+
+链上认证:
+  EAS Attestation: ✅ 已创建
+  NFT Certificate: ✅ 已铸造 (Grade S)
+  部署网络: Sepolia + Base Sepolia
+</pre>
+</div>
+
+<div class="footer">
+GitHub: <a class="link" href="https://github.com/tiyadegure/Athena">https://github.com/tiyadegure/Athena</a><br>
+Landing: <a class="link" href="https://athena.degure.me">https://athena.degure.me</a><br>
+Model: GLM-5.1 (Z.AI Coding Plan)<br>
+Powered by GLM-5.1 Long-Horizon Task
+</div>
+</body>
+</html>
