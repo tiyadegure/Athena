@@ -38,9 +38,9 @@
   <h3>GLM-5.1</h3>
   <p>Long-horizon reasoning engine. Maintains context across the entire 8-step audit pipeline. Understands multi-contract interactions and cascading vulnerabilities.</p>
   <ul>
-    <li>Context window: 128K tokens</li>
+    <li>Context window: 200K tokens</li>
     <li>Long-horizon task capability (key differentiator)</li>
-    <li>Coordinates all agents and tools</li>
+    <li>Coordinates all agents and tools across 8-step pipeline</li>
   </ul>
 </div>
 
@@ -84,17 +84,21 @@
   <h3>Smart Contracts</h3>
   <p>On-chain components for verification and certification.</p>
   <ul>
-    <li><code>AuditCertificate.sol</code> — ERC-1155 NFT with on-chain SVG</li>
-    <li><code>AuditEvidenceChain.sol</code> — Audit evidence storage</li>
+    <li><code>AuditCertificate.sol</code> — ERC-1155 NFT with on-chain SVG (Sepolia + Base Sepolia)</li>
+    <li><code>AgentEscrowV2.sol</code> — EAS-based auto-release escrow</li>
+    <li><code>ERC7512AuditMetadata.sol</code> — On-chain audit metadata standard</li>
+    <li><code>AuditTrail.sol</code> — ZK-verified immutable audit trail</li>
+    <li><code>Groth16Verifier.sol</code> — On-chain ZK proof verification</li>
     <li>Ethereum Attestation Service (EAS) — Immutable audit proof</li>
-    <li>Sepolia testnet deployment</li>
+    <li>Multi-chain: Sepolia (Ethereum) + Base Sepolia (L2)</li>
   </ul>
 </div>
 
 <hr>
 
 <h2>Data Flow</h2>
-<p><strong>Input:</strong> Solidity source code → <strong>Analysis:</strong> GLM-5.1 + Agents + MCP Tools → <strong>Output:</strong> JSON Report + EAS Attestation + ERC-1155 NFT</p>
+<p><strong>Input:</strong> Solidity source code → <strong>Analysis:</strong> GLM-5.1 + 12 Agents + 13 MCP Tools → <strong>Output:</strong> JSON Report + EAS Attestation + ERC-1155 NFT + ZK Proof</p>
+<p><strong>v9.1:</strong> Real protocol audits (Curve V2, Hundred Finance) validated on both Sepolia and Base Sepolia.</p>
 
 <hr>
 

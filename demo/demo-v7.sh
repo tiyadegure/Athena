@@ -189,7 +189,8 @@ echo -e "  ${YELLOW}> athena nft --grade S --attestation 0xa04c72cc6b55...${RESE
 pause 1
 echo ""
 echo -e "  ${GREEN}[TX]${RESET}  NFT Minted on Sepolia"
-echo -e "  ${DIM}     Contract: 0x3247d57d... (AuditCertificate)${RESET}"
+echo -e "  ${DIM}     Sepolia:  0x3247d57d37bd1878479f03a077aba807649dbaf5${RESET}"
+echo -e "  ${DIM}     Base:     0xb8f167a84816b5b9373997337119a2186c6e3708${RESET}"
 echo -e "  ${DIM}     Token ID: 1 (Grade S)${RESET}"
 echo -e "  ${DIM}     Traits:   262,144 possible combinations (4^9)${RESET}"
 echo -e "  ${DIM}     Rendering: On-chain SVG, generative warrior Athena${RESET}"
@@ -221,8 +222,8 @@ pause 1
 echo ""
 echo -e "  ${BOLD}[v9-1] ZK Proof Verification (Groth16 on-chain)${RESET}"
 echo -e "  ${DIM}  Contract: Groth16Verifier${RESET}"
-echo -e "  ${DIM}  Sepolia:  0xfE83... (verify proof on-chain)${RESET}"
-echo -e "  ${DIM}  Base:     0x636b...6721${RESET}"
+echo -e "  ${DIM}  Sepolia:  0xf0c9ec42fe603a53af3e6248e874bbbb3064e498${RESET}"
+echo -e "  ${DIM}  Base:     0x636b3af9630e1b26b02ba488a5b8ab6ce75d6721${RESET}"
 echo -e "  ${GREEN}  [OK]${RESET} Verifies audit proof without revealing details"
 pause 1.5
 
@@ -230,7 +231,7 @@ pause 1.5
 echo ""
 echo -e "  ${BOLD}[v9-2] Agent Escrow V2 (AI Agent payment)${RESET}"
 echo -e "  ${DIM}  Contract: AgentEscrowV2${RESET}"
-echo -e "  ${DIM}  Sepolia:  0xB9A2...${RESET}"
+echo -e "  ${DIM}  Sepolia:  0x7102b7252dea80529278c8bffc441b96ff24421e${RESET}"
 echo -e "  ${GREEN}  [OK]${RESET} Escrow payments for AI audit services"
 pause 1.5
 
@@ -238,8 +239,8 @@ pause 1.5
 echo ""
 echo -e "  ${BOLD}[v9-3] ERC-7512 Audit Metadata Standard${RESET}"
 echo -e "  ${DIM}  Contract: ERC7512AuditMetadata${RESET}"
-echo -e "  ${DIM}  Sepolia:  0x79d5...${RESET}"
-echo -e "  ${DIM}  Base:     0x5e99...e177${RESET}"
+echo -e "  ${DIM}  Sepolia:  0x0dd8f8f5b755912aa3b955044d1eff496a65e657${RESET}"
+echo -e "  ${DIM}  Base:     0x5e99f144d3e512f525d24077d4626a064899e177${RESET}"
 echo -e "  ${GREEN}  [OK]${RESET} Standardized audit report metadata"
 pause 1.5
 
@@ -247,8 +248,8 @@ pause 1.5
 echo ""
 echo -e "  ${BOLD}[v9-4] Audit Trail (immutable audit history)${RESET}"
 echo -e "  ${DIM}  Contract: AuditTrail${RESET}"
-echo -e "  ${DIM}  Sepolia:  0x4628...${RESET}"
-echo -e "  ${DIM}  Base:     0x83bf...8a99${RESET}"
+echo -e "  ${DIM}  Sepolia:  0xd7913e7749595a9238883bdf0b2dad599f4d0bf0${RESET}"
+echo -e "  ${DIM}  Base:     0x83bfbc0901c9a6481a26ec2dc649487768ec8a99${RESET}"
 echo -e "  ${GREEN}  [OK]${RESET} ZK-verified immutable audit trail"
 pause 2
 
@@ -262,17 +263,17 @@ pause 1
 
 echo ""
 echo -e "  ${BOLD}Sepolia (Ethereum Testnet)${RESET}"
-echo -e "  ${DIM}  AuditCertificate:    0x3247d57d${RESET}"
-echo -e "  ${DIM}  AuditTrail:          0x4628...${RESET}"
-echo -e "  ${DIM}  ERC7512Metadata:     0x79d5...${RESET}"
-echo -e "  ${DIM}  AgentEscrowV2:       0xB9A2...${RESET}"
-echo -e "  ${DIM}  Groth16Verifier:     0xfE83...${RESET}"
+echo -e "  ${DIM}  AuditCertificate:    0x3247d57d37bd1878479f03a077aba807649dbaf5${RESET}"
+echo -e "  ${DIM}  AgentEscrowV2:       0x7102b7252dea80529278c8bffc441b96ff24421e${RESET}"
+echo -e "  ${DIM}  ERC7512Metadata:     0x0dd8f8f5b755912aa3b955044d1eff496a65e657${RESET}"
+echo -e "  ${DIM}  AuditTrail:          0xd7913e7749595a9238883bdf0b2dad599f4d0bf0${RESET}"
+echo -e "  ${DIM}  Groth16Verifier:     0xf0c9ec42fe603a53af3e6248e874bbbb3064e498${RESET}"
 echo ""
 echo -e "  ${BOLD}Base Sepolia (L2 Testnet)${RESET}"
-echo -e "  ${DIM}  AuditCertificate:    0xb8f1...3708${RESET}"
-echo -e "  ${DIM}  ERC7512Metadata:     0x5e99...e177${RESET}"
-echo -e "  ${DIM}  Groth16Verifier:     0x636b...6721${RESET}"
-echo -e "  ${DIM}  AuditTrail:          0x83bf...8a99${RESET}"
+echo -e "  ${DIM}  AuditCertificate:    0xb8f167a84816b5b9373997337119a2186c6e3708${RESET}"
+echo -e "  ${DIM}  ERC7512Metadata:     0x5e99f144d3e512f525d24077d4626a064899e177${RESET}"
+echo -e "  ${DIM}  Groth16Verifier:     0x636b3af9630e1b26b02ba488a5b8ab6ce75d6721${RESET}"
+echo -e "  ${DIM}  AuditTrail:          0x83bfbc0901c9a6481a26ec2dc649487768ec8a99${RESET}"
 pause 2
 
 # ══════════════════════════════════════════════════════════════════

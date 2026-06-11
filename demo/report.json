@@ -54,6 +54,15 @@
         "Groth16Verifier": "0xf0c9ec42fe603a53af3e6248e874bbbb3064e498"
       },
       "eas_schema": "0x6d6520d928b6090172a458c2addcd30af1090f5298110e496bb3c9ac3918253e"
+    },
+    "base_sepolia": {
+      "chain_id": 84532,
+      "contracts": {
+        "AuditCertificate": "0xb8f167a84816b5b9373997337119a2186c6e3708",
+        "ERC7512AuditMetadata": "0x5e99f144d3e512f525d24077d4626a064899e177",
+        "AuditTrail": "0x83bfbc0901c9a6481a26ec2dc649487768ec8a99",
+        "Groth16Verifier": "0x636b3af9630e1b26b02ba488a5b8ab6ce75d6721"
+      }
     }
   },
   "v9_features": {

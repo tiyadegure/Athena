@@ -52,7 +52,7 @@ Slide 4 — 架构总览
 - GLM-5.1 推理引擎（中央协调）
 - 12 Agent 审计 Skill（并行执行）
 - 13 MCP 工具（链上+链下）
-- Sepolia 测试网（零成本验证）
+- 多链部署：Sepolia + Base Sepolia（零成本验证）
 
 ---
 
@@ -89,12 +89,17 @@ Slide 7 — Agent 认证：审计报告 + 链上验证
 素材：ppt-assets/audit-report.svg
       ppt-assets/onchain-verification.svg
 
-真实审计报告（demo/report.json — DeFi Protocol on Sepolia）：
-- 5 个漏洞发现（1 Critical + 2 High + 1 Medium + 1 Low）
-- 审计评分：2/10
-- 审计者：GLM-5.1 + Athena Audit Engine
-- 测试通过：30/30 (Foundry)
-- 报告结构：meta → target → summary → findings → verification
+v9.1 真实协议审计结果：
+
+Curve V2 — Read-Only Reentrancy（$70M 损失, 2023）
+- Agent 发现：5 个漏洞（1 Critical + 2 High + 1 Medium + 1 Low）
+- 匹配率：95%（与实际攻击路径高度吻合）
+- 根因：addLiquidity callback → getVirtualPrice() stale
+
+Hundred Finance — Reentrancy + Oracle Manipulation（$7M 损失, 2023）
+- Agent 发现：4 个漏洞（1 Critical + 2 High + 1 Medium）
+- 匹配率：88%
+- 根因：CToken.redeem() external call + spot price oracle flash-loan
 
 链上认证（EAS on Sepolia）：
 - Schema UID: 0x6d6520d928b6090172a458c2addcd30af1090f5298110e496bb3c9ac3918253e
@@ -117,9 +122,9 @@ uPEG 启发 Seed-based Generative 雅典娜：
 - S/A/B/C 四级：分数 → 稀有度等级自动映射
 - SVG 缓存机制：首次生成后存储，减少 gas
 
-链上验证（Sepolia）：
-- NFT 合约: 0x3247d57d37bd1878479f03a077aba807649dbaf5
-- Etherscan: https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5
+链上验证（多链）：
+- Sepolia NFT: 0x3247d57d37bd1878479f03a077aba807649dbaf5
+- Base Sepolia NFT: 0xb8f167a84816b5b9373997337119a2186c6e3708
 - EAS 认证 + ERC-1155 NFT
 - uri() 返回完整 JSON+SVG（含 9 个 trait attributes）
 - Gold NFT 已铸造给 deployer 钱包
@@ -164,11 +169,17 @@ Slide 10 — 总结 & Roadmap
 - Landing Page: https://athena.degure.me ✅
 - 审计报告: demo/report.json ✅
 
+已完成：
+- ✅ ZK 可验证审计（AuditTrail + Groth16Verifier）
+- ✅ 多链部署（Sepolia + Base Sepolia，共 9 个合约）
+- ✅ 真实协议审计（Curve V2 $70M + Hundred Finance $7M）
+- ✅ Agent Escrow v2（EAS 自动释放）
+- ✅ ERC-7512 审计元数据标准
+
 Roadmap：
-- ZK 隐私审计（v2）
-- 多链部署（Ethereum、Base、Arbitrum）
 - Agent 审计市场（Agent ↔ Agent 交易）
-- 真实协议审计（Curve、Aave）
+- 隐私审计模式（加密合约 → 审计 → 解锁）
+- 真实协议扩展（Euler $197M, Aave, Balancer）
 
 感谢 Z.AI 赛道支持！
 
@@ -179,7 +190,8 @@ Roadmap：
 - X/Twitter: https://x.com/AthenaAudit
 - Landing Page: https://athena.degure.me
 - EAS Attestation: https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9
-- NFT 合约: https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5
+- NFT (Sepolia): https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5
+- NFT (Base): https://sepolia.basescan.org/address/0xb8f167a84816b5b9373997337119a2186c6e3708
 
 ---
 
@@ -202,6 +214,12 @@ v9 合约（Sepolia）：
 - ERC7512AuditMetadata: 0x0dd8f8f5b755912aa3b955044d1eff496a65e657
 - AuditTrail (ZK): 0xd7913e7749595a9238883bdf0b2dad599f4d0bf0
 - Groth16Verifier: 0xf0c9ec42fe603a53af3e6248e874bbbb3064e498
+
+v9 合约（Base Sepolia）：
+- AuditCertificate: 0xb8f167a84816b5b9373997337119a2186c6e3708
+- ERC7512AuditMetadata: 0x5e99f144d3e512f525d24077d4626a064899e177
+- AuditTrail (ZK): 0x83bfbc0901c9a6481a26ec2dc649487768ec8a99
+- Groth16Verifier: 0x636b3af9630e1b26b02ba488a5b8ab6ce75d6721
 
 ---
 

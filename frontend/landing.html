@@ -195,13 +195,17 @@
   <div class="stats fade-in stagger">
     <div class="stat" style="--i:0">
       <div class="number">8</div>
-      <div class="label">Pipeline Steps</div>
+      <div class="label">Audit Steps</div>
     </div>
     <div class="stat" style="--i:1">
       <div class="number">13</div>
       <div class="label">MCP Tools</div>
     </div>
     <div class="stat" style="--i:2">
+      <div class="number">2</div>
+      <div class="label">Chains</div>
+    </div>
+    <div class="stat" style="--i:3">
       <div class="number">262,144</div>
       <div class="label">NFT Combinations</div>
     </div>
@@ -266,29 +270,35 @@
   <h2 class="fade-in">Project Artifacts</h2>
   <div class="artifacts-grid stagger">
     <div class="artifact-card fade-in" style="--i:0">
-      <h3>Smart Contracts (Sepolia)</h3>
+      <h3>Contracts — Sepolia</h3>
       <p><code>AuditCertificate</code> — <a href="https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5" target="_blank">0x3247d57d...dbaf5</a> — ERC-1155 NFT</p>
       <p><code>AgentEscrowV2</code> — <a href="https://sepolia.etherscan.io/address/0x7102b7252dea80529278c8bffc441b96ff24421e" target="_blank">0x7102b725...421e</a> — EAS auto-release</p>
-      <p><code>ERC7512AuditMetadata</code> — <a href="https://sepolia.etherscan.io/address/0x0dd8f8f5b755912aa3b955044d1eff496a65e657" target="_blank">0x0dd8f8f5...e657</a> — Audit metadata</p>
-      <p><code>AuditTrail</code> — <a href="https://sepolia.etherscan.io/address/0xd7913e7749595a9238883bdf0b2dad599f4d0bf0" target="_blank">0xd7913e77...4bf0</a> — ZK-verified trail</p>
-      <p><code>Groth16Verifier</code> — <a href="https://sepolia.etherscan.io/address/0xf0c9ec42fe603a53af3e6248e874bbbb3064e498" target="_blank">0xf0c9ec42...4498</a> — ZK proof verifier</p>
-      <p>AuditCertificate.sol — ERC-1155 on Sepolia</p>
-      <code>AuditCertificate: 0x3247d57d...dbaf5</code>
-      <a href="https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5" target="_blank">View on Etherscan ↗</a>
+      <p><code>ERC7512Metadata</code> — <a href="https://sepolia.etherscan.io/address/0x0dd8f8f5b755912aa3b955044d1eff496a65e657" target="_blank">0x0dd8f8f5...e657</a> — ERC-7512</p>
+      <p><code>AuditTrail</code> — <a href="https://sepolia.etherscan.io/address/0xd7913e7749595a9238883bdf0b2dad599f4d0bf0" target="_blank">0xd7913e77...4bf0</a> — ZK trail</p>
+      <p><code>Groth16Verifier</code> — <a href="https://sepolia.etherscan.io/address/0xf0c9ec42fe603a53af3e6248e874bbbb3064e498" target="_blank">0xf0c9ec42...4498</a> — ZK verifier</p>
+      <a href="https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5" target="_blank">Etherscan ↗</a>
     </div>
     <div class="artifact-card fade-in" style="--i:1">
+      <h3>Contracts — Base Sepolia</h3>
+      <p><code>AuditCertificate</code> — <a href="https://sepolia.basescan.org/address/0xb8f167a84816b5b9373997337119a2186c6e3708" target="_blank">0xb8f167a8...3708</a> — ERC-1155 NFT</p>
+      <p><code>ERC7512Metadata</code> — <a href="https://sepolia.basescan.org/address/0x5e99f144d3e512f525d24077d4626a064899e177" target="_blank">0x5e99f144...e177</a> — ERC-7512</p>
+      <p><code>AuditTrail</code> — <a href="https://sepolia.basescan.org/address/0x83bfbc0901c9a6481a26ec2dc649487768ec8a99" target="_blank">0x83bfbc09...8a99</a> — ZK trail</p>
+      <p><code>Groth16Verifier</code> — <a href="https://sepolia.basescan.org/address/0x636b3af9630e1b26b02ba488a5b8ab6ce75d6721" target="_blank">0x636b3af9...6721</a> — ZK verifier</p>
+      <a href="https://sepolia.basescan.org/address/0xb8f167a84816b5b9373997337119a2186c6e3708" target="_blank">BaseScan ↗</a>
+    </div>
+    <div class="artifact-card fade-in" style="--i:2">
       <h3>NFT Preview</h3>
       <p>S/A/B/C tier generative NFT with on-chain SVG</p>
       <code>262,144 unique combinations</code>
       <a href="/nft-preview.html">View Preview</a>
     </div>
-    <div class="artifact-card fade-in" style="--i:2">
+    <div class="artifact-card fade-in" style="--i:3">
       <h3>Audit Report</h3>
       <p>Multi-contract audit report (Token + Oracle + Vault)</p>
       <code>report.json</code>
       <a href="/report.json">View Report</a>
     </div>
-    <div class="artifact-card fade-in" style="--i:3">
+    <div class="artifact-card fade-in" style="--i:4">
       <h3>EAS Attestation</h3>
       <p>On-chain audit proof via Ethereum Attestation Service</p>
       <code>sepolia.easscan.org</code>
@@ -333,7 +343,7 @@
 <section class="section cta-section">
   <h2 class="fade-in">Get Started</h2>
   <div class="content fade-in">
-    <p>Athena is deployed on Sepolia testnet. Open source. Built for Web3 teams.</p>
+    <p>Athena is deployed on Sepolia + Base Sepolia. Open source. Built for Web3 teams.</p>
   </div>
   <div class="cta fade-in" style="margin-top: 30px;">
     <a href="https://github.com/tiyadegure/Athena" class="btn primary" target="_blank">GitHub</a>
