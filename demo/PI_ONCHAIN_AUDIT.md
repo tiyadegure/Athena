@@ -197,6 +197,11 @@ cat > demo/report-new.json << EOF
 }
 EOF
 echo "新审计报告已生成: demo/report-new.json"
+
+# 复制到 frontend 目录，让 nginx 可以访问
+cp demo/report-new.json frontend/report-new.json
+echo "已复制到 frontend/report-new.json"
+echo "访问链接: https://athena.degure.me/report-new.json"
 ```
 
 **要点**：生成包含这次执行结果的新报告
