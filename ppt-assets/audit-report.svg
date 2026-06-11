@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" font-family="monospace">
   <rect width="800" height="450" fill="#000000"/>
   
-  <text x="400" y="30" text-anchor="middle" fill="#ffffff" font-size="18">AUDIT REPORT — DEFIL PROTOCOL</text>
+  <text x="400" y="30" text-anchor="middle" fill="#ffffff" font-size="18">AUDIT REPORT — DeFi PROTOCOL</text>
   <line x1="200" y1="40" x2="600" y2="40" stroke="#333333" stroke-width="1"/>
   
   <!-- Summary -->

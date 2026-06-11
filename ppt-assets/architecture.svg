@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" font-family="monospace">
   <rect width="1000" height="600" fill="#000000"/>
   
-  <text x="500" y="40" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="normal">ATHENA v7 — 8-STEP AUDIT PIPELINE</text>
+  <text x="500" y="40" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="normal">ATHENA — 8-STEP AUDIT PIPELINE</text>
   <line x1="280" y1="50" x2="720" y2="50" stroke="#333333" stroke-width="1"/>
   
   <!-- GLM-5.1 Core -->
@@ -10,8 +10,8 @@
   
   <!-- v7 Tech Layer -->
   <rect x="250" y="270" width="500" height="50" fill="none" stroke="#555555" stroke-width="1" stroke-dasharray="4"/>
-  <text x="500" y="290" text-anchor="middle" fill="#888888" font-size="9">v7: SEED-BASED TRAITS (4^9=262144) | OPENRARITY IC | SVG CACHE | ART (ERC-20)</text>
-  <text x="500" y="305" text-anchor="middle" fill="#555555" font-size="8">RarityCalculator + AuditCertificate v4 + ART Reputation Token</text>
+  <text x="500" y="290" text-anchor="middle" fill="#888888" font-size="9">v8: GENERATIVE NFT (12,064) | OPENRARITY IC | SVG CACHE</text>
+  <text x="500" y="305" text-anchor="middle" fill="#555555" font-size="8">AuditCertificate v4.1 + RarityCalculator + EAS Attestation</text>
   
   <!-- Step 1-4 顶部 -->
   <rect x="50" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
@@ -21,24 +21,24 @@
   <text x="265" y="102" text-anchor="middle" fill="#ffffff" font-size="9">2. VULN DETECTION</text>
   
   <rect x="350" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="415" y="102" text-anchor="middle" fill="#ffffff" font-size="9">3. SYMBOLIC VERIFY</text>
+  <text x="415" y="102" text-anchor="middle" fill="#ffffff" font-size="9">3. PoC GENERATION</text>
   
   <rect x="500" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="565" y="102" text-anchor="middle" fill="#ffffff" font-size="9">4. ATTACK SIM</text>
+  <text x="565" y="102" text-anchor="middle" fill="#ffffff" font-size="9">4. EXPLOIT SIMULATION</text>
   
   <rect x="650" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="715" y="102" text-anchor="middle" fill="#ffffff" font-size="9">5. REPORT + ART</text>
+  <text x="715" y="102" text-anchor="middle" fill="#ffffff" font-size="9">5. REPAIR VALIDATION</text>
   
   <rect x="800" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="865" y="102" text-anchor="middle" fill="#ffffff" font-size="9">6. EAS ATTEST</text>
+  <text x="865" y="102" text-anchor="middle" fill="#ffffff" font-size="9">6. REPORT GENERATION</text>
   
   <!-- Step 7-8 底部 -->
   <rect x="600" y="440" width="150" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="675" y="458" text-anchor="middle" fill="#ffffff" font-size="9">7. RARITY + NFT MINT</text>
+  <text x="675" y="458" text-anchor="middle" fill="#ffffff" font-size="9">7. EAS ATTESTATION</text>
   <text x="675" y="468" text-anchor="middle" fill="#555555" font-size="7">OpenRarity IC → S/A/B/C</text>
   
   <rect x="780" y="440" width="150" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="855" y="458" text-anchor="middle" fill="#ffffff" font-size="9">8. FRONTEND</text>
+  <text x="855" y="458" text-anchor="middle" fill="#ffffff" font-size="9">8. NFT CERTIFICATE</text>
   
   <!-- MCP 工具层 -->
   <rect x="50" y="440" width="230" height="55" fill="none" stroke="#ffffff" stroke-width="1"/>
@@ -52,7 +52,7 @@
   
   <!-- v7 Contract Layer -->
   <rect x="50" y="530" width="900" height="40" fill="none" stroke="#444444" stroke-width="1"/>
-  <text x="500" y="550" text-anchor="middle" fill="#888888" font-size="9">ON-CHAIN: AuditCertificate v4 (ERC-1155) + ART (ERC-20) + RarityCalculator (Library) + EAS (Attestation)</text>
+  <text x="500" y="550" text-anchor="middle" fill="#888888" font-size="9">ON-CHAIN: AuditCertificate v4.1 (ERC-1155) + RarityCalculator + EAS Attestation</text>
   <text x="500" y="565" text-anchor="middle" fill="#555555" font-size="8">Sepolia: 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c | 30/30 Tests Pass | 13.3KB Bytecode</text>
   
   <!-- 连接线 -->
