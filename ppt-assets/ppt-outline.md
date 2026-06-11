@@ -89,7 +89,7 @@ Slide 7 — Agent 认证：审计报告 + 链上验证
 素材：ppt-assets/audit-report.svg
       ppt-assets/onchain-verification.svg
 
-v9.1 真实协议审计结果：
+真实协议审计结果：
 
 Curve V2 — Read-Only Reentrancy（$70M 损失, 2023）
 - Agent 发现：5 个漏洞（1 Critical + 2 High + 1 Medium + 1 Low）
@@ -197,11 +197,11 @@ Roadmap：
 
 ---
 
-## v9 扩展（已完成）
+## 扩展功能（已完成）
 
-### Slide 11 — v9: ZK 可验证审计 + Agent Escrow
+### Slide 11 — ZK 可验证审计 + Agent Escrow
 
-标题：Athena v9 — 可验证审计 + Agent 自主交易
+标题：Athena — 可验证审计 + Agent 自主交易
 
 已完成：
 - ZK 可验证审计：AuditTrail + Groth16Verifier（链上 ZK proof 验证）
@@ -209,13 +209,13 @@ Roadmap：
 - ERC-7512 审计元数据标准（链上可查询）
 - 真实协议审计（Curve V2 + Hundred Finance）
 
-v9 合约（Sepolia）：
+合约（Sepolia）：
 - AgentEscrowV2: 0x7102b7252dea80529278c8bffc441b96ff24421e
 - ERC7512AuditMetadata: 0x0dd8f8f5b755912aa3b955044d1eff496a65e657
 - AuditTrail (ZK): 0xd7913e7749595a9238883bdf0b2dad599f4d0bf0
 - Groth16Verifier: 0xf0c9ec42fe603a53af3e6248e874bbbb3064e498
 
-v9 合约（Base Sepolia）：
+合约（Base Sepolia）：
 - AuditCertificate: 0xb8f167a84816b5b9373997337119a2186c6e3708
 - ERC7512AuditMetadata: 0x5e99f144d3e512f525d24077d4626a064899e177
 - AuditTrail (ZK): 0x83bfbc0901c9a6481a26ec2dc649487768ec8a99

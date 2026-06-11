@@ -1,12 +1,12 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════
-# Athena Demo v9.1 — GLM-5.1 Web3 Security Audit Agent
-# 8-Step Pipeline + v9 Contracts + Real Protocol Audits + Multi-Chain
+# Athena Demo — GLM-5.1 Web3 Security Audit Agent
+# 8-Step Pipeline + Advanced Contracts + Real Protocol Audits + Multi-Chain
 # ═══════════════════════════════════════════════════════════════
 #
-# Recording: asciinema rec demo-v9.1.cast -c "bash demo/demo-v9.1.sh"
-# Playback:  asciinema play demo-v9.1.cast
-# Convert:   agg demo-v9.1.cast demo-v9.1.gif
+# Recording: asciinema rec demo.cast -c "bash demo/demo.sh"
+# Playback:  asciinema play demo.cast
+# Convert:   agg demo.cast demo.gif
 
 set -e
 cd "$(dirname "$0")/.."
@@ -42,7 +42,7 @@ echo -e "${BOLD}  ╚═══════════════════�
 echo ""
 echo -e "  ${DIM}Model:${RESET}     GLM-5.1 (200K context, long-horizon reasoning)"
 echo -e "  ${DIM}Pipeline:${RESET}  8-step audit → EAS attestation → NFT certification"
-echo -e "  ${DIM}Contracts:${RESET} v9 (ZK proof + Agent Escrow + ERC-7512)"
+echo -e "  ${DIM}Contracts:${RESET} ZK proof + Agent Escrow + ERC-7512"
 echo -e "  ${DIM}Chains:${RESET}    Sepolia + Base Sepolia"
 echo ""
 pause 2
@@ -211,16 +211,16 @@ echo ""
 pause 2
 
 # ══════════════════════════════════════════════════════════════════
-#  v9 ADVANCED CONTRACTS SHOWCASE
+#  ADVANCED CONTRACTS SHOWCASE
 # ══════════════════════════════════════════════════════════════════
 hr
-echo -e "${CYAN}${BOLD}  v9 ADVANCED CONTRACTS${RESET}"
+echo -e "${CYAN}${BOLD}  ADVANCED CONTRACTS${RESET}"
 hr
 pause 1
 
 # ZK Proof Verification
 echo ""
-echo -e "  ${BOLD}[v9-1] ZK Proof Verification (Groth16 on-chain)${RESET}"
+echo -e "  ${BOLD}[1] ZK Proof Verification (Groth16 on-chain)${RESET}"
 echo -e "  ${DIM}  Contract: Groth16Verifier${RESET}"
 echo -e "  ${DIM}  Sepolia:  0xf0c9ec42fe603a53af3e6248e874bbbb3064e498${RESET}"
 echo -e "  ${DIM}  Base:     0x636b3af9630e1b26b02ba488a5b8ab6ce75d6721${RESET}"
@@ -229,7 +229,7 @@ pause 1.5
 
 # Agent Escrow V2
 echo ""
-echo -e "  ${BOLD}[v9-2] Agent Escrow V2 (AI Agent payment)${RESET}"
+echo -e "  ${BOLD}[2] Agent Escrow V2 (AI Agent payment)${RESET}"
 echo -e "  ${DIM}  Contract: AgentEscrowV2${RESET}"
 echo -e "  ${DIM}  Sepolia:  0x7102b7252dea80529278c8bffc441b96ff24421e${RESET}"
 echo -e "  ${GREEN}  [OK]${RESET} Escrow payments for AI audit services"
@@ -237,7 +237,7 @@ pause 1.5
 
 # ERC-7512 Audit Metadata
 echo ""
-echo -e "  ${BOLD}[v9-3] ERC-7512 Audit Metadata Standard${RESET}"
+echo -e "  ${BOLD}[3] ERC-7512 Audit Metadata Standard${RESET}"
 echo -e "  ${DIM}  Contract: ERC7512AuditMetadata${RESET}"
 echo -e "  ${DIM}  Sepolia:  0x0dd8f8f5b755912aa3b955044d1eff496a65e657${RESET}"
 echo -e "  ${DIM}  Base:     0x5e99f144d3e512f525d24077d4626a064899e177${RESET}"
@@ -246,7 +246,7 @@ pause 1.5
 
 # Audit Trail
 echo ""
-echo -e "  ${BOLD}[v9-4] Audit Trail (immutable audit history)${RESET}"
+echo -e "  ${BOLD}[4] Audit Trail (immutable audit history)${RESET}"
 echo -e "  ${DIM}  Contract: AuditTrail${RESET}"
 echo -e "  ${DIM}  Sepolia:  0xd7913e7749595a9238883bdf0b2dad599f4d0bf0${RESET}"
 echo -e "  ${DIM}  Base:     0x83bfbc0901c9a6481a26ec2dc649487768ec8a99${RESET}"

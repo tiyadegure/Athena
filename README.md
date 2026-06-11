@@ -284,8 +284,8 @@ cast send 0x3247d57d "mintCertificate(address,bytes32)" $USER $ATTESTATION_UID
 | v6 | `workflows/v6-s-tier-nft.md` | S 级炫彩 NFT + 262,144 组合 |
 | v7 | `workflows/v7-upeg-*.md` | uPEG 技术借鉴 + ERC-404 |
 | v8 | `workflows/v8-artifacts.md` | 项目产物生成 |
-| v9 | `workflows/v9-zk-escrow-erc7512.md` | ZK + Agent Escrow + ERC-7512 |
-| v9.1 | `workflows/v9.1-real-protocol-audit.md` | 真实协议审计（Curve V2 + Hundred Finance） |
+| ZK + Escrow | `workflows/zk-escrow-erc7512.md` | ZK + Agent Escrow + ERC-7512 |
+| Real Protocol | `workflows/real-protocol-audit.md` | 真实协议审计（Curve V2 + Hundred Finance） |
 
 ## 路线图
 
@@ -295,7 +295,7 @@ cast send 0x3247d57d "mintCertificate(address,bytes32)" $USER $ATTESTATION_UID
 - [x] 构建 athena-audit-skill（12 agent 并行审计）
 - [x] 构建 13 个独立 MCP 工具
 - [x] Generative NFT（S/A/B/C 四级，262,144 种 trait 组合）
-- [x] 部署 5 个合约到 Sepolia 测试网（AuditCertificate + v9 合约）
+- [x] 部署 5 个合约到 Sepolia 测试网（AuditCertificate + ZK + Escrow + ERC-7512）
 - [x] EAS Schema 注册 + Attestation 上链
 - [x] Gold NFT 已铸造
 - [x] Landing Page + 前端 Demo

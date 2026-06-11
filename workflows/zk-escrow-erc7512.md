@@ -1,4 +1,4 @@
-# v9 Roadmap Workflow — Athena 下一步扩展
+# Roadmap Workflow — Athena 下一步扩展
 
 > 基于 v1-v8 完成状态，更新 4 个方向的实际进度。
 > 大部分基础工作已在 v3/v4 完成，剩余的是进阶/扩展。
@@ -200,7 +200,7 @@ v6：S 级 NFT + 262,144 组合
 v7：uPEG 技术借鉴
 v8：产物生成（PPT + SVG）
 
-v9：扩展方向（基于已有基础）
+扩展方向（基于已有基础）
   ├─ ZK：AuditEvidenceChain + ZK proof（⬆️ 进阶）
   ├─ Escrow：AgentEscrow + 自动结算闭环（⬆️ 进阶）
   ├─ 多链：Sepolia → Base/Arbitrum（🆕 新做）
