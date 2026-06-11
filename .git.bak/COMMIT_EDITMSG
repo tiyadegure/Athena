@@ -1,0 +1,9 @@
+docs: update README to match actual workflow + redact private key from v5.4-redeploy.md
+
+- README.md: rewritten with correct 8-step pipeline from AGENTS.md
+- README.md: correct contract address 0x3247d57d
+- README.md: add EAS attestation links
+- README.md: add workflow version history (v1-v8)
+- README.md: add demo audit results from report.json
+- README.md: correct NFT trait system (9 dimensions, 4^9 = 262,144)
+- workflows/v5.4-redeploy.md: redact hardcoded private key
