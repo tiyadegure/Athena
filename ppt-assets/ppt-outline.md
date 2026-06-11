@@ -7,6 +7,7 @@ Slide 1 — 封面
 副标题：基于 GLM-5.1 长程任务能力的 Web3 安全审计闭环
 赛道：Z.AI
 团队：Tiya Degurechaff
+素材：nft-s-tier.png (S 级 NFT 证书)
 
 ---
 
@@ -84,36 +85,39 @@ Slide 6 — Agent 工具：13 MCP 工具
 Slide 7 — Agent 认证：审计报告 + 链上验证
 -----------------------------------------
 标题：Agent 的产出
-素材：audit-report.svg + frontend-screenshot.png
+素材：audit-report.svg + frontend/images/nft-athena-owl.png
 
-审计报告示例（DeFi Protocol）：
+真实审计报告（DeFi Protocol on Sepolia）：
 - 5 个漏洞发现（1 Critical + 2 High + 1 Medium + 1 Low）
-- 攻击模拟：$2.3M 预计损失
-- PoC 验证：Foundry 256 runs
+- 审计评分：2/10
+- 审计者：GLM-5.1 + Athena Audit Engine
+- 测试通过：30/30 (Foundry)
 
-链上认证（EAS）：
-- 不可篡改
-- 可验证
-- 可追溯
+链上认证（EAS on Sepolia）：
+- Schema UID: 0x6d6520d928b6090172a458c2addcd30af1090f5298110e496bb3c9ac3918253e
+- Attestation UID: 0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9
+- EAS 链接: https://sepolia.easscan.org/attestation/view/0xd02800c9...
+- Status: Valid ✅ | Revocable: Yes | Expiration: Never
 
 ---
 
 Slide 8 — Agent 铸造：Seed-based Generative NFT 证书
 -------------------------------------------------------
 标题：Agent 的经济产出
-素材：nft-preview-full.png
+素材：frontend/images/nft-s-tier.png + frontend/images/nft-preview.png
 
 uPEG 启发 Seed-based Generative 雅典娜：
 - uint256 18-bit seed → 9 traits x 2 bits → 4^9 = 262,144 种组合
 - 动态稀有度：OpenRarity Information Content 算法
 - S/A/B/C 四级：分数 → 稀有度等级自动映射
 - SVG 缓存机制：首次生成后存储，减少 gas
-- ART 声誉代币（ERC-20）：1000 ART = 1 NFT 资格
 
-链上验证：
-- Sepolia: 0xcaA7faeA44C3513F629C6f260ad26EBB677E5E4E
-- EAS 认证 + ERC-1155 NFT + ERC-20 ART
+链上验证（Sepolia）：
+- NFT 合约: 0x3247d57d37bd1878479f03a077aba807649dbaf5
+- Etherscan: https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5
+- EAS 认证 + ERC-1155 NFT
 - uri() 返回完整 JSON+SVG（含 9 个 trait attributes）
+- Gold NFT 已铸造给 deployer 钱包
 
 ---
 
@@ -147,6 +151,13 @@ Slide 10 — 总结 & Roadmap
 - Web3 审计闭环 → Agent 经济的完整展示
 - 链上认证 → Agent 产出可验证、可交易
 
+已验证的链上产物：
+- NFT 合约: 0x3247d57d (Sepolia) ✅
+- EAS Attestation: 0xd02800c9... ✅
+- Gold NFT: Token ID 1 ✅
+- 测试: 30/30 passing ✅
+- Landing Page: https://athena.degure.me ✅
+
 Roadmap：
 - ZK 隐私审计（v2）
 - 多链部署（Ethereum、Base、Arbitrum）
@@ -161,3 +172,5 @@ Roadmap：
 - GitHub: https://github.com/tiyadegure/glm-code
 - X/Twitter: https://x.com/AthenaAudit
 - Landing Page: https://athena.degure.me
+- EAS Attestation: https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9
+- NFT 合约: https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5

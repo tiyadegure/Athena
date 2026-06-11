@@ -12,7 +12,8 @@ Athena 🦉
 AI-powered smart contract security audit | GLM-5.1 long-horizon reasoning | On-chain audit certificates | Built for Web3 builders
 
 ### 头像
-使用现有 Athena 像素艺术头像
+使用 Athena 品牌头像 — 古典希腊战士风格
+素材: `https://athena.degure.me/images/avatar.png`
 
 ### 链接
 https://athena.degure.me
