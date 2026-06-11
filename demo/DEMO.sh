@@ -1,11 +1,11 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════
 # Athena Demo — 基于真实 Pi 执行的录屏脚本
-# 展示 GLM-5.1 驱动的完整审计流程
+# 配合配音使用，暂停时间与语音同步
 # ═══════════════════════════════════════════════════════════════
 #
 # Recording: asciinema rec demo.cast -c "bash demo/DEMO.sh"
-# Playback:  asciinema play demo.cast
+# Video:     ffmpeg -f x11grab -i :99 -i demo/voice/final.ogg -shortest demo.mp4
 
 set -e
 cd "$(dirname "$0")/.."
@@ -23,7 +23,7 @@ hr() { echo -e "${DIM}$(printf '%.0s─' {1..72})${RESET}"; }
 pause() { sleep "${1:-1.5}"; }
 
 # ══════════════════════════════════════════════════════════════════
-#  INTRO
+#  INTRO (voice: 11.7s)
 # ══════════════════════════════════════════════════════════════════
 clear
 echo ""
@@ -37,10 +37,10 @@ echo -e "  ${DIM}Pipeline:${RESET}  8-step audit with subagent parallel orchestr
 echo -e "  ${DIM}Tools:${RESET}     13 MCP tools (slither, aderyn, poc_generator, fuzz_runner...)"
 echo -e "  ${DIM}Chains:${RESET}    Sepolia + Base Sepolia"
 echo ""
-pause 2
+pause 8
 
 # ══════════════════════════════════════════════════════════════════
-#  STEP 1: 读取审计 Skill
+#  STEP 1: 读取审计 Skill (voice: 15.8s)
 # ══════════════════════════════════════════════════════════════════
 hr
 echo -e "${CYAN}${BOLD}[STEP 1/8]${RESET} ${BOLD}读取审计 Skill — 12 Agent 并行架构${RESET}"
@@ -58,10 +58,10 @@ echo -e "  ${DIM}     ├── Flash Loan Agent${RESET}"
 echo -e "  ${DIM}     ├── Oracle Manipulation Agent${RESET}"
 echo -e "  ${DIM}     └── ... (8 more specialized agents)${RESET}"
 echo ""
-pause 2
+pause 10
 
 # ══════════════════════════════════════════════════════════════════
-#  STEP 2: 选择审计目标
+#  STEP 2: 选择审计目标 (voice: 11.0s)
 # ══════════════════════════════════════════════════════════════════
 hr
 echo -e "${CYAN}${BOLD}[STEP 2/8]${RESET} ${BOLD}选择审计目标 — VulnerableBank${RESET}"
@@ -92,10 +92,10 @@ echo -e "      }"
 echo -e "  }${RESET}"
 echo ""
 echo -e "  ${RED}[VULN]${RESET} Reentrancy: state update AFTER external call"
-pause 2
+pause 6
 
 # ══════════════════════════════════════════════════════════════════
-#  STEP 3: 调度 Subagent 并行审计
+#  STEP 3: 调度 Subagent 并行审计 (voice: 10.9s)
 # ══════════════════════════════════════════════════════════════════
 hr
 echo -e "${CYAN}${BOLD}[STEP 3/8]${RESET} ${BOLD}调度 3 个 Subagent 并行执行${RESET}"
@@ -108,10 +108,10 @@ echo -e "  ${DIM}  ├─ subagent-1: 静态分析 (Slither + Aderyn)${RESET}"
 echo -e "  ${DIM}  ├─ subagent-2: PoC 生成${RESET}"
 echo -e "  ${DIM}  └─ subagent-3: Fuzz 测试${RESET}"
 echo ""
-pause 2
+pause 7
 
 # ══════════════════════════════════════════════════════════════════
-#  STEP 4: Subagent 1 — 双引擎静态分析
+#  STEP 4: Subagent 1 — 双引擎静态分析 (voice: 16.5s)
 # ══════════════════════════════════════════════════════════════════
 hr
 echo -e "${CYAN}${BOLD}[STEP 4/8]${RESET} ${BOLD}Subagent 1 — 双引擎静态分析${RESET}"
@@ -137,10 +137,10 @@ echo -e "  ${DIM}[LOW]${RESET}  L-19: Unspecific Solidity Pragma"
 echo -e "  ${DIM}[LOW]${RESET}  L-21: Public Function Not Used Internally"
 echo ""
 echo -e "  ${GREEN}[MERGE]${RESET} Slither (3) + Aderyn (4) → 4 unique findings after dedup"
-pause 2
+pause 7
 
 # ══════════════════════════════════════════════════════════════════
-#  STEP 5: Subagent 2 — PoC 生成
+#  STEP 5: Subagent 2 — PoC 生成 (voice: 12.5s)
 # ══════════════════════════════════════════════════════════════════
 hr
 echo -e "${CYAN}${BOLD}[STEP 5/8]${RESET} ${BOLD}Subagent 2 — PoC 攻击验证${RESET}"
@@ -167,10 +167,10 @@ echo -e "      }"
 echo -e "  }${RESET}"
 echo ""
 echo -e "  ${GREEN}[OK]${RESET} PoC generated → contracts/test-cases/ReentrancyAttack.sol"
-pause 2
+pause 5
 
 # ══════════════════════════════════════════════════════════════════
-#  STEP 6: Subagent 3 — Fuzz 测试
+#  STEP 6: Subagent 3 — Fuzz 测试 (voice: 15.8s)
 # ══════════════════════════════════════════════════════════════════
 hr
 echo -e "${CYAN}${BOLD}[STEP 6/8]${RESET} ${BOLD}Subagent 3 — Fuzz 测试验证${RESET}"
@@ -191,10 +191,10 @@ echo -e "  ${DIM}  总测试: 6 | 通过: 6/6 | Fuzz 运行: 768 次${RESET}"
 echo -e "  ${DIM}  银行余额: 10 ETH → 0 ETH | 攻击者获利: 11 ETH${RESET}"
 echo ""
 echo -e "  ${GREEN}[VERIFIED]${RESET} 漏洞通过 fuzz 测试确认"
-pause 2
+pause 7
 
 # ══════════════════════════════════════════════════════════════════
-#  STEP 7: 汇总 Subagent 结果
+#  STEP 7: 汇总 Subagent 结果 (voice: 20.0s)
 # ══════════════════════════════════════════════════════════════════
 hr
 echo -e "${CYAN}${BOLD}[STEP 7/8]${RESET} ${BOLD}汇总审计结果${RESET}"
@@ -219,10 +219,10 @@ echo -e "  ${CYAN}  修复建议:${RESET}"
 echo -e "  ${DIM}    1. 使用 Checks-Effects-Interactions 模式${RESET}"
 echo -e "  ${DIM}    2. 添加 ReentrancyGuard${RESET}"
 echo -e "  ${DIM}    3. 先更新状态，再外部调用${RESET}"
-pause 2
+pause 10
 
 # ══════════════════════════════════════════════════════════════════
-#  STEP 8: 链上认证
+#  STEP 8: 链上认证 (voice: 17.0s)
 # ══════════════════════════════════════════════════════════════════
 hr
 echo -e "${CYAN}${BOLD}[STEP 8/8]${RESET} ${BOLD}链上认证 — EAS + NFT${RESET}"
@@ -247,13 +247,14 @@ echo -e "  ${DIM}     Base:     0xb8f167a84816b5b9373997337119a2186c6e3708${RESE
 echo -e "  ${DIM}     Token ID: 1 (Grade S)${RESET}"
 echo -e "  ${DIM}     Traits:   262,144 possible combinations (4^9)${RESET}"
 echo ""
-pause 2
+pause 8
 
 # ══════════════════════════════════════════════════════════════════
-#  MULTI-CHAIN DEPLOYMENT
+#  CLOSING (voice: 21.1s)
 # ══════════════════════════════════════════════════════════════════
+echo ""
 hr
-echo -e "${CYAN}${BOLD}  MULTI-CHAIN DEPLOYMENT${RESET}"
+echo -e "  ${BOLD}MULTI-CHAIN DEPLOYMENT${RESET}"
 hr
 pause 1
 
@@ -270,13 +271,11 @@ echo -e "  ${DIM}  AuditCertificate:    0xb8f167a84816b5b9373997337119a2186c6e37
 echo -e "  ${DIM}  ERC7512Metadata:     0x5e99f144d3e512f525d24077d4626a064899e177${RESET}"
 echo -e "  ${DIM}  Groth16Verifier:     0x636b3af9630e1b26b02ba488a5b8ab6ce75d6721${RESET}"
 echo -e "  ${DIM}  AuditTrail:          0x83bfbc0901c9a6481a26ec2dc649487768ec8a99${RESET}"
-pause 2
+pause 3
 
-# ══════════════════════════════════════════════════════════════════
-#  REAL PROTOCOL AUDITS
-# ══════════════════════════════════════════════════════════════════
+echo ""
 hr
-echo -e "${CYAN}${BOLD}  REAL PROTOCOL AUDITS${RESET}"
+echo -e "  ${BOLD}REAL PROTOCOL AUDITS${RESET}"
 hr
 pause 1
 
@@ -288,7 +287,7 @@ echo -e "  ${DIM}  Type:      Read-only reentrancy in remove_liquidity_one_coin(
 echo -e "  ${DIM}  Match:     95% (Agent vs actual attack path)${RESET}"
 echo -e "  ${RED}  [FOUND]${RESET} Detected by Athena's reentrancy + oracle analysis"
 echo ""
-pause 1.5
+pause 2
 
 echo -e "  ${BOLD}[Audit 2] Hundred Finance — Reentrancy + Oracle Manipulation${RESET}"
 echo -e "  ${DIM}  Severity:  CRITICAL${RESET}"
@@ -298,12 +297,9 @@ echo -e "  ${DIM}  Match:     88% (Agent vs actual attack path)${RESET}"
 echo -e "  ${RED}  [FOUND]${RESET} Multi-vector attack chain identified"
 pause 2
 
-# ══════════════════════════════════════════════════════════════════
-#  CLOSING
-# ══════════════════════════════════════════════════════════════════
 echo ""
 hr
-echo -e "${BOLD}  ${CYAN}ATHENA${RESET} — From Vulnerability Discovery to On-Chain Certification"
+echo -e "  ${CYAN}ATHENA${RESET} — From Vulnerability Discovery to On-Chain Certification"
 hr
 echo ""
 echo -e "  ${DIM}GitHub:${RESET}   https://github.com/tiyadegure/Athena"
@@ -316,3 +312,4 @@ echo -e "  ${DIM}Powered by GLM-5.1 Long-Horizon Task${RESET}"
 echo ""
 echo -e "  ${DIM}Thank you for watching.${RESET}"
 echo ""
+pause 2
