@@ -1,5 +1,9 @@
 # Athena
 
+<p align="center">
+  <img src="assets/avatar.png" alt="Athena" width="120" height="120" style="border-radius: 50%;" />
+</p>
+
 **Athena** — Web3 智能合约安全审计 Agent，基于 GLM-5.1 长程任务能力，结合自建审计 Skill 与 MCP 工具链，实现从漏洞发现到链上认证的完整闭环。
 
 ## 项目定位
@@ -77,6 +81,9 @@ scope → architecture → access control → reentrancy → math → oracle →
 | Exploit Simulator | `exploit_simulator.py` | 攻击模拟器 |
 | Evidence Chain | `evidence_chain.py` | 审计证据链 |
 | Halmos | `halmos_runner.py` | 形式化验证 |
+| ZK Trace Recorder | `zk_trace_recorder.py` | 记录审计执行 trace |
+| ZK Proof Generator | `zk_proof_generator.py` | 生成 Groth16 ZK proof |
+| ZK Verifier | `zk_verifier.py` | 链上 ZK proof 验证 |
 | Protocol Scanner | `protocol_scanner.py` | 协议级扫描 |
 | Repair Validator | `repair_validator.py` | 修复验证 |
 | Incremental Auditor | `incremental_auditor.py` | 增量审计 |
@@ -142,11 +149,20 @@ Athena/
 | 合约 | 地址 | 状态 |
 |------|------|------|
 | AuditCertificate (NFT) | `0x3247d57d37bd1878479f03a077aba807649dbaf5` | ✅ 已部署 |
+| AgentEscrowV2 | `0x7102b7252dea80529278c8bffc441b96ff24421e` | ✅ 已部署 |
+| ERC7512AuditMetadata | `0x0dd8f8f5b755912aa3b955044d1eff496a65e657` | ✅ 已部署 |
+| MultiChainRegistry | 待部署 | ⬜ 需测试币 |
+| AuditTrail (ZK) | `0xd7913e7749595a9238883bdf0b2dad599f4d0bf0` | ✅ 已部署 |
+| Groth16Verifier | `0xf0c9ec42fe603a53af3e6248e874bbbb3064e498` | ✅ 已部署 |
 | EAS Schema | `0x6d6520d928b6090172a458c2addcd30af1090f5298110e496bb3c9ac3918253e` | ✅ 已注册 |
 | EAS Attestation | `0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9` | ✅ 已认证 |
 
 **链上验证链接：**
 - NFT 合约: https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5
+- AgentEscrowV2: https://sepolia.etherscan.io/address/0x7102b7252dea80529278c8bffc441b96ff24421e
+- ERC7512AuditMetadata: https://sepolia.etherscan.io/address/0x0dd8f8f5b755912aa3b955044d1eff496a65e657
+- AuditTrail (ZK): https://sepolia.etherscan.io/address/0xd7913e7749595a9238883bdf0b2dad599f4d0bf0
+- Groth16Verifier: https://sepolia.etherscan.io/address/0xf0c9ec42fe603a53af3e6248e874bbbb3064e498
 - EAS 认证: https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9
 
 ## 快速开始
