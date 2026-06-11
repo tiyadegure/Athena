@@ -4,9 +4,9 @@
 # 8-Step Pipeline + v9 Contracts + Real Protocol Audits + Multi-Chain
 # ═══════════════════════════════════════════════════════════════
 #
-# Recording: asciinema rec demo-v7.cast -c "bash demo/demo-v7.sh"
-# Playback:  asciinema play demo-v7.cast
-# Convert:   agg demo-v7.cast demo-v7.gif
+# Recording: asciinema rec demo-v9.1.cast -c "bash demo/demo-v9.1.sh"
+# Playback:  asciinema play demo-v9.1.cast
+# Convert:   agg demo-v9.1.cast demo-v9.1.gif
 
 set -e
 cd "$(dirname "$0")/.."
