@@ -121,7 +121,7 @@ glm-code/
 - [x] 构建 athena-audit-skill
 - [x] 构建 13 个独立 MCP 工具
 - [x] 设计 Generative NFT（S/A/B/C 四级，262,144 种组合）
-- [ ] 部署审计合约到 Sepolia 测试网
-- [ ] 跑通 ①→⑧ 完整审计链路
+- [x] 部署审计合约到 Sepolia 测试网 — 0x3247d57d
+- [x] 跑通 EAS 认证链路（Schema → Attest → Mint）
 - [ ] GLM-5.1 vs Claude 对比评测
 - [ ] 录制 Demo 视频
