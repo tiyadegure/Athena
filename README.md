@@ -1,7 +1,7 @@
 # Athena
 
 <p align="center">
-  <img src="assets/avatar.png" alt="Athena" width="120" height="120" style="border-radius: 50%;" />
+  <img src="assets/athena-avatar.png" alt="Athena" width="120" height="120" style="border-radius: 50%;" />
 </p>
 
 **Athena** — Web3 智能合约安全审计 Agent，基于 GLM-5.1 长程任务能力，结合自建审计 Skill 与 MCP 工具链，实现从漏洞发现到链上认证的完整闭环。
