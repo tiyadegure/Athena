@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Athena — AI-Powered Smart Contract Security Audit</title>
-<link rel="icon" type="image/png" href="/images/avatar.png">
-<link rel="apple-touch-icon" href="/images/avatar.png">
-<meta property="og:image" content="https://athena.degure.me/images/avatar.png">
+<link rel="icon" type="image/png" href="/images/athena-avatar.png">
+<link rel="apple-touch-icon" href="/images/athena-avatar.png">
+<meta property="og:image" content="https://athena.degure.me/images/athena-avatar.png">
 <meta property="og:title" content="Athena — AI-Powered Smart Contract Security Audit">
 <meta property="og:description" content="AI-powered smart contract security audit with on-chain certificates">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://athena.degure.me/images/avatar.png">
+<meta name="twitter:image" content="https://athena.degure.me/images/athena-avatar.png">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { 
@@ -176,7 +176,7 @@
 
 <!-- Hero Section -->
 <section class="hero">
-  <img src="/images/avatar.png" alt="Athena" class="hero-avatar" style="width:120px;height:120px;border-radius:50%;border:2px solid #333;margin-bottom:30px;object-fit:cover;">
+  <img src="/images/athena-avatar.png" alt="Athena" class="hero-avatar" style="width:120px;height:120px;border-radius:50%;border:2px solid #333;margin-bottom:30px;object-fit:cover;">
   <h1 class="fade-in">ATHENA</h1>
   <p class="subtitle fade-in">AI-Powered Smart Contract Security Audit</p>
   <div class="stats fade-in stagger">
@@ -213,14 +213,14 @@
   <h2 class="fade-in">8-Step Audit Pipeline</h2>
   <div class="pipeline">
     <div class="pipeline-line"></div>
-    <div class="step fade-in"><div class="step-number">01</div><div class="step-content"><h3>Contract Analysis</h3><p>Parse Solidity source code, identify functions, state variables, inheritance hierarchy. Build dependency graph across multiple contracts.</p><span class="tool">slither_runner</span><span class="tool">protocol_scanner</span></div></div>
-    <div class="step fade-in"><div class="step-number">02</div><div class="step-content"><h3>Vulnerability Detection</h3><p>Run static analysis (Slither, Aderyn) + LLM deep review. Cross-reference against known exploit patterns. Prioritize by severity.</p><span class="tool">slither_runner</span><span class="tool">aderyn_runner</span><span class="tool">knowledge_base</span></div></div>
-    <div class="step fade-in"><div class="step-number">03</div><div class="step-content"><h3>PoC Generation</h3><p>Auto-generate Foundry test contracts that prove vulnerabilities are exploitable. Run tests to verify — failed tests confirm the bug.</p><span class="tool">poc_generator</span><span class="tool">fuzz_runner</span></div></div>
-    <div class="step fade-in"><div class="step-number">04</div><div class="step-content"><h3>Exploit Simulation</h3><p>Simulate attack scenarios (reentrancy, flash loan, price manipulation). Calculate potential fund loss. Test on local fork.</p><span class="tool">exploit_simulator</span></div></div>
-    <div class="step fade-in"><div class="step-number">05</div><div class="step-content"><h3>Repair Validation</h3><p>Verify proposed fixes actually close vulnerabilities. Re-run PoC tests against patched code. Confirm no new issues introduced.</p><span class="tool">repair_validator</span></div></div>
-    <div class="step fade-in"><div class="step-number">06</div><div class="step-content"><h3>Report Generation</h3><p>Compile findings into structured JSON report. Include severity, location, description, fix recommendation, and PoC test results.</p><span class="tool">evidence_chain</span></div></div>
-    <div class="step fade-in"><div class="step-number">07</div><div class="step-content"><h3>On-Chain Attestation</h3><p>Submit audit hash to Ethereum Attestation Service (EAS). Create immutable, timestamped proof that this audit happened.</p><span class="tool">eas_attest</span></div></div>
-    <div class="step fade-in"><div class="step-number">08</div><div class="step-content"><h3>NFT Certificate Mint</h3><p>Mint ERC-1155 NFT with on-chain SVG. S/A/B/C tier based on audit score. 262,144 unique trait combinations. Verifiable on Etherscan.</p><span class="tool">AuditCertificate.sol</span></div></div>
+    <div class="step fade-in"><div class="step-number">01</div><div class="step-content"><h3>Requirement Analysis</h3><p>Parse audit target, identify contract type and attack surface. Auto-discover all contracts, analyze call graph and dependencies.</p><span class="tool">protocol_scanner</span></div></div>
+    <div class="step fade-in"><div class="step-number">02</div><div class="step-content"><h3>Dual-Engine Scan</h3><p>Slither (Trail of Bits) + Aderyn (Cyfrin) static analysis. Cross-validate to reduce false positives. Comprehensive coverage.</p><span class="tool">slither_runner</span><span class="tool">aderyn_runner</span></div></div>
+    <div class="step fade-in"><div class="step-number">03</div><div class="step-content"><h3>RAG Knowledge Enhancement</h3><p>ChromaDB vulnerability knowledge base retrieval. Match historical audit patterns and known exploit techniques.</p><span class="tool">knowledge_base</span></div></div>
+    <div class="step fade-in"><div class="step-number">04</div><div class="step-content"><h3>PoC Generation</h3><p>Auto-generate Foundry .s.sol exploit scripts. Support flash loan, reentrancy, oracle manipulation, privilege escalation attacks.</p><span class="tool">poc_generator</span><span class="tool">exploit_simulator</span></div></div>
+    <div class="step fade-in"><div class="step-number">05</div><div class="step-content"><h3>Fuzz Verification</h3><p>Foundry fuzz testing with 256+ runs. Confirm vulnerability validity. Output PoC results and reproduction steps.</p><span class="tool">fuzz_runner</span><span class="tool">halmos_runner</span></div></div>
+    <div class="step fade-in"><div class="step-number">06</div><div class="step-content"><h3>Fix Recommendations</h3><p>Generate fix proposals based on vulnerability type. Re-audit after fix, compare before/after. Iterate until resolved.</p><span class="tool">repair_validator</span></div></div>
+    <div class="step fade-in"><div class="step-number">07</div><div class="step-content"><h3>EAS On-Chain Attestation</h3><p>Record audit result on Ethereum Attestation Service. Schema UID + Attestation UID. Verifiable by anyone, immutable forever.</p><span class="tool">eas_attest</span><span class="tool">evidence_chain</span></div></div>
+    <div class="step fade-in"><div class="step-number">08</div><div class="step-content"><h3>NFT Certificate Mint</h3><p>ERC-1155 generative NFT with on-chain SVG. S/A/B/C tier. 262,144 unique trait combinations (4^9). No IPFS dependency.</p><span class="tool">AuditCertificate.sol</span></div></div>
   </div>
 </section>
 
@@ -253,9 +253,14 @@
   <h2 class="fade-in">Project Artifacts</h2>
   <div class="artifacts-grid stagger">
     <div class="artifact-card fade-in" style="--i:0">
-      <h3>Smart Contract</h3>
+      <h3>Smart Contracts (Sepolia)</h3>
+      <p><code>AuditCertificate</code> — <a href="https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5" target="_blank">0x3247d57d...dbaf5</a> — ERC-1155 NFT</p>
+      <p><code>AgentEscrowV2</code> — <a href="https://sepolia.etherscan.io/address/0x7102b7252dea80529278c8bffc441b96ff24421e" target="_blank">0x7102b725...421e</a> — EAS auto-release</p>
+      <p><code>ERC7512AuditMetadata</code> — <a href="https://sepolia.etherscan.io/address/0x0dd8f8f5b755912aa3b955044d1eff496a65e657" target="_blank">0x0dd8f8f5...e657</a> — Audit metadata</p>
+      <p><code>AuditTrail</code> — <a href="https://sepolia.etherscan.io/address/0xd7913e7749595a9238883bdf0b2dad599f4d0bf0" target="_blank">0xd7913e77...4bf0</a> — ZK-verified trail</p>
+      <p><code>Groth16Verifier</code> — <a href="https://sepolia.etherscan.io/address/0xf0c9ec42fe603a53af3e6248e874bbbb3064e498" target="_blank">0xf0c9ec42...4498</a> — ZK proof verifier</p>
       <p>AuditCertificate.sol — ERC-1155 on Sepolia</p>
-      <code>0x3247d57d...dbaf5</code>
+      <code>AuditCertificate: 0x3247d57d...dbaf5</code>
       <a href="https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5" target="_blank">View on Etherscan ↗</a>
     </div>
     <div class="artifact-card fade-in" style="--i:1">

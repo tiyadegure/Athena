@@ -183,6 +183,28 @@ Roadmap：
 
 ---
 
+---
+
+## v9 扩展（已完成）
+
+### Slide 11 — v9: ZK 可验证审计 + Agent Escrow
+
+标题：Athena v9 — 可验证审计 + Agent 自主交易
+
+已完成：
+- ZK 可验证审计：AuditTrail + Groth16Verifier（链上 ZK proof 验证）
+- Agent Escrow v2：EAS 自动释放托管（审计完成 → 自动付款）
+- ERC-7512 审计元数据标准（链上可查询）
+- 真实协议审计（Curve V2 + Hundred Finance）
+
+v9 合约（Sepolia）：
+- AgentEscrowV2: 0x7102b7252dea80529278c8bffc441b96ff24421e
+- ERC7512AuditMetadata: 0x0dd8f8f5b755912aa3b955044d1eff496a65e657
+- AuditTrail (ZK): 0xd7913e7749595a9238883bdf0b2dad599f4d0bf0
+- Groth16Verifier: 0xf0c9ec42fe603a53af3e6248e874bbbb3064e498
+
+---
+
 ## v8 Workflow 产物清单
 
 | 产物 | 路径 | 说明 |

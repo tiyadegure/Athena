@@ -285,24 +285,28 @@ cast send 0x3247d57d "mintCertificate(address,bytes32)" $USER $ATTESTATION_UID
 - [x] 构建 athena-audit-skill（12 agent 并行审计）
 - [x] 构建 13 个独立 MCP 工具
 - [x] Generative NFT（S/A/B/C 四级，262,144 种 trait 组合）
-- [x] 部署合约到 Sepolia 测试网
+- [x] 部署 5 个合约到 Sepolia 测试网（AuditCertificate + v9 合约）
 - [x] EAS Schema 注册 + Attestation 上链
 - [x] Gold NFT 已铸造
 - [x] Landing Page + 前端 Demo
 - [x] PPT 素材生成
+- [x] ZK 可验证审计（AuditTrail + Groth16Verifier）
+- [x] Agent Escrow v2（EAS 自动释放）
+- [x] ERC-7512 审计元数据标准
+- [x] 真实协议审计（Curve V2 + Hundred Finance）
 
 ### 进行中
 
 - [ ] 录制 Demo 视频（终端 + 浏览器 + 链上验证）
 - [ ] GLM-5.1 vs Claude 对比评测（17 个测试合约）
 - [ ] 提交黑客松
+- [ ] 多链部署（Base/Arbitrum Sepolia）
 
 ### Roadmap
 
-- [ ] 零知识证明集成（ZK-SNARK 审计证据）
-- [ ] 多链支持（Arbitrum, Base, Polygon）
-- [ ] Agent Escrow 自动结算
-- [ ] AI Agent 标准集成（ERC-7512）
+- [ ] 真实协议扩展（Euler, Aave, Balancer, SushiSwap）
+- [ ] Agent 市场（AgentEscrow + Marketplace）
+- [ ] 隐私审计模式（加密合约 → 审计 → 解锁）
 
 ## 许可证
 
