@@ -33,19 +33,19 @@ pres.layout = 'LAYOUT_16x9';
 pres.author = 'Tiya Degurechaff';
 pres.title = 'Athena — Web3 Security Audit Agent';
 
-// Color palette - Midnight Executive
+// Color palette - Landing Page (monochrome)
 const COLORS = {
-  bg: '0A0A0A',      // deep black
-  bgLight: '1A1F3A', // dark navy
+  bg: '000000',      // pure black (matches landing page)
+  bgLight: '0A0A0A', // very dark (slight contrast)
   primary: 'FFFFFF',  // white
-  secondary: '888888', // gray
-  accent: '4A90D9',   // blue
-  gold: 'D4A535',     // gold
-  green: '00FF00',    // green for checkmarks
-  red: 'FF0000',      // red for critical
-  orange: 'FF8800',   // orange for high
-  yellow: 'FFFF00',   // yellow for medium
-  blue: '0088FF',     // blue for low
+  secondary: '666666', // gray (matches landing page #666)
+  accent: '333333',   // dark gray (thin borders, not blue)
+  gold: 'D4A535',     // gold (keep for NFT)
+  green: '888888',    // muted gray (not bright green)
+  red: '888888',      // muted gray (not bright red)
+  orange: '888888',   // muted
+  yellow: '888888',   // muted
+  blue: '888888',     // muted
 };
 
 // Helper: add footer
@@ -102,22 +102,22 @@ slide1.addImage({
 });
 slide1.addText('ATHENA', {
   x: 0.5, y: 1.5, w: 9, h: 1.5,
-  fontSize: 72, fontFace: 'Arial', color: COLORS.primary,
+  fontSize: 72, fontFace: 'Courier New', color: COLORS.primary,
   bold: true, align: 'center', charSpacing: 8
 });
 slide1.addText('Web3 Security Audit Agent', {
   x: 0.5, y: 2.5, w: 9, h: 0.8,
-  fontSize: 28, fontFace: 'Arial', color: COLORS.accent,
+  fontSize: 28, fontFace: 'Courier New', color: COLORS.accent,
   align: 'center'
 });
 slide1.addText('基于 GLM-5.1 长程任务能力的 Web3 安全审计闭环', {
   x: 0.5, y: 3.2, w: 9, h: 0.6,
-  fontSize: 16, fontFace: 'Arial', color: COLORS.secondary,
+  fontSize: 16, fontFace: 'Courier New', color: COLORS.secondary,
   align: 'center'
 });
 slide1.addText('Z.AI 赛道 · Tiya Degurechaff', {
   x: 0.5, y: 3.8, w: 9, h: 0.5,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.secondary,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.secondary,
   align: 'center'
 });
 addFooter(slide1);
@@ -127,7 +127,7 @@ let slide2 = pres.addSlide();
 slide2.background = { color: COLORS.bg };
 slide2.addText('Web3 安全审计的现状', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
-  fontSize: 32, fontFace: 'Arial', color: COLORS.primary,
+  fontSize: 32, fontFace: 'Courier New', color: COLORS.primary,
   bold: true, align: 'left'
 });
 slide2.addText([
@@ -141,7 +141,7 @@ slide2.addText([
   { text: 'AI Agent 可以自主完成审计，但缺乏闭环', options: {} },
 ], {
   x: 0.5, y: 1.3, w: 9, h: 3.0,
-  fontSize: 16, fontFace: 'Arial', color: COLORS.secondary,
+  fontSize: 16, fontFace: 'Courier New', color: COLORS.secondary,
   align: 'left', valign: 'top'
 });
 slide2.addShape(pres.shapes.RECTANGLE, {
@@ -151,7 +151,7 @@ slide2.addShape(pres.shapes.RECTANGLE, {
 });
 slide2.addText('核心问题：如何让 AI Agent 完成从漏洞发现到链上认证的完整闭环？', {
   x: 0.7, y: 4.4, w: 8.6, h: 0.6,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.accent,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.accent,
   bold: true, align: 'center'
 });
 addFooter(slide2);
@@ -161,7 +161,7 @@ let slide3 = pres.addSlide();
 slide3.background = { color: COLORS.bg };
 slide3.addText('为什么是 GLM-5.1？', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
-  fontSize: 32, fontFace: 'Arial', color: COLORS.primary,
+  fontSize: 32, fontFace: 'Courier New', color: COLORS.primary,
   bold: true, align: 'left'
 });
 // Left column - normal LLM
@@ -172,7 +172,7 @@ slide3.addShape(pres.shapes.RECTANGLE, {
 });
 slide3.addText('普通 LLM（单步推理）', {
   x: 0.7, y: 1.4, w: 3.8, h: 0.5,
-  fontSize: 16, fontFace: 'Arial', color: COLORS.secondary,
+  fontSize: 16, fontFace: 'Courier New', color: COLORS.secondary,
   bold: true, align: 'center'
 });
 slide3.addText([
@@ -181,7 +181,7 @@ slide3.addText([
   { text: '× 无法协调多个工具', options: {} },
 ], {
   x: 0.7, y: 2.0, w: 3.8, h: 2.5,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.red,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.red,
   align: 'left', valign: 'top'
 });
 // Right column - GLM-5.1
@@ -192,7 +192,7 @@ slide3.addShape(pres.shapes.RECTANGLE, {
 });
 slide3.addText('GLM-5.1（长程推理）', {
   x: 5.5, y: 1.4, w: 3.8, h: 0.5,
-  fontSize: 16, fontFace: 'Arial', color: COLORS.accent,
+  fontSize: 16, fontFace: 'Courier New', color: COLORS.accent,
   bold: true, align: 'center'
 });
 slide3.addText([
@@ -202,7 +202,7 @@ slide3.addText([
   { text: '✓ 驱动 12 个并行 Agent', options: {} },
 ], {
   x: 5.5, y: 2.0, w: 3.8, h: 2.5,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.green,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.green,
   align: 'left', valign: 'top'
 });
 addFooter(slide3);
@@ -212,7 +212,7 @@ let slide4 = pres.addSlide();
 slide4.background = { color: COLORS.bg };
 slide4.addText('8 步审计闭环架构', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
-  fontSize: 32, fontFace: 'Arial', color: COLORS.primary,
+  fontSize: 32, fontFace: 'Courier New', color: COLORS.primary,
   bold: true, align: 'left'
 });
 // Architecture diagram image
@@ -227,7 +227,7 @@ let slide5 = pres.addSlide();
 slide5.background = { color: COLORS.bg };
 slide5.addText('12 Agent 审计 Skill', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
-  fontSize: 32, fontFace: 'Arial', color: COLORS.primary,
+  fontSize: 32, fontFace: 'Courier New', color: COLORS.primary,
   bold: true, align: 'left'
 });
 // 12 Agents diagram image
@@ -242,7 +242,7 @@ let slide6 = pres.addSlide();
 slide6.background = { color: COLORS.bg };
 slide6.addText('13 MCP 工具', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
-  fontSize: 32, fontFace: 'Arial', color: COLORS.primary,
+  fontSize: 32, fontFace: 'Courier New', color: COLORS.primary,
   bold: true, align: 'left'
 });
 // 13 MCP Tools diagram image
@@ -257,7 +257,7 @@ let slide7 = pres.addSlide();
 slide7.background = { color: COLORS.bg };
 slide7.addText('审计报告 + 链上验证', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
-  fontSize: 28, fontFace: 'Arial', color: COLORS.primary,
+  fontSize: 28, fontFace: 'Courier New', color: COLORS.primary,
   bold: true, align: 'left'
 });
 // Report summary (left side)
@@ -268,7 +268,7 @@ slide7.addShape(pres.shapes.RECTANGLE, {
 });
 slide7.addText('审计报告：DeFi Protocol', {
   x: 0.7, y: 1.3, w: 3.8, h: 0.5,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.accent,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.accent,
   bold: true, align: 'center'
 });
 slide7.addText([
@@ -285,7 +285,7 @@ slide7.addText([
   { text: 'PoC 验证：Foundry 256 runs ✓', options: {} },
 ], {
   x: 0.7, y: 1.8, w: 3.8, h: 3.2,
-  fontSize: 10, fontFace: 'Arial', color: COLORS.secondary,
+  fontSize: 10, fontFace: 'Courier New', color: COLORS.secondary,
   align: 'left', valign: 'top'
 });
 // On-chain verification (right side)
@@ -296,7 +296,7 @@ slide7.addShape(pres.shapes.RECTANGLE, {
 });
 slide7.addText('链上认证（EAS）', {
   x: 5.5, y: 1.3, w: 3.8, h: 0.5,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.gold,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.gold,
   bold: true, align: 'center'
 });
 slide7.addText([
@@ -314,7 +314,7 @@ slide7.addText([
   { text: 'sepolia.easscan.org', options: { color: COLORS.accent, fontSize: 8 } },
 ], {
   x: 5.5, y: 1.8, w: 3.8, h: 3.2,
-  fontSize: 11, fontFace: 'Arial', color: COLORS.green,
+  fontSize: 11, fontFace: 'Courier New', color: COLORS.green,
   align: 'left', valign: 'top'
 });
 addFooter(slide7);
@@ -324,7 +324,7 @@ let slide8 = pres.addSlide();
 slide8.background = { color: COLORS.bg };
 slide8.addText('Generative NFT 审计证书', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
-  fontSize: 28, fontFace: 'Arial', color: COLORS.primary,
+  fontSize: 28, fontFace: 'Courier New', color: COLORS.primary,
   bold: true, align: 'left'
 });
 // NFT image (centered)
@@ -337,7 +337,7 @@ slide8.addText([
   { text: 'S-TIER · Gold NFT', options: { bold: true, fontSize: 16, color: COLORS.gold } },
 ], {
   x: 3.0, y: 5.0, w: 4.0, h: 0.4,
-  fontFace: 'Arial', align: 'center'
+  fontFace: 'Courier New', align: 'center'
 });
 // Left info panel
 slide8.addShape(pres.shapes.RECTANGLE, {
@@ -356,7 +356,7 @@ slide8.addText([
   { text: '已铸造', options: { fontSize: 10, color: COLORS.green } },
 ], {
   x: 0.5, y: 1.5, w: 2.1, h: 3.2,
-  fontFace: 'Arial', align: 'center', valign: 'top'
+  fontFace: 'Courier New', align: 'center', valign: 'top'
 });
 // Right info panel
 slide8.addShape(pres.shapes.RECTANGLE, {
@@ -375,7 +375,7 @@ slide8.addText([
   { text: 'd57d37bd', options: { fontSize: 8, color: COLORS.secondary } },
 ], {
   x: 7.4, y: 1.5, w: 2.1, h: 3.2,
-  fontFace: 'Consolas', align: 'center', valign: 'top'
+  fontFace: 'Courier New', align: 'center', valign: 'top'
 });
 addFooter(slide8);
 
@@ -384,7 +384,7 @@ let slide9 = pres.addSlide();
 slide9.background = { color: COLORS.bg };
 slide9.addText('Agent 经济的完整闭环', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
-  fontSize: 32, fontFace: 'Arial', color: COLORS.primary,
+  fontSize: 32, fontFace: 'Courier New', color: COLORS.primary,
   bold: true, align: 'left'
 });
 // Current mode
@@ -395,7 +395,7 @@ slide9.addShape(pres.shapes.RECTANGLE, {
 });
 slide9.addText('当前模式（人类触发）', {
   x: 0.7, y: 1.4, w: 3.8, h: 0.5,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.accent,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.accent,
   bold: true, align: 'center'
 });
 slide9.addText([
@@ -406,7 +406,7 @@ slide9.addText([
   { text: '5. 项目方支付费用', options: {} },
 ], {
   x: 0.7, y: 2.0, w: 3.8, h: 2.5,
-  fontSize: 12, fontFace: 'Arial', color: COLORS.secondary,
+  fontSize: 12, fontFace: 'Courier New', color: COLORS.secondary,
   align: 'left', valign: 'top'
 });
 // Future mode
@@ -417,7 +417,7 @@ slide9.addShape(pres.shapes.RECTANGLE, {
 });
 slide9.addText('未来模式（Agent 自主）', {
   x: 5.5, y: 1.4, w: 3.8, h: 0.5,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.gold,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.gold,
   bold: true, align: 'center'
 });
 slide9.addText([
@@ -429,12 +429,12 @@ slide9.addText([
   { text: '6. Agent 购买其他 Agent 服务', options: {} },
 ], {
   x: 5.5, y: 2.0, w: 3.8, h: 2.5,
-  fontSize: 12, fontFace: 'Arial', color: COLORS.green,
+  fontSize: 12, fontFace: 'Courier New', color: COLORS.green,
   align: 'left', valign: 'top'
 });
 slide9.addText('这是 Web3 Agent 经济的雏形。', {
   x: 0.5, y: 4.9, w: 9, h: 0.4,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.gold,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.gold,
   bold: true, align: 'center'
 });
 addFooter(slide9);
@@ -444,7 +444,7 @@ let slide10 = pres.addSlide();
 slide10.background = { color: COLORS.bg };
 slide10.addText('Athena 的价值', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
-  fontSize: 32, fontFace: 'Arial', color: COLORS.primary,
+  fontSize: 32, fontFace: 'Courier New', color: COLORS.primary,
   bold: true, align: 'left'
 });
 // Core values
@@ -461,7 +461,7 @@ slide10.addText([
   { text: '• 链上认证 → Agent 产出可验证、可交易', options: {} },
 ], {
   x: 0.7, y: 1.4, w: 8.6, h: 1.8,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.secondary,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.secondary,
   align: 'left', valign: 'top'
 });
 // Roadmap
@@ -479,12 +479,12 @@ slide10.addText([
   { text: '• 真实协议审计（Curve、Aave）', options: {} },
 ], {
   x: 0.7, y: 3.6, w: 8.6, h: 1.6,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.secondary,
+  fontSize: 14, fontFace: 'Courier New', color: COLORS.secondary,
   align: 'left', valign: 'top'
 });
 slide10.addText('感谢 Z.AI 赛道支持！', {
   x: 0.5, y: 5.0, w: 9, h: 0.4,
-  fontSize: 16, fontFace: 'Arial', color: COLORS.gold,
+  fontSize: 16, fontFace: 'Courier New', color: COLORS.gold,
   bold: true, align: 'center'
 });
 addFooter(slide10);
