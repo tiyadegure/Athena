@@ -7,7 +7,8 @@ Slide 1 — 封面
 副标题：基于 GLM-5.1 长程任务能力的 Web3 安全审计闭环
 赛道：Z.AI
 团队：Tiya Degurechaff
-素材：nft-s-tier.png (S 级 NFT 证书)
+素材：frontend/images/nft-s-tier.png (S 级 NFT 证书)
+      frontend/images/avatar.png (品牌头像)
 
 ---
 
@@ -45,7 +46,7 @@ GLM-5.1（长程推理）：
 Slide 4 — 架构总览
 -------------------
 标题：8 步审计闭环架构
-素材：architecture.svg
+素材：ppt-assets/architecture.svg
 
 核心组件：
 - GLM-5.1 推理引擎（中央协调）
@@ -58,7 +59,7 @@ Slide 4 — 架构总览
 Slide 5 — Agent 生产：12 Agent 审计 Skill
 -----------------------------------------
 标题：Agent 如何自主审计？
-素材：skill-agents.svg
+素材：ppt-assets/skill-agents.svg
 
 12 个 Agent 并行执行：
 - 4 基础分析（Scope、Architecture、Access Control、Math）
@@ -72,7 +73,7 @@ Slide 5 — Agent 生产：12 Agent 审计 Skill
 Slide 6 — Agent 工具：13 MCP 工具
 -----------------------------------
 标题：Agent 的工具链
-素材：mcp-tools.svg
+素材：ppt-assets/mcp-tools.svg
 
 4 大类：
 - 静态分析（Slither + Aderyn + Halmos）
@@ -85,13 +86,15 @@ Slide 6 — Agent 工具：13 MCP 工具
 Slide 7 — Agent 认证：审计报告 + 链上验证
 -----------------------------------------
 标题：Agent 的产出
-素材：audit-report.svg + frontend/images/nft-athena-owl.png
+素材：ppt-assets/audit-report.svg
+      ppt-assets/onchain-verification.svg
 
-真实审计报告（DeFi Protocol on Sepolia）：
+真实审计报告（demo/report.json — DeFi Protocol on Sepolia）：
 - 5 个漏洞发现（1 Critical + 2 High + 1 Medium + 1 Low）
 - 审计评分：2/10
 - 审计者：GLM-5.1 + Athena Audit Engine
 - 测试通过：30/30 (Foundry)
+- 报告结构：meta → target → summary → findings → verification
 
 链上认证（EAS on Sepolia）：
 - Schema UID: 0x6d6520d928b6090172a458c2addcd30af1090f5298110e496bb3c9ac3918253e
@@ -104,7 +107,9 @@ Slide 7 — Agent 认证：审计报告 + 链上验证
 Slide 8 — Agent 铸造：Seed-based Generative NFT 证书
 -------------------------------------------------------
 标题：Agent 的经济产出
-素材：frontend/images/nft-s-tier.png + frontend/images/nft-preview.png
+素材：frontend/images/nft-s-tier.png (S 级 NFT 特写)
+      frontend/images/nft-all-tiers.png (四级对比)
+      frontend/images/nft-preview.png (人形战士设计)
 
 uPEG 启发 Seed-based Generative 雅典娜：
 - uint256 18-bit seed → 9 traits x 2 bits → 4^9 = 262,144 种组合
@@ -157,6 +162,7 @@ Slide 10 — 总结 & Roadmap
 - Gold NFT: Token ID 1 ✅
 - 测试: 30/30 passing ✅
 - Landing Page: https://athena.degure.me ✅
+- 审计报告: demo/report.json ✅
 
 Roadmap：
 - ZK 隐私审计（v2）
@@ -174,3 +180,24 @@ Roadmap：
 - Landing Page: https://athena.degure.me
 - EAS Attestation: https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9
 - NFT 合约: https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5
+
+---
+
+## v8 Workflow 产物清单
+
+| 产物 | 路径 | 说明 |
+|------|------|------|
+| 审计报告 | `demo/report.json` | 完整 JSON 审计报告（5 findings） |
+| 测试结果 | `ppt-assets/test-results.txt` | 30/30 通过 |
+| Landing Page | `frontend/landing.html` | 极简黑底白字 + 品牌头像 |
+| 前端应用 | `frontend/index.html` + `app.js` + `style.css` | 审计报告展示 + 钱包连接 + NFT 铸造 |
+| NFT 预览 | `frontend/nft-preview.html` | S/A/B/C 四级 SVG 预览 |
+| 架构图 | `ppt-assets/architecture.svg` | 系统架构 |
+| MCP 工具图 | `ppt-assets/mcp-tools.svg` | 13 个工具 |
+| Skill 图 | `ppt-assets/skill-agents.svg` | 12 个 agents |
+| 审计报告图 | `ppt-assets/audit-report.svg` | 报告结构 |
+| 链上验证图 | `ppt-assets/onchain-verification.svg` | 验证流程 |
+| 品牌头像 | `frontend/images/avatar.png` | 希腊战士 Athena |
+| S 级 NFT | `frontend/images/nft-s-tier.png` | S-TIER 特写 |
+| NFT 全览 | `frontend/images/nft-all-tiers.png` | 四级对比 |
+| NFT 设计 | `frontend/images/nft-preview.png` | 人形战士基础设计 |

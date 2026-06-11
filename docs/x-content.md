@@ -185,7 +185,7 @@ Athena now features:
 
 On-chain art meets on-chain security.
 ```
-📷 附图: `https://athena.degure.me/images/nft-upeg.png`
+📷 附图: `https://athena.degure.me/images/nft-all-tiers.png`
 
 ---
 
