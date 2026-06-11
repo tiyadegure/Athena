@@ -144,25 +144,33 @@ Athena/
 └── foundry.toml                     # Foundry 配置
 ```
 
-## 链上部署（Sepolia 测试网）
+## 链上部署
+
+### Sepolia（Ethereum 测试网）
 
 | 合约 | 地址 | 状态 |
 |------|------|------|
 | AuditCertificate (NFT) | `0x3247d57d37bd1878479f03a077aba807649dbaf5` | ✅ 已部署 |
 | AgentEscrowV2 | `0x7102b7252dea80529278c8bffc441b96ff24421e` | ✅ 已部署 |
 | ERC7512AuditMetadata | `0x0dd8f8f5b755912aa3b955044d1eff496a65e657` | ✅ 已部署 |
-| MultiChainRegistry | 待部署 | ⬜ 需测试币 |
 | AuditTrail (ZK) | `0xd7913e7749595a9238883bdf0b2dad599f4d0bf0` | ✅ 已部署 |
 | Groth16Verifier | `0xf0c9ec42fe603a53af3e6248e874bbbb3064e498` | ✅ 已部署 |
 | EAS Schema | `0x6d6520d928b6090172a458c2addcd30af1090f5298110e496bb3c9ac3918253e` | ✅ 已注册 |
 | EAS Attestation | `0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9` | ✅ 已认证 |
 
+### Base Sepolia（L2 测试网）
+
+| 合约 | 地址 | 状态 |
+|------|------|------|
+| AuditCertificate (NFT) | `0xb8f167a84816b5b9373997337119a2186c6e3708` | ✅ 已部署 |
+| ERC7512AuditMetadata | `0x5e99f144d3e512f525d24077d4626a064899e177` | ✅ 已部署 |
+| Groth16Verifier | `0x636b3af9630e1b26b02ba488a5b8ab6ce75d6721` | ✅ 已部署 |
+| AuditTrail | `0x83bfbc0901c9a6481a26ec2dc649487768ec8a99` | ✅ 已部署 |
+
 **链上验证链接：**
-- NFT 合约: https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5
-- AgentEscrowV2: https://sepolia.etherscan.io/address/0x7102b7252dea80529278c8bffc441b96ff24421e
-- ERC7512AuditMetadata: https://sepolia.etherscan.io/address/0x0dd8f8f5b755912aa3b955044d1eff496a65e657
-- AuditTrail (ZK): https://sepolia.etherscan.io/address/0xd7913e7749595a9238883bdf0b2dad599f4d0bf0
-- Groth16Verifier: https://sepolia.etherscan.io/address/0xf0c9ec42fe603a53af3e6248e874bbbb3064e498
+- NFT (Sepolia): https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5
+- NFT (Base Sepolia): https://sepolia.basescan.org/address/0xb8f167a84816b5b9373997337119a2186c6e3708
+- AuditTrail (Sepolia): https://sepolia.etherscan.io/address/0xd7913e7749595a9238883bdf0b2dad599f4d0bf0
 - EAS 认证: https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9
 
 ## 快速开始
@@ -276,6 +284,8 @@ cast send 0x3247d57d "mintCertificate(address,bytes32)" $USER $ATTESTATION_UID
 | v6 | `workflows/v6-s-tier-nft.md` | S 级炫彩 NFT + 262,144 组合 |
 | v7 | `workflows/v7-upeg-*.md` | uPEG 技术借鉴 + ERC-404 |
 | v8 | `workflows/v8-artifacts.md` | 项目产物生成 |
+| v9 | `workflows/v9-zk-escrow-erc7512.md` | ZK + Agent Escrow + ERC-7512 |
+| v9.1 | `workflows/v9.1-real-protocol-audit.md` | 真实协议审计（Curve V2 + Hundred Finance） |
 
 ## 路线图
 
@@ -300,7 +310,7 @@ cast send 0x3247d57d "mintCertificate(address,bytes32)" $USER $ATTESTATION_UID
 - [ ] 录制 Demo 视频（终端 + 浏览器 + 链上验证）
 - [ ] GLM-5.1 vs Claude 对比评测（17 个测试合约）
 - [ ] 提交黑客松
-- [ ] 多链部署（Base/Arbitrum Sepolia）
+- [x] 多链部署（Sepolia + Base Sepolia）
 
 ### Roadmap
 
