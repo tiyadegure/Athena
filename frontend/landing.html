@@ -149,6 +149,18 @@
   .artifact-card a { color: #fff; text-decoration: none; font-size: 10px; letter-spacing: 1px; border-bottom: 1px solid #444; transition: border-color 0.3s; }
   .artifact-card a:hover { border-color: #fff; }
   
+  /* Protocol Audits */
+  .protocol-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; max-width: 900px; margin: 0 auto; }
+  .protocol-card { border: 1px solid #222; padding: 30px; transition: border-color 0.3s; position: relative; }
+  .protocol-card:hover { border-color: #444; }
+  .protocol-card .loss { position: absolute; top: 15px; right: 20px; font-size: 10px; color: #666; letter-spacing: 1px; }
+  .protocol-card h3 { font-size: 14px; font-weight: normal; letter-spacing: 2px; margin-bottom: 5px; color: #fff; }
+  .protocol-card .type { font-size: 10px; color: #555; letter-spacing: 1px; margin-bottom: 15px; }
+  .protocol-card .vuln { font-size: 11px; color: #888; margin-bottom: 8px; }
+  .protocol-card .vuln span { color: #fff; }
+  .protocol-card .findings { font-size: 10px; color: #555; line-height: 1.8; border-top: 1px solid #111; padding-top: 12px; margin-top: 12px; }
+  .protocol-card .year { font-size: 9px; color: #444; letter-spacing: 2px; margin-top: 10px; }
+
   /* Footer */
   footer { padding: 40px; border-top: 1px solid #111; text-align: center; }
   footer p { font-size: 11px; color: #555; }
@@ -167,6 +179,7 @@
     <a href="#workflow">Workflow</a>
     <a href="#features">Features</a>
     <a href="#nft">NFT</a>
+    <a href="#protocols">Protocols</a>
     <a href="#artifacts">Artifacts</a>
     <a href="/docs.html">Docs</a>
     <a href="https://github.com/tiyadegure/Athena" target="_blank">GitHub</a>
@@ -280,6 +293,38 @@
       <p>On-chain audit proof via Ethereum Attestation Service</p>
       <code>sepolia.easscan.org</code>
       <a href="https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9" target="_blank">View Attestations ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- Real Protocol Audits -->
+<section class="section" id="protocols">
+  <h2 class="fade-in">Real Protocol Audits</h2>
+  <div class="content fade-in">
+    <p>Tested against production code with real-world vulnerabilities. Both protocols suffered multi-million dollar exploits in 2023.</p>
+  </div>
+  <div class="protocol-grid stagger" style="margin-top: 40px;">
+    <div class="protocol-card fade-in" style="--i:0">
+      <div class="loss">$70M LOSS</div>
+      <h3>Curve V2 Pool</h3>
+      <div class="type">AMM / Liquidity Pool</div>
+      <div class="vuln">Vulnerability: <span>Read-Only Reentrancy</span></div>
+      <div class="vuln">Root Cause: LP tokens minted before reserves updated — <span>getVirtualPrice()</span> returns stale value during callback</div>
+      <div class="findings">
+        Agent findings: Reentrancy in addLiquidity() / removeLiquidity(), stale oracle price during state transition, cross-protocol price manipulation vector
+      </div>
+      <div class="year">2023</div>
+    </div>
+    <div class="protocol-card fade-in" style="--i:1">
+      <div class="loss">$7M LOSS</div>
+      <h3>Hundred Finance</h3>
+      <div class="type">Lending Protocol (Compound Fork)</div>
+      <div class="vuln">Vulnerability: <span>Reentrancy + Oracle Manipulation</span></div>
+      <div class="vuln">Root Cause: cToken.redeem() external call before collateralization check + spot price oracle flash-loan vulnerable</div>
+      <div class="findings">
+        Agent findings: Reentrancy in CToken.redeem(), spot price manipulation via flash loan, cross-market liquidation risk
+      </div>
+      <div class="year">2023</div>
     </div>
   </div>
 </section>
