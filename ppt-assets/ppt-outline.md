@@ -109,7 +109,7 @@ Slide 8 — Agent 铸造：Seed-based Generative NFT 证书
 标题：Agent 的经济产出
 素材：frontend/images/nft-s-tier.png (S 级 NFT 特写)
       frontend/images/nft-all-tiers.png (四级对比)
-      frontend/images/nft-preview.png (人形战士设计)
+
 
 uPEG 启发 Seed-based Generative 雅典娜：
 - uint256 18-bit seed → 9 traits x 2 bits → 4^9 = 262,144 种组合
@@ -200,4 +200,3 @@ Roadmap：
 | 品牌头像 | `frontend/images/avatar.png` | 希腊战士 Athena |
 | S 级 NFT | `frontend/images/nft-s-tier.png` | S-TIER 特写 |
 | NFT 全览 | `frontend/images/nft-all-tiers.png` | 四级对比 |
-| NFT 设计 | `frontend/images/nft-preview.png` | 人形战士基础设计 |
