@@ -12,3 +12,7 @@ via_ir = true
 [profile.default.fuzz]
 runs = 256
 max_test_rejects = 65536
+
+# Exclude real-world contracts (different solc versions)
+[profile.default.ignore]
+paths = ["contracts/real-world/**"]
