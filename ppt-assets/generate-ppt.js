@@ -346,7 +346,7 @@ slide8.addShape(pres.shapes.RECTANGLE, {
   line: { color: COLORS.gold, width: 1 }
 });
 slide8.addText([
-  { text: '12,064', options: { bold: true, fontSize: 20, color: COLORS.gold, breakLine: true } },
+  { text: '262,144', options: { bold: true, fontSize: 20, color: COLORS.gold, breakLine: true } },
   { text: 'Trait 组合', options: { fontSize: 10, color: COLORS.secondary, breakLine: true } },
   { text: '', options: { breakLine: true } },
   { text: 'S/A/B/C 四级', options: { bold: true, fontSize: 12, color: COLORS.primary, breakLine: true } },

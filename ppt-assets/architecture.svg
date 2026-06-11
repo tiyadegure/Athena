@@ -10,7 +10,7 @@
   
   <!-- v7 Tech Layer -->
   <rect x="250" y="270" width="500" height="50" fill="none" stroke="#555555" stroke-width="1" stroke-dasharray="4"/>
-  <text x="500" y="290" text-anchor="middle" fill="#888888" font-size="9">v8: GENERATIVE NFT (12,064) | OPENRARITY IC | SVG CACHE</text>
+  <text x="500" y="290" text-anchor="middle" fill="#888888" font-size="9">v8: GENERATIVE NFT (262,144) | OPENRARITY IC | SVG CACHE</text>
   <text x="500" y="305" text-anchor="middle" fill="#555555" font-size="8">AuditCertificate v4.1 + RarityCalculator + EAS Attestation</text>
   
   <!-- Step 1-4 顶部 -->
