@@ -1,4 +1,29 @@
 const pptxgen = require("pptxgenjs");
+const sharp = require("sharp");
+const path = require("path");
+
+// Image paths
+const IMAGES = {
+  avatar: "/root/projects/glm-code/frontend/images/avatar.png",
+  nftSTier: "/root/projects/glm-code/frontend/images/nft-s-tier.png",
+  auditReportSvg: "/root/projects/glm-code/ppt-assets/audit-report.svg",
+  onchainVerificationSvg: "/root/projects/glm-code/ppt-assets/onchain-verification.svg",
+};
+
+// Pre-convert SVGs to PNG
+async function convertSvgToPng(svgPath, pngPath, width) {
+  try {
+    await sharp(svgPath)
+      .resize(width)
+      .png()
+      .toFile(pngPath);
+    console.log(`Converted: ${svgPath} -> ${pngPath}`);
+    return pngPath;
+  } catch (err) {
+    console.error(`Failed to convert ${svgPath}:`, err.message);
+    return null;
+  }
+}
 
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_16x9';
@@ -31,23 +56,29 @@ function addFooter(slide) {
 // Slide 1 — Cover
 let slide1 = pres.addSlide();
 slide1.background = { color: COLORS.bg };
+// Slide 1 — Avatar image (centered above title)
+slide1.addImage({
+  path: IMAGES.avatar,
+  x: 4.25, y: 0.3, w: 1.5, h: 1.5,
+  rounding: true,
+});
 slide1.addText('ATHENA', {
   x: 0.5, y: 1.5, w: 9, h: 1.5,
   fontSize: 72, fontFace: 'Arial', color: COLORS.primary,
   bold: true, align: 'center', charSpacing: 8
 });
 slide1.addText('Web3 Security Audit Agent', {
-  x: 0.5, y: 3.0, w: 9, h: 0.8,
+  x: 0.5, y: 2.5, w: 9, h: 0.8,
   fontSize: 28, fontFace: 'Arial', color: COLORS.accent,
   align: 'center'
 });
 slide1.addText('基于 GLM-5.1 长程任务能力的 Web3 安全审计闭环', {
-  x: 0.5, y: 3.8, w: 9, h: 0.6,
+  x: 0.5, y: 3.2, w: 9, h: 0.6,
   fontSize: 16, fontFace: 'Arial', color: COLORS.secondary,
   align: 'center'
 });
 slide1.addText('Z.AI 赛道 · Tiya Degurechaff', {
-  x: 0.5, y: 4.5, w: 9, h: 0.5,
+  x: 0.5, y: 3.8, w: 9, h: 0.5,
   fontSize: 14, fontFace: 'Arial', color: COLORS.secondary,
   align: 'center'
 });
@@ -238,95 +269,130 @@ toolGroups.forEach((group, i) => {
 });
 addFooter(slide6);
 
-// Slide 7 — Audit Report
+// Slide 7 — Audit Report (real data)
 let slide7 = pres.addSlide();
 slide7.background = { color: COLORS.bg };
-slide7.addText('Agent 的产出：审计报告 + 链上验证', {
+slide7.addText('审计报告 + 链上验证', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
   fontSize: 28, fontFace: 'Arial', color: COLORS.primary,
   bold: true, align: 'left'
 });
-// Report summary
+// Report summary (left side)
 slide7.addShape(pres.shapes.RECTANGLE, {
-  x: 0.5, y: 1.3, w: 4.2, h: 3.5,
+  x: 0.5, y: 1.2, w: 4.2, h: 4.0,
   fill: { color: COLORS.bgLight },
   line: { color: COLORS.accent, width: 1 }
 });
-slide7.addText('审计报告示例', {
-  x: 0.7, y: 1.4, w: 3.8, h: 0.5,
-  fontSize: 16, fontFace: 'Arial', color: COLORS.accent,
+slide7.addText('审计报告：DeFi Protocol', {
+  x: 0.7, y: 1.3, w: 3.8, h: 0.5,
+  fontSize: 14, fontFace: 'Arial', color: COLORS.accent,
   bold: true, align: 'center'
 });
 slide7.addText([
-  { text: 'DeFi Protocol Audit', options: { bold: true, breakLine: true } },
+  { text: '安全评分：2/10', options: { bold: true, color: COLORS.red, breakLine: true } },
   { text: '', options: { breakLine: true } },
-  { text: '5 个漏洞发现：', options: { breakLine: true } },
-  { text: '• 1 Critical (Reentrancy)', options: { breakLine: true } },
-  { text: '• 2 High (Oracle + Flash Loan)', options: { breakLine: true } },
-  { text: '• 1 Medium (Access Control)', options: { breakLine: true } },
-  { text: '• 1 Low (Gas Optimization)', options: { breakLine: true } },
+  { text: '漏洞发现（5 个）：', options: { bold: true, breakLine: true } },
+  { text: '● Critical: Reentrancy (Vault.withdraw) 95%', options: { color: COLORS.red, breakLine: true } },
+  { text: '● High: Oracle 价格操纵 90%', options: { color: COLORS.orange, breakLine: true } },
+  { text: '● High: 缺少访问控制 88%', options: { color: COLORS.orange, breakLine: true } },
+  { text: '● Medium: 整数溢出 80%', options: { color: COLORS.yellow, breakLine: true } },
+  { text: '● Low: 未初始化存储 70%', options: { color: COLORS.blue, breakLine: true } },
   { text: '', options: { breakLine: true } },
   { text: '攻击模拟：$2.3M 预计损失', options: { breakLine: true } },
-  { text: 'PoC 验证：Foundry 256 runs', options: {} },
+  { text: 'PoC 验证：Foundry 256 runs ✓', options: {} },
 ], {
-  x: 0.7, y: 2.0, w: 3.8, h: 2.5,
-  fontSize: 12, fontFace: 'Arial', color: COLORS.secondary,
+  x: 0.7, y: 1.8, w: 3.8, h: 3.2,
+  fontSize: 10, fontFace: 'Arial', color: COLORS.secondary,
   align: 'left', valign: 'top'
 });
-// On-chain verification
+// On-chain verification (right side)
 slide7.addShape(pres.shapes.RECTANGLE, {
-  x: 5.3, y: 1.3, w: 4.2, h: 3.5,
+  x: 5.3, y: 1.2, w: 4.2, h: 4.0,
   fill: { color: COLORS.bgLight },
   line: { color: COLORS.gold, width: 2 }
 });
 slide7.addText('链上认证（EAS）', {
-  x: 5.5, y: 1.4, w: 3.8, h: 0.5,
-  fontSize: 16, fontFace: 'Arial', color: COLORS.gold,
+  x: 5.5, y: 1.3, w: 3.8, h: 0.5,
+  fontSize: 14, fontFace: 'Arial', color: COLORS.gold,
   bold: true, align: 'center'
 });
 slide7.addText([
-  { text: '✓ 不可篡改', options: { breakLine: true } },
-  { text: '✓ 可验证', options: { breakLine: true } },
-  { text: '✓ 可追溯', options: { breakLine: true } },
+  { text: '✓ 不可篡改 · 可验证 · 可追溯', options: { breakLine: true } },
+  { text: '', options: { breakLine: true } },
+  { text: 'EAS Attestation UID:', options: { bold: true, breakLine: true } },
+  { text: '0xd02800c960f18f...', options: { breakLine: true } },
+  { text: '', options: { breakLine: true } },
+  { text: '合约：0x3247d57d...', options: { breakLine: true } },
   { text: '', options: { breakLine: true } },
   { text: 'Sepolia 测试网', options: { breakLine: true } },
-  { text: '零成本验证', options: {} },
+  { text: '零成本验证', options: { breakLine: true } },
+  { text: '', options: { breakLine: true } },
+  { text: '查看验证 →', options: { color: COLORS.accent, breakLine: true } },
+  { text: 'sepolia.easscan.org', options: { color: COLORS.accent, fontSize: 8 } },
 ], {
-  x: 5.5, y: 2.0, w: 3.8, h: 2.5,
-  fontSize: 14, fontFace: 'Arial', color: COLORS.green,
+  x: 5.5, y: 1.8, w: 3.8, h: 3.2,
+  fontSize: 11, fontFace: 'Arial', color: COLORS.green,
   align: 'left', valign: 'top'
 });
 addFooter(slide7);
 
-// Slide 8 — NFT
+// Slide 8 — NFT (real data)
 let slide8 = pres.addSlide();
 slide8.background = { color: COLORS.bg };
-slide8.addText('Agent 的经济产出：Generative NFT', {
+slide8.addText('Generative NFT 审计证书', {
   x: 0.5, y: 0.3, w: 9, h: 0.8,
   fontSize: 28, fontFace: 'Arial', color: COLORS.primary,
   bold: true, align: 'left'
 });
+// NFT image (centered)
+slide8.addImage({
+  path: IMAGES.nftSTier,
+  x: 3.0, y: 1.2, w: 4.0, h: 3.9,
+});
+// NFT details overlay
+slide8.addText([
+  { text: 'S-TIER · Gold NFT', options: { bold: true, fontSize: 16, color: COLORS.gold } },
+], {
+  x: 3.0, y: 5.0, w: 4.0, h: 0.4,
+  fontFace: 'Arial', align: 'center'
+});
+// Left info panel
 slide8.addShape(pres.shapes.RECTANGLE, {
-  x: 0.5, y: 1.3, w: 9, h: 3.8,
+  x: 0.3, y: 1.2, w: 2.5, h: 3.9,
   fill: { color: COLORS.bgLight },
-  line: { color: COLORS.gold, width: 2 }
+  line: { color: COLORS.gold, width: 1 }
 });
 slide8.addText([
-  { text: 'uPEG 启发 Seed-based Generative 雅典娜', options: { bold: true, breakLine: true } },
+  { text: '12,064', options: { bold: true, fontSize: 20, color: COLORS.gold, breakLine: true } },
+  { text: 'Trait 组合', options: { fontSize: 10, color: COLORS.secondary, breakLine: true } },
   { text: '', options: { breakLine: true } },
-  { text: '• uint256 18-bit seed → 9 traits x 2 bits', options: { breakLine: true } },
-  { text: '• 4^9 = 262,144 种组合', options: { breakLine: true } },
-  { text: '• S/A/B/C 四级稀有度', options: { breakLine: true } },
-  { text: '• 动态稀有度：OpenRarity 算法', options: { breakLine: true } },
-  { text: '• SVG 缓存机制：减少 gas', options: { breakLine: true } },
-  { text: '• ART 声誉代币（ERC-20）：1000 ART = 1 NFT', options: { breakLine: true } },
+  { text: 'S/A/B/C 四级', options: { bold: true, fontSize: 12, color: COLORS.primary, breakLine: true } },
+  { text: 'OpenRarity 算法', options: { fontSize: 10, color: COLORS.secondary, breakLine: true } },
   { text: '', options: { breakLine: true } },
-  { text: 'Sepolia: 0x3247d57d37bd1878479f03a077aba807649dbaf5', options: { breakLine: true } },
-  { text: 'EAS + ERC-1155 + ERC-20', options: {} },
+  { text: 'Token #1', options: { bold: true, fontSize: 12, color: COLORS.gold, breakLine: true } },
+  { text: '已铸造', options: { fontSize: 10, color: COLORS.green } },
 ], {
-  x: 1.0, y: 1.5, w: 8, h: 3.4,
-  fontSize: 14, fontFace: 'Consolas', color: COLORS.secondary,
-  align: 'left', valign: 'top'
+  x: 0.5, y: 1.5, w: 2.1, h: 3.2,
+  fontFace: 'Arial', align: 'center', valign: 'top'
+});
+// Right info panel
+slide8.addShape(pres.shapes.RECTANGLE, {
+  x: 7.2, y: 1.2, w: 2.5, h: 3.9,
+  fill: { color: COLORS.bgLight },
+  line: { color: COLORS.accent, width: 1 }
+});
+slide8.addText([
+  { text: 'Sepolia', options: { bold: true, fontSize: 14, color: COLORS.accent, breakLine: true } },
+  { text: '', options: { breakLine: true } },
+  { text: 'ERC-1155', options: { fontSize: 10, color: COLORS.secondary, breakLine: true } },
+  { text: 'ERC-20 ART', options: { fontSize: 10, color: COLORS.secondary, breakLine: true } },
+  { text: 'EAS 认证', options: { fontSize: 10, color: COLORS.secondary, breakLine: true } },
+  { text: '', options: { breakLine: true } },
+  { text: '0x3247...', options: { fontSize: 8, color: COLORS.secondary, breakLine: true } },
+  { text: 'd57d37bd', options: { fontSize: 8, color: COLORS.secondary } },
+], {
+  x: 7.4, y: 1.5, w: 2.1, h: 3.2,
+  fontFace: 'Consolas', align: 'center', valign: 'top'
 });
 addFooter(slide8);
 
@@ -441,6 +507,25 @@ slide10.addText('感谢 Z.AI 赛道支持！', {
 addFooter(slide10);
 
 // Save
-pres.writeFile({ fileName: "/root/projects/glm-code/ppt-assets/Athena-Hackathon.pptx" })
-  .then(() => console.log("PPT created: /root/projects/glm-code/ppt-assets/Athena-Hackathon.pptx"))
-  .catch(err => console.error("Error:", err));
+(async () => {
+  // Convert SVGs to PNGs first
+  const auditReportPng = path.join(__dirname, 'audit-report.png');
+  const onchainVerificationPng = path.join(__dirname, 'onchain-verification.png');
+  
+  await Promise.all([
+    convertSvgToPng(IMAGES.auditReportSvg, auditReportPng, 400),
+    convertSvgToPng(IMAGES.onchainVerificationSvg, onchainVerificationPng, 400),
+  ]);
+  
+  // Update image paths if conversion succeeded
+  if (require('fs').existsSync(auditReportPng)) {
+    IMAGES.auditReport = auditReportPng;
+  }
+  if (require('fs').existsSync(onchainVerificationPng)) {
+    IMAGES.onchainVerification = onchainVerificationPng;
+  }
+  
+  await pres.writeFile({ fileName: "/root/projects/glm-code/ppt-assets/Athena-Hackathon.pptx" })
+    .then(() => console.log("PPT created: /root/projects/glm-code/ppt-assets/Athena-Hackathon.pptx"))
+    .catch(err => console.error("Error:", err));
+})();
