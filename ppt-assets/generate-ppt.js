@@ -8,6 +8,9 @@ const IMAGES = {
   nftSTier: "/root/projects/glm-code/frontend/images/nft-s-tier.png",
   auditReportSvg: "/root/projects/glm-code/ppt-assets/audit-report.svg",
   onchainVerificationSvg: "/root/projects/glm-code/ppt-assets/onchain-verification.svg",
+  architectureSvg: "/root/projects/glm-code/ppt-assets/architecture.svg",
+  skillAgentsSvg: "/root/projects/glm-code/ppt-assets/skill-agents.svg",
+  mcpToolsSvg: "/root/projects/glm-code/ppt-assets/mcp-tools.svg",
 };
 
 // Pre-convert SVGs to PNG
@@ -53,8 +56,43 @@ function addFooter(slide) {
   });
 }
 
-// Slide 1 — Cover
-let slide1 = pres.addSlide();
+(async () => {
+  // Convert SVGs to PNGs first
+  const auditReportPng = path.join(__dirname, 'audit-report.png');
+  const onchainVerificationPng = path.join(__dirname, 'onchain-verification.png');
+  const architecturePng = path.join(__dirname, 'architecture.png');
+  const skillAgentsPng = path.join(__dirname, 'skill-agents.png');
+  const mcpToolsPng = path.join(__dirname, 'mcp-tools.png');
+  
+  await Promise.all([
+    convertSvgToPng(IMAGES.auditReportSvg, auditReportPng, 400),
+    convertSvgToPng(IMAGES.onchainVerificationSvg, onchainVerificationPng, 400),
+    convertSvgToPng(IMAGES.architectureSvg, architecturePng, 1600),
+    convertSvgToPng(IMAGES.skillAgentsSvg, skillAgentsPng, 1600),
+    convertSvgToPng(IMAGES.mcpToolsSvg, mcpToolsPng, 1600),
+  ]);
+  
+  // Update image paths if conversion succeeded
+  if (require('fs').existsSync(auditReportPng)) {
+    IMAGES.auditReport = auditReportPng;
+  }
+  if (require('fs').existsSync(onchainVerificationPng)) {
+    IMAGES.onchainVerification = onchainVerificationPng;
+  }
+  if (require('fs').existsSync(architecturePng)) {
+    IMAGES.architecture = architecturePng;
+  }
+  if (require('fs').existsSync(skillAgentsPng)) {
+    IMAGES.skillAgents = skillAgentsPng;
+  }
+  if (require('fs').existsSync(mcpToolsPng)) {
+    IMAGES.mcpTools = mcpToolsPng;
+  }
+
+  // --- Slides (created AFTER SVG→PNG conversion) ---
+
+  // Slide 1 — Cover
+  let slide1 = pres.addSlide();
 slide1.background = { color: COLORS.bg };
 // Slide 1 — Avatar image (centered above title)
 slide1.addImage({
@@ -177,16 +215,10 @@ slide4.addText('8 步审计闭环架构', {
   fontSize: 32, fontFace: 'Arial', color: COLORS.primary,
   bold: true, align: 'left'
 });
-// Architecture diagram placeholder
-slide4.addShape(pres.shapes.RECTANGLE, {
+// Architecture diagram image
+slide4.addImage({
+  path: IMAGES.architecture,
   x: 0.5, y: 1.2, w: 9, h: 3.8,
-  fill: { color: COLORS.bgLight },
-  line: { color: COLORS.accent, width: 1 }
-});
-slide4.addText('GLM-5.1 推理引擎（中央协调）\n↓\n12 Agent 审计 Skill（并行执行）\n↓\n13 MCP 工具（链上+链下）\n↓\nSepolia 测试网（零成本验证）', {
-  x: 1.0, y: 1.5, w: 8, h: 3.2,
-  fontSize: 16, fontFace: 'Consolas', color: COLORS.primary,
-  align: 'center', valign: 'middle'
 });
 addFooter(slide4);
 
@@ -198,37 +230,10 @@ slide5.addText('12 Agent 审计 Skill', {
   fontSize: 32, fontFace: 'Arial', color: COLORS.primary,
   bold: true, align: 'left'
 });
-// 3 columns
-const agentGroups = [
-  { title: '基础分析', agents: ['Scope', 'Architecture', 'Access Control', 'Math'] },
-  { title: '漏洞猎手', agents: ['Reentrancy', 'Oracle', 'Flash Loan', 'Logic'] },
-  { title: '辅助/输出', agents: ['Gas', 'Frontend', 'PoC', 'Report'] },
-];
-agentGroups.forEach((group, i) => {
-  const x = 0.5 + i * 3.1;
-  slide5.addShape(pres.shapes.RECTANGLE, {
-    x: x, y: 1.3, w: 2.8, h: 3.5,
-    fill: { color: COLORS.bgLight },
-    line: { color: COLORS.accent, width: 1 }
-  });
-  slide5.addText(group.title, {
-    x: x + 0.1, y: 1.4, w: 2.6, h: 0.5,
-    fontSize: 14, fontFace: 'Arial', color: COLORS.accent,
-    bold: true, align: 'center'
-  });
-  slide5.addText(group.agents.map((a, j) => ({
-    text: `• ${a}`,
-    options: { breakLine: j < group.agents.length - 1 }
-  })), {
-    x: x + 0.2, y: 2.0, w: 2.4, h: 2.5,
-    fontSize: 12, fontFace: 'Arial', color: COLORS.secondary,
-    align: 'left', valign: 'top'
-  });
-});
-slide5.addText('10 轮检查流程，GLM-5.1 协调', {
-  x: 0.5, y: 4.9, w: 9, h: 0.4,
-  fontSize: 12, fontFace: 'Arial', color: COLORS.secondary,
-  align: 'center'
+// 12 Agents diagram image
+slide5.addImage({
+  path: IMAGES.skillAgents,
+  x: 0.5, y: 1.2, w: 9, h: 3.8,
 });
 addFooter(slide5);
 
@@ -240,32 +245,10 @@ slide6.addText('13 MCP 工具', {
   fontSize: 32, fontFace: 'Arial', color: COLORS.primary,
   bold: true, align: 'left'
 });
-const toolGroups = [
-  { title: '静态分析', tools: ['Slither', 'Aderyn', 'Halmos'] },
-  { title: '攻击模拟', tools: ['PoC Generator', 'Exploit Simulator', 'Fuzz Runner'] },
-  { title: '链上操作', tools: ['EAS Attest', 'Evidence Chain'] },
-  { title: '高级功能', tools: ['Protocol Scanner', 'Repair Validator', 'Incremental Auditor', 'GEV Analyzer', 'Knowledge Base'] },
-];
-toolGroups.forEach((group, i) => {
-  const x = 0.5 + i * 2.35;
-  slide6.addShape(pres.shapes.RECTANGLE, {
-    x: x, y: 1.3, w: 2.15, h: 3.5,
-    fill: { color: COLORS.bgLight },
-    line: { color: COLORS.accent, width: 1 }
-  });
-  slide6.addText(group.title, {
-    x: x + 0.1, y: 1.4, w: 1.95, h: 0.5,
-    fontSize: 12, fontFace: 'Arial', color: COLORS.accent,
-    bold: true, align: 'center'
-  });
-  slide6.addText(group.tools.map((t, j) => ({
-    text: `• ${t}`,
-    options: { breakLine: j < group.tools.length - 1 }
-  })), {
-    x: x + 0.1, y: 2.0, w: 1.95, h: 2.5,
-    fontSize: 10, fontFace: 'Arial', color: COLORS.secondary,
-    align: 'left', valign: 'top'
-  });
+// 13 MCP Tools diagram image
+slide6.addImage({
+  path: IMAGES.mcpTools,
+  x: 0.5, y: 1.2, w: 9, h: 3.8,
 });
 addFooter(slide6);
 
@@ -506,25 +489,6 @@ slide10.addText('感谢 Z.AI 赛道支持！', {
 });
 addFooter(slide10);
 
-// Save
-(async () => {
-  // Convert SVGs to PNGs first
-  const auditReportPng = path.join(__dirname, 'audit-report.png');
-  const onchainVerificationPng = path.join(__dirname, 'onchain-verification.png');
-  
-  await Promise.all([
-    convertSvgToPng(IMAGES.auditReportSvg, auditReportPng, 400),
-    convertSvgToPng(IMAGES.onchainVerificationSvg, onchainVerificationPng, 400),
-  ]);
-  
-  // Update image paths if conversion succeeded
-  if (require('fs').existsSync(auditReportPng)) {
-    IMAGES.auditReport = auditReportPng;
-  }
-  if (require('fs').existsSync(onchainVerificationPng)) {
-    IMAGES.onchainVerification = onchainVerificationPng;
-  }
-  
   await pres.writeFile({ fileName: "/root/projects/glm-code/ppt-assets/Athena-Hackathon.pptx" })
     .then(() => console.log("PPT created: /root/projects/glm-code/ppt-assets/Athena-Hackathon.pptx"))
     .catch(err => console.error("Error:", err));
