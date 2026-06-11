@@ -8,72 +8,98 @@
   <rect x="350" y="200" width="300" height="50" fill="none" stroke="#ffffff" stroke-width="1"/>
   <text x="500" y="230" text-anchor="middle" fill="#ffffff" font-size="14">GLM-5.1 REASONING ENGINE</text>
   
-  <!-- v7 Tech Layer -->
+  <!-- v8 Tech Layer -->
   <rect x="250" y="270" width="500" height="50" fill="none" stroke="#555555" stroke-width="1" stroke-dasharray="4"/>
   <text x="500" y="290" text-anchor="middle" fill="#888888" font-size="9">v8: GENERATIVE NFT (262,144) | OPENRARITY IC | SVG CACHE</text>
   <text x="500" y="305" text-anchor="middle" fill="#555555" font-size="8">AuditCertificate v4.1 + RarityCalculator + EAS Attestation</text>
   
   <!-- Step 1-4 顶部 -->
   <rect x="50" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="115" y="102" text-anchor="middle" fill="#ffffff" font-size="9">1. CONTRACT ANALYSIS</text>
+  <text x="115" y="102" text-anchor="middle" fill="#ffffff" font-size="9">1. 需求理解</text>
   
   <rect x="200" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="265" y="102" text-anchor="middle" fill="#ffffff" font-size="9">2. VULN DETECTION</text>
+  <text x="265" y="102" text-anchor="middle" fill="#ffffff" font-size="9">2. 双引擎扫描</text>
   
   <rect x="350" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="415" y="102" text-anchor="middle" fill="#ffffff" font-size="9">3. PoC GENERATION</text>
+  <text x="415" y="102" text-anchor="middle" fill="#ffffff" font-size="9">3. RAG 知识增强</text>
   
   <rect x="500" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="565" y="102" text-anchor="middle" fill="#ffffff" font-size="9">4. EXPLOIT SIMULATION</text>
+  <text x="565" y="102" text-anchor="middle" fill="#ffffff" font-size="9">4. PoC 生成</text>
   
   <rect x="650" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="715" y="102" text-anchor="middle" fill="#ffffff" font-size="9">5. REPAIR VALIDATION</text>
+  <text x="715" y="102" text-anchor="middle" fill="#ffffff" font-size="9">5. Fuzz 验证</text>
   
-  <rect x="800" y="80" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="865" y="102" text-anchor="middle" fill="#ffffff" font-size="9">6. REPORT GENERATION</text>
+  <!-- Step 5-8 底部 -->
+  <rect x="50" y="140" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="115" y="162" text-anchor="middle" fill="#ffffff" font-size="9">6. 修复建议</text>
   
-  <!-- Step 7-8 底部 -->
-  <rect x="600" y="440" width="150" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="675" y="458" text-anchor="middle" fill="#ffffff" font-size="9">7. EAS ATTESTATION</text>
-  <text x="675" y="468" text-anchor="middle" fill="#555555" font-size="7">OpenRarity IC → S/A/B/C</text>
+  <rect x="200" y="140" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="265" y="162" text-anchor="middle" fill="#ffffff" font-size="9">7. EAS 上链认证</text>
   
-  <rect x="780" y="440" width="150" height="35" fill="none" stroke="#666666" stroke-width="1"/>
-  <text x="855" y="458" text-anchor="middle" fill="#ffffff" font-size="9">8. NFT CERTIFICATE</text>
+  <rect x="350" y="140" width="130" height="35" fill="none" stroke="#666666" stroke-width="1"/>
+  <text x="415" y="162" text-anchor="middle" fill="#ffffff" font-size="9">8. NFT 铸造</text>
   
-  <!-- MCP 工具层 -->
-  <rect x="50" y="440" width="230" height="55" fill="none" stroke="#ffffff" stroke-width="1"/>
-  <text x="165" y="465" text-anchor="middle" fill="#ffffff" font-size="11">MCP TOOLS (13)</text>
-  <text x="165" y="480" text-anchor="middle" fill="#666666" font-size="8">scanner | auditor | evidence | repair</text>
+  <!-- 左侧技术栈 -->
+  <rect x="50" y="350" width="200" height="200" fill="none" stroke="#333333" stroke-width="1"/>
+  <text x="150" y="380" text-anchor="middle" fill="#888888" font-size="11">SKILL (12 AGENTS)</text>
+  <text x="150" y="400" text-anchor="middle" fill="#666666" font-size="9">scope · architecture · access_control</text>
+  <text x="150" y="415" text-anchor="middle" fill="#666666" font-size="9">math · reentrancy · oracle</text>
+  <text x="150" y="430" text-anchor="middle" fill="#666666" font-size="9">flash_loan · logic · gas</text>
+  <text x="150" y="445" text-anchor="middle" fill="#666666" font-size="9">frontend · poc · report</text>
+  <text x="150" y="470" text-anchor="middle" fill="#555555" font-size="8">10 ROUND CHECKS | PARALLEL</text>
   
-  <!-- Skill 层 -->
-  <rect x="310" y="440" width="260" height="55" fill="none" stroke="#ffffff" stroke-width="1"/>
-  <text x="440" y="465" text-anchor="middle" fill="#ffffff" font-size="11">AUDIT SKILL (12 AGENTS)</text>
-  <text x="440" y="480" text-anchor="middle" fill="#666666" font-size="8">reentrancy | overflow | access | logic</text>
+  <!-- 中间 MCP 工具 -->
+  <rect x="280" y="350" width="440" height="200" fill="none" stroke="#333333" stroke-width="1"/>
+  <text x="500" y="380" text-anchor="middle" fill="#888888" font-size="11">MCP TOOLS (13)</text>
   
-  <!-- v7 Contract Layer -->
-  <rect x="50" y="530" width="900" height="40" fill="none" stroke="#444444" stroke-width="1"/>
-  <text x="500" y="550" text-anchor="middle" fill="#888888" font-size="9">ON-CHAIN: AuditCertificate v4.1 (ERC-1155) + RarityCalculator + EAS Attestation</text>
-  <text x="500" y="565" text-anchor="middle" fill="#555555" font-size="8">Sepolia: 0x4F541D6f6249deAE5cDa2B00625d6933E4943b3c | 30/30 Tests Pass | 13.3KB Bytecode</text>
+  <!-- 静态分析 -->
+  <rect x="290" y="390" width="100" height="80" fill="none" stroke="#444444" stroke-width="1"/>
+  <text x="340" y="410" text-anchor="middle" fill="#666666" font-size="9">STATIC</text>
+  <text x="340" y="425" text-anchor="middle" fill="#555555" font-size="8">slither</text>
+  <text x="340" y="440" text-anchor="middle" fill="#555555" font-size="8">aderyn</text>
+  <text x="340" y="455" text-anchor="middle" fill="#555555" font-size="8">halmos</text>
+  
+  <!-- 攻击模拟 -->
+  <rect x="400" y="390" width="100" height="80" fill="none" stroke="#444444" stroke-width="1"/>
+  <text x="450" y="410" text-anchor="middle" fill="#666666" font-size="9">ATTACK</text>
+  <text x="450" y="425" text-anchor="middle" fill="#555555" font-size="8">poc_gen</text>
+  <text x="450" y="440" text-anchor="middle" fill="#555555" font-size="8">exploit_sim</text>
+  <text x="450" y="455" text-anchor="middle" fill="#555555" font-size="8">fuzz_runner</text>
+  
+  <!-- 链上操作 -->
+  <rect x="510" y="390" width="100" height="80" fill="none" stroke="#444444" stroke-width="1"/>
+  <text x="560" y="410" text-anchor="middle" fill="#666666" font-size="9">ON-CHAIN</text>
+  <text x="560" y="425" text-anchor="middle" fill="#555555" font-size="8">eas_attest</text>
+  <text x="560" y="440" text-anchor="middle" fill="#555555" font-size="8">evidence_chain</text>
+  
+  <!-- 高级功能 -->
+  <rect x="620" y="390" width="100" height="80" fill="none" stroke="#444444" stroke-width="1"/>
+  <text x="670" y="410" text-anchor="middle" fill="#666666" font-size="9">ADVANCED</text>
+  <text x="670" y="425" text-anchor="middle" fill="#555555" font-size="8">protocol_scan</text>
+  <text x="670" y="440" text-anchor="middle" fill="#555555" font-size="8">repair_valid</text>
+  <text x="670" y="455" text-anchor="middle" fill="#555555" font-size="8">incremental</text>
+  <text x="670" y="470" text-anchor="middle" fill="#555555" font-size="8">gev_analyzer</text>
+  
+  <text x="500" y="500" text-anchor="middle" fill="#555555" font-size="8">knowledge_base (ChromaDB RAG)</text>
+  
+  <!-- 右侧链上产物 -->
+  <rect x="750" y="350" width="200" height="200" fill="none" stroke="#333333" stroke-width="1"/>
+  <text x="850" y="380" text-anchor="middle" fill="#888888" font-size="11">ON-CHAIN (SEPOLIA)</text>
+  <text x="850" y="400" text-anchor="middle" fill="#666666" font-size="9">AuditCertificate</text>
+  <text x="850" y="415" text-anchor="middle" fill="#555555" font-size="8">0x3247d57d...dbaf5</text>
+  <text x="850" y="440" text-anchor="middle" fill="#666666" font-size="9">EAS Attestation</text>
+  <text x="850" y="455" text-anchor="middle" fill="#555555" font-size="8">0xd02800c9...958b9</text>
+  <text x="850" y="480" text-anchor="middle" fill="#666666" font-size="9">NFT (ERC-1155)</text>
+  <text x="850" y="495" text-anchor="middle" fill="#555555" font-size="8">S/A/B/C 262,144 combinations</text>
+  <text x="850" y="520" text-anchor="middle" fill="#555555" font-size="8">30/30 TESTS | GOLD MINTED</text>
   
   <!-- 连接线 -->
-  <line x1="115" y1="115" x2="415" y2="200" stroke="#333333" stroke-width="1"/>
-  <line x1="265" y1="115" x2="450" y2="200" stroke="#333333" stroke-width="1"/>
-  <line x1="415" y1="115" x2="500" y2="200" stroke="#333333" stroke-width="1"/>
-  <line x1="565" y1="115" x2="550" y2="200" stroke="#333333" stroke-width="1"/>
-  <line x1="715" y1="115" x2="590" y2="200" stroke="#333333" stroke-width="1"/>
-  <line x1="865" y1="115" x2="620" y2="200" stroke="#333333" stroke-width="1"/>
+  <line x1="115" y1="115" x2="115" y2="140" stroke="#444444" stroke-width="1"/>
+  <line x1="265" y1="115" x2="265" y2="140" stroke="#444444" stroke-width="1"/>
+  <line x1="415" y1="115" x2="415" y2="140" stroke="#444444" stroke-width="1"/>
+  <line x1="565" y1="115" x2="565" y2="140" stroke="#444444" stroke-width="1"/>
+  <line x1="715" y1="115" x2="715" y2="140" stroke="#444444" stroke-width="1"/>
   
-  <line x1="500" y1="320" x2="675" y2="440" stroke="#333333" stroke-width="1"/>
-  <line x1="500" y1="320" x2="855" y2="440" stroke="#333333" stroke-width="1"/>
-  <line x1="400" y1="320" x2="165" y2="440" stroke="#333333" stroke-width="1"/>
-  <line x1="500" y1="320" x2="440" y2="440" stroke="#333333" stroke-width="1"/>
-  
-  <!-- Step connections -->
-  <line x1="180" y1="97" x2="200" y2="97" stroke="#666666" stroke-width="1"/>
-  <line x1="330" y1="97" x2="350" y2="97" stroke="#666666" stroke-width="1"/>
-  <line x1="480" y1="97" x2="500" y2="97" stroke="#666666" stroke-width="1"/>
-  <line x1="630" y1="97" x2="650" y2="97" stroke="#666666" stroke-width="1"/>
-  <line x1="780" y1="97" x2="800" y2="97" stroke="#666666" stroke-width="1"/>
-  
-  <line x1="750" y1="458" x2="780" y2="458" stroke="#666666" stroke-width="1"/>
+  <!-- 底部标注 -->
+  <text x="500" y="580" text-anchor="middle" fill="#555555" font-size="10">8 STEPS | 12 AGENTS | 13 MCP TOOLS | GLM-5.1 DRIVEN | SEPOLIA TESTNET</text>
 </svg>

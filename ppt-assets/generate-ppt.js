@@ -281,8 +281,9 @@ slide7.addText([
   { text: '● Medium: 整数溢出 80%', options: { color: COLORS.yellow, breakLine: true } },
   { text: '● Low: 未初始化存储 70%', options: { color: COLORS.blue, breakLine: true } },
   { text: '', options: { breakLine: true } },
-  { text: '攻击模拟：$2.3M 预计损失', options: { breakLine: true } },
-  { text: 'PoC 验证：Foundry 256 runs ✓', options: {} },
+  { text: 'PoC 验证：2/5 通过 (Foundry)', options: { breakLine: true } },
+  { text: 'Fuzz 测试：256 runs ✓', options: { breakLine: true } },
+  { text: '静态分析：Slither 4 + Aderyn 3 + Halmos 8', options: {} },
 ], {
   x: 0.7, y: 1.8, w: 3.8, h: 3.2,
   fontSize: 10, fontFace: 'Courier New', color: COLORS.secondary,
