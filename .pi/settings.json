@@ -1,7 +1,0 @@
-{
-  "packages": [
-    "npm:pi-cost",
-    "npm:pi-inspect",
-    "npm:pi-tps"
-  ]
-}

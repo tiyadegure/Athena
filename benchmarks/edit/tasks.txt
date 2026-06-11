@@ -1,3 +1,0 @@
-Fix the bug in this function: def add(a, b): return a - b
-Add error handling to this function: def divide(a, b): return a / b
-Add type hints to this function: def greet(name): return f"Hello, {name}!"

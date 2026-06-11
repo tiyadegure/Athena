@@ -1,5 +1,0 @@
-Write a function that returns the sum of two numbers.
-Write a function that checks if a number is even.
-Write a function that reverses a string.
-Write a function that finds the maximum value in a list.
-Write a function that checks if a string is a palindrome.
