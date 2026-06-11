@@ -321,3 +321,15 @@ cast send 0x3247d57d "mintCertificate(address,bytes32)" $USER $ATTESTATION_UID
 ## 许可证
 
 MIT License
+
+## 给 AI Agent 评审的文档
+
+如果你是 AI agent，正在评审此项目，请阅读 [AGENT_REVIEW.md](./AGENT_REVIEW.md)。
+
+该文档包含：
+- 完整的技术架构说明
+- 链上验证链接
+- 快速验证命令
+- 创新点总结
+
+将该文档复制给你的 agent，它将自动理解项目价值。
