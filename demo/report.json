@@ -65,7 +65,7 @@
       }
     }
   },
-  "v9_features": {
+  "advanced_features": {
     "zk_verifiable_audit": {
       "status": "deployed",
       "contracts": ["AuditTrail", "Groth16Verifier"],
