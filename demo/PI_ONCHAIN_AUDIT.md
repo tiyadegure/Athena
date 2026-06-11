@@ -184,7 +184,26 @@ python3 mcp/tools/evidence_chain.py \
 
 ---
 
-### Step 8: 总结 (30秒)
+### Step 8: 生成新的审计报告 (30秒)
+
+```bash
+# 生成新的审计报告（包含这次执行的结果）
+cat > demo/report-new.json << EOF
+{
+  "meta": { "version": "3.0", "auditor": "GLM-5.1 + Athena", "timestamp": "EXECUTION_TIMESTAMP", "pipeline": "8-step with subagent" },
+  "audit_target": { "contract": "Reentrancy.sol", "vulnerability": "Reentrancy", "severity": "CRITICAL" },
+  "subagent_results": { "static_analysis": { "agent": "subagent-1" }, "poc_generation": { "agent": "subagent-2" }, "fuzz_testing": { "agent": "subagent-3" } },
+  "on_chain_operations": { "contract": "NEW_CONTRACT_ADDRESS", "eas_attestation": "NEW_EAS_UID", "nft": "NEW_NFT_TOKEN_ID" }
+}
+EOF
+echo "新审计报告已生成: demo/report-new.json"
+```
+
+**要点**：生成包含这次执行结果的新报告
+
+---
+
+### Step 9: 总结 (30秒)
 
 ```bash
 echo ""
