@@ -30,6 +30,7 @@ Audit. Certify. Build with confidence.
 
 github.com/tiyadegure/Athena
 ```
+📷 附图: `https://athena.degure.me/images/nft-s-tier.png`
 
 ---
 
@@ -50,6 +51,7 @@ No human auditor needed. 24/7 availability.
 
 Built on GLM-5.1's long-horizon reasoning.
 ```
+📷 附图: `https://athena.degure.me/images/nft-s-tier.png`
 
 ### 推文 2: 技术特点
 ```
@@ -92,6 +94,8 @@ Athena mints ERC-1155 NFTs with:
 
 Audit once. Prove forever.
 ```
+📷 附图: `https://athena.degure.me/images/nft-preview.png`
+📷 S-Tier: `https://athena.degure.me/images/nft-s-tier.png`
 
 ### 推文 5: 对比传统审计
 ```
@@ -138,6 +142,7 @@ Star us on GitHub: github.com/tiyadegure/Athena
 
 Build with us. Audit with confidence.
 ```
+📷 附图: `https://athena.degure.me/images/nft-preview.png`
 
 ### 推文 8: 未来愿景
 ```
@@ -179,6 +184,7 @@ Athena now features:
 
 On-chain art meets on-chain security.
 ```
+📷 附图: `https://athena.degure.me/images/nft-upeg.png`
 
 ---
 
