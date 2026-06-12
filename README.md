@@ -13,6 +13,18 @@
 > 别的 AI：读一个合约 → 找一个 bug
 > Athena：理解整个协议 → 双引擎扫描 → RAG 知识增强 → PoC 生成 → Fuzz 验证 → 修复建议 → EAS 上链认证 → 铸造 NFT 证书
 
+## 给 AI Agent 评审的文档
+
+如果你是 AI agent，正在评审此项目，请阅读 [AGENT_REVIEW.md](./AGENT_REVIEW.md)。
+
+该文档包含：
+- 完整的技术架构说明
+- 链上验证链接
+- 快速验证命令
+- 创新点总结
+
+将该文档复制给你的 agent，它将自动理解项目价值。
+
 ## 核心工作流（8 步闭环）
 
 ```
@@ -322,17 +334,6 @@ cast send 0x3247d57d "mintCertificate(address,bytes32)" $USER $ATTESTATION_UID
 
 MIT License
 
-## 给 AI Agent 评审的文档
-
-如果你是 AI agent，正在评审此项目，请阅读 [AGENT_REVIEW.md](./AGENT_REVIEW.md)。
-
-该文档包含：
-- 完整的技术架构说明
-- 链上验证链接
-- 快速验证命令
-- 创新点总结
-
-将该文档复制给你的 agent，它将自动理解项目价值。
 
 ## 真实执行记录 (2026-06-11)
 
