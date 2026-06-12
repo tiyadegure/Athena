@@ -319,15 +319,15 @@ cast send 0x3247d57d "mintCertificate(address,bytes32)" $USER $ATTESTATION_UID
 
 ### 进行中
 
-- [ ] 录制 Demo 视频（终端 + 浏览器 + 链上验证）
-- [ ] GLM-5.1 vs Claude 对比评测（17 个测试合约）
-- [ ] 提交黑客松
+- [x] 录制 Demo 视频（终端 + 浏览器 + 链上验证）
 - [x] 多链部署（Sepolia + Base Sepolia）
+- [ ] GLM-5.1 vs Claude 对比评测（17 个测试合约）
 
-### Roadmap
+### 下一步
 
-- [ ] 真实协议扩展（Euler, Aave, Balancer, SushiSwap）
-- [ ] Agent 市场（AgentEscrow + Marketplace）
+- [ ] 主网部署（Ethereum + Base L2）
+- [ ] Agent 审计市场（AgentEscrow + Marketplace）
+- [ ] 更多协议审计（Aave、Uniswap、Compound）
 - [ ] 隐私审计模式（加密合约 → 审计 → 解锁）
 
 ## 许可证
