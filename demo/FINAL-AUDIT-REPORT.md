@@ -11,7 +11,7 @@
 | 项目 | 链接 |
 |------|------|
 | **新部署合约** | https://sepolia.etherscan.io/address/0x8Ba4Eb12349449a91012c043Ca307BC615350E74 |
-| **新 EAS Attestation** | https://sepolia.easscan.org/attestation/view/0x0000000000000000000000007b5538aad3b048bae0eff2b457c59b8fe98032b8 |
+| **新 EAS Attestation** | https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9 |
 | **新铸造 NFT** | https://sepolia.etherscan.io/tx/917de9a93471273089e49b948a70a0f0f71503598ccdf60d05a7c54c6289dbc0 |
 
 ---
@@ -164,10 +164,10 @@ contract VulnerableBank is ReentrancyGuard {
 | 项目 | 值 |
 |------|-----|
 | **Schema UID** | `0x6d6520d928b6090172a458c2addcd30af1090f5298110e496bb3c9ac3918253e` |
-| **Attestation UID** | `0x0000000000000000000000007b5538aad3b048bae0eff2b457c59b8fe98032b8` |
+| **Attestation UID** | `0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9` |
 | **EAS 合约** | `0xC2679fBD37d54388Ce493F1DB75320D236e1815e` |
 | **网络** | Sepolia Testnet |
-| **验证链接** | [查看 Attestation](https://sepolia.easscan.org/attestation/view/0x0000000000000000000000007b5538aad3b048bae0eff2b457c59b8fe98032b8) |
+| **验证链接** | [查看 Attestation](https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9) |
 
 ---
 
@@ -215,7 +215,7 @@ contract VulnerableBank is ReentrancyGuard {
 ## 🔗 快速验证
 
 1. **查看合约**: https://sepolia.etherscan.io/address/0x8Ba4Eb12349449a91012c043Ca307BC615350E74
-2. **查看 EAS**: https://sepolia.easscan.org/attestation/view/0x0000000000000000000000007b5538aad3b048bae0eff2b457c59b8fe98032b8
+2. **查看 EAS**: https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9
 3. **查看 NFT**: https://sepolia.etherscan.io/tx/917de9a93471273089e49b948a70a0f0f71503598ccdf60d05a7c54c6289dbc0
 
 ---

@@ -373,5 +373,5 @@ Pi (主 agent — 调度者)
 ### 链上操作
 
 - 新部署合约: `0xced6ebd061faac56d926e4a4ec1c8360065ecd39`
-- 新 EAS Attestation: `0x0000000000000000000000007b5538aad3b048bae0eff2b457c59b8fe98032b8`
+- 新 EAS Attestation: `0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9`
 - 新铸造 NFT: `0x917de9a93471273089e49b948a70a0f0f71503598ccdf60d05a7c54c6289dbc0`

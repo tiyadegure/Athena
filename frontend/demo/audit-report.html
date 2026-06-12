@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athena Audit Report — VulnerableBank</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #d4d4d4;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header {
+            border: 1px solid #333;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            color: #00d7ff;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .header .subtitle { color: #888; font-size: 0.9em; }
+        .grade {
+            display: inline-block;
+            font-size: 3em;
+            font-weight: bold;
+            color: #cc6666;
+            border: 3px solid #cc6666;
+            padding: 10px 30px;
+            margin: 20px 0;
+        }
+        .section {
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #00d7ff;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        .finding {
+            background: #1a1a1a;
+            border-left: 3px solid #cc6666;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+        .finding.medium { border-left-color: #f0c674; }
+        .finding.low { border-left-color: #888; }
+        .severity {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 0.8em;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+        .severity.HIGH { background: #cc6666; color: #000; }
+        .severity.MEDIUM { background: #f0c674; color: #000; }
+        .severity.LOW { background: #555; color: #fff; }
+        .severity.INFO { background: #333; color: #888; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .stat {
+            background: #1a1a1a;
+            padding: 15px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+        .stat .value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00d7ff;
+        }
+        .stat .label { color: #888; font-size: 0.8em; }
+        .code {
+            background: #1a1a1a;
+            padding: 15px;
+            border: 1px solid #333;
+            font-family: monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .on-chain {
+            background: #1a2a1a;
+            border: 1px solid #2d5a2d;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .on-chain a { color: #b5bd68; text-decoration: none; }
+        .on-chain a:hover { text-decoration: underline; }
+        .footer {
+            text-align: center;
+            color: #555;
+            margin-top: 40px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ATHENA</h1>
+            <div class="subtitle">Web3 Smart Contract Security Audit Agent</div>
+            <div class="subtitle">Powered by GLM-5.1 Long-Horizon Task</div>
+            <div class="grade">S</div>
+            <div class="subtitle">CRITICAL SEVERITY</div>
+        </div>
+
+        <div class="section">
+            <h2>Target Contract</h2>
+            <div class="stats">
+                <div class="stat">
+                    <div class="value">VulnerableBank</div>
+                    <div class="label">Contract</div>
+                </div>
+                <div class="stat">
+                    <div class="value">34</div>
+                    <div class="label">Lines of Code</div>
+                </div>
+                <div class="stat">
+                    <div class="value">^0.8.0</div>
+                    <div class="label">Compiler</div>
+                </div>
+                <div class="stat">
+                    <div class="value">9.8</div>
+                    <div class="label">CVSS Score</div>
+                </div>
+            </div>
+            <div class="code">Functions: deposit(), withdraw(), getBalance()</div>
+        </div>
+
+        <div class="section">
+            <h2>Step 1: Requirement Understanding</h2>
+            <div class="code">Attack surface: withdraw() function with external call before state update</div>
+            <div style="margin-top: 10px;">Risk factors:</div>
+            <ul>
+                <li>Low-level call usage</li><li>State update after external call</li><li>No reentrancy guard</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Step 2: Dual-Engine Static Analysis</h2>
+            <div class="stats">
+                <div class="stat">
+                    <div class="value">3</div>
+                    <div class="label">Slither Findings</div>
+                </div>
+                <div class="stat">
+                    <div class="value">3</div>
+                    <div class="label">Aderyn Findings</div>
+                </div>
+                <div class="stat">
+                    <div class="value">4</div>
+                    <div class="label">Unique After Dedup</div>
+                </div>
+            </div>
+            <div class="finding">
+                <span class="severity HIGH">HIGH</span> Reentrancy in VulnerableBank.withdraw()
+                <div style="color: #888; margin-top: 5px;">External call before state update at line 20-29</div>
+            </div>
+            <div class="finding medium">
+                <span class="severity MEDIUM">MEDIUM</span> Unchecked return value
+                <div style="color: #888; margin-top: 5px;">Low level call return value not checked</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Step 3: RAG Knowledge Enhancement</h2>
+            <div class="code">SWC-107: Reentrancy</div>
+            <div style="margin-top: 10px;">Historical cases:</div>
+            <ul>
+                <li>TheDAO hack (2016) — $60M drained</li><li>Curve V2 read-only reentrancy (2023) — $70M at risk</li><li>Hundred Finance (2023) — $7M stolen</li>
+            </ul>
+            <div style="margin-top: 10px;">Mitigations:</div>
+            <ul>
+                <li>Checks-Effects-Interactions pattern</li><li>OpenZeppelin ReentrancyGuard</li><li>Pull-over-Push payment pattern</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Step 4: PoC Generation</h2>
+            <div class="code">Attack flow:
+1. Attacker deposits 1 ETH into VulnerableBankchr(10)2. Attacker calls withdraw()chr(10)3. VulnerableBank sends ETH to Attacker via callchr(10)4. Attacker's receive() re-enters withdraw()chr(10)5. Repeat until bank is drained</div>
+            <div style="margin-top: 15px;">Test results:</div>
+            <div class="stats">
+                <div class="stat"><div class="value" style="color: #b5bd68;">✓</div><div class="label">test_reentrancy_drains_bank</div></div><div class="stat"><div class="value" style="color: #b5bd68;">✓</div><div class="label">test_reentrancy_exploit</div></div><div class="stat"><div class="value" style="color: #b5bd68;">✓</div><div class="label">test_full_drain</div></div><div class="stat"><div class="value" style="color: #b5bd68;">✓</div><div class="label">test_attack_counts_reentries</div></div><div class="stat"><div class="value" style="color: #b5bd68;">✓</div><div class="label">testFuzz_reentrancy_steals</div></div><div class="stat"><div class="value" style="color: #b5bd68;">✓</div><div class="label">testFuzz_full_drain</div></div><div class="stat"><div class="value" style="color: #b5bd68;">✓</div><div class="label">testFuzz_varying_bank_balance</div></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Step 5: Fuzz Verification</h2>
+            <div class="stats">
+                <div class="stat">
+                    <div class="value">48</div>
+                    <div class="label">Total Tests</div>
+                </div>
+                <div class="stat">
+                    <div class="value" style="color: #b5bd68;">48</div>
+                    <div class="label">Passed</div>
+                </div>
+                <div class="stat">
+                    <div class="value">256</div>
+                    <div class="label">Fuzz Runs/Test</div>
+                </div>
+                <div class="stat">
+                    <div class="value" style="color: #b5bd68;">True</div>
+                    <div class="label">Attack Success</div>
+                </div>
+            </div>
+            <div class="code">Victim balance: 50 ETH → 0 ETH
+Attacker profit: 11 ETH
+Reentry count: 10</div>
+        </div>
+
+        <div class="section">
+            <h2>Step 7: EAS On-Chain Attestation</h2>
+            <div class="on-chain">
+                <strong>Schema UID:</strong> <a href="https://sepolia.easscan.org/schema/view/0x6d6520d928b6090172a458c2addcd30af1090f5298110e496bb3c9ac3918253e" target="_blank">0x6d6520d9...853e</a><br>
+                <strong>Attestation UID:</strong> <a href="https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9" target="_blank">0x0000...32b8</a><br>
+                <strong>Chain:</strong> Sepolia
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Step 8: NFT Certification</h2>
+            <div class="on-chain">
+                <strong>Contract:</strong> <a href="https://sepolia.etherscan.io/address/0x8Ba4Eb12349449a91012c043Ca307BC615350E74" target="_blank">0x8Ba4Eb...E74</a><br>
+                <strong>Token ID:</strong> 1 (Grade S)<br>
+                <strong>Traits:</strong> 262,144 possible combinations (4^9)<br>
+                <strong>Rendering:</strong> On-chain SVG, generative warrior Athena
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Advanced Contracts</h2>
+            <div class="on-chain">
+                <strong>ZK Proof (Groth16Verifier):</strong> <a href="https://sepolia.etherscan.io/address/0xf0c9ec42fe603a53af3e6248e874bbbb3064e498" target="_blank">0xf0c9...498</a><br>
+                <strong>Agent Escrow V2:</strong> <a href="https://sepolia.etherscan.io/address/0x7102b7252dea80529278c8bffc441b96ff24421e" target="_blank">0x7102...21e</a><br>
+                <strong>ERC-7512 Metadata:</strong> <a href="https://sepolia.etherscan.io/address/0x0dd8f8f5b755912aa3b955044d1eff496a65e657" target="_blank">0x0dd8...657</a><br>
+                <strong>Audit Trail:</strong> <a href="https://sepolia.etherscan.io/address/0xd7913e7749595a9238883bdf0b2dad599f4d0bf0" target="_blank">0xd791...bf0</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Generated by Athena — GLM-5.1 Long-Horizon Task</p>
+            <p>GitHub: <a href="https://github.com/tiyadegure/Athena" style="color: #81a2be;">tiyadegure/Athena</a></p>
+            <p>Timestamp: 2026-06-11T22:45:00Z</p>
+        </div>
+    </div>
+</body>
+</html>

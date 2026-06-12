@@ -1,0 +1,139 @@
+1
+00:00:00,720 --> 00:00:09,099
+Welcome to Athena, a Web3 Smart Contract Security Audit Agent powered by GLM 5.1 Long Horizon Task Capabilities.
+
+2
+00:00:09,500 --> 00:00:10,560
+Let's see how it works.
+
+3
+00:00:11,500 --> 00:00:14,320
+Step 1. Loading the audit skill.
+
+4
+00:00:14,740 --> 00:00:18,300
+Athena uses 12 specialized agents running in parallel,
+
+5
+00:00:18,679 --> 00:00:21,420
+each focusing on a different vulnerability class,
+
+6
+00:00:21,899 --> 00:00:27,980
+including access control, reentrancy, flash loans, and oracle manipulation.
+
+7
+00:00:29,059 --> 00:00:33,939
+Step 2. Selecting the audit target, VulnerableBank,
+
+8
+00:00:34,299 --> 00:00:36,579
+a classic reentrancy test case.
+
+9
+00:00:37,100 --> 00:00:41,780
+Notice the bug. External call happens before the state update.
+
+10
+00:00:42,500 --> 00:00:46,679
+Step 3. Spawning three sub-agents in parallel.
+
+11
+00:00:47,479 --> 00:00:51,899
+Static analysis, proof-of-concept generation, and fuzz testing,
+
+12
+00:00:52,359 --> 00:00:53,799
+all running simultaneously.
+
+13
+00:00:55,039 --> 00:01:00,359
+Step 4. Sub-agent 1 completes dual-engine static analysis.
+
+14
+00:01:00,880 --> 00:01:04,540
+Slither found three issues, Aderyn found four.
+
+15
+00:01:04,959 --> 00:01:08,500
+After deduplication, we have four unique findings,
+
+16
+00:01:08,980 --> 00:01:12,519
+including two high-severity reentrancy vulnerabilities.
+
+17
+00:01:13,719 --> 00:01:19,340
+Step 5. Sub-agent 2 generates a proof-of-concept attack contract.
+
+18
+00:01:19,340 --> 00:01:24,379
+The attacker deposits 1 ETH, then exploits the reentrancy bug
+
+19
+00:01:24,379 --> 00:01:26,879
+to drain the entire bank balance.
+
+20
+00:01:27,640 --> 00:01:32,239
+Step 6. Sub-agent 3 runs fuzz testing with Foundry.
+
+21
+00:01:32,439 --> 00:01:36,280
+768 fuzz runs, all six tests pass.
+
+22
+00:01:36,819 --> 00:01:39,640
+The bank balance drops from 10 ETH to zero,
+
+23
+00:01:40,079 --> 00:01:42,480
+confirming the vulnerability is exploitable.
+
+24
+00:01:43,739 --> 00:01:46,079
+Step 7. Consolidating results.
+
+25
+00:01:47,079 --> 00:01:49,359
+Static analysis found four issues.
+
+26
+00:01:49,680 --> 00:01:51,519
+POC confirmed the attack.
+
+27
+00:01:51,859 --> 00:01:55,299
+Fuzz testing verified it 768 times.
+
+28
+00:01:55,620 --> 00:01:56,519
+Overall rating?
+
+29
+00:01:57,159 --> 00:01:58,819
+S. Critical severity.
+
+30
+00:01:59,519 --> 00:02:00,439
+Recommended fix?
+
+31
+00:02:01,060 --> 00:02:03,299
+Use the checks-effects-interactions pattern.
+
+32
+00:02:04,120 --> 00:02:07,859
+Step 8. On-chain certification.
+
+33
+00:02:08,840 --> 00:02:13,000
+The audit result is attested on Ethereum Sepolia using EAS,
+
+34
+00:02:13,000 --> 00:02:18,340
+then an Athena Warrior NFT is minted as a verifiable certificate
+
+35
+00:02:18,340 --> 00:02:23,680
+with 262,144 possible trait combinations.
