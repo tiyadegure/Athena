@@ -227,7 +227,7 @@ python mcp/tools/fuzz_runner.py contracts/Example.sol
 python mcp/tools/eas_attest.py --result report.json
 
 # Step 8: 铸造 NFT 证书
-cast send 0x3247d57d "mintCertificate(address,bytes32)" $USER $ATTESTATION_UID
+cast send 0x3247d57d37bd1878479f03a077aba807649dbaf5 "mintCertificate(address,bytes32,uint8)" $USER $ATTESTATION_UID 1
 ```
 
 ## 审计证书 NFT
@@ -335,43 +335,48 @@ cast send 0x3247d57d "mintCertificate(address,bytes32)" $USER $ATTESTATION_UID
 MIT License
 
 
-## 真实执行记录 (2026-06-11)
+## Agent Workflow
 
-本次项目由 GLM-5.1 (Pi agent) 真实执行完成，包含：
-
-### Subagent 并行架构
+项目通过 `AGENT-WORKFLOW-FINAL.md` 驱动，Agent 自主执行完整审计流程：
 
 ```
-Pi (主 agent — 调度者)
-  ├─ subagent-1: 静态分析 (Slither + Aderyn)
-  ├─ subagent-2: PoC 生成
-  └─ subagent-3: Fuzz 测试
+Phase 1: 需求理解 + Slither/Aderyn 双引擎扫描
+Phase 2: PoC 生成 + Foundry Fuzz 验证
+Phase 3: 修复建议 + 审计报告生成
+Phase 4: EAS Attestation 上链认证 + NFT 证书铸造
+Phase 5: 验证报告部署
+Phase 6: 最终验证 + 输出
 ```
 
-### 审计结果
+### 执行前置条件
+
+```bash
+export SEPOLIA_PRIVATE_KEY="0x你的私钥"
+export SEPOLIA_RPC_URL="https://rpc.sepolia.org"  # 或 Alchemy/Infura
+```
+
+需要：Sepolia ETH（至少 0.01）、Foundry、Slither、Python3 + web3.py
+
+### 每次执行产出
+
+| 产出 | 类型 |
+|------|------|
+| EAS Attestation UID | 链上新凭证（`sepolia.easscan.org` 可验证） |
+| NFT Mint TX | 链上新交易（`sepolia.etherscan.io` 可验证） |
+| 审计报告 JSON | 本地文件 |
+| Slither/Aderyn/PoC/Fuzz 结果 | 本地文件 |
+
+### 已验证的执行记录 (2026-06-11)
+
+由 GLM-5.1 (Pi agent) 真实执行，审计目标 `VulnerableBank (Reentrancy.sol)`：
 
 | 项目 | 结果 |
 |------|------|
-| 目标合约 | VulnerableBank (Reentrancy.sol) |
-| 静态分析 | 4 个唯一发现 (2 HIGH + 2 LOW) |
+| 静态分析 | 4 个发现 (2 HIGH + 2 LOW) |
 | PoC 生成 | 攻击成功，银行余额被清空 |
 | Fuzz 测试 | 768 次运行，0 反例 |
 | 综合评级 | S (Critical) |
 
-### 生成的文件
-
-- `contracts/test-cases/ReentrancyAttack.sol` — 攻击合约
-- `contracts/test-cases/ReentrancyPoC.sol` — PoC 测试
-- `contracts/test-cases/poc/ReentrancyPoC.t.sol` — Fuzz 测试
-- `audit-results/slither-reentrancy.json` — Slither 结果
-- `audit-results/summary.md` — 审计汇总
-- `benchmarks/static-analysis-findings.json` — 静态分析结果
-- `demo/report-new.json` — 新审计报告
-- `demo/full-audit-report.json` — 完整审计报告
-- `demo/FINAL-AUDIT-REPORT.md` — 最终审计报告
-
-### 链上操作
-
-- 新部署合约: `0xced6ebd061faac56d926e4a4ec1c8360065ecd39`
-- 新 EAS Attestation: `0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9`
-- 新铸造 NFT: `0x917de9a93471273089e49b948a70a0f0f71503598ccdf60d05a7c54c6289dbc0`
+**链上凭证**：
+- EAS: https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9
+- NFT: https://sepolia.etherscan.io/tx/0x917de9a93471273089e49b948a70a0f0f71503598ccdf60d05a7c54c6289dbc0
