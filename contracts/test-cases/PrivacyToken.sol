@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+/**
+ * @title PrivacyToken
+ * @notice Test case for privacy-native ERC20 (pERC20) — missing ZK proof verification and admin-controlled merkle root
+ * @difficulty Advanced
+ * @vuln_types Privacy, ZK Proof Bypass, Access Control, Merkle Root Manipulation
+ * @expected_findings transfer() accepts any proof bytes without ZK verification; admin can overwrite merkle root via updateMerkleRoot(); withdraw() allows stealing funds with known commitment values
+ * @audit_command claude "audit contracts/test-cases/PrivacyToken.sol"
+ */
+
 /// @title PrivacyToken - EIP-8287 Privacy-Native Fungible Token (pERC20)
 /// @notice Privacy-native ERC20 with encrypted transfers
 /// @dev Simplified implementation for audit testing

@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+/**
+ * @title ReentrancyPoC (Standalone)
+ * @notice Standalone Foundry PoC test — includes inline VulnerableBank contract for self-contained testing
+ * @difficulty Beginner
+ * @vuln_types Reentrancy
+ * @expected_findings testReentrancyDrainsBank() proves exploit; bank balance drops to 0 after attack
+ * @audit_command claude "audit contracts/test-cases/Reentrancy.sol"
+ */
+
 import "forge-std/Test.sol";
 
 /// @title VulnerableBank - Target contract with reentrancy vulnerability

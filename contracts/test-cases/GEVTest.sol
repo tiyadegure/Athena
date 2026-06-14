@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+/**
+ * @title GEVTest
+ * @notice Test case for Generalized Extractable Value — oracle manipulation, flash loan governance attack, and liquidation exploits
+ * @difficulty Advanced
+ * @vuln_types MEV, Flash Loan Governance, Oracle Manipulation, Liquidation
+ * @expected_findings SimpleOracle.setPrice() has no access control; SimpleGovernance.vote() uses current voting power (flash-loan exploitable); GEVTest.borrow() relies on manipulable oracle; liquidation can be triggered by oracle manipulation
+ * @audit_command claude "audit contracts/test-cases/GEVTest.sol"
+ */
+
 /// @title GEVTest - Test contract for Generalized Extractable Value analysis
 /// @notice Demonstrates various GEV attack vectors
 /// @dev Based on "Extraction Is Conserved: From MEV to GEV" (2026-05-25)

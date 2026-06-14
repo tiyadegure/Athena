@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+/**
+ * @title Reentrancy Tests
+ * @notice Foundry test suite for VulnerableBank — verifies reentrancy exploit and fuzz testing
+ * @difficulty Beginner
+ * @vuln_types Reentrancy
+ * @expected_findings testReentrancyAttack() should drain bank; fuzz tests should confirm vulnerability with 256+ runs
+ * @audit_command claude "audit contracts/test-cases/Reentrancy.sol"
+ */
+
 import "forge-std/Test.sol";
 import "./Reentrancy.sol";
 import "./ReentrancyAttack.sol";

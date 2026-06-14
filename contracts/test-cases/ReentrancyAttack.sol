@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+/**
+ * @title ReentrancyAttacker
+ * @notice PoC attack contract — exploits VulnerableBank.withdraw() via reentrant callback
+ * @difficulty Beginner
+ * @vuln_types Reentrancy
+ * @expected_findings attack() drains all ETH from VulnerableBank by re-entering withdraw() before balance is zeroed
+ * @audit_command claude "audit contracts/test-cases/Reentrancy.sol"
+ */
+
 /// @title ReentrancyAttacker - PoC attack contract for VulnerableBank
 /// @notice This contract exploits the reentrancy vulnerability in VulnerableBank.withdraw()
 /// @dev The attack works because withdraw() sends ETH via .call{} BEFORE setting balance to 0,

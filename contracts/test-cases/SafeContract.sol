@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+/**
+ * @title SafeVault
+ * @notice Positive test case — properly implemented contract with NO vulnerabilities (should not produce false positives)
+ * @difficulty Beginner
+ * @vuln_types None (reference contract)
+ * @expected_findings No vulnerabilities; uses ReentrancyGuard, state updates before external calls, proper access control via Ownable
+ * @audit_command claude "audit contracts/test-cases/SafeContract.sol"
+ */
+
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";

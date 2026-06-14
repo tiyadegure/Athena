@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+/**
+ * @title VulnerableToken
+ * @notice Test case for missing access control — mint, burn, and ownership transfer are unprotected
+ * @difficulty Beginner
+ * @vuln_types Access Control
+ * @expected_findings Anyone can mint unlimited tokens; anyone can burn others' tokens; single-step ownership transfer with no two-step verification
+ * @audit_command claude "audit contracts/test-cases/AccessControl.sol"
+ */
+
 /// @title VulnerableToken - Test case for missing access control
 /// @notice This contract intentionally has missing access control for audit testing
 contract VulnerableToken {

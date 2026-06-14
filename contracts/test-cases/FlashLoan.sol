@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+/**
+ * @title VulnerableAMM
+ * @notice Test case for flash loan price manipulation — spot-price oracle with no TWAP or fee
+ * @difficulty Intermediate
+ * @vuln_types Flash Loan, Price Oracle Manipulation, Slippage
+ * @expected_findings getSpotPrice() uses spot reserves manipulable by flash loans; swapAtoB() has no slippage protection; flashLoan() charges no fee and has no reentrancy guard
+ * @audit_command claude "audit contracts/test-cases/FlashLoan.sol"
+ */
+
 interface IERC20 {
     function transfer(address to, uint256 amount) external returns (bool);
     function transferFrom(address from, address to, uint256 amount) external returns (bool);

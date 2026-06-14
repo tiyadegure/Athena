@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+/**
+ * @title AgentIdentity
+ * @notice Test case for AI agent identity registry — reputation manipulation via unauthenticated threat reports
+ * @difficulty Intermediate
+ * @vuln_types Access Control, Reputation Manipulation
+ * @expected_findings Anyone can report threats and reduce an agent's reputation without verification; no rate-limiting on threat reports; governance can be changed to zero address
+ * @audit_command claude "audit contracts/test-cases/AgentIdentity.sol"
+ */
+
 /// @title AgentIdentity - AI Agent Identity and Threat Registry
 /// @notice Based on EIP: AI Agent Identity and Threat Registry (2026-06-05)
 /// @dev Enables registration and verification of AI agents with threat tracking

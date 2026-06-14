@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+/**
+ * @title VulnerableBank
+ * @notice Test case for reentrancy vulnerability — classic external-call-before-state-update pattern
+ * @difficulty Beginner
+ * @vuln_types Reentrancy
+ * @expected_findings withdraw() sends ETH via call{} before setting balance to 0; attacker can re-enter and drain funds
+ * @audit_command claude "audit contracts/test-cases/Reentrancy.sol"
+ */
+
 /// @title VulnerableBank - Test case for reentrancy vulnerability
 /// @notice This contract intentionally contains a reentrancy bug for audit testing
 contract VulnerableBank {

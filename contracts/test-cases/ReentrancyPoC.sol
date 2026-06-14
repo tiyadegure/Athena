@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+/**
+ * @title ReentrancyPoC
+ * @notice Foundry PoC test for VulnerableBank reentrancy exploit
+ * @difficulty Beginner
+ * @vuln_types Reentrancy
+ * @expected_findings testReentrancyDrainsBank() should succeed; bank balance should be 0 after attack
+ * @audit_command claude "audit contracts/test-cases/Reentrancy.sol"
+ */
+
 import "forge-std/Test.sol";
 import "./Reentrancy.sol";
 

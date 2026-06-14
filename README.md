@@ -80,7 +80,7 @@
 自建 `athena-audit-skill`，10 轮检查流程：
 scope → architecture → access control → reentrancy → math → oracle → flash loan → governance → upgrade → report
 
-### MCP（工具链）— 13 个工具
+### MCP（工具链）— 14 个工具
 
 | 工具 | 脚本 | 功能 |
 |------|------|------|
@@ -113,7 +113,7 @@ scope → architecture → access control → reentrancy → math → oracle →
 |------|------|------|
 | **GLM-5.1** | Z.AI Coding Plan | 驱动 Agent，处理长程任务 |
 | **athena-audit-skill** | 自建 | 12 个专项 agent 并行审计方法论 |
-| **MCP 工具链（13 个）** | 自建 | 静态分析、PoC 生成、fuzz 测试、知识库、链上认证等 |
+| **MCP 工具链（14 个）** | 自建 | 静态分析、PoC 生成、fuzz 测试、知识库、链上认证等 |
 | **Foundry** | foundry-rs | 合约编译、测试、fuzz |
 | **EAS** | Ethereum Attestation Service | 链上审计认证 |
 | **ERC-1155** | OpenZeppelin | 分级 NFT 审计证书 |
@@ -198,7 +198,7 @@ This will:
 2. Install Python dependencies (slither, web3, chromadb, etc.)
 3. Install system tools (Slither, Aderyn, Foundry)
 4. Copy the audit skill to `~/.claude/skills/athena-audit-skill/`
-5. Configure 13 MCP servers in Claude Code
+5. Configure 14 MCP servers in Claude Code
 
 ### Option B: curl install script
 
@@ -255,14 +255,18 @@ claude mcp add athena-gev-analyzer -- python3 ~/.athena/mcp/tools/gev_analyzer.p
 ### Quick Start (after install)
 
 ```bash
-# Audit a Solidity contract
-claude "audit contracts/MyToken.sol"
+# 1. Install
+npx athena-mcp install
 
-# Full protocol audit with the agent workflow
-claude "read ~/.athena/AGENT-WORKFLOW-FINAL.md and audit this project"
+# 2. Environment setup
+export SEPOLIA_PRIVATE_KEY="0xYourPrivateKey"
+export SEPOLIA_RPC_URL="https://rpc.sepolia.org"  # or Alchemy/Infura
 
-# Run Slither directly
-python3 ~/.athena/mcp/tools/slither_runner.py
+# 3. Full audit (scan → PoC → EAS → NFT)
+claude "read ~/.athena/AGENT-WORKFLOW-FINAL.md and audit contracts/MyToken.sol"
+
+# 4. Scan-only (static analysis, no on-chain actions)
+claude "audit contracts/MyToken.sol --scan-only"
 ```
 
 ---
@@ -375,7 +379,7 @@ cast send 0x3247d57d37bd1878479f03a077aba807649dbaf5 \
 
 详见 [smart-contract-audit-agents-comparison.md](./smart-contract-audit-agents-comparison.md)
 
-核心优势：**自建 13 个 MCP 工具 + 12 agent 并行审计方法论 + RAG 知识库 + PoC 生成 + Foundry fuzz + 攻击模拟 + 形式化验证 + EAS 链上认证 + Generative NFT，配合 GLM-5.1 的长程能力驱动从漏洞发现到链上证书的完整闭环。**
+核心优势：**自建 14 个 MCP 工具 + 12 agent 并行审计方法论 + RAG 知识库 + PoC 生成 + Foundry fuzz + 攻击模拟 + 形式化验证 + EAS 链上认证 + Generative NFT，配合 GLM-5.1 的长程能力驱动从漏洞发现到链上证书的完整闭环。**
 
 ## 开发工作流
 
@@ -400,7 +404,7 @@ cast send 0x3247d57d37bd1878479f03a077aba807649dbaf5 \
 
 - [x] 竞品调研（20 个项目）
 - [x] 构建 athena-audit-skill（12 agent 并行审计）
-- [x] 构建 13 个独立 MCP 工具
+- [x] 构建 14 个独立 MCP 工具
 - [x] Generative NFT（S/A/B/C 四级，262,144 种 trait 组合）
 - [x] 部署 5 个合约到 Sepolia 测试网（AuditCertificate + ZK + Escrow + ERC-7512）
 - [x] EAS Schema 注册 + Attestation 上链

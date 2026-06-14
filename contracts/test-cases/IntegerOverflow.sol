@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+/**
+ * @title VulnerableAuction
+ * @notice Test case for integer overflow in unchecked blocks — batchBid() totals can wrap around
+ * @difficulty Intermediate
+ * @vuln_types Integer Overflow, Unchecked Arithmetic, Reentrancy
+ * @expected_findings batchBid() sums amounts in unchecked{} allowing overflow to fake high bids; claimRefund() has reentrancy via external call before zeroing refund balance
+ * @audit_command claude "audit contracts/test-cases/IntegerOverflow.sol"
+ */
+
 /// @title VulnerableAuction - Test case for integer overflow vulnerability
 /// @notice This contract intentionally contains unchecked arithmetic for audit testing
 contract VulnerableAuction {

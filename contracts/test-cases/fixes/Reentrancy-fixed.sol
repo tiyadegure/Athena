@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+/**
+ * @title VulnerableBank (Fixed)
+ * @notice Fixed version of VulnerableBank — uses checks-effects-interactions pattern to prevent reentrancy
+ * @difficulty Beginner
+ * @vuln_types None (fixed contract)
+ * @expected_findings No vulnerabilities; balance is zeroed before external call; should not be exploitable
+ * @audit_command claude "audit contracts/test-cases/fixes/Reentrancy-fixed.sol"
+ */
+
 /// @title VulnerableBank - FIXED VERSION
 /// @notice Reentrancy vulnerability fixed with checks-effects-interactions pattern
 contract VulnerableBank {

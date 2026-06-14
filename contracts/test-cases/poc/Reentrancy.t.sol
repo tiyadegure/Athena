@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+/**
+ * @title Reentrancy PoC (Minimal)
+ * @notice Minimal reentrancy PoC test — no external dependencies, self-contained exploit verification
+ * @difficulty Beginner
+ * @vuln_types Reentrancy
+ * @expected_findings testExploit() should demonstrate bank drain via reentrancy
+ * @audit_command claude "audit contracts/test-cases/Reentrancy.sol"
+ */
+
 // Minimal Test stub (no external dependencies)
 abstract contract Test {
     function assertEq(uint a, uint b) internal pure { require(a == b, "assertEq failed"); }

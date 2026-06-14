@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+/**
+ * @title AgentEscrow
+ * @notice Test case for agent-to-agent escrow — reentrancy in refundExpiredEscrow() and missing state checks
+ * @difficulty Intermediate
+ * @vuln_types Reentrancy, Access Control
+ * @expected_findings refundExpiredEscrow() sends ETH before updating state to Refunded; attacker can re-enter to drain escrow funds multiple times
+ * @audit_command claude "audit contracts/test-cases/AgentEscrow.sol"
+ */
+
 /// @title AgentEscrow - Native-ETH Agent-to-Agent Escrow
 /// @notice Based on EIP: Native-ETH Agent-to-Agent Escrow (2026-06-05)
 /// @dev Enables AI Agents to transact securely with escrow protection

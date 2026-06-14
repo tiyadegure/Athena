@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+/**
+ * @title VulnerablePool + VulnerableLending
+ * @notice Test case for read-only reentrancy — inspired by Curve/Balancer 2023 exploits where view functions return stale state during callbacks
+ * @difficulty Advanced
+ * @vuln_types Read-Only Reentrancy, Price Oracle Manipulation, Liquidation
+ * @expected_findings addLiquidity()/removeLiquidity() update state after ETH callback; getPrice() returns inconsistent values mid-transition; VulnerableLending borrows against inflated collateral; attacker can profit via ReadOnlyReentrancyAttacker
+ * @audit_command claude "audit contracts/test-cases/ReadOnlyReentrancy.sol"
+ */
+
 /// @title VulnerablePool - Test case for read-only reentrancy
 /// @notice Vulnerability inspired by Balancer/Curve 2023 incidents
 /// @dev The vulnerability: view functions return inconsistent state during liquidity changes
