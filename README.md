@@ -185,7 +185,89 @@ Athena/
 - AuditTrail (Sepolia): https://sepolia.etherscan.io/address/0xd7913e7749595a9238883bdf0b2dad599f4d0bf0
 - EAS 认证: https://sepolia.easscan.org/attestation/view/0xd02800c960f18f0483af4aa320aff314e34c5a83d1c9a9c963b299a88af958b9
 
-## 快速开始
+## Installation (Claude Code)
+
+### Option A: npm (recommended)
+
+```bash
+npx athena-mcp install
+```
+
+This will:
+1. Clone Athena to `~/.athena/`
+2. Install Python dependencies (slither, web3, chromadb, etc.)
+3. Install system tools (Slither, Aderyn, Foundry)
+4. Copy the audit skill to `~/.claude/skills/athena-audit-skill/`
+5. Configure 13 MCP servers in Claude Code
+
+### Option B: curl install script
+
+```bash
+curl -fsSL https://athena.degure.me/install.sh | bash
+```
+
+Or from GitHub directly:
+```bash
+curl -fsSL https://raw.githubusercontent.com/tiyadegure/Athena/main/install.sh | bash
+```
+
+Options:
+```bash
+SKIP_DEPS=1    curl ... | bash   # Skip Python deps
+SKIP_SYSTEM=1  curl ... | bash   # Skip slither/aderyn/foundry
+SKIP_CLAUDE=1  curl ... | bash   # Skip Claude Code config
+```
+
+### Option C: Manual
+
+```bash
+# 1. Clone
+git clone https://github.com/tiyadegure/Athena.git ~/.athena
+cd ~/.athena
+
+# 2. Python deps
+pip install -r requirements.txt
+
+# 3. System tools
+pip install slither-analyzer
+cargo install aderyn        # requires Rust
+curl -L https://foundry.paradigm.xyz | bash && foundryup
+
+# 4. Copy skill
+cp -r skills/glm-audit-skill ~/.claude/skills/athena-audit-skill
+
+# 5. Register MCP servers (one per tool)
+claude mcp add athena-slither -- python3 ~/.athena/mcp/tools/slither_runner.py
+claude mcp add athena-aderyn -- python3 ~/.athena/mcp/tools/aderyn_runner.py
+claude mcp add athena-poc-generator -- python3 ~/.athena/mcp/tools/poc_generator.py
+claude mcp add athena-fuzz-runner -- python3 ~/.athena/mcp/tools/fuzz_runner.py
+claude mcp add athena-knowledge-base -- python3 ~/.athena/mcp/tools/knowledge_base.py
+claude mcp add athena-eas-attest -- python3 ~/.athena/mcp/tools/eas_attest.py
+claude mcp add athena-exploit-simulator -- python3 ~/.athena/mcp/tools/exploit_simulator.py
+claude mcp add athena-evidence-chain -- python3 ~/.athena/mcp/tools/evidence_chain.py
+claude mcp add athena-halmos-runner -- python3 ~/.athena/mcp/tools/halmos_runner.py
+claude mcp add athena-protocol-scanner -- python3 ~/.athena/mcp/tools/protocol_scanner.py
+claude mcp add athena-repair-validator -- python3 ~/.athena/mcp/tools/repair_validator.py
+claude mcp add athena-incremental-auditor -- python3 ~/.athena/mcp/tools/incremental_auditor.py
+claude mcp add athena-gev-analyzer -- python3 ~/.athena/mcp/tools/gev_analyzer.py
+```
+
+### Quick Start (after install)
+
+```bash
+# Audit a Solidity contract
+claude "audit contracts/MyToken.sol"
+
+# Full protocol audit with the agent workflow
+claude "read ~/.athena/AGENT-WORKFLOW-FINAL.md and audit this project"
+
+# Run Slither directly
+python3 ~/.athena/mcp/tools/slither_runner.py
+```
+
+---
+
+## 快速开始（中文）
 
 Athena 的审计流程由 AI Agent（GLM-5.1）驱动，不是简单的脚本调用。Agent 读取 `AGENT-WORKFLOW-FINAL.md`，自主执行 8 步闭环。
 

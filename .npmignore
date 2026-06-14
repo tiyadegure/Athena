@@ -1,0 +1,30 @@
+# npm package ignore list
+# Only ship installer + config, not the full repo
+.git
+.gitignore
+.gitmodules
+.pi
+*.cast
+*.mp4
+*.html
+demo/
+docs/
+workflows/
+ppt-assets/
+benchmarks/
+broadcast/
+cache/
+out/
+node_modules/
+*.sol
+contracts/
+script/
+foundry.toml
+foundry.lock
+remappings.txt
+report.md
+audit-results/
+AGENT_REVIEW.md
+AGENT-WORKFLOW-FINAL.md
+PI_SESSION.md
+smart-contract-audit-agents-comparison.md
