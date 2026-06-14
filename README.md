@@ -98,16 +98,23 @@ claude mcp add athena-gev-analyzer -- python3 ~/.athena/mcp/tools/gev_analyzer.p
 # 1. Install
 npx athena-mcp install
 
-# 2. Environment setup
+# 2. Environment setup (for on-chain attestation + NFT minting)
 export SEPOLIA_PRIVATE_KEY="0xYourPrivateKey"
 export SEPOLIA_RPC_URL="https://rpc.sepolia.org"  # or Alchemy/Infura
 
-# 3. Full audit (scan → PoC → EAS → NFT)
-claude "read ~/.athena/AGENT-WORKFLOW-FINAL.md and audit contracts/MyToken.sol"
+# 3. Full audit flow (scan → PoC → EAS attestation → NFT mint)
+claude "audit contracts/test-cases/Reentrancy.sol and mint NFT certificate"
 
 # 4. Scan-only (static analysis, no on-chain actions)
-claude "audit contracts/MyToken.sol --scan-only"
+claude "scan contracts/test-cases/Reentrancy.sol with slither and aderyn"
 ```
+
+**What happens:**
+- Slither + Aderyn dual-engine static analysis
+- PoC generation + Foundry fuzz testing
+- EAS attestation on Sepolia (on-chain audit record)
+- NFT certificate minting (ERC-1155, S/A/B/C tiers)
+- Verification links to Etherscan + EAS explorer
 
 ---
 ## 核心工作流（8 步闭环）
