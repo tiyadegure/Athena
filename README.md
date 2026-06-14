@@ -187,48 +187,61 @@ Athena/
 
 ## 快速开始
 
-### 前置条件
+Athena 的审计流程由 AI Agent（GLM-5.1）驱动，不是简单的脚本调用。Agent 读取 `AGENT-WORKFLOW-FINAL.md`，自主执行 8 步闭环。
 
-- Node.js 18+
-- Foundry (`curl -L https://foundry.paradigm.xyz | bash`)
-- Z.AI Coding Plan（包含 GLM-5.1 访问权限）
-
-### 安装
+### 方式一：用 GLM-5.1 Agent 驱动（推荐）
 
 ```bash
+# 1. 克隆项目
 git clone https://github.com/tiyadegure/Athena.git
 cd Athena
-npm install
+
+# 2. 安装依赖
 pip install -r requirements.txt
-forge install  # 安装 Foundry 依赖
+curl -L https://foundry.paradigm.xyz | bash  # Foundry
+
+# 3. 配置环境变量
+export SEPOLIA_PRIVATE_KEY="0x你的测试网私钥"
+export SEPOLIA_RPC_URL="https://rpc.sepolia.org"  # 或 Alchemy/Infura
+
+# 4. 用 GLM-5.1 Agent 执行审计
+# 将 AGENT-WORKFLOW-FINAL.md 的内容作为 prompt 发送给 GLM-5.1
+# Agent 会自主执行：扫描 → PoC → Fuzz → EAS 上链 → NFT 铸造
 ```
 
-### 运行审计
+Agent 会读取 `AGENT-WORKFLOW-FINAL.md`，按照 6 个 Phase 逐步执行，每一步验证通过后才继续下一步，最终输出链上验证链接和本地审计文件。
+
+### 方式二：手动逐步执行
+
+也可以单独调用 MCP 工具：
 
 ```bash
-# 使用 GLM-5.1 执行审计（8 步闭环）
-./scripts/real-audit-v6.sh contracts/test-cases/Reentrancy.sol
-
-# 或通过 MCP 工具链逐步执行
 # Step 1-2: 静态分析
-python mcp/tools/slither_runner.py contracts/Example.sol
-python mcp/tools/aderyn_runner.py contracts/Example.sol
+slither contracts/test-cases/Reentrancy.sol --json results.json
+aderyn contracts/test-cases/ --output aderyn-results.json
 
-# Step 3: RAG 知识检索
-python mcp/tools/knowledge_base.py "reentrancy vulnerability"
+# Step 4: PoC 测试
+forge test --match-contract ReentrancyPoC -vvv
 
-# Step 4: PoC 生成
-python mcp/tools/poc_generator.py contracts/Example.sol
+# Step 5: Fuzz 测试
+forge test --match-contract ReentrancyPoC --fuzz-runs 256 -vvv
 
-# Step 5: Fuzz 验证
-python mcp/tools/fuzz_runner.py contracts/Example.sol
+# Step 7: EAS 上链认证（需要 Python + web3.py）
+python3 mcp/tools/eas_attest.py --result report.json
 
-# Step 7: EAS 上链认证
-python mcp/tools/eas_attest.py --result report.json
-
-# Step 8: 铸造 NFT 证书
-cast send 0x3247d57d37bd1878479f03a077aba807649dbaf5 "mintCertificate(address,bytes32,uint8)" $USER $ATTESTATION_UID 1
+# Step 8: 铸造 NFT 证书（需要 cast + 私钥）
+cast send 0x3247d57d37bd1878479f03a077aba807649dbaf5 \
+    "mintCertificate(address,bytes32,uint8)" \
+    $WALLET_ADDRESS $EAS_UID 1 \
+    --rpc-url $SEPOLIA_RPC_URL --private-key $SEPOLIA_PRIVATE_KEY
 ```
+
+### 链上验证
+
+审计完成后，任何人都可以在链上验证结果：
+- EAS Attestation: https://sepolia.easscan.org/attestation/view/{UID}
+- NFT Certificate: https://sepolia.etherscan.io/tx/{TX_HASH}
+- Audit Contract: https://sepolia.etherscan.io/address/0x3247d57d37bd1878479f03a077aba807649dbaf5
 
 ## 审计证书 NFT
 
