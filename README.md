@@ -27,11 +27,13 @@
 
 ## Installation (Claude Code)
 
-### Option A: npm (recommended)
+### npm (recommended)
 
 ```bash
 npx athena-mcp install
 ```
+
+[npm: athena-mcp](https://www.npmjs.com/package/athena-mcp)
 
 This will:
 1. Clone Athena to `~/.athena/`
@@ -40,25 +42,24 @@ This will:
 4. Copy the audit skill to `~/.claude/skills/athena-audit-skill/`
 5. Configure 14 MCP servers in Claude Code
 
-### Option B: curl install script
+### Install script
+
+Review the script first: [install.sh](https://github.com/tiyadegure/Athena/blob/main/install.sh)
 
 ```bash
-curl -fsSL https://athena.degure.me/install.sh | bash
-```
-
-Or from GitHub directly:
-```bash
-curl -fsSL https://raw.githubusercontent.com/tiyadegure/Athena/main/install.sh | bash
+git clone https://github.com/tiyadegure/Athena.git ~/.athena
+cd ~/.athena
+bash install.sh
 ```
 
 Options:
 ```bash
-SKIP_DEPS=1    curl ... | bash   # Skip Python deps
-SKIP_SYSTEM=1  curl ... | bash   # Skip slither/aderyn/foundry
-SKIP_CLAUDE=1  curl ... | bash   # Skip Claude Code config
+SKIP_DEPS=1    bash install.sh   # Skip Python deps
+SKIP_SYSTEM=1  bash install.sh   # Skip slither/aderyn/foundry
+SKIP_CLAUDE=1  bash install.sh   # Skip Claude Code config
 ```
 
-### Option C: Manual
+### Manual
 
 ```bash
 # 1. Clone
