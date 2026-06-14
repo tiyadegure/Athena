@@ -1,6 +1,6 @@
 {
   "name": "athena-mcp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Athena — Web3 smart contract security audit MCP tools + Skills for Claude Code",
   "main": "install.js",
   "bin": {

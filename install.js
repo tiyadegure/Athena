@@ -300,7 +300,7 @@ ${BOLD}Installed:${RESET}
 ${BOLD}Quick Start:${RESET}
 
   ${CYAN}# Audit a Solidity contract${RESET}
-  claude "audit contracts/MyToken.sol"
+  claude "audit contracts/test-cases/Reentrancy.sol"
 
   ${CYAN}# Run Slither analysis directly${RESET}
   python3 ${INSTALL_DIR}/mcp/tools/slither_runner.py
