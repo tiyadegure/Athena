@@ -116,6 +116,38 @@ claude "scan contracts/test-cases/Reentrancy.sol with slither and aderyn"
 - NFT certificate minting (ERC-1155, S/A/B/C tiers)
 - Verification links to Etherscan + EAS explorer
 
+### Try Different Contracts
+
+Pre-crawled test contracts with known vulnerabilities. Each includes difficulty level and expected findings.
+
+**Beginner**
+- `contracts/test-cases/Reentrancy.sol` — Classic reentrancy (external call before state update)
+- `contracts/test-cases/AccessControl.sol` — Missing access control (unprotected mint/burn/transfer)
+- `contracts/test-cases/SafeContract.sol` — Reference contract with NO vulnerabilities (false positive test)
+
+**Intermediate**
+- `contracts/test-cases/FlashLoan.sol` — Flash loan price manipulation (spot-price oracle, no TWAP)
+- `contracts/test-cases/IntegerOverflow.sol` — Integer overflow in unchecked blocks
+- `contracts/test-cases/AgentEscrow.sol` — Agent-to-agent escrow (reentrancy + missing state checks)
+- `contracts/test-cases/AgentIdentity.sol` — AI agent identity (reputation manipulation)
+
+**Advanced**
+- `contracts/test-cases/ReadOnlyReentrancy.sol` — Read-only reentrancy (Curve/Balancer 2023 style)
+- `contracts/test-cases/PrivacyToken.sol` — Privacy token (ZK proof bypass, merkle manipulation)
+- `contracts/test-cases/GEVTest.sol` — Generalized Extractable Value (MEV, oracle, governance)
+
+Quick commands:
+```bash
+# Beginner
+claude "audit contracts/test-cases/AccessControl.sol and mint NFT certificate"
+
+# Intermediate
+claude "audit contracts/test-cases/FlashLoan.sol and mint NFT certificate"
+
+# Advanced
+claude "audit contracts/test-cases/ReadOnlyReentrancy.sol and mint NFT certificate"
+```
+
 ---
 ## 核心工作流（8 步闭环）
 
