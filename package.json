@@ -1,0 +1,52 @@
+{
+  "name": "athena-mcp",
+  "version": "1.0.0",
+  "description": "Athena — Web3 smart contract security audit MCP tools + Skills for Claude Code",
+  "main": "install.js",
+  "bin": {
+    "athena-mcp": "install.js"
+  },
+  "scripts": {
+    "install-tools": "node install.js",
+    "postinstall": "echo 'Run npx athena-mcp install to set up Athena tools'"
+  },
+  "keywords": [
+    "mcp",
+    "smart-contract",
+    "security-audit",
+    "solidity",
+    "web3",
+    "claude",
+    "slither",
+    "aderyn",
+    "foundry",
+    "eas",
+    "ethereum"
+  ],
+  "author": "tiyadegure",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiyadegure/Athena.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tiyadegure/Athena/issues"
+  },
+  "homepage": "https://github.com/tiyadegure/Athena#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "install.js",
+    "package.json",
+    "README.md",
+    "mcp/",
+    "skills/",
+    "requirements.txt"
+  ],
+  "preferGlobal": true,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
