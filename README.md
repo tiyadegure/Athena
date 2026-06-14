@@ -103,9 +103,11 @@ export SEPOLIA_PRIVATE_KEY="0xYourPrivateKey"
 export SEPOLIA_RPC_URL="https://rpc.sepolia.org"  # or Alchemy/Infura
 
 # 3. Full audit flow (scan → PoC → EAS attestation → NFT mint)
+cd ~/.athena
 claude "audit contracts/test-cases/Reentrancy.sol and mint NFT certificate"
 
 # 4. Scan-only (static analysis, no on-chain actions)
+cd ~/.athena
 claude "scan contracts/test-cases/Reentrancy.sol with slither and aderyn"
 ```
 
