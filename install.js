@@ -41,7 +41,8 @@ function header(msg) { console.log(`\n${BOLD}${msg}${RESET}`); }
 
 function run(cmd, opts = {}) {
   try {
-    return execSync(cmd, { encoding: 'utf-8', stdio: opts.silent ? 'pipe' : 'inherit', ...opts }).trim();
+    const result = execSync(cmd, { encoding: 'utf-8', stdio: opts.silent ? 'pipe' : 'inherit', ...opts });
+    return result ? result.trim() : '';
   } catch (e) {
     if (!opts.optional) throw e;
     return null;
@@ -120,13 +121,28 @@ if (skipDeps) {
 
   // Try pip3 first, then pip
   const pip = commandExists('pip3') ? 'pip3' : commandExists('pip') ? 'pip' : null;
+  const reqFile = path.join(INSTALL_DIR, 'requirements.txt');
+  
+  // Check if we need --break-system-packages (PEP 668)
+  const needsBreak = run('python3 -c "import sys; print(1 if hasattr(sys, \'base_prefix\') and sys.base_prefix != sys.prefix else 0)" 2>/dev/null || echo 0', { silent: true });
+  const breakFlag = ' --break-system-packages';
+  
   if (!pip) {
     warn('pip not found, trying python3 -m pip...');
-    run(`python3 -m pip install -r ${path.join(INSTALL_DIR, 'requirements.txt')} --break-system-packages`, { optional: true });
+    const result = run(`python3 -m pip install -r ${reqFile}${breakFlag}`, { optional: true, silent: true });
+    if (result === null) {
+      error('Python deps failed. Try: python3 -m venv ~/.athena/venv && source ~/.athena/venv/bin/activate && pip install -r requirements.txt');
+    } else {
+      log('Python dependencies installed');
+    }
   } else {
-    run(`${pip} install -r ${path.join(INSTALL_DIR, 'requirements.txt')}`, { optional: true });
+    const result = run(`${pip} install -r ${reqFile}${breakFlag}`, { optional: true, silent: true });
+    if (result === null) {
+      error('Python deps failed. Try: python3 -m venv ~/.athena/venv && source ~/.athena/venv/bin/activate && pip install -r requirements.txt');
+    } else {
+      log('Python dependencies installed');
+    }
   }
-  log('Python dependencies installed');
 }
 
 // ── Step 3: System tools ────────────────────────────────────────────────────
@@ -140,7 +156,7 @@ if (skipSystem) {
   } else {
     info('Installing Slither...');
     const pip = commandExists('pip3') ? 'pip3' : 'pip';
-    run(`${pip} install slither-analyzer`, { optional: true });
+    run(`${pip} install --break-system-packages slither-analyzer`, { optional: true });
     if (commandExists('slither')) log('Slither installed');
     else warn('Slither install failed — install manually: pip install slither-analyzer');
   }

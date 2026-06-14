@@ -94,8 +94,13 @@ elif [ -z "$PIP" ]; then
   warn "No pip available, skipping Python deps"
 else
   info "Installing Python dependencies..."
-  $PIP install -r requirements.txt 2>/dev/null || warn "Some Python deps failed (non-fatal)"
-  log "Python dependencies installed"
+  if $PIP install -r requirements.txt --break-system-packages 2>/dev/null; then
+    log "Python dependencies installed"
+  elif $PIP install --user -r requirements.txt --break-system-packages 2>/dev/null; then
+    log "Python dependencies installed (--user)"
+  else
+    err "Python deps failed. Try: python3 -m venv ~/.athena/venv && source ~/.athena/venv/bin/activate && pip install -r requirements.txt"
+  fi
 fi
 
 # ── Step 3: System tools ────────────────────────────────────────────────────
@@ -109,7 +114,7 @@ else
     log "Slither already installed"
   elif [ -n "$PIP" ]; then
     info "Installing Slither..."
-    $PIP install slither-analyzer 2>/dev/null || warn "Slither install failed"
+    $PIP install --break-system-packages slither-analyzer 2>/dev/null || $PIP install --user --break-system-packages slither-analyzer 2>/dev/null || warn "Slither install failed"
     command -v slither &>/dev/null && log "Slither installed" || warn "Slither not in PATH"
   fi
 
